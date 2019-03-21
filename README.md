@@ -40,7 +40,7 @@ export default subscribe('counter')(connect(stateToProps, dispatchToProps)(Count
 
 </details>
 
-<details><summary><b>JS client</b></summary>
+<details><summary><b>Pure JS client</b></summary>
 
 ```js
 log.on('add', (action, meta) => {
@@ -54,6 +54,34 @@ increase.addEventListener('click', () => {
 })
 
 log.add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
+```
+
+</details>
+
+<details open><summary><b>Node.js server</b></summary>
+
+```js
+app.channel('counter', {
+  access () {
+    // Access control is mondatory. API was designed to make harder writting dangerous code.
+    return true
+  },
+  async init (ctx) {
+    // Load initial state when client subscribing to the channel
+    let value = await db.get('counter')
+    app.log.add({ type: 'INC', value }, { clients: [ctx.clientId] })
+  }
+})
+
+app.type('INC', {
+  access () {
+    return true
+  },
+  async process () {
+    // Don’t forget to keep action atomic
+    await db.set('counter', 'value += value')
+  }
+})
 ```
 
 </details>
