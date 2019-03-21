@@ -18,7 +18,7 @@ through WebSocket.
 
 ## Example
 
-React/Redux app:
+<details open><summary>React/Redux client</summary>
 
 ```js
 const Counter = ({ counter, onIncrease }) => (<>
@@ -37,3 +37,5 @@ const dispatchToProps = dispatch => ({
 // `subscribe()` will subscribe this client to selected channel, when component will mount
 export default subscribe('counter')(connect(stateToProps, dispatchToProps)(Counter))
 ```
+
+</details>
