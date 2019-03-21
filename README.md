@@ -18,7 +18,7 @@ through WebSocket.
 
 ## Example
 
-<details open><summary>React/Redux client</summary>
+<details open><summary><b>React/Redux client</b></summary>
 
 ```js
 const Counter = ({ counter, onIncrease }) => (<>
@@ -30,12 +30,30 @@ const dispatchToProps = dispatch => ({
   onIncrease () {
     // `dispatch.sync()` instead of Redux `dispatch()` will send action to the server
     // `channels` will ask Logux to resend action to all clients subscribed to this channel
-    dispatch.sync({ action: 'INC' }, { channels: ['counter'] })
+    dispatch.sync({ type: 'INC' }, { channels: ['counter'] })
   }
 })
 
 // `subscribe()` will subscribe this client to selected channel, when component will mount
 export default subscribe('counter')(connect(stateToProps, dispatchToProps)(Counter))
+```
+
+</details>
+
+<details><summary><b>JS client</b></summary>
+
+```js
+log.on('add', (action, meta) => {
+  if (action.type === 'INC') {
+    counter.innerHTML = parseInt(counter.innerHTML) + 1
+  }
+})
+
+increase.addEventListener('click', () => {
+  log.add({ type: 'INC' }, { channels: ['counter'], sync: true })
+})
+
+log.add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
 ```
 
 </details>
