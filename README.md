@@ -18,6 +18,8 @@ through WebSocket.
 
 <details open><summary><b>React/Redux client</b></summary>
 
+Using [`@logux/redux`](https://github.com/logux/redux/):
+
 ```js
 const Counter = ({ counter, onIncrease }) => (<>
   <div>{ counter }</div>
@@ -40,6 +42,8 @@ export default subscribe('counter')(connect(stateToProps, dispatchToProps)(Count
 
 <details><summary><b>Pure JS client</b></summary>
 
+Using [`@logux/client`](https://github.com/logux/client/):
+
 ```js
 log.on('add', (action, meta) => {
   if (action.type === 'INC') {
@@ -57,6 +61,8 @@ log.add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
 </details>
 
 <details open><summary><b>Node.js server</b></summary>
+
+Using [`@logux/server`](https://github.com/logux/server/):
 
 ```js
 app.channel('counter', {
@@ -85,6 +91,8 @@ app.type('INC', {
 </details>
 
 <details><summary><b>Ruby on Rails server</b></summary>
+
+Using [`logux_rails`](https://github.com/logux/logux_rails/):
 
 ```ruby
 # app/logux/channels/counter.rb
