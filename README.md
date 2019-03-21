@@ -159,6 +159,7 @@ if ($req['password'] == LOGUX_PASSWORD) {
     if ($command[0] == 'action') {
       $action = $command[1]
       $meta = $command[1]
+
       if ($action['type'] == 'logux/subscribe') {
         echo('[["approved"],')
         $value = $db->getCounter()
@@ -178,10 +179,12 @@ if ($req['password'] == LOGUX_PASSWORD) {
           )
         ))
         echo('["processed"]]')
+
       } elseif ($action['type'] == 'inc') {
         $db->updateCounter('value += 1')
         echo('[["approved"],["processed"]]')
       }
+
     }
   }
 }
