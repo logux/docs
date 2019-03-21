@@ -16,5 +16,12 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "yaspeller": {
+    "lang": "en",
+    "ignoreCapitalization": true,
+    "dictionary": [
+      "Logux"
+    ]
   }
 }
