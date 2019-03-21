@@ -111,7 +111,7 @@ module Actions
   class Inc < Actions::Base
     def inc
       # Don’t forget to keep action atomic
-      db.save_counter! 'value += 1'
+      db.update_counter! 'value += 1'
     end
   end
 end
@@ -142,6 +142,48 @@ module Policies
     end
   end
 end
+```
+
+</details>
+
+<details><summary><b>Any other HTTP server</b></summary>
+
+You can use any HTTP server with Logux WebSocket proxy server.
+Here PHP pseudocode:
+
+```php
+<?php
+$req = json_decode(file_get_contents('php://input'), TRUE);
+if ($req['password'] == LOGUX_PASSWORD)
+foreach ($req['commands'] as $command) {
+  if ($command[0] == 'action') {
+    $action = $command[1]
+    $meta = $command[1]
+    if ($action['type'] == 'logux/subscribe') {
+      echo('[["approved"],')
+      $value = $db->getCounter()
+      send_http_post(array(
+        'host' => LOGUX_HOST,
+        'method' => 'POST',
+        'json' => array(
+          'password' => LOGUX_PASSWORD,
+          'version' => 1,
+          'commands' => array(
+            array(
+              'action',
+              array('type' => 'INC', 'value' => $value),
+              array('clients' => get_client_id($meta['id']))
+            )
+          )
+        )
+      ))
+      echo('["processed"]]')
+    } elseif ($action['type'] == 'inc') {
+      $db->updateCounter('value += 1')
+      echo('[["approved"],["processed"]]')
+    }
+  }
+}
 ```
 
 </details>
