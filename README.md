@@ -158,7 +158,7 @@ if ($req['password'] == LOGUX_PASSWORD) {
   foreach ($req['commands'] as $command) {
     if ($command[0] == 'action') {
       $action = $command[1]
-      $meta = $command[1]
+      $meta = $command[2]
 
       if ($action['type'] == 'logux/subscribe') {
         echo('[["approved"],')
