@@ -24,7 +24,10 @@
       "Logux",
       "webapp",
       "GraphQL",
-      "WebSocket"
+      "WebSocket",
+      "UI",
+      "UX",
+      "Redux"
     ]
   }
 }
