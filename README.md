@@ -16,6 +16,14 @@ through WebSocket.
 * Compatible with modern stack: **Redux** API,
   works with **any back-end language** and **any database**.
 
+<a href="https://evilmartians.com/?utm_source=logux">
+  <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
+       alt="Sponsored by Evil Martians" width="236" height="54">
+</a>
+
+
+## Client Example
+
 <details open><summary><b>React/Redux client</b></summary>
 
 Using [`@logux/redux`](https://github.com/logux/redux/):
@@ -59,6 +67,9 @@ log.add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
 ```
 
 </details>
+
+
+## Server Example
 
 <details open><summary><b>Node.js server</b></summary>
 
