@@ -13,5 +13,5 @@ through WebSocket.
   (like Google Docs).
 * Built-in **offline-first** will improve UX on unstable connection.
   It is useful from next billion users to New York subway.
-* Compatible with modern stack: **Redux** API, works with **any back-end
-  language** (by WebSocket proxy) and **any database**.
+* Compatible with modern stack: **Redux** API,
+  works with **any back-end language** and **any database**.
