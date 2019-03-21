@@ -12,6 +12,6 @@ through WebSocket.
 * Built-in **live updates** allow to build collaborative tools
   (like Google Docs).
 * Built-in **offline-first** will improve UX on unstable connection.
-  It will be useful from “next billion users” to New York subway.
-* Compatible with modern stack: it has **Redux** API, works with **any back-end
+  It is useful from next billion users to New York subway.
+* Compatible with modern stack: **Redux** API, works with **any back-end
   language** (by WebSocket proxy) and **any database**.
