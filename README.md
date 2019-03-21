@@ -21,21 +21,19 @@ through WebSocket.
 React/Redux app:
 
 ```js
-import subscribe from '@logux/redux/subscribe'
-
 const Counter = ({ counter, onIncrease }) => (<>
   <div>{ counter }</div>
-  <button onClick={ onIncrease }>
+  <button onClick={ onIncrease }> // This button will increase the counter on all clients
 </>)
 
 const dispatchToProps = dispatch => ({
   onIncrease () {
-    // `dispatch.sync` instead of Redux `dispatch` will send action to the server
+    // `dispatch.sync()` instead of Redux `dispatch()` will send action to the server
     // `channels` will ask Logux to resend action to all clients subscribed to this channel
     dispatch.sync({ action: 'INC' }, { channels: ['counter'] })
   }
 })
 
-// subscribe() will subscribe this client to selected channel, when component will mount
+// `subscribe()` will subscribe this client to selected channel, when component will mount
 export default subscribe('counter')(connect(stateToProps, dispatchToProps)(Counter))
 ```
