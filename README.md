@@ -163,18 +163,14 @@ if ($req['password'] == LOGUX_PASSWORD) {
       if ($action['type'] == 'logux/subscribe') {
         echo('[["approved"],')
         $value = $db->getCounter()
-        send_http_post(array(
-          'host' => LOGUX_HOST,
-          'method' => 'POST',
-          'json' => array(
-            'password' => LOGUX_PASSWORD,
-            'version' => 1,
-            'commands' => array(
-              array(
-                'action',
-                array('type' => 'INC', 'value' => $value),
-                array('clients' => get_client_id($meta['id']))
-              )
+        send_json_http_post(LOGUX_HOST, array(
+          'password' => LOGUX_PASSWORD,
+          'version' => 1,
+          'commands' => array(
+            array(
+              'action',
+              array('type' => 'INC', 'value' => $value),
+              array('clients' => get_client_id($meta['id']))
             )
           )
         ))
