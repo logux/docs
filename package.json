@@ -21,7 +21,10 @@
     "lang": "en",
     "ignoreCapitalization": true,
     "dictionary": [
-      "Logux"
+      "Logux",
+      "webapp",
+      "GraphQL",
+      "WebSocket"
     ]
   }
 }
