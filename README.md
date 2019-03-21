@@ -16,8 +16,6 @@ through WebSocket.
 * Compatible with modern stack: **Redux** API,
   works with **any back-end language** and **any database**.
 
-## Example
-
 <details open><summary><b>React/Redux client</b></summary>
 
 ```js
@@ -79,9 +77,63 @@ app.type('INC', {
   },
   async process () {
     // Don’t forget to keep action atomic
-    await db.set('counter', 'value += value')
+    await db.set('counter', 'value += 2')
   }
 })
+```
+
+</details>
+
+<details><summary><b>Ruby on Rails server</b></summary>
+
+```ruby
+# app/logux/channels/counter.rb
+module Channels
+  class Counter < Channels::Base
+    def initial_data
+      [{ type: 'INC', value: db.counter }]
+    end
+  end
+end
+```
+
+```ruby
+# app/logux/actions/inc.rb
+module Actions
+  class Inc < Actions::Base
+    def inc
+      # Don’t forget to keep action atomic
+      db.save_counter! 'value += 1'
+    end
+  end
+end
+```
+
+```ruby
+# app/logux/policies/channels/counter.rb
+module Policies
+  module Channels
+    class Counter < Policies::Base
+      # Access control is mondatory. API was designed to make harder writting dangerous code.
+      def subscribe?
+        true
+      end
+    end
+  end
+end
+```
+
+```ruby
+# app/logux/policies/actions/inc.rb
+module Policies
+  module Actions
+    class inc < Policies::Base
+      def inc?
+        true
+      end
+    end
+  end
+end
 ```
 
 </details>
