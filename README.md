@@ -78,7 +78,7 @@ Using [`@logux/server`](https://github.com/logux/server/):
 ```js
 app.channel('counter', {
   access () {
-    // Access control is mondatory. API was designed to make harder writting dangerous code.
+    // Access control is mandatory. API was designed to make it harder to write dangerous code.
     return true
   },
   async init (ctx) {
@@ -133,7 +133,7 @@ end
 module Policies
   module Channels
     class Counter < Policies::Base
-      # Access control is mondatory. API was designed to make harder writting dangerous code.
+      # Access control is mandatory. API was designed to make it harder to write dangerous code.
       def subscribe?
         true
       end
