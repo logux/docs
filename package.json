@@ -29,7 +29,8 @@
       "UX",
       "Redux",
       "JS",
-      "js"
+      "js",
+      "CRDT"
     ]
   }
 }
