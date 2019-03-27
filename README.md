@@ -8,9 +8,12 @@ Instead of sending HTTP requests (e.g., AJAX, REST, and GraphQL)
 it synchronizes log of operations between client, server, and other clients
 through WebSocket.
 
+It was created on top ideas of [CRDT] to have “live updates”, “optimistic UI”,
+and offline-first by design.
+
 * Built-in **optimistic UI** will improve UI performance.
-* Built-in **live updates** and **[CRDT]** compatibility
-  allow to build collaborative tools (like Google Docs).
+* Built-in **live updates** allows to build collaborative tools
+  (like Google Docs).
 * Built-in **offline-first** will improve UX on unstable connection.
   It is useful from next billion users to New York subway.
 * Compatible with modern stack: **Redux** API,
