@@ -8,7 +8,7 @@ Instead of sending HTTP requests (e.g., AJAX, REST, and GraphQL)
 it synchronizes log of operations between client, server, and other clients
 through WebSocket.
 
-It was created on top ideas of [CRDT] to have “live updates”, “optimistic UI”,
+It was created on top ideas of **[CRDT]** to have live updates, optimistic UI,
 and offline-first by design.
 
 * Built-in **optimistic UI** will improve UI performance.
