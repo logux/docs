@@ -206,6 +206,6 @@ if ($req['password'] == LOGUX_PASSWORD) {
 
 ## Getting Started
 
-1. Logux Architecture
+1. **Logux Architecture**
    1. [Core Concepts](./architecture/core.md)
    2. [Using Concepts in Practice](./architecture/practice.md)
