@@ -203,3 +203,9 @@ if ($req['password'] == LOGUX_PASSWORD) {
 ```
 
 </details>
+
+## Getting Started
+
+1. Architecture
+   1. [Core concepts](./architecture/core.md)
+   2. [Using concepts in practice](./architecture/practice.md)
