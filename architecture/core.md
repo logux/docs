@@ -1,9 +1,18 @@
 # Core Concepts of Logux
 
-Core idea of Logux is to synchronize action log between peer-to-peer nodes.
+Logux synchronizes action log between peer-to-peer nodes.
 
-There is no big difference between clients and server in Logux architecture.
-This is why in Logux documentation we will call them both as **nodes**.
+You can use Logux to connect clients with a server, clients with clients,
+servers with servers or in mesh-networks. There is no big difference between
+clients and server in Logux architecture. So we will call them **nodes**.
+
+```
+[Client 1] ⇆ [Client 2] ⇆ [Server A] ⇆ [Server B]
+```
+
+However, Logux was created for standard applications with multiple
+web and mobile clients and several servers. You will read about how
+core concepts are work in this standard applications in next chapter.
 
 Each node has **action** log (list of operations). Every time, when you want
 to change application state, you add a action to this log.
@@ -20,6 +29,10 @@ to change application state. However, you can clean (or compress) log
 from old actions, if they are not actual anymore. For instance, if you rename
 user to `A` and then remove to `B`, you can clean log from `A` action.
 
+```
+app.log.add(action)
+```
+
 Each action in the log has own **meta**. It contains:
 
 * `meta.id`: unique action ID.
@@ -29,6 +42,20 @@ Each action in the log has own **meta**. It contains:
   why action is still actual. When application will remove all reasons,
   Logux will clean action from the log.
 * Application could add own data to **meta** depends on its needs.
+
+```js
+[
+  action,
+  {
+    // Core meta
+    id: '1553821137583 388:mgxhClZT:mAKgAtBF 0',
+    time: 1553821137582,
+    reasons: ['user:388:lastName'],
+    // Custom meta
+    channels: ['users/388']
+  }
+]
+```
 
 Differences between action and meta:
 
@@ -40,13 +67,16 @@ Differences between action and meta:
 Nodes can be connected to other nodes with any way that you want.
 **Web Socket** is only default way.
 
-When node creates action, it applies it immediately to own application state.
-In the background Logux will synchronize this new action with another nodes.
-It calls **Optimistic UI**.
-
-Nodes can apply some filter and synchronize only specific actions.
-
 During the synchronization Logux **guarantee**:
 
 * Each action will be synchronized **only once**.
 * Action will have **the same order** on each nodes.
+
+When node creates action, it applies it immediately to own application state.
+In the background Logux will synchronize this new action with another nodes.
+It calls **Optimistic UI**.
+
+If your task requires approve from other node (e.g., “server”)
+you can create `payment/ask` action on “client” node, wait until this action
+will be synchronized to the “server” node and server will create
+`payment/done` action and synchronized it back.
