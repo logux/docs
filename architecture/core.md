@@ -6,7 +6,7 @@ You can use Logux to connect clients with a server, clients with clients,
 servers with servers or in mesh-networks. There is no big difference between
 clients and server in Logux architecture. So we will call them **nodes**.
 
-```
+```c
 [Client 1] ⇆ [Client 2] ⇆ [Server A] ⇆ [Server B]
 ```
 
@@ -29,7 +29,7 @@ to change application state. However, you can clean (or compress) log
 from old actions, if they are not actual anymore. For instance, if you rename
 user to `A` and then remove to `B`, you can clean log from `A` action.
 
-```
+```js
 app.log.add(action)
 ```
 
@@ -44,17 +44,14 @@ Each action in the log has own **meta**. It contains:
 * Application could add own data to **meta** depends on its needs.
 
 ```js
-[
-  action,
-  {
-    // Core meta
-    id: '1553821137583 388:mgxhClZT:mAKgAtBF 0',
-    time: 1553821137582,
-    reasons: ['user:388:lastName'],
-    // Custom meta
-    channels: ['users/388']
-  }
-]
+[action, {
+  // Core meta
+  id: '1553821137583 388:mgxhClZT:mAKgAtBF 0',
+  time: 1553821137582,
+  reasons: ['user:388:lastName'],
+  // Custom meta
+  channels: ['users/388']
+}]
 ```
 
 Differences between action and meta:
