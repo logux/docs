@@ -71,3 +71,5 @@ During the synchronization Logux **guarantee**:
 Logux us based on the **Optimistic UI** idea. When a node creates action,
 it applies it immediately to own application state. In the background,
 Logux will synchronize this new action with other nodes.
+
+**[Next chapter →](./practice.md)**
