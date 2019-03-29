@@ -3,16 +3,16 @@
 Logux synchronizes action log between peer-to-peer nodes.
 
 You can use Logux to connect clients with a server, clients with clients,
-servers with servers or in mesh-networks. There is no big difference between
+servers with servers or for mesh-networks. There is no big difference between
 clients and server in Logux architecture. So we will call them **nodes**.
 
-```c
+```haskell
 [Client 1] ⇆ [Client 2] ⇆ [Server A] ⇆ [Server B]
 ```
 
 However, Logux was created for standard applications with multiple
-web and mobile clients and several servers. You will read about how
-core concepts are work in this standard applications in next chapter.
+web and mobile clients and several servers. Next chapter read will show
+how core concepts work in standard case.
 
 Each node has **action** log (list of operations). Every time, when you want
 to change application state, you add a action to this log.
