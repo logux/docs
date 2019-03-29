@@ -1,1 +1,1 @@
-# Using Logux Concepts in practice
+# Using Logux Concepts in Practice
