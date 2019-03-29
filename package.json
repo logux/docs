@@ -2,7 +2,7 @@
   "name": "logux",
   "private": true,
   "scripts": {
-    "test": "yaspeller *.md"
+    "test": "yaspeller *.md */*.md"
   },
   "devDependencies": {
     "husky": "^1.3.1",
