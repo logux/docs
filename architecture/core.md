@@ -4,20 +4,19 @@ Logux synchronizes action log between peer-to-peer nodes.
 
 You can use Logux to connect clients with a server, clients with clients,
 servers with servers or for mesh-networks. There is no big difference between
-clients and server in Logux architecture. So we will call them **nodes**.
+clients and server in Logux. So we will call them **nodes**.
 
 ```haskell
 [Client 1] ⇆ [Client 2] ⇆ [Server A] ⇆ [Server B]
 ```
 
 However, Logux was created for standard applications with multiple
-web and mobile clients and several servers. Next chapter read will show
+web and mobile clients and several servers. Next chapter read will show
 how core concepts work in standard case.
 
 Each node has **action** log (list of operations). Every time, when you want
-to change application state, you add a action to this log.
-Action is a JSON object that describes what happened.
-There is only one requirement: every action must have `type` property.
+to change application state, you add an action to the log. Action is a JSON
+object that describes what happened. Every action must have `type` property.
 
 ```js
 { type: 'user/rename' userId: 386, name: 'New name' }
