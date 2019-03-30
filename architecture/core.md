@@ -72,4 +72,11 @@ Logux us based on the **Optimistic UI** idea. When a node creates action,
 it applies it immediately to own application state. In the background,
 Logux will synchronize this new action with other nodes.
 
+When node will synchronize action to another node, next node will apply
+the action and synchronize action to other nodes.
+
+Logux is based on the **offline-first** idea. If node is offline right now,
+new actions will wait for connection in node’s log. Offline is a standard mode
+for Logux application.
+
 **[Next chapter →](./practice.md)**
