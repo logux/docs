@@ -196,5 +196,42 @@ for payment process), you can do it in old way:
 
 ## Offline
 
+Logux architecture was created to be **offline-first** by design.
+
+Logux clients send pings messages to Web Socket connection to detect loosing
+Internet and show *“you are offline”* warning, so user will understand that
+data is not show actual state.
+
+But offline state is normal for Logux. User can continue working with data
+and creating action to change this data. Unsent action be kept in the log
+and user will see *“changes were not saved yet”* warning.
+
+When user get Internet back, Logux will reconnect to the server,
+send all actions and receive all data updates.
+
 
 ## Merging Edit Conflicts
+
+When you are working with any offline-first system you should ask how it deal
+with edit conflicts. During offline two users can change the same document.
+Even if only one user works with one document, this user can change the same
+document from different devices during the offline.
+
+To merge edit conflict Logux has few features:
+
+1. You need to use atomic actions. `likes/increase` will be more atomic
+   than `likes/set` with exact like value.
+2. Each action has unique creation time. As result you can detect what action
+   was before and could be overridden by more recent action.
+
+Logux client and server use different approaches to work with old actions.
+For instance, another client create action hour ago in offline and only right
+now got connection to synchronize it.
+
+* On the server you need to store latest change time for all fields.
+  On the action from the client, you need to compare action’s time and time
+  of latest change.
+* Logux client has time traveling. When client receives old action, it put old
+  action in the middle of the log to the right position in the history.
+  It reverts all later action, apply old action and then re-apply reverted
+  actions.

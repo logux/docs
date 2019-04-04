@@ -31,7 +31,8 @@
       "JS",
       "js",
       "CRDT",
-      "unsubscribe"
+      "unsubscribe",
+      "unsent"
     ]
   }
 }
