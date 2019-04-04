@@ -189,9 +189,9 @@ for payment process), you can do it in old way:
 1. When user will click on “Pay” button, client will send `pay/ask` action
    to the server and **show loader**.
 2. When server will make payment, it will send `logux/processed` back.
-   On this action, client will show “done” message.
+   On this action, client will show **done** message.
 3. If user’s bank card do not pass server validation, server will send
-  `logux/undo` back and client will show error.
+  `logux/undo` back and client will **show error**.
 
 
 ## Offline
