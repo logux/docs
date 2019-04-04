@@ -190,14 +190,10 @@ Or if database threw error during saving.
 { type: 'logux/undo', actionId: meta.id, reason: 'error' }
 ```
 
-Logux clients use pure reducers for **time traveling** feature. Client has
-the list of actions and in any moment it could remove/add this list
-and reduce list to the new state.
-
+Logux clients use pure reducers for **time traveling** feature.
 When client received `logux/undo`, it rollback the state to the latest saved
 point and call reducers for all next action, except the action
-from `logux/undo`. As result, client recalculate the state,
-as action never happened.
+from `logux/undo`.
 
 Application can catch `logux/undo` action and show some error warning.
 
