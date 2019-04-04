@@ -107,7 +107,7 @@ const UserUI = ({ name, isSubscribing }) => {
 
 ## Changing Data
 
-To change data clients or server should create an action:
+To change data, clients or server should create an action:
 
 ```js
 log.add(
@@ -180,6 +180,27 @@ When client receives `logux/processed` action, it will hide
 
 
 ## Handling Errors
+
+On any error with action processing, server will send back to the client
+`logux/undo` action. It could happen if server will find that client have
+no access (for instance, access was taken, but client did not receive it yet).
+Or if database threw error during saving.
+
+```js
+{ type: 'logux/undo', actionId: meta.id, reason: 'error' }
+```
+
+Logux clients use pure reducers for **time traveling** feature. Client has
+the list of actions and in any moment it could remove/add this list
+and reduce list to the new state.
+
+When client received `logux/undo`, it rollback the state to the latest saved
+point and call reducers for all next action, except the action
+from `logux/undo`. As result, client recalculate the state,
+as action never happened.
+
+Application can catch `logux/undo` action and show some error warning.
+
 
 ## Pessimistic UI
 
