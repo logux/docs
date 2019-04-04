@@ -104,8 +104,87 @@ const UserUI = ({ name, isSubscribing }) => {
 }
 ```
 
+
 ## Changing Data
 
+To change data clients or server should create an action:
+
+```js
+log.add(
+  { type: 'user/name', name: 'New name', userId: 29 }, // Action
+  { channels: ['user/29'], sync: true }                // Meta
+)
+```
+
+In most popular case, Logux client use [Redux-style reducers] to **reduce list
+of action to the state**. Reducer is a pure function, which immutable change
+the state according to this new action:
+
+```js
+function usersReducers (state = { }, action) {
+  if (action.type === 'user/name') {
+    return { ...state, name: action.name }
+  } else {
+    return state
+  }
+}
+```
+
+If user changes their name in the form, client do not need show loader on “Save”
+button. Client creates action and applies this action to the state
+**immediately**. Application closes the form just after user clicked “Save”
+button and update UI to show new name.
+
+In the background client will send this new action to the server by Web Socket.
+While client waiting the answer from the server (or waiting Internet
+to open Web Socket connection), client show small *“changes were not saved yet”*
+warning.
+
+When server receives new action it does 3 things:
+
+1. Check user access to do this action.
+2. Apply this action to database.
+3. Re-send this action to all clients subscribed to `meta.channels`.
+
+```js
+server.type('user/name', {
+  access (ctx, action) {
+    // User can change only own name
+    return action.userId === ctx.userId
+  },
+  async process (ctx, action, meta) {
+    let lastChanged = await db.getChangeTimeForUserName(action.userId)
+    // Ignore action if somebody already changed the name later
+    if (isFirstOlder(lastChanged, meta)) {
+      await db.saveUserName(action.userId, action.name)
+    }
+  }
+})
+```
+
+After checking access, server will re-send the action to all other clients,
+subscribed to channels from `meta.channels`. They will apply action
+to the state and update UI.
+
+After saving action to database, server will send `logux/processed` action
+to origin client:
+
+```js
+{ type: 'logux/processed', actionId: meta.id }
+```
+
+When client receives `logux/processed` action, it will hide
+*“changes were not saved yet”* warning.
+
+[Redux-style reducers]: https://redux.js.org/basics/reducers
+
+
+## Handling Errors
+
+## Pessimistic UI
+
+
 ## Offline
+
 
 ## Merging Edit Conflicts
