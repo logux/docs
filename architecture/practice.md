@@ -50,7 +50,7 @@ between client and server. It is useful when client has wrong time settings.
 ## Subscriptions
 
 Because live updates is important parts of Logux idea, in Logux
-*subscriptions** is a way to request data from the server.
+*subscriptions* is a way to request data from the server.
 
 On the client, you wrap a component into `subscribe` decorator. Every time,
 when component added to UI, Logux will subscribe for the channel with the data.
@@ -79,18 +79,18 @@ Logux server will receive this action and will do 3 steps:
 ```js
 server.channel('user/:id', {
   access (ctx) {
-    // User can subscribe only on own data
+    // User can subscribe only to own data
     return ctx.params.id === ctx.userId
   },
   async init (ctx) {
     let name = await db.loadUserName(ctx.params.id)
-    // Creating action to set user name and sending it to the client
+    // Creating action to set user name and sending it to subscriber
     server.log.add({ type: 'user/name', name }, { clients: [ctx.clientId] } )
   }
 })
 ```
 
-Logux client will show loader while server loads data. When action with initial
+Logux client shows loader while server loads data. When action with initial
 data will be received by client, it will apply data to the state and show it
 in UI.
 
@@ -99,7 +99,13 @@ const UserUI = ({ name, isSubscribing }) => {
   if (isSubscribing) {
     return <Loader />
   } else {
-    return <Name>{ name }</Name>
+    return <Name>{name}</Name>
   }
 }
 ```
+
+## Changing Data
+
+## Offline
+
+## Merging Edit Conflicts
