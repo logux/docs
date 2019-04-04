@@ -16,7 +16,7 @@ how core concepts work in the standard case.
 
 Each node has **action** log (list of operations). When you want to change
 the application state, you add an action to the log. An action is a JSON object
-that describes what happened. Every action must have `type` property.
+that describes what happened. Every action must have a `type` property.
 
 ```js
 { type: 'user/rename' userId: 386, name: 'New name' }
@@ -72,11 +72,11 @@ Logux us based on the **Optimistic UI** idea. When a node creates action,
 it applies it immediately to own application state. In the background,
 Logux will synchronize this new action with other nodes.
 
-When node will synchronize action to another node, next node will apply
+When node synchronizes action to another node, the next node will apply
 the action and synchronize action to other nodes.
 
-Logux is based on the **offline-first** idea. If node is offline right now,
-new actions will wait for connection in node’s log. Offline is a standard mode
-for Logux application.
+Logux is based on the **offline-first** idea. If the node is offline right now,
+new actions will wait for a connection in the node’s log. Offline is a standard
+mode for Logux application.
 
 **[Next chapter →](./practice.md)**
