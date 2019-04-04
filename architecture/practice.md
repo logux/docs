@@ -14,11 +14,6 @@ an application in multiple browser’s tabs. Logux clients in different
 **elect one leader** to keep the connection. If user will close leader tab,
 other tabs will re-elect leader.
 
-*You can try this election system in [online demo].
-Just open it in several tabs.*
-
-[online demo]: https://logux.github.io/client/
-
 When Logux client opens Web Socket connection, it sends user ID
 and user token to the server.
 
