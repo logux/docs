@@ -130,21 +130,21 @@ function usersReducers (state = { }, action) {
 }
 ```
 
-If user changes their name in the form, client do not need show loader on “Save”
+[Redux-style reducers]: https://redux.js.org/basics/reducers
+
+If user changed their name in the form, client do not need show loader on Save
 button. Client creates action and applies this action to the state
-**immediately**. Application closes the form just after user clicked “Save”
-button and update UI to show new name.
+**immediately**.
 
 In the background client will send this new action to the server by Web Socket.
-While client waiting the answer from the server (or waiting Internet
-to open Web Socket connection), client show small *“changes were not saved yet”*
-warning.
+While client is waiting the answer from the server it is showing small
+*“changes were not saved yet”* warning.
 
 When server receives new action it does 3 things:
 
-1. Check user access to do this action.
-2. Apply this action to database.
-3. Re-send this action to all clients subscribed to `meta.channels`.
+1. Check user **access** to do this action.
+2. Apply this action to **database**.
+3. **Re-send** this action to all clients subscribed to `meta.channels`.
 
 ```js
 server.type('user/name', {
@@ -162,21 +162,13 @@ server.type('user/name', {
 })
 ```
 
-After checking access, server will re-send the action to all other clients,
-subscribed to channels from `meta.channels`. They will apply action
-to the state and update UI.
-
 After saving action to database, server will send `logux/processed` action
-to origin client:
+to origin client. When client receives `logux/processed` action, it hides
+*“changes were not saved yet”* warning.
 
 ```js
 { type: 'logux/processed', actionId: meta.id }
 ```
-
-When client receives `logux/processed` action, it will hide
-*“changes were not saved yet”* warning.
-
-[Redux-style reducers]: https://redux.js.org/basics/reducers
 
 
 ## Handling Errors
