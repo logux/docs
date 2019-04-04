@@ -165,21 +165,20 @@ it hides *“changes were not saved yet”* warning.
 ## Handling Errors
 
 On any error with action processing, the server will send back to the client
-`logux/undo` action. It could happen if the server found that client has
-no access. Or if the database threw an error during saving.
+`logux/undo` action.
 
 ```js
 { type: 'logux/undo', actionId: meta.id, reason: 'error' }
 ```
 
-Logux clients use pure reducers for **time traveling** feature. When the client
+Logux client uses pure reducers for **time traveling**. When the client
 received `logux/undo`, it rollbacks the state to the latest saved point and call
 reducers for all next action, except the action from `logux/undo`.
 
 An application can catch `logux/undo` action and show some error warning.
 
 
-## Loader During Processing
+## Loader During Action Processing
 
 Optimistic UI isn’t mandatory. If you need a loader (for instance,
 for payment process), you can use it:
