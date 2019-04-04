@@ -10,24 +10,22 @@ with web clients and several servers.
 ## Connecting
 
 Logux client keeps only one Web Socket connection even if user open
-an application in multiple browser’s tabs. To do this, Logux clients
-detects other browser’s tab with the same web site
-and **tabs elect one leader**. Only leader will keep connection.
-If user will close leader tab, other tabs will re-elect leader.
+an application in multiple browser’s tabs. Logux clients in different
+**elect one leader** to keep the connection. If user will close leader tab,
+other tabs will re-elect leader.
 
 *You can try this election system in [online demo].
 Just open it in several tabs.*
 
 [online demo]: https://logux.github.io/client/
 
-When Logux client will open Web Socket connection, it sends user ID
+When Logux client opens Web Socket connection, it sends user ID
 and user token to the server.
 
 Logux server is written in JS. There are two ways to use it:
 
-1. The first way is to use Logux server as framework and write application
-  on top of **Logux JS API**. In this mode you can use any database
-  to store data.
+1. Use Logux server as framework and write application
+   on top of **Logux JS API**. You can use any database to store data.
 
     ```js
     server.auth(async (userId, token) => {
@@ -35,15 +33,14 @@ Logux server is written in JS. There are two ways to use it:
       return user.token === token
     })
     ```
-2. The second way is to use **Logux server as a proxy**. In this mode Logux will
-   convert all Web Sockets events to HTTP request to your web server.
-   It is the perfect case if you want keep your back-end on PHP, Ruby on Rails
-   or any other non-JS environment.
+2. Use **Logux server as a proxy**. Logux can convert all Web Sockets events
+   to HTTP request to your web server. You can use your favorite back-end
+   language: for instance, PHP, Ruby on Rails or Go.
 
-We will show examples in JS API, but you can use Logux proxy with your favorite
-back-end language for all our examples.
+We will show examples in JS API, but you can use Logux proxy with any back-end
+language for all our examples.
 
-When server will authenticate user, server will calculate **time different**
+After authenticating user server will calculate **time different**
 between client and server. It is useful when client has wrong time settings.
 
 
@@ -61,19 +58,18 @@ from the channel.
 export default subscribe(({ userId }) => `user/${ userId }`)(UserUI)
 ```
 
-Logux client subscribe to some channel, it send `logux/subscribe` action
-to the server:
+Logux client sends `logux/subscribe` action to the server:
 
 ```js
 { type: 'logux/subscribe', channel: 'user' }
 ```
 
-Logux server will receive this action and will do 3 steps:
+After receiving `logux/subscribe` Logux server does 3 steps.
 
-1. Check that user has access to this channel.
-2. Load initial data (the current state) from database and send an action
+1. Check that user has **access** to this channel.
+2. Load **initial data** (the current state) from database and send an action
    with this data to the client.
-3. Subscribe the client to any data changes. It means that any action with
+3. Subscribe the client to any new **data changes**. Any new action with
    this channel in `meta.channels` will be send to this client.
 
 ```js
@@ -91,8 +87,8 @@ server.channel('user/:id', {
 ```
 
 Logux client shows loader while server loads data. When action with initial
-data will be received by client, it will apply data to the state and show it
-in UI.
+data will be received by client, it will apply data to the state
+and hide loader.
 
 ```js
 const UserUI = ({ name, isSubscribing }) => {
