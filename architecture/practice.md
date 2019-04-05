@@ -180,8 +180,8 @@ An application can catch `logux/undo` action and show some error warning.
 
 ## Loader During Action Processing
 
-Optimistic UI isn’t mandatory. If you need a loader (for instance,
-for payment process), you can use it:
+Optimistic UI is great for UX. Some actions (like payments) require loader.
+Logux can be used for UI with blocking loader:
 
 1. When the user clicks on the “Pay” button, the client sends a `pay/request`
    action to the server and **show loader**.
@@ -193,12 +193,10 @@ for payment process), you can use it:
 
 ## Offline
 
-Logux architecture was created to be **offline-first** by design.
-
 Logux clients send pings messages to Web Socket to detect loosing
 Internet and show *“you are offline”* warning.
 
-An offline state is normal for Logux. The user can work with data and create
+Offline is a normal mode for Logux. The user can work with data and create
 an action to change the data. Unsent action be kept in the log and user will see
 *“changes were not saved yet”* warning.
 
@@ -213,19 +211,35 @@ with edit conflicts. During offline two users can change the same document.
 Even if only one user works with the document, this user can change
 the document from different devices.
 
+For instance, *user A* changed the title and publication date for the document.
+*User B* a few minutes later changed document’s title and tags.
+Because of offline, *user A* could synchronize their actions later,
+than *user B*.
+
 To merge edit conflicts in Logux:
 
-1. You need to use atomic actions. `likes/increase` will be more atomic
-   than `likes/set`.
-2. Each action has a creation time. An application can detect what action
-   created earlier and could be overridden by more recent action.
+1. You need to use **atomic actions**. Separated actions for each changed
+   property is better than sending the whole document in action.
+   For tags it is better to have `document/tags/add` and `document/tags/remove`
+   actions, instead of one action to override whole tags list.
 
-Logux client and server use different approaches to work with old actions.
-For instance, another client create action hour ago in offline and finally
-got connection to synchronize it.
+    ```js
+    { type: 'document/set', docId: 12, prop: 'title', value: 'New title' }
+    { type: 'document/tags/add', docId: 12, tag: 'crdt' }
+    ```
 
-* On the server you need to store **last edit time** for all fields.
-  On the action, you need to compare action’s time and last edit time.
-* Logux client has **time traveling**. When the client receives old action,
-  it put old action in the middle of the log. It reverts all later action,
-  applies old action and then re-apply reverted actions.
+2. Each action has a **creation time**. In our example, both users changed the title.
+   The most popular merge strategy is to keep the latest change.
+
+Logux client and server use different approaches to work with action’s order.
+
+* Server stores **last edit time** for each document property. When it received
+  action from *user B*, server applies their changes to the database
+  (because last change of the document title was a few weeks ago). The server will receive action from *user A*. Because *A’s* action time is smaller,
+  than latest title changes (*B’s* action time), the server will ignore
+  *A’s* action.
+* Logux client has **time traveling**. When *user B* received *A’s* action
+  from (server re-sent it), the client will revert all recent action,
+  including their title changes. Then it will apply *A’s* action and re-apply
+  all reverted actions back. As a result, *A’s* action was placed in the correct moment of history. So, *A’s* title changes were overridden by later
+  *B’s* action.

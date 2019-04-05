@@ -32,7 +32,9 @@
       "js",
       "CRDT",
       "unsubscribe",
-      "unsent"
+      "unsent",
+      "A’s",
+      "B’s"
     ]
   }
 }
