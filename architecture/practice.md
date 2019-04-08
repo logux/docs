@@ -158,7 +158,7 @@ action to origin client. When the client receives `logux/processed` action,
 it hides *“changes were not saved yet”* warning.
 
 ```js
-{ type: 'logux/processed', actionId: meta.id }
+{ type: 'logux/processed', id: meta.id }
 ```
 
 
@@ -168,7 +168,7 @@ On any error with action processing, the server will send back to the client
 `logux/undo` action.
 
 ```js
-{ type: 'logux/undo', actionId: meta.id, reason: 'error' }
+{ type: 'logux/undo', id: meta.id, reason: 'error' }
 ```
 
 Logux client uses pure reducers for **time traveling**. When the client
