@@ -19,12 +19,17 @@ and offline-first by design.
 * Compatible with modern stack: **Redux** API,
   works with **any back-end language** and **any database**.
 
-[CRDT]: http://slides.com/ai/crdt#/
+Twitter: [@logux_io]<br>
+Ask your questions at [our Gitter]
 
 <a href="https://evilmartians.com/?utm_source=logux">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
        alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
+
+[our Gitter]: https://gitter.im/logux/logux
+[logux_io]: https://twitter.com/logux_io
+[CRDT]: http://slides.com/ai/crdt
 
 
 ## Client Example
