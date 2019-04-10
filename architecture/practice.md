@@ -243,3 +243,5 @@ Logux client and server use different approaches to work with action’s order.
   including their title changes. Then it will apply *A’s* action and re-apply
   all reverted actions back. As a result, *A’s* action was placed in the correct moment of history. So, *A’s* title changes were overridden by later
   *B’s* action.
+
+**[Next chapter →](./parts.md)**
