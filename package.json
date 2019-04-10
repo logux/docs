@@ -14,7 +14,7 @@
   },
   "lint-staged": {
     "*.md": [
-      "yaspeller-ci",
+      "yaspeller",
       "markdown-link-check"
     ]
   },
