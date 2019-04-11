@@ -9,7 +9,7 @@ We split Logux into many projects.
   (like Logux Server or Logux redux). You may use it directly to load
   components for app’s tests like `TestTime` or `TestPair`. Also, you may use
   it directly to build some non-standard architecture.
-* **[Logux Client]:** low-level components to build Logux web client.
+* **[Logux Client]:** components to build Logux web client.
   You may use it directly if you don’t need Redux’s time travel.
 * **[Logux Redux]:** high-level Redux compatible Logux client.
   With time travel it avoids you from thinking about action’s time and order.
