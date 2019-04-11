@@ -29,3 +29,5 @@ We split Logux into many projects.
 [Logux Redux]: https://github.com/logux/redux
 [Logux Core]: https://github.com/logux/core
 [Logux Docs]: https://github.com/logux/logux
+
+**[Next chapter →](./choosing.md)**
