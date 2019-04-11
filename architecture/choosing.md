@@ -1,3 +1,3 @@
-## Choosing Right Logux Architecture for Your Case
+# Choosing Right Logux Architecture for Your Case
 
 *Under construction*
