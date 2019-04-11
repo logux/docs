@@ -17,6 +17,8 @@ We split Logux into many projects.
 * **[Logux Server]:** high-level components to build your Logux Server
   on JavaScript or to create a proxy between WebSocket and HTTP and keep
   the back-end on any language, that you want.
+* **[Logux Rails]:** library to connect Ruby on Rails application
+  with Logux Server in proxy mode.
 * **Logux Server Pro:** closed source additional features for Logux Server
   for monitoring and scaling. Contact [Evil Martians] for access.
 * **[Logux Protocol]:** Logux protocol specification. You should subscribe
@@ -26,6 +28,7 @@ We split Logux into many projects.
 [Evil Martians]: https://evilmartians.com/
 [Logux Client]: https://github.com/logux/client
 [Logux Server]: https://github.com/logux/server
+[Logux Rails]: https://github.com/logux/logux_rails
 [Logux Redux]: https://github.com/logux/redux
 [Logux Core]: https://github.com/logux/core
 [Logux Docs]: https://github.com/logux/logux
