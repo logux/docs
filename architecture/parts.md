@@ -15,8 +15,8 @@ We split Logux into many projects.
   With time travel it avoids you from thinking about action’s time and order.
   The best option for React, Preact and any other SPA.
 * **[Logux Server]:** high-level components to build your Logux Server
-  on JavaScript or to create a WebSocket—HTTP proxy and keep the back-end
-  on any language, that you want.
+  on JavaScript or to create a proxy between WebSocket and HTTP and keep
+  the back-end on any language, that you want.
 * **Logux Server Pro:** closed source additional features for Logux Server
   for monitoring and scaling. Contact [Evil Martians] for access.
 * **[Logux Protocol]:** Logux protocol specification. You should subscribe
