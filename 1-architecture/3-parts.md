@@ -33,4 +33,4 @@ We split Logux into many projects.
 [Logux Core]: https://github.com/logux/core
 [Logux Docs]: https://github.com/logux/logux
 
-**[Next chapter →](./choosing.md)**
+**[Next chapter →](./4-choosing.md)**

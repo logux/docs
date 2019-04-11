@@ -212,9 +212,9 @@ if ($req['password'] == LOGUX_PASSWORD) {
 ## Getting Started
 
 1. **Logux Architecture**
-   1. [Core Concepts](./architecture/core.md)
-   2. [Using Concepts in Practice](./architecture/practice.md)
-   3. [Parts](./architecture/parts.md)
-   4. [Choosing Right Architecture](./architecture/choosing.md)
+   1. [Core Concepts](./1-architecture/1-core.md)
+   2. [Using Concepts in Practice](./1-architecture/2-practice.md)
+   3. [Parts](./1-architecture/3-parts.md)
+   4. [Choosing Right Architecture](./1-architecture/4-choosing.md)
 
 *Docs are under construction*

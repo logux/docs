@@ -79,4 +79,4 @@ Logux is based on the **offline-first** idea. If the node is offline right now,
 new actions will wait for a connection in the node’s log. Offline is a standard
 mode for Logux application.
 
-**[Next chapter →](./practice.md)**
+**[Next chapter →](./2-practice.md)**
