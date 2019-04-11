@@ -43,7 +43,10 @@
       "B’s",
       "Gitter",
       "io",
-      "logux"
+      "logux",
+      "Preact",
+      "redux",
+      "Redux’s"
     ]
   }
 }
