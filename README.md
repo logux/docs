@@ -174,34 +174,33 @@ Here PHP pseudocode:
 
 ```php
 <?php
-$req = json_decode(file_get_contents('php://input'), TRUE);
+$req = json_decode(file_get_contents('php://input'), true);
 if ($req['password'] == LOGUX_PASSWORD) {
   foreach ($req['commands'] as $command) {
     if ($command[0] == 'action') {
-      $action = $command[1]
-      $meta = $command[2]
+      $action = $command[1];
+      $meta = $command[2];
 
       if ($action['type'] == 'logux/subscribe') {
-        echo('[["approved"],')
-        $value = $db->getCounter()
-        send_json_http_post(LOGUX_HOST, array(
+        echo '[["approved"],';
+        $value = $db->getCounter();
+        send_json_http_post(LOGUX_HOST, [
           'password' => LOGUX_PASSWORD,
           'version' => 1,
-          'commands' => array(
-            array(
+          'commands' => [
+            [
               'action',
-              array('type' => 'INC', 'value' => $value),
-              array('clients' => get_client_id($meta['id']))
-            )
-          )
-        ))
-        echo('["processed"]]')
+              ['type' => 'INC', 'value' => $value],
+              ['clients' => get_client_id($meta['id'])]
+            ]
+          ]
+        ]);
+        echo '["processed"]]';
 
       } elseif ($action['type'] == 'inc') {
-        $db->updateCounter('value += 1')
-        echo('[["approved"],["processed"]]')
+        $db->updateCounter('value += 1');
+        echo '[["approved"],["processed"]]';
       }
-
     }
   }
 }
