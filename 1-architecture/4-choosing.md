@@ -17,7 +17,12 @@ Benefits:
 
 * You should not worry of having different action order on different nodes.
 
-*Under construction*
+Next step:
+
+* If you are starting new project, read
+  **[Starting Logux Redux Project](../2-starting/1-creating-redux.md)**.
+* If you have old Redux project, read
+  **[Replacing Redux to Logux Redux](../2-starting/2-replacing-redux.md)**.
 
 
 ### Logux Client
@@ -31,7 +36,9 @@ Benefits:
 
 * Better performance.
 
-*Under construction*
+Next step:
+
+* Read **[Starting Logux Client Project](../2-starting/3-creating-client.md)**.
 
 
 ## Server
@@ -49,7 +56,9 @@ Benefits:
 * You can always improve performance in critical parts by moving
   to [Mixed Servers](#mixed-server).
 
-*Under construction*
+Next step:
+
+* Read **[Creating Logux Proxy](../2-starting/4-creating-proxy.md)**.
 
 
 ### Node.js Server
@@ -63,7 +72,9 @@ Benefits:
 * The best performance.
 * You can still keep some logic in servers written on different languages.
 
-*Under construction*
+Next step:
+
+* Read **[Starting Logux Server Project](../2-starting/5-creating-server.md)**.
 
 
 ### Mixed Server
@@ -72,8 +83,11 @@ When you should choose it:
 
 * You are starting new back-end and like Node.js.
 
+Next step:
 
-*Under construction*
+* Read **[Starting Logux Server Project](../2-starting/5-creating-server.md)**.
+* Set `LOGUX_BACKEND` or `backend` option to proxy actions and subscriptions
+  without callbacks.
 
 
 ## Peer-to-peer
@@ -82,4 +96,7 @@ When you should choose it:
 
 * When you do not fit classic client-server architecture.
 
-*Under construction*
+Next step:
+
+* Read Logux Core API.
+* You can ask for advice in [Logux Gitter](https://gitter.im/logux/logux).
