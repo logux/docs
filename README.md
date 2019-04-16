@@ -215,5 +215,11 @@ if ($req['password'] == LOGUX_PASSWORD) {
    2. [Using Concepts in Practice](./1-architecture/2-practice.md)
    3. [Parts](./1-architecture/3-parts.md)
    4. [Choosing Right Architecture](./1-architecture/4-choosing.md)
+2. **Starting Logux Project**
+   1. [Starting Logux Redux Project](./2-starting/1-creating-redux.md)
+   2. [Replacing Redux to Logux Redux](./2-starting/2-replacing-redux.md)
+   3. [Starting Logux Client Project](./2-starting/3-creating-client.md)
+   4. [Creating Logux Proxy](./2-starting/4-creating-proxy.md)
+   5. [Starting Logux Server Project](./2-starting/5-creating-server.md)
 
 *Docs are under construction*

@@ -1,15 +1,19 @@
 # Choosing Right Logux Architecture for Your Case
 
+Next chapter depends on your use case. Find the closest client-side
+and server-side case and then go to right chapter.
+
+
 ## Client
 
 ### Logux Redux
 
-**When you should choose it:**
+When you should choose it:
 
 * You want to add WebSocket to Redux application.
 * You are creating rich application on top of React or Angular.
 
-**Benefits:**
+Benefits:
 
 * You should not worry of having different action order on different nodes.
 
@@ -18,12 +22,12 @@
 
 ### Logux Client
 
-**When you should choose it:**
+When you should choose it:
 
 * When you don’t care about the order of action. All your operations should
   have commutative.
 
-**Benefits:**
+Benefits:
 
 * Better performance.
 
@@ -34,12 +38,12 @@
 
 ### Proxy Server
 
-**When you should choose it:**
+When you should choose it:
 
 * You want to use legacy back-end.
 * You do not want to use Node.js.
 
-**Benefits:**
+Benefits:
 
 * Works with back-end on any language.
 * You can always improve performance in critical parts by moving
@@ -50,11 +54,11 @@
 
 ### Node.js Server
 
-**When you should choose it:**
+When you should choose it:
 
 * You are starting new back-end and like Node.js.
 
-**Benefits:**
+Benefits:
 
 * The best performance.
 * You can still keep some logic in servers written on different languages.
@@ -64,7 +68,7 @@
 
 ### Mixed Server
 
-**When you should choose it:**
+When you should choose it:
 
 * You are starting new back-end and like Node.js.
 
@@ -74,7 +78,7 @@
 
 ## Peer-to-peer
 
-**When you should choose it:**
+When you should choose it:
 
 * When you do not fit classic client-server architecture.
 
