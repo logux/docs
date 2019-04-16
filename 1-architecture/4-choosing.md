@@ -85,8 +85,8 @@ When you should choose it:
 
 Next step:
 
-* Read **[Starting Logux Server Project](../2-starting/5-creating-server.md)**.
-* Set `LOGUX_BACKEND` or `backend` option to proxy actions and subscriptions
+1. Read **[Starting Logux Server Project](../2-starting/5-creating-server.md)**.
+2. Set `LOGUX_BACKEND` or `backend` option to proxy actions and subscriptions
   without callbacks.
 
 
@@ -98,5 +98,5 @@ When you should choose it:
 
 Next step:
 
-* Read Logux Core API.
-* You can ask for advice in [Logux Gitter](https://gitter.im/logux/logux).
+1. Read Logux Core API.
+2. You can ask for advice in [Logux Gitter](https://gitter.im/logux/logux).
