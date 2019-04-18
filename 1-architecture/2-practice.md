@@ -136,6 +136,9 @@ When the server receives new action it does three things:
 1. Check user **access** to do this action.
 2. Apply this action to **database**.
 3. **Re-send** this action to all clients subscribed to `meta.channels`.
+4. **Clean** server log from this action since server do not need it anymore.
+   When other clients will connect to the server, server will create
+   a new action for them as described in “Subscriptions” section.
 
 ```js
 server.type('user/name', {
