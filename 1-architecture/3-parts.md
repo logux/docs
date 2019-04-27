@@ -11,7 +11,7 @@ We split Logux into many projects.
   it directly to build some non-standard architecture.
 * **[Logux Client]:** components to build Logux web client.
   You may use it directly if you don’t need Redux’s time travel.
-* **[Logux Redux]:** high-level Redux compatible Logux client.
+* **[Logux Redux]:** warp around Logux Client with Redux compatible API.
   With time travel it avoids you from thinking about action’s time and order.
   The best option for React, Preact and any other SPA.
 * **[Logux Server]:** high-level components to build your Logux Server
