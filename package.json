@@ -7,10 +7,10 @@
     "test": "yarn spell && yarn links"
   },
   "devDependencies": {
-    "husky": "^2.1.0",
-    "lint-staged": "^8.1.5",
-    "markdown-link-check": "^3.7.2",
-    "yaspeller": "^5.0.1"
+    "husky": "^2.4.0",
+    "lint-staged": "^8.1.7",
+    "markdown-link-check": "^3.7.3",
+    "yaspeller": "^5.1.0"
   },
   "lint-staged": {
     "*.md": [
