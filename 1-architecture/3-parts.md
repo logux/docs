@@ -20,12 +20,12 @@ We split Logux into many projects.
 * **[Logux Rails]:** library to connect Ruby on Rails application
   with Logux Server in proxy mode.
 * **Logux Server Pro:** closed source additional features for Logux Server
-  for monitoring and scaling. Contact [Evil Martians] for access.
+  for monitoring and scaling. Write to [`logux@evilmartians.com`] for access.
 * **[Logux Protocol]:** Logux protocol specification. You should subscribe
   on any repository changes if you made your Logux implementation.
 
+[`logux@evilmartians.com`]: mailto:logux@evilmartians.com
 [Logux Protocol]: https://github.com/logux/protocol
-[Evil Martians]: https://evilmartians.com/
 [Logux Client]: https://github.com/logux/client
 [Logux Server]: https://github.com/logux/server
 [Logux Rails]: https://github.com/logux/logux_rails
