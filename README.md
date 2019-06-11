@@ -30,7 +30,7 @@ Commercial support: [`logux@evilmartians.com`]
 
 [`logux@evilmartians.com`]: mailto:logux@evilmartians.com
 [our Gitter]: https://gitter.im/logux/logux
-[`logux_io`]: https://twitter.com/logux_io
+[`@logux_io`]: https://twitter.com/logux_io
 [CRDT]: http://slides.com/ai/crdt
 
 
