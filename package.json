@@ -46,7 +46,9 @@
       "logux",
       "Preact",
       "redux",
-      "Redux’s"
+      "Redux’s",
+      "favicon",
+      "subprotocols"
     ]
   }
 }

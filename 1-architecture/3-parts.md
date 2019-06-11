@@ -10,7 +10,10 @@ We split Logux into many projects.
   components for app’s tests like `TestTime` or `TestPair`. Also, you may use
   it directly to build some non-standard architecture.
 * **[Logux Client]:** components to build Logux web client.
-  You may use it directly if you don’t need Redux’s time travel.
+  It adds to the Core high-level APIs, subprotocols, subscriptions, and
+  cross-tab communication. It contains few UI components, like synchronization
+  status widget, different favicon for online/offline, and prompt to close
+  browser tab with unsaved changes.
 * **[Logux Redux]:** warp around Logux Client with Redux compatible API.
   With time travel it avoids you from thinking about action’s time and order.
   The best option for React, Preact and any other SPA.
