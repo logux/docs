@@ -1,7 +1,7 @@
 # Choosing Right Logux Architecture for Your Case
 
-Next chapter depends on your use case. Find the closest client-side
-and server-side case and then go to right chapter.
+Next chapters depend on your use case. Find the closest client-side
+and server-side case and then go to right chapters.
 
 
 ## Client
@@ -11,7 +11,7 @@ and server-side case and then go to right chapter.
 When you should choose it:
 
 * You want to add WebSocket to Redux application.
-* You are creating rich application on top of React or Angular.
+* You are creating rich application on top of React.
 
 Benefits:
 
@@ -29,8 +29,8 @@ Next step:
 
 When you should choose it:
 
-* When you don’t care about the order of action. All your operations should
-  have commutative.
+* You deeply understand how Logux works and your algorithm doesn’t care about
+  the order of action. All your operations should be commutative.
 
 Benefits:
 
@@ -48,13 +48,13 @@ Next step:
 When you should choose it:
 
 * You want to use legacy back-end.
-* You do not want to use Node.js.
+* You do not want to write new back-end on top of Node.js.
 
 Benefits:
 
 * Works with back-end on any language.
 * You can always improve performance in critical parts by moving
-  to [Mixed Servers](#mixed-server).
+  to [Mixed Server](#mixed-server).
 
 Next step:
 
@@ -71,6 +71,7 @@ Benefits:
 
 * The best performance.
 * You can still keep some logic in servers written on different languages.
+  See [Mixed Server](#mixed-server).
 
 Next step:
 
@@ -81,13 +82,17 @@ Next step:
 
 When you should choose it:
 
-* You are starting new back-end and like Node.js.
+* You want to keep some back-end logic in Logux Server on Node.js
+  and some back-end logic should be sent to other HTTP servers.
 
 Next step:
 
 1. Read **[Starting Logux Server Project](../2-starting/5-creating-server.md)**.
-2. Set `LOGUX_BACKEND` or `backend` option to proxy actions and subscriptions
-  without callbacks.
+2. Set `LOGUX_BACKEND` or `backend` option.
+3. All actions with `server.type()` and all subscriptions
+   with `server.channel()` will be processed by Logux Server. All actions
+   and subscriptions without these definitions will be sent to HTTP server
+   from `backend` option.
 
 
 ## Peer-to-peer
