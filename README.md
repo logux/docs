@@ -59,7 +59,6 @@ export default subscribe('counter')(connect(stateToProps, dispatchToProps)(Count
 ```
 
 </details>
-
 <details><summary><b>Pure JS client</b></summary>
 
 Using [`@logux/client`](https://github.com/logux/client/):
@@ -112,7 +111,6 @@ app.type('INC', {
 ```
 
 </details>
-
 <details><summary><b>Ruby on Rails server</b></summary>
 
 Using [`logux_rails`](https://github.com/logux/logux_rails/):
@@ -168,7 +166,6 @@ end
 ```
 
 </details>
-
 <details><summary><b>Any other HTTP server</b></summary>
 
 You can use any HTTP server with Logux WebSocket proxy server.

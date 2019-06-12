@@ -48,7 +48,8 @@
       "redux",
       "Redux’s",
       "favicon",
-      "subprotocols"
+      "subprotocols",
+      "npm"
     ]
   }
 }
