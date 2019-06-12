@@ -16,7 +16,7 @@ If you want to use another language for server check [Logux Proxy] section.
 
 ## Create the Project
 
-First you need to [install Node.js].
+First you need to [install Node.js] (version 10.0 or later).
 
 Create a directory with a project. We will use `logux-server`, but you can
 replace it to more relevant to your project.
@@ -32,10 +32,7 @@ Create `package.json` with:
 {
   "name": "logux-server",
   "private": true,
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  }
+  "main": "index.js"
 }
 ```
 
@@ -59,10 +56,12 @@ Create `index.js` with:
 ```js
 const { Server } = require('@logux/server')
 
-const server = new Server({
-  subprotocol: '0.1.0',
-  supports: '^0.1.0'
-})
+const server = new Server(
+  Server.loadOptions(process, {
+    subprotocol: '0.1.0',
+    supports: '^0.1.0'
+  })
+)
 
 server.auth((userId, token) => {
   return false
@@ -73,28 +72,19 @@ server.listen()
 
 The simple Logux server is ready. You can start it with:
 
-<details open><summary><b>npm</b></summary>
-
 ```sh
-npm start
+node index.js
 ```
 
-</details>
-<details><summary><b>yarn</b></summary>
-
-```sh
-yarn start
-```
-
-</details>
-
-To close the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux
+To stop the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux
 and Windows.
 
 [install Node.js]: https://nodejs.org/en/download/package-manager/
 
 
 ## Authentication
+
+Our server works, but do not allow anyone to connect.
 
 *Under construction*
 
