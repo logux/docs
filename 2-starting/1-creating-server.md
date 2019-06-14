@@ -81,10 +81,12 @@ and Windows.
 
 [install Node.js]: https://nodejs.org/en/download/package-manager/
 
+## Database
+
+*Under construction*
+
 
 ## Authentication
-
-Our server works, but do not allow anyone to connect.
 
 *Under construction*
 
