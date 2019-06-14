@@ -7,21 +7,9 @@
     "test": "yarn spell && yarn links"
   },
   "devDependencies": {
-    "husky": "^2.4.0",
-    "lint-staged": "^8.1.7",
+    "@arkweid/lefthook": "^0.5.0",
     "markdown-link-check": "^3.7.3",
     "yaspeller": "^5.1.0"
-  },
-  "lint-staged": {
-    "*.md": [
-      "yaspeller",
-      "markdown-link-check"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "yaspeller": {
     "lang": "en",
