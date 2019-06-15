@@ -95,7 +95,7 @@ to Ruby on Rails.
 
 Add it to `Gemfile` and call `bundle`:
 
-```sh
+```ruby
 gem 'logux_rails'
 ```
 
