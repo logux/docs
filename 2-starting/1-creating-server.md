@@ -59,7 +59,8 @@ const { Server } = require('@logux/server')
 const server = new Server(
   Server.loadOptions(process, {
     subprotocol: '0.1.0',
-    supports: '^0.1.0'
+    supports: '^0.1.0',
+    root: __dirname
   })
 )
 
@@ -153,7 +154,8 @@ Connect to database in the server:
   const server = new Server(
     Server.loadOptions(process, {
       subprotocol: '0.1.0',
-      supports: '^0.1.0'
+      supports: '^0.1.0',
+      root: __dirname
     })
   )
 
@@ -177,12 +179,14 @@ Then client will reconnect with it’s own email and token.
 Replace `server.auth(…)` with this code:
 
 ```js
+// Small helper to return user from database
 function byEmail (email) {
   return db.one('SELECT * FROM users WHERE email = ?', email)
 }
 
 server.auth(async (userId, token) => {
   if (userId === 'guest') {
+    // Guests don’t need any validations
     return true
   } else {
     let user = await byEmail(userId)
@@ -190,8 +194,10 @@ server.auth(async (userId, token) => {
   }
 })
 
+// Handler for { type: 'login', email, password } actions
 server.type('login', {
   async access (ctx) {
+    // This action is accepted only from guests
     return ctx.userId === 'guest'
   },
   async process (ctx, action) {
