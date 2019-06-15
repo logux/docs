@@ -83,8 +83,11 @@ Your back-end can send actions to the client by sending HTTP request
 to `http://localhost:31338`.
 
 Read about HTTP API in **[Logux Back-end Protocol]**.
+[`logux_rails`] gem can add Back-end Protocol support and syntax sugar
+to Ruby on Rails.
 
 [Logux Back-end Protocol]: ../backend-protocol/spec.md
 [install Node.js]: https://nodejs.org/en/download/package-manager/
+[`logux_rails`]: https://github.com/logux/logux_rails
 
 **[Next chapter →](./3-creating-redux.md)**
