@@ -18,19 +18,19 @@ If you want to use another language for server check [Logux Proxy] section.
 
 First you need to [install Node.js] (version 10.0 or later).
 
-Create a directory with a project. We will use `logux-server`, but you can
+Create a directory with a project. We will use `project-logux`, but you can
 replace it to more relevant to your project.
 
 ```sh
-mkdir logux-server
-cd logux-server
+mkdir project-logux
+cd project-logux
 ```
 
 Create `package.json` with:
 
 ```json
 {
-  "name": "logux-server",
+  "name": "project-logux",
   "private": true,
   "main": "index.js"
 }
