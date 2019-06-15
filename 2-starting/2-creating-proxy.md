@@ -93,10 +93,31 @@ Read about HTTP API in **[Logux Back-end Protocol]**.
 [`logux_rails`] gem can add Back-end Protocol support and syntax sugar
 to Ruby on Rails.
 
+Go to your Ruby on Rails application folder:
+
+```sh
+cd ../project-rails
+```
+
 Add it to `Gemfile` and call `bundle`:
 
 ```ruby
 gem 'logux_rails'
+```
+
+Create file at `config/initializers/logux.rb`:
+
+```ruby
+Logux.configuration do |config|
+  config.logux_host = 'http://localhost:31338'
+end
+```
+
+Add Logux to `config/routes.rb`:
+
+```diff
+  Amplifr::Application.routes.draw do
++   mount Logux::Engine, at: '/'
 ```
 
 [`logux_rails`]: https://github.com/logux/logux_rails
