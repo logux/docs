@@ -124,13 +124,16 @@ Open generated file from `migrations/` and create `users` table:
 
 ```js
 exports.up = pgm => {
+  pgm.createExtension('pgcrypto')
   pgm.createTable('users', {
     email: { type: 'varchar', notNull: true, unique: true },
+    token: { type: 'varchar', default: pgm.func('gen_random_uuid') },
     password: { type: 'varchar', notNull: true }
   })
 }
 
 exports.down = pgm => {
+  pgm.dropExtension('pgcrypto')
   pgm.dropTable('users')
 }
 ```
@@ -163,6 +166,43 @@ Connect to database in the server:
 
 ## Authentication
 
-*Under construction*
+Logux Server uses user ID (we will use email as ID) and token to authenticate
+user. We can’t use password on every connection, because it is unsafe to
+keep password in the client memory.
+
+In this example, Logux connects as `guest`, sends email and password
+by `login` action to get token and save it in the memory.
+Then client will reconnect with it’s own email and token.
+
+Replace `server.auth(…)` with this code:
+
+```js
+function byEmail (email) {
+  return db.one('SELECT * FROM users WHERE email = ?', email)
+}
+
+server.auth(async (userId, token) => {
+  if (userId === 'guest') {
+    return true
+  } else {
+    let user = await byEmail(userId)
+    return user.token === token
+  }
+})
+
+server.type('login', {
+  async access (ctx) {
+    return ctx.userId === 'guest'
+  },
+  async process (ctx, action) {
+    let user = await byEmail(action.email)
+    if (user && user.password === action.password) {
+      ctx.sendBack({ type: 'login/done', token })
+    } else {
+      ctx.sendBack({ type: 'login/error' })
+    }
+  }
+})
+```
 
 **[Next chapter →](./3-creating-redux.md)**
