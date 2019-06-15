@@ -83,7 +83,82 @@ and Windows.
 
 ## Database
 
-*Under construction*
+Logux Server can work with any database. We will use PostgreSQL only as example.
+
+Install PostgreSQL and its tools for Node.js:
+
+<details open><summary><b>npm</b></summary>
+
+```sh
+npm i dotenv pg-promise node-pg-migrate pg
+```
+
+</details>
+<details><summary><b>yarn</b></summary>
+
+```sh
+yarn add dotenv pg-promise node-pg-migrate pg
+```
+
+</details>
+
+Create database. Use [this advice] on `role does not exist` error.
+
+```sh
+createdb project-logux
+```
+
+Create `.env` config with URL to your database. Put this file to `.gitignore`.
+
+```
+DATABASE_URL=postgres://localhost/project-logux
+```
+
+Create new database schema migration:
+
+```sh
+npx node-pg-migrate create create_users
+```
+
+Open generated file from `migrations/` and create `users` table:
+
+```js
+exports.up = pgm => {
+  pgm.createTable('users', {
+    email: { type: 'varchar', notNull: true, unique: true },
+    password: { type: 'varchar', notNull: true }
+  })
+}
+
+exports.down = pgm => {
+  pgm.dropTable('users')
+}
+```
+
+Run migration:
+
+```sh
+npx node-pg-migrate up
+```
+
+Connect to database in the server:
+
+```diff js
+  const { Server } = require('@logux/server')
++ const pg = require('pg-promise')
+
+  const server = new Server(
+    Server.loadOptions(process, {
+      subprotocol: '0.1.0',
+      supports: '^0.1.0'
+    })
+  )
+
++ let db = pg()(process.env.DATABASE_URL)
+```
+
+[Install PostgreSQL]: https://www.postgresql.org/download/
+[this advice]: https://stackoverflow.com/questions/16973018/createuser-could-not-connect-to-database-postgres-fatal-role-tom-does-not-e
 
 
 ## Authentication
