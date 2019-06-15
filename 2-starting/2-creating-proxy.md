@@ -79,12 +79,12 @@ and Windows.
 
 Logux proxy server is ready. It will send user’s authentication request,
 Logux subscriptions and actions to `http://localhost:3000/logux`.
-Your backend can send actions to the client by sending HTTP request
+Your back-end can send actions to the client by sending HTTP request
 to `http://localhost:31338`.
 
-Read about HTTP API in **[Logux Backend Protocol]**.
+Read about HTTP API in **[Logux Back-end Protocol]**.
 
-[Logux Backend Protocol]: ../backend-protocol.md
+[Logux Back-end Protocol]: ../backend-protocol.md
 [install Node.js]: https://nodejs.org/en/download/package-manager/
 
 **[Next chapter →](./3-creating-redux.md)**

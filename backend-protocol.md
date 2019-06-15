@@ -1,3 +1,3 @@
-# Logux Backend Protocol
+# Logux Back-end Protocol
 
 *Under construction*
