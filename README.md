@@ -87,19 +87,20 @@ log.add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
 Using [`@logux/server`](https://github.com/logux/server/):
 
 ```js
-app.channel('counter', {
+server.channel('counter', {
   access () {
     // Access control is mandatory. API was designed to make it harder to write dangerous code.
     return true
   },
   async init (ctx) {
-    // Load initial state when client subscribing to the channel
+    // Load initial state when client subscribing to the channel.
+    // You can use any database.
     let value = await db.get('counter')
-    app.log.add({ type: 'INC', value }, { clients: [ctx.clientId] })
+    ctx.sendBack({ type: 'INC', value })
   }
 })
 
-app.type('INC', {
+server.type('INC', {
   access () {
     return true
   },
