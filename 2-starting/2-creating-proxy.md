@@ -84,7 +84,7 @@ to `http://localhost:31338`.
 
 Read about HTTP API in **[Logux Back-end Protocol]**.
 
-[Logux Back-end Protocol]: ../backend-protocol.md
+[Logux Back-end Protocol]: ../backend-protocol/spec.md
 [install Node.js]: https://nodejs.org/en/download/package-manager/
 
 **[Next chapter →](./3-creating-redux.md)**

@@ -14,6 +14,9 @@
   "yaspeller": {
     "lang": "en",
     "ignoreCapitalization": true,
+    "ignoreText": [
+      "\\d+ “[^”]+”"
+    ],
     "dictionary": [
       "Logux",
       "webapp",
@@ -36,8 +39,12 @@
       "redux",
       "Redux’s",
       "favicon",
+      "subprotocol",
       "subprotocols",
-      "npm"
+      "npm",
+      "WebSockets",
+      "UUID",
+      "SemVer"
     ]
   }
 }
