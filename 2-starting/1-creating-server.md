@@ -143,7 +143,7 @@ npx node-pg-migrate up
 
 Connect to database in the server:
 
-```diff js
+```diff
   const { Server } = require('@logux/server')
 + const pg = require('pg-promise')
 
