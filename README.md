@@ -222,7 +222,9 @@ if ($req['password'] == LOGUX_PASSWORD) {
    3. [Starting Logux Redux Project](./2-starting/3-creating-redux.md)
    4. [Replacing Redux to Logux Redux](./2-starting/4-replacing-redux.md)
    5. [Starting Logux Client Project](./2-starting/5-creating-client.md)
-3. [Logux Protocol](./protocol/spec.md)
-4. [Logux Back-end Protocol](./backend-protocol/spec.md)
+3. **Security**
+   1. [Authentication](./3-security/1-authentication.md)
+4. [Logux Protocol](./protocol/spec.md)
+5. [Logux Back-end Protocol](./backend-protocol/spec.md)
 
 *Docs are under construction*
