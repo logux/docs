@@ -125,16 +125,14 @@ Open generated file from `migrations/` and create `users` table:
 
 ```js
 exports.up = pgm => {
-  pgm.createExtension('pgcrypto')
   pgm.createTable('users', {
+    id: 'id',
     email: { type: 'varchar', notNull: true, unique: true },
-    token: { type: 'varchar', default: pgm.func('gen_random_uuid') },
     password: { type: 'varchar', notNull: true }
   })
 }
 
 exports.down = pgm => {
-  pgm.dropExtension('pgcrypto')
   pgm.dropTable('users')
 }
 ```
@@ -173,24 +171,18 @@ user. We can’t use password on every connection, because it is unsafe to
 keep password in the client memory.
 
 In this example, Logux connects as `guest`, sends email and password
-by `login` action to get token and save it in the memory.
+by `login` action to get JWT token and save it in the memory.
 Then client will reconnect with it’s own email and token.
 
 Replace `server.auth(…)` with this code:
 
 ```js
-// Small helper to return user from database
-function byEmail (email) {
-  return db.one('SELECT * FROM users WHERE email = ?', email)
-}
-
 server.auth(async (userId, token) => {
   if (userId === 'guest') {
     // Guests don’t need any validations
     return true
   } else {
-    let user = await byEmail(userId)
-    return user.token === token
+    return verify_jwt(token).userId = userId
   }
 })
 
@@ -201,8 +193,9 @@ server.type('login', {
     return ctx.userId === 'guest'
   },
   async process (ctx, action) {
-    let user = await byEmail(action.email)
+    let user = await db.one('SELECT * FROM users WHERE email = ?', action.email)
     if (user && user.password === action.password) {
+      let token = create_jwt(user.id)
       ctx.sendBack({ type: 'login/done', token })
     } else {
       ctx.sendBack({ type: 'login/error' })

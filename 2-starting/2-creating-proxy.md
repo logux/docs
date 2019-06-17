@@ -68,6 +68,13 @@ const server = new Server(
 server.listen()
 ```
 
+Create `.env` with Logux password only for development environment.
+Put this file to `.gitignore`.
+
+```
+LOGUX_CONTROL_PASSWORD=secret
+```
+
 You can start proxy with:
 
 ```sh
@@ -103,13 +110,27 @@ Add it to `Gemfile` and call `bundle`:
 
 ```ruby
 gem 'logux_rails'
+gem 'dotenv-rails', groups: [:development, :test]
+```
+
+Create `.env` with Logux password only for development environment.
+Put this file to `.gitignore`.
+
+```
+LOGUX_CONTROL_PASSWORD=secret
+LOGUX_URL=http://localhost:31338
 ```
 
 Create file at `config/initializers/logux.rb`:
 
 ```ruby
 Logux.configuration do |config|
-  config.logux_host = 'http://localhost:31338'
+  config.password = ENV['LOGUX_CONTROL_PASSWORD']
+  config.logux_host = ENV['LOGUX_URL']
+
+  config.auth_rule = lambda do |user_id, token|
+    verify_jwt(token).user_id == user_id
+  end
 end
 ```
 
@@ -122,4 +143,4 @@ Add Logux to `config/routes.rb`:
 
 [`logux_rails`]: https://github.com/logux/logux_rails
 
-**[Next chapter →](./3-creating-redux.md)**
+**[Next chapter →](./4-replacing-redux.md)**
