@@ -1,3 +1,0 @@
-# Authentication
-
-*Under construction*
