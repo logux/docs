@@ -40,6 +40,8 @@ Each action in the log has own **meta** with:
 * `meta.reasons`: an array of the strings. Each string is a code of some
   “reason” why action is still actual. When application will remove all reasons,
   Logux will clean the action from the log.
+* Logux Client and Logux Server add `meta.subprotocol` with version
+  of application-level protocol. What
 * Applications could add own data to **meta**.
 
   ```js
@@ -49,7 +51,8 @@ Each action in the log has own **meta** with:
     time: 1553821137582,
     added: 56,
     reasons: ['user:388:lastName'],
-    // Custom meta
+    // Logux Server meta
+    subprotocol: '1.0.1',
     channels: ['users/388']
   }]
   ```
