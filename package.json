@@ -45,7 +45,8 @@
       "WebSockets",
       "UUID",
       "SemVer",
-      "JWT"
+      "JWT",
+      "identificate"
     ]
   }
 }
