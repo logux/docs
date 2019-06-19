@@ -102,7 +102,7 @@ Content-Type: application/json
     [
       "action",
       { type: 'user/name', user: 'me@example.com', name: 'The User' },
-      { clientIds: ['me@example.com:Y7bysd'] }
+      { clients: ['me@example.com:Y7bysd'] }
     ]
   ]
 }

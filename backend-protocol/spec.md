@@ -94,7 +94,7 @@ and subscribe to data changes. On this action back-end server must:
    `["approved", meta.id]` or `["forbidden", meta.id]`.
 2. Send separated HTTP request with actions with current data
    to Logux server using `action` commands. Actions with data must use
-   client ID from subscribe’s action in `meta.clientIds` array.
+   client ID from subscribe’s action in `meta.clients` array.
 3. Write `["processed", meta.id]` to this response.
 
 Back-end server can take user ID from `meta.id`:
