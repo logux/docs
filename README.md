@@ -109,7 +109,7 @@ server.type('INC', {
   }
   async process () {
     // Don’t forget to keep action atomic
-    await db.set('counter', 'value += 2')
+    await db.set('counter', 'value += 1')
   }
 })
 ```
