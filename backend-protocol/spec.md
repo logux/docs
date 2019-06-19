@@ -5,6 +5,7 @@ Logux sends user’s authentication requests, subscriptions and actions
 to HTTP server and receive actions by HTTP to send these actions
 to Logux clients.
 
+* **Communication examples:** [`examples.md`](./examples.md)
 * **Protocol versions:** [`changes.md`](./changes.md)
 * **Referral JS implementation:**
   [`logux_rails`](https://github.com/logux/logux_rails)
@@ -46,7 +47,8 @@ answers for all commands only when latest command was processed.
 ]
 ```
 
-## `auth` Command
+
+## `auth`
 
 ```ts
 ["auth", string userId, any credentials, string authId]
@@ -59,7 +61,8 @@ to identificate request, when request contains multiple `auth` commands.
 Back-end server must answer `["authenticated", authId]` on correct user ID
 and credentials or `["denied", authId]` on wrong credentials or unknown user ID.
 
-## `action` Command
+
+## `action`
 
 ```ts
 ["action", object action, object meta]
@@ -77,8 +80,33 @@ Back-end server must do 2 steps during action processing:
    Back-end server must write `["processed", meta.id]` immediately when
    it finished this step.
 
+Back-end server can take user ID from `meta.id`:
+
+```js
+meta.id //=> '1560954012838 me@example.com:Y7bysd:O0ETfc 0'
+meta.id.split(' ')[1].split(':')[0] //=> 'me@example.com'
+```
+
+Action with `type: "logux/subscribe"` tells that user want to load data
+and subscribe to data changes. On this action back-end server must:
+
+1. Validate that user has access to this data and write
+   `["approved", meta.id]` or `["forbidden", meta.id]`.
+2. Send separated HTTP request with actions with current data
+   to Logux server using `action` commands. Actions with data must use
+   client ID from subscribe’s action in `meta.clientIds` array.
+3. Write `["processed", meta.id]` to this response.
+
+Back-end server can take user ID from `meta.id`:
+
+```js
+
+meta.id //=> '1560954012838 me@example.com:Y7bysd:O0ETfc 0'
+meta.id.split(' ')[1].split(':').slice(0, 2).join(':') //=> 'me@example.com:Y7bysd'
+```
+
 If back-end server doesn’t have code to validate action it must write
-`["unknownChannel", meta.id]` for `{ type: 'logux/subscribe' }` action
+`["unknownChannel", meta.id]` for `logux/subscribe` action
 and `["unknownAction", meta.id]` for other actions.
 
 If back-end server had any errors during action validating and processing

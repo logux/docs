@@ -8,6 +8,7 @@ between clients and server logs.
 * **Referral JS implementation:**
   [`@logux/core`](https://github.com/logux/core)
 
+
 ## Basics
 
 You can use any encoding and any low-level protocol: JSON encoding
@@ -19,6 +20,7 @@ This protocol is based on simple JS types: boolean, number, string, array
 and key-value object.
 
 [Logux logs]: https://github.com/logux/core
+
 
 ## Messages
 
@@ -59,6 +61,7 @@ Both will send `error`, `sync` and `synced`.
 [`sync`]:      #sync
 [`debug`]:     #debug
 
+
 ## `error`
 
 Error message contains error description and error type.
@@ -88,6 +91,7 @@ Right now there are 7 possible errors:
 * `wrong-subprotocol`: client application subprotocol version is not supported
   by server. Error options object will contain `supported` key with requirements
   and `used` with used version.
+
 
 ## `connect`
 
@@ -131,6 +135,7 @@ In most cases client will initiate connection, so client will send `connect`.
 
 [SemVer]: http://semver.org/
 
+
 ## `connected`
 
 This message is answer to received [`connect`] message.
@@ -162,6 +167,7 @@ new actions since last connection (all actions on first connection).
 In most cases client will initiate connection,
 so server will answer `connected`.
 
+
 ## `ping`
 
 Client could send `ping` message to check connection.
@@ -180,6 +186,7 @@ Receiver should send [`pong`] message as soon as possible.
 
 In most cases client will send `ping`.
 
+
 ## `pong`
 
 `pong` message is a answer to [`ping`] message.
@@ -194,6 +201,7 @@ In most cases client will send `ping`.
 Message array contains sender last `added` too.
 
 In most cases server will send `pong`.
+
 
 ## `sync`
 
@@ -242,6 +250,7 @@ time or time zone.
 
 [Logux Core docs]: https://github.com/logux/core#created-time
 
+
 ## `synced`
 
 `synced` message is a answer to [`sync`] message.
@@ -254,6 +263,7 @@ time or time zone.
 ```
 
 Receiver should mark all actions with lower `added` time as synchronized.
+
 
 ## `debug`
 
