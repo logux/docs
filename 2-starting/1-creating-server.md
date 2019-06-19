@@ -216,7 +216,7 @@ server.auth(async (userId, token) => {
   } else {
     try {
       const data = await jwt.verify(token, process.env.JWT_SECRET)
-      return data.subject === userId
+      return data.sub === userId
     } catch (e) {
       return false
     }
@@ -232,8 +232,8 @@ server.type('login', {
   async process (ctx, action) {
     let user = await db.one('SELECT * FROM users WHERE email = ?', action.email)
     if (user && user.password === action.password) {
-      let token = await jwt.sign({ subject: user.email })
-      ctx.sendBack({ type: 'login/done', token })
+      let token = await jwt.sign({ sub: user.id }, process.env.JWT_SECRET)
+      ctx.sendBack({ type: 'login/done', userId: user.id, token })
     } else {
       ctx.sendBack({ type: 'login/error' })
     }
