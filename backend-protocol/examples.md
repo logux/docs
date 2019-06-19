@@ -161,5 +161,7 @@ If error has any internal error or any problem with infrastructure during
 action or authentication processing it should response:
 
 ```js
-[["error", "PostgreSQLError: No connection to database\n    at DB.connnect"]]
+[
+  ["error", "PostgreSQLError: No connection to database\n    at DB.connnect"]
+]
 ```
