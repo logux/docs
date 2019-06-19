@@ -2,7 +2,7 @@
   "name": "logux",
   "private": true,
   "scripts": {
-    "links": "find . -maxdepth 2 -name \\*.md -exec npx markdown-link-check {} \\;",
+    "links": "find . -maxdepth 2 -name \\*.md | xargs -n 1 markdown-link-check",
     "spell": "yaspeller *.md */*.md",
     "test": "yarn spell && yarn links"
   },
