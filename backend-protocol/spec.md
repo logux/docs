@@ -72,19 +72,24 @@ Logux server uses `action` command to ask back-end server to process action
 or subscriptions. Back-end server uses this action to ask Logux server
 to add action to the log and re-send it to all clients from action’s meta.
 
-Back-end server must do 2 steps during action processing:
+Back-end server must do 3 steps during action processing:
 
-1. Validate that user has right to do this action. Back-end server must write
+1. Mark what users will also receive this action by writing
+   `["resend", meta.id, { "channels": ["project/12"] }]` answer
+   to HTTP response. If Logux should not re-send this action, back-end server
+   should not write anything. Do not worry, Logux will re-send actions
+   only after passing validation on step 2.
+2. Validate that user has right to do this action. Back-end server must write
    `["approved", meta.id]` or `["forbidden", meta.id]` answer to HTTP responses immediately when it finished this step.
-2. Process the action (for instance, apply changes to database).
+3. Process the action (for instance, apply changes to database).
    Back-end server must write `["processed", meta.id]` immediately when
    it finished this step.
 
 Back-end server can take user ID from `meta.id`:
 
 ```js
-meta.id //=> '1560954012838 me@example.com:Y7bysd:O0ETfc 0'
-meta.id.split(' ')[1].split(':')[0] //=> 'me@example.com'
+meta.id //=> '1560954012838 38:Y7bysd:O0ETfc 0'
+meta.id.split(' ')[1].split(':')[0] //=> '38'
 ```
 
 Action with `type: "logux/subscribe"` tells that user want to load data
@@ -101,8 +106,8 @@ Back-end server can take user ID from `meta.id`:
 
 ```js
 
-meta.id //=> '1560954012838 me@example.com:Y7bysd:O0ETfc 0'
-meta.id.split(' ')[1].split(':').slice(0, 2).join(':') //=> 'me@example.com:Y7bysd'
+meta.id //=> '1560954012838 38:Y7bysd:O0ETfc 0'
+meta.id.split(' ')[1].split(':').slice(0, 2).join(':') //=> '38:Y7bysd'
 ```
 
 If back-end server doesn’t have code to validate action it must write

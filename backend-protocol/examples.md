@@ -12,7 +12,7 @@ Content-Type: application/json
   "version": 1,
   "password": "secret",
   "commands": [
-    ["auth", "ivan@example.com", "good-token", "gf4Ygi6grYZYDH5Z2BsoR"]
+    ["auth", "38", "good-token", "gf4Ygi6grYZYDH5Z2BsoR"]
   ]
 }
 ```
@@ -39,13 +39,13 @@ Content-Type: application/json
   "commands": [
     [
       "action",
-      { type: 'user/rename', user: 'me@example.com', name: 'New' },
-      { id: "1560954012838 me@example.com:Y7bysd:O0ETfc 0", time: 1560954012838 }
+      { type: 'user/rename', user: 38, name: 'New' },
+      { id: "1560954012838 38:Y7bysd:O0ETfc 0", time: 1560954012838 }
     ],
     [
       "action",
-      { type: 'user/rename', user: 'other@example.com', name: 'New' },
-      { id: "1560954012900 me@example.com:Y7bysd:O0ETfc 1", time: 1560954012900 }
+      { type: 'user/rename', user: 21, name: 'New' },
+      { id: "1560954012900 38:Y7bysd:O0ETfc 1", time: 1560954012900 }
     ]
   ]
 }
@@ -55,9 +55,11 @@ Response:
 
 ```js
 [
-  ["approved", "1560954012838 me@example.com:Y7bysd:O0ETfc 0"],
-  ["denied", "1560954012900 me@example.com:Y7bysd:O0ETfc 1"],
-  ["processed", "1560954012838 me@example.com:Y7bysd:O0ETfc 0"]
+  ["resend", "1560954012838 38:Y7bysd:O0ETfc 0", { "channels": ["users/38"] }],
+  ["resend", "1560954012900 38:Y7bysd:O0ETfc 1", { "channels": ["users/21"] }],
+  ["approved", "1560954012838 38:Y7bysd:O0ETfc 0"],
+  ["denied", "1560954012900 38:Y7bysd:O0ETfc 1"],
+  ["processed", "1560954012838 38:Y7bysd:O0ETfc 0"]
 ]
 ```
 
@@ -75,8 +77,8 @@ Content-Type: application/json
   "commands": [
     [
       "action",
-      { type: 'logux/subscribe', channel: 'me@example.com/name' },
-      { id: "1560954012858 me@example.com:Y7bysd:O0ETfc 0", time: 1560954012858 }
+      { type: 'logux/subscribe', channel: '38/name' },
+      { id: "1560954012858 38:Y7bysd:O0ETfc 0", time: 1560954012858 }
     ]
   ]
 }
@@ -86,7 +88,7 @@ Back-end server writes:
 
 ```js
 [
-  ["approved", "1560954012858 me@example.com:Y7bysd:O0ETfc 0"],
+  ["approved", "1560954012858 38:Y7bysd:O0ETfc 0"],
 ```
 
 Then back-end server send HTTP request to Logux server:
@@ -101,8 +103,8 @@ Content-Type: application/json
   "commands": [
     [
       "action",
-      { type: 'user/name', user: 'me@example.com', name: 'The User' },
-      { clients: ['me@example.com:Y7bysd'] }
+      { type: 'user/name', user: 38, name: 'The User' },
+      { clients: ['38:Y7bysd'] }
     ]
   ]
 }
@@ -112,7 +114,7 @@ After the answer from Logux server, back-end write the last part
 of HTTP response:
 
 ```js
-  ["processed", "1560954012858 me@example.com:Y7bysd:O0ETfc 0"]
+  ["processed", "1560954012858 38:Y7bysd:O0ETfc 0"]
 ]
 ```
 
@@ -131,13 +133,13 @@ Content-Type: application/json
   "commands": [
     [
       "action",
-      { type: 'logux/subscribe', channel: 'me@example.com/nme' },
-      { id: "1560954022858 me@example.com:Y7bysd:O0ETfc 0", time: 1560954022858 }
+      { type: 'logux/subscribe', channel: 'usrs/38' },
+      { id: "1560954022858 38:Y7bysd:O0ETfc 0", time: 1560954022858 }
     ],
     [
       "action",
-      { type: 'user/renam', user: 'me@example.com', name: 'New' },
-      { id: "1560954022858 me@example.com:Y7bysd:O0ETfc 1", time: 1560954022858 }
+      { type: 'user/renam', user: 38, name: 'New' },
+      { id: "1560954022858 38:Y7bysd:O0ETfc 1", time: 1560954022858 }
     ]
   ]
 }
@@ -147,8 +149,8 @@ Response:
 
 ```js
 [
-  ["unknownChannel", "1560954022858 me@example.com:Y7bysd:O0ETfc 0"],
-  ["unknownAction", "1560954022858 me@example.com:Y7bysd:O0ETfc 1"]
+  ["unknownChannel", "1560954022858 38:Y7bysd:O0ETfc 0"],
+  ["unknownAction", "1560954022858 38:Y7bysd:O0ETfc 1"]
 ]
 ```
 
