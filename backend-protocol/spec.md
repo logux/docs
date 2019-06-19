@@ -63,7 +63,7 @@ to specify the command, when the HTTP request contains multiple `auth` commands.
 Back-end server must answer `["authenticated", authId]` on correct user ID
 and credentials or `["denied", authId]` on wrong credentials or unknown user ID.
 
-See [the example](./examples.md#authentication).
+See [authentication example](./examples.md#authentication).
 
 
 ## `action`
@@ -124,4 +124,4 @@ and `["unknownAction", meta.id]` for other actions.
 If back-end server had any errors during action validating and processing
 it should write `["error", string stacktrace]` answer.
 
-See [the example](./examples.md#actions).
+See [action examples](./examples.md#actions).
