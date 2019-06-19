@@ -45,7 +45,7 @@ export const Counter = () => {
   // Will load current counter from server and subscribe to counter changes
   const isSubscribing = useSubscription(['counter'])
   if (isSubscribing) {
-    return <Loader>
+    return <Loader />
   } else {
     const counter = useSelector(state => state.counter)
     const dispatch = useDispatch()

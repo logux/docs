@@ -24,7 +24,7 @@ Logux server is written in JS. There are two ways to use it:
 
     ```js
     server.auth(async (userId, token) => {
-      let user = findUser(userId)
+      let user = await findUser(userId)
       return user.token === token
     })
     ```
@@ -45,19 +45,22 @@ time settings.
 Because live updates are important parts of Logux idea, in Logux
 *subscriptions* is a way to request data from the server.
 
-On the client, you wrap a component into `subscribe` decorator. Every time,
-when component added to UI, Logux will subscribe for the channel with the data.
-Every time, when the component will be removed, Logux will unsubscribe
-from the channel.
+On the client, you use `useSubscription` hook or wrap a component
+into `subscribe` decorator. Every time, when component added to UI,
+Logux will subscribe for the channel with the data. Every time,
+when the component will be removed, Logux will unsubscribe from the channel.
 
 ```js
-export default subscribe(({ userId }) => `user/${ userId }`)(UserUI)
+export const User = (userId) => {
+  const isSubscribing = useSubscription(`user/${ userId }`)
+  …
+}
 ```
 
 Logux client sends `logux/subscribe` action to the server:
 
 ```js
-{ type: 'logux/subscribe', channel: 'user' }
+{ type: 'logux/subscribe', channel: 'user/388' }
 ```
 
 After receiving `logux/subscribe` Logux server does three steps.
@@ -77,7 +80,7 @@ server.channel('user/:id', {
   async init (ctx) {
     let name = await db.loadUserName(ctx.params.id)
     // Creating action to set user name and sending it to subscriber
-    server.log.add({ type: 'user/name', name }, { clients: [ctx.clientId] } )
+    ctx.sendBack({ type: 'user/name', name })
   }
 })
 ```
@@ -86,11 +89,13 @@ Logux client shows loader while the server loads data. When the client will
 receive initial data, the client will apply data to the state and hide loader.
 
 ```js
-const UserUI = ({ name, isSubscribing }) => {
+export const User = ({ userId }) => {
+  const isSubscribing = useSubscription(`user/${ userId }`)
   if (isSubscribing) {
     return <Loader />
   } else {
-    return <Name>{name}</Name>
+    const user = useSelector(state => state.users[userId])
+    return <Name>{user.name}</Name>
   }
 }
 ```
@@ -103,7 +108,7 @@ Clients or server should create an action to change data.
 ```js
 log.add(
   { type: 'user/name', name: 'New name', userId: 29 }, // Action
-  { channels: ['user/29'], sync: true }                // Meta
+  { sync: true }                                       // Meta
 )
 ```
 
@@ -146,6 +151,10 @@ server.type('user/name', {
     // User can change only own name
     return action.userId === ctx.userId
   },
+  resend (ctx, action) {
+    // Resend this action to everyone who subscribed to this user
+    return { channel: `user/${ action.userId }` }
+  }
   async process (ctx, action, meta) {
     let lastChanged = await db.getChangeTimeForUserName(action.userId)
     // Ignore action if somebody already changed the name later
