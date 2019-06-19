@@ -91,7 +91,7 @@ Back-end server writes:
   ["approved", "1560954012858 38:Y7bysd:O0ETfc 0"],
 ```
 
-Then back-end server send HTTP request to Logux server:
+Then back-end server sends HTTP request to Logux server:
 
 ```js
 POST /
@@ -110,8 +110,8 @@ Content-Type: application/json
 }
 ```
 
-After the answer from Logux server, back-end write the last part
-of HTTP response:
+After the answer from Logux server, back-end writes the last part
+of an HTTP response:
 
 ```js
   ["processed", "1560954012858 38:Y7bysd:O0ETfc 0"]
@@ -157,8 +157,7 @@ Response:
 
 ## Error
 
-If error has any internal error or any problem with infrastructure during
-action or authentication processing it should response:
+Back-end server response on an internal error:
 
 ```js
 [

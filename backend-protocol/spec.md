@@ -1,8 +1,8 @@
 # Logux Back-end Protocol
 
-Logux uses Back-end protocol to make a proxy between WebSocket and HTTP.
-Logux sends user’s authentication requests, subscriptions and actions
-to HTTP server and receive actions by HTTP to send these actions
+Logux uses Back-end Protocol to make a proxy between WebSocket and HTTP.
+Logux Server sends the user’s authentication requests, subscriptions,
+and actions to an HTTP server and receives new actions by HTTP to send them
 to Logux clients.
 
 * **Communication examples:** [`examples.md`](./examples.md)
@@ -16,34 +16,36 @@ to Logux clients.
 HTTP requests use `POST` method and JSON to encode the body.
 
 Each request contains protocol version (the latest version is `1`),
-password to protect servers from unknown requests from Internet (you set this password by `LOGUX_CONTROL_PASSWORD`) and list of commands.
+the password to protect servers from unknown requests from Internet
+(you set this password by `LOGUX_CONTROL_PASSWORD`) and list of commands.
 
 ```ts
 {
   "version": number version,
   "password": string password,
   "commands": [
-    (command)+
+    command+
   ]
 }
 ```
 
-Requests from back-end server to Logux server use only `action` command.
 Requests from Logux server to back-end server use `auth` and `action` commands.
+Requests from a back-end server to Logux server use only `action` command.
 
-Each request can contain multiple commands from different users.
+For performance reasons, each request can contain multiple commands
+from different users.
 
-HTTP response contains array of responses for every command.
-Responses could have different order, than commands. Some commands
-requires more than 1 answer during processing.
+The HTTP response contains an array of responses.
+Responses could have a different order than commands.
+Some commands require more than one answer during processing.
 
-HTTP server should use keep-alive HTTP response to write answers during
-the processing. It will be bad for performance if server will write
-answers for all commands only when latest command was processed.
+HTTP server should use keep-alive HTTP response to write answers to TCP socket
+during the processing. It will be bad for performance if the server will write
+answers for all commands only when the latest command was processed.
 
 ```ts
 [
-  [string status, string id])+
+  answer+
 ]
 ```
 
@@ -54,12 +56,14 @@ answers for all commands only when latest command was processed.
 ["auth", string userId, any credentials, string authId]
 ```
 
-`auth` command ask back-end server to authenticate user by ID and credentials
-(in most of the cases it will be string JWT token). `authId` is used
-to identificate request, when request contains multiple `auth` commands.
+`auth` command asks back-end server to authenticate the user by ID
+and credentials (for instance, string of JWT token). `authId` is used
+to specify the command, when the HTTP request contains multiple `auth` commands.
 
 Back-end server must answer `["authenticated", authId]` on correct user ID
 and credentials or `["denied", authId]` on wrong credentials or unknown user ID.
+
+See [the example](./examples.md#authentication).
 
 
 ## `action`
@@ -68,20 +72,22 @@ and credentials or `["denied", authId]` on wrong credentials or unknown user ID.
 ["action", object action, object meta]
 ```
 
-Logux server uses `action` command to ask back-end server to process action
-or subscriptions. Back-end server uses this action to ask Logux server
+Logux server uses `action` command to ask the back-end server to process action
+or subscription. Back-end server uses this action to ask Logux server
 to add action to the log and re-send it to all clients from action’s meta.
 
-Back-end server must do 3 steps during action processing:
+Back-end server must do three steps during action processing:
 
 1. Mark what users will also receive this action by writing
    `["resend", meta.id, { "channels": ["project/12"] }]` answer
-   to HTTP response. If Logux should not re-send this action, back-end server
-   should not write anything. Do not worry, Logux will re-send actions
-   only after passing validation on step 2.
-2. Validate that user has right to do this action. Back-end server must write
-   `["approved", meta.id]` or `["forbidden", meta.id]` answer to HTTP responses immediately when it finished this step.
-3. Process the action (for instance, apply changes to database).
+   to HTTP response. Object can use `channels`, `nodes`, `clients` or `users`
+   to specify receivers. If Logux should not re-send this action,
+   back-end server should not write anything. Do not worry, Logux will re-send
+   actions only after passing validation on step 2.
+2. Validate that the user has the right to do this action. Back-end server must
+   write `["approved", meta.id]` or `["forbidden", meta.id]` answer
+   to HTTP responses immediately when it finished this step.
+3. Process the action (for instance, apply changes to the database).
    Back-end server must write `["processed", meta.id]` immediately when
    it finished this step.
 
@@ -92,17 +98,18 @@ meta.id //=> '1560954012838 38:Y7bysd:O0ETfc 0'
 meta.id.split(' ')[1].split(':')[0] //=> '38'
 ```
 
-Action with `type: "logux/subscribe"` tells that user want to load data
+Action with `type: "logux/subscribe"` tells that user wants to load data
 and subscribe to data changes. On this action back-end server must:
 
-1. Validate that user has access to this data and write
+1. Validate that the user has access to this data and write
    `["approved", meta.id]` or `["forbidden", meta.id]`.
 2. Send separated HTTP request with actions with current data
    to Logux server using `action` commands. Actions with data must use
    client ID from subscribe’s action in `meta.clients` array.
-3. Write `["processed", meta.id]` to this response.
+3. Write `["processed", meta.id]` to this response, when it will get response
+   from Logux server.
 
-Back-end server can take user ID from `meta.id`:
+Back-end server can take the client ID from `meta.id`:
 
 ```js
 
@@ -116,3 +123,5 @@ and `["unknownAction", meta.id]` for other actions.
 
 If back-end server had any errors during action validating and processing
 it should write `["error", string stacktrace]` answer.
+
+See [the example](./examples.md#actions).
