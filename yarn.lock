@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@arkweid/lefthook@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@arkweid/lefthook/-/lefthook-0.5.1.tgz#7ecf60161da11b8f2084202d3eabd48e84026d45"
-  integrity sha512-kAl6CNtCRSoDtz/ft6vpQ1ocLb7Y3wzPZUHCx9XnnjmH7E8aWALpc+Z+u2XgFbZvouSw2gQ7dZVUFiryMFXt6g==
+"@arkweid/lefthook@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@arkweid/lefthook/-/lefthook-0.5.3.tgz#c1a11379acf9c637708b446a11c6ea604ba60e03"
+  integrity sha512-QH9pU26US72NmINIYrhGQK36WjfyhCgEcbCyRULe+OHrvNtMO293vB4MF/AafwOBXZSqgYen7okRn5zmCjUKAg==
 
 ajv@^6.5.5:
   version "6.10.0"
@@ -465,9 +465,9 @@ isstream@~0.1.2:
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
 isutf8@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/isutf8/-/isutf8-2.0.3.tgz#1e30a767d9cb1f44b77889add6a29ee08afa93db"
-  integrity sha512-ucppMz9qxhSceRJ8bP5SfdMdXukV718zXVgeSznBXkDGHbIcN5nptCPnosZhsN959eATLCD3751fo8tD86hM2Q==
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/isutf8/-/isutf8-2.0.4.tgz#1c93bf3552f8e531748c40c60fafc1d038c44e0d"
+  integrity sha512-4DvnF8CTx4QYN5UD7VtScvQEJq910d09V2yArkAvc62BUxnuFTnVhkq3iPR802ruiibPG4lQm/I8FNAxPYx5fw==
 
 js-yaml@^3.13.1:
   version "3.13.1"
@@ -608,9 +608,9 @@ minimatch@^3.0.4:
     brace-expansion "^1.1.7"
 
 ms@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
-  integrity sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
+  integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
 npm-run-path@^2.0.0:
   version "2.0.2"
