@@ -89,7 +89,6 @@ Logux subscriptions and actions to `http://localhost:3000/logux`.
 Your back-end can send actions to the client by sending HTTP request
 to `http://localhost:31338`.
 
-[Logux Back-end Protocol]: ../backend-protocol/spec.md
 [install Node.js]: https://nodejs.org/en/download/package-manager/
 
 
@@ -146,10 +145,11 @@ Add Logux to `config/routes.rb`:
 </details>
 <details><summary><b>Any other HTTP server</b></summary>
 
-Read about HTTP API in **[Logux Back-end Protocol]**.
+Read about **[Logux Back-end Protocol]** and implement it in your HTTP server.
 
 </details>
 
+[Logux Back-end Protocol]: ../backend-protocol/spec.md
 [`logux_rails`]: https://github.com/logux/logux_rails
 
 **[Next chapter →](./4-replacing-redux.md)**
