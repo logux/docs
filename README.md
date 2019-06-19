@@ -41,21 +41,21 @@ Commercial support: [`logux@evilmartians.com`]
 Using [`@logux/redux`](https://github.com/logux/redux/):
 
 ```js
-const Counter = ({ counter, onIncrease }) => (<>
-  <div>{ counter }</div>
-  <button onClick={ onIncrease }> // This button will increase the counter on all clients
-</>)
-
-const dispatchToProps = dispatch => ({
-  onIncrease () {
-    // `dispatch.sync()` instead of Redux `dispatch()` will send action to the server
-    // `channels` will ask Logux to resend action to all clients subscribed to this channel
-    dispatch.sync({ type: 'INC' }, { channels: ['counter'] })
+export const Counter = () => {
+  // Will load current counter from server and subscribe to counter changes
+  const isSubscribing = useSubscription(['counter'])
+  if (isSubscribing) {
+    return <Loader>
+  } else {
+    const counter = useSelector(state => state.counter)
+    const dispatch = useDispatch()
+    return <>
+      <div>{ counter }</div>
+      // `dispatch.sync()` instead of Redux `dispatch()` will send action to all clients
+      <button onClick={ dispatch.sync({ type: 'INC' }) }>
+    </>
   }
-})
-
-// `subscribe()` will subscribe this client to selected channel, when component will mount
-export default subscribe('counter')(connect(stateToProps, dispatchToProps)(Counter))
+}
 ```
 
 </details>
@@ -71,7 +71,7 @@ log.on('add', (action, meta) => {
 })
 
 increase.addEventListener('click', () => {
-  log.add({ type: 'INC' }, { channels: ['counter'], sync: true })
+  log.add({ type: 'INC' }, { sync: true })
 })
 
 log.add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
@@ -104,6 +104,9 @@ server.type('INC', {
   access () {
     return true
   },
+  resend () {
+    return { channel: 'counter' }
+  }
   async process () {
     // Don’t forget to keep action atomic
     await db.set('counter', 'value += 2')
