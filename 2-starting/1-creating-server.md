@@ -174,6 +174,38 @@ In this example, Logux connects as `guest`, sends email and password
 by `login` action to get JWT token and save it in the memory.
 Then client will reconnect with it’s own email and token.
 
+Add library to generate JWT:
+
+<details open><summary><b>npm</b></summary>
+
+```sh
+npm i jwt-then
+```
+
+</details>
+<details><summary><b>yarn</b></summary>
+
+```sh
+yarn add jwt-then
+```
+
+Add load it in the server:
+
+```diff
+  const { Server } = require('@logux/server')
++ const jwt = require('jwt-then')
+  const pg = require('pg-promise')
+```
+
+Add JWT secret key to local `.env`:
+
+```diff
+  DATABASE_URL=postgres://localhost/project-logux
++ JWT_SECRET=secret
+```
+
+</details>
+
 Replace `server.auth(…)` with this code:
 
 ```js
@@ -182,7 +214,12 @@ server.auth(async (userId, token) => {
     // Guests don’t need any validations
     return true
   } else {
-    return verify_jwt(token).userId = userId
+    try {
+      const data = await jwt.verify(token, process.env.JWT_SECRET)
+      return data.subject === userId
+    } catch (e) {
+      return false
+    }
   }
 })
 
@@ -195,7 +232,7 @@ server.type('login', {
   async process (ctx, action) {
     let user = await db.one('SELECT * FROM users WHERE email = ?', action.email)
     if (user && user.password === action.password) {
-      let token = create_jwt(user.id)
+      let token = await jwt.sign({ subject: user.email })
       ctx.sendBack({ type: 'login/done', token })
     } else {
       ctx.sendBack({ type: 'login/error' })

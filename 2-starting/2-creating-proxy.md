@@ -89,13 +89,15 @@ Logux subscriptions and actions to `http://localhost:3000/logux`.
 Your back-end can send actions to the client by sending HTTP request
 to `http://localhost:31338`.
 
-Read about HTTP API in **[Logux Back-end Protocol]**.
-
 [Logux Back-end Protocol]: ../backend-protocol/spec.md
 [install Node.js]: https://nodejs.org/en/download/package-manager/
 
 
-## Ruby on Rails
+## Back-end
+
+Now we need prepare back-end to receive requests from Logux proxy server.
+
+<details open><summary><b>Ruby on Rails server</b></summary>
 
 [`logux_rails`] gem can add Back-end Protocol support and syntax sugar
 to Ruby on Rails.
@@ -129,7 +131,7 @@ Logux.configuration do |config|
   config.logux_host = ENV['LOGUX_URL']
 
   config.auth_rule = lambda do |user_id, token|
-    verify_jwt(token).user_id == user_id
+    false
   end
 end
 ```
@@ -140,6 +142,13 @@ Add Logux to `config/routes.rb`:
   Amplifr::Application.routes.draw do
 +   mount Logux::Engine, at: '/'
 ```
+
+</details>
+<details><summary><b>Any other HTTP server</b></summary>
+
+Read about HTTP API in **[Logux Back-end Protocol]**.
+
+</details>
 
 [`logux_rails`]: https://github.com/logux/logux_rails
 
