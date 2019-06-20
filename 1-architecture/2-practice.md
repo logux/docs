@@ -138,23 +138,25 @@ it is showing small *“changes were not saved yet”* warning.
 
 When the server receives new action it does three things:
 
-1. Check user **access** to do this action.
-2. Apply this action to **database**.
+1. Get `meta.channels` to find whom we should re-send the action
+   after checking access.
+2. Check user **access** to do this action.
 3. **Re-send** this action to all clients subscribed to `meta.channels`.
-4. **Clean** server log from this action since server do not need it anymore.
+4. Apply this action to **database**.
+5. **Clean** server log from this action since server do not need it anymore.
    When other clients will connect to the server, server will create
    a new action for them as described in “Subscriptions” section.
 
 ```js
 server.type('user/name', {
-  access (ctx, action) {
+  resend (ctx, action, meta) {
+    // Resend this action to everyone who subscribed to this user
+    return { channel: `user/${ action.userId }` }
+  },
+  access (ctx, action, meta) {
     // User can change only own name
     return action.userId === ctx.userId
   },
-  resend (ctx, action) {
-    // Resend this action to everyone who subscribed to this user
-    return { channel: `user/${ action.userId }` }
-  }
   async process (ctx, action, meta) {
     let lastChanged = await db.getChangeTimeForUserName(action.userId)
     // Ignore action if somebody already changed the name later
