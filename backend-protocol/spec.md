@@ -15,7 +15,7 @@ to Logux clients.
 
 HTTP requests use `POST` method and JSON to encode the body.
 
-Each request contains protocol version (the latest version is `1`),
+Each request contains protocol version (the latest version is `2`),
 the password to protect servers from unknown requests from Internet
 (you set this password by `LOGUX_CONTROL_PASSWORD`) and list of commands.
 
