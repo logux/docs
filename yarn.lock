@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@arkweid/lefthook@^0.5.3":
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/@arkweid/lefthook/-/lefthook-0.5.3.tgz#c1a11379acf9c637708b446a11c6ea604ba60e03"
-  integrity sha512-QH9pU26US72NmINIYrhGQK36WjfyhCgEcbCyRULe+OHrvNtMO293vB4MF/AafwOBXZSqgYen7okRn5zmCjUKAg==
+"@arkweid/lefthook@^0.5.4":
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/@arkweid/lefthook/-/lefthook-0.5.4.tgz#fc0cdc8c17b37fba05a8ae56f206c542747e4a38"
+  integrity sha512-6kZQXNtRFy8hjB8pUaB9xhpNKGsnHQI91KXjN7XXoYQcBZMrc5OnL2cFdQE41p3qaMvmh6dG0vctDBWwg251KQ==
 
 ajv@^6.5.5:
   version "6.10.0"
@@ -394,9 +394,9 @@ inflight@^1.0.4:
     wrappy "1"
 
 inherits@2:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
-  integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
+  integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
 invert-kv@^1.0.0:
   version "1.0.0"
@@ -708,9 +708,9 @@ pseudomap@^1.0.2:
   integrity sha1-8FKijacOYYkX7wqKw0wa5aaChrM=
 
 psl@^1.1.24:
-  version "1.1.32"
-  resolved "https://registry.yarnpkg.com/psl/-/psl-1.1.32.tgz#3f132717cf2f9c169724b2b6caf373cf694198db"
-  integrity sha512-MHACAkHpihU/REGGPLj4sEfc/XKW2bheigvHO1dUqjaKigMp1C8+WLQYRGgeKFMsw5PMfegZcaN8IDXK/cD0+g==
+  version "1.1.33"
+  resolved "https://registry.yarnpkg.com/psl/-/psl-1.1.33.tgz#5533d9384ca7aab86425198e10e8053ebfeab661"
+  integrity sha512-LTDP2uSrsc7XCb5lO7A8BI1qYxRe/8EqlRvMeEl6rsnYAqDOl8xHR+8lSAIVfrNaSAlTPTNOCgNjWcoUL3AZsw==
 
 punycode@2.x.x, punycode@^2.1.0:
   version "2.1.1"
