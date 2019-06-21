@@ -10,6 +10,11 @@ It is the best case for migrating big legacy project to Logux.
 You can move only few operations to Logux and keep using AJAX or forms
 for rest operations.
 
+In you want a little better performance and like Node.js, you can try
+to [move business logic] directly to Logux Server. Or you can keep
+high-performance parts in Logux Server and send other to back-end HTTP server.
+
+[move business logic]: ./1-creating-server.md
 [Logux Client]: ./5-creating-client.md
 [Logux Redux]: ./3-creating-redux.md
 
