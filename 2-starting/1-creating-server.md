@@ -14,42 +14,33 @@ If you want to use another language for server check [Logux Proxy] section.
 [Logux Proxy]: ./2-creating-proxy.md
 
 
-## Create the Project
+## Creating the Project
 
 First you need to [install Node.js] (version 10.0 or later).
 
-Create a directory with a project. We will use `project-logux`, but you can
-replace it to more relevant to your project.
+Create a directory with a project. We will use `server-logux`, but you can
+replace it to more relevant.
 
 ```sh
-mkdir project-logux
-cd project-logux
+mkdir server-logux
+cd server-logux
 ```
 
 Create `package.json` with:
 
 ```json
 {
-  "name": "project-logux",
+  "name": "server-logux",
   "private": true,
   "main": "index.js"
 }
 ```
 
-<details open><summary><b>npm</b></summary>
+Install Logux Server:
 
 ```sh
 npm i @logux/server
 ```
-
-</details>
-<details><summary><b>yarn</b></summary>
-
-```sh
-yarn add @logux/server
-```
-
-</details>
 
 Create `index.js` with:
 
@@ -88,31 +79,20 @@ Logux Server can work with any database. We will use PostgreSQL only as example.
 
 Install PostgreSQL and its tools for Node.js:
 
-<details open><summary><b>npm</b></summary>
-
 ```sh
 npm i dotenv pg-promise node-pg-migrate pg
 ```
 
-</details>
-<details><summary><b>yarn</b></summary>
-
-```sh
-yarn add dotenv pg-promise node-pg-migrate pg
-```
-
-</details>
-
 Create database. Use [this advice] on `role does not exist` error.
 
 ```sh
-createdb project-logux
+createdb server-logux
 ```
 
 Create `.env` config with URL to your database. Put this file to `.gitignore`.
 
 ```
-DATABASE_URL=postgres://localhost/project-logux
+DATABASE_URL=postgres://localhost/server-logux
 ```
 
 Create new database schema migration:
@@ -176,17 +156,8 @@ Then client will reconnect with it’s own email and token.
 
 Add library to generate JWT:
 
-<details open><summary><b>npm</b></summary>
-
 ```sh
 npm i jwt-then
-```
-
-</details>
-<details><summary><b>yarn</b></summary>
-
-```sh
-yarn add jwt-then
 ```
 
 Add load it in the server:
@@ -200,11 +171,9 @@ Add load it in the server:
 Add JWT secret key to local `.env`:
 
 ```diff
-  DATABASE_URL=postgres://localhost/project-logux
+  DATABASE_URL=postgres://localhost/server-logux
 + JWT_SECRET=secret
 ```
-
-</details>
 
 Replace `server.auth(…)` with this code:
 

@@ -19,42 +19,33 @@ high-performance parts in Logux Server and send other to back-end HTTP server.
 [Logux Redux]: ./3-creating-redux.md
 
 
-## Create the Project
+## Creating the Project
 
 First you need to [install Node.js] (version 10.0 or later).
 
-Create a directory with a project. We will use `project-logux`, but you can
-replace it to more relevant to your project.
+Create a directory with a project. We will use `server-logux`, but you can
+replace it to more relevant.
 
 ```sh
-mkdir project-logux
-cd project-logux
+mkdir server-logux
+cd server-logux
 ```
 
 Create `package.json` with:
 
 ```json
 {
-  "name": "project-logux",
+  "name": "server-logux",
   "private": true,
   "main": "index.js"
 }
 ```
 
-<details open><summary><b>npm</b></summary>
+Install Logux Server:
 
 ```sh
 npm i @logux/server
 ```
-
-</details>
-<details><summary><b>yarn</b></summary>
-
-```sh
-yarn add @logux/server
-```
-
-</details>
 
 Create `index.js` with:
 

@@ -92,7 +92,7 @@ Benefits:
 
 Next step:
 
-* Read **[Starting Logux Client Project](../2-starting/5-creating-client.md)**.
+* Read `@logux/client/cross-tab-client` API.
 
 
 ## Peer-to-peer
