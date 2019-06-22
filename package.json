@@ -7,7 +7,7 @@
     "test": "yarn spell && yarn links"
   },
   "devDependencies": {
-    "@arkweid/lefthook": "^0.5.4",
+    "@arkweid/lefthook": "^0.5.5",
     "markdown-link-check": "^3.7.3",
     "yaspeller": "^5.1.0"
   },
