@@ -67,7 +67,10 @@ server.listen()
 Create `.env` with Logux password only for development environment.
 Put this file to `.gitignore`.
 
+Set your local back-end server URL and secret:
+
 ```
+LOGUX_BACKEND=http://localhost:3000/
 LOGUX_CONTROL_PASSWORD=secret
 ```
 
