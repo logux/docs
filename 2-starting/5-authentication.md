@@ -15,14 +15,14 @@ Client will use user ID and JWT token. We will explain 2 the most popular cases:
    (like `app.example.com`) and insert user ID and token as `<meta>` tags.
 2. You keep all your business logic in Logux Server and use HTTP just
    to send static HTML, JS, and CSS files to client. In this case,
-   Logux client will open Logux connnection as a guest to send
+   Logux client will open Logux connection as a guest to send
    authentication action. Logux server will send action with user ID and token
    back to client. Client will save them to `localStorage`.
 
 If you need another way, you can combine methods or ask for advice
 in [Logux support chat].
 
-[Logux support chat]: (https://gitter.im/logux/logux)
+[Logux support chat]: https://gitter.im/logux/logux
 
 
 ## Method 1: HTML Form and Meta Tags

@@ -46,7 +46,10 @@
       "UUID",
       "SemVer",
       "JWT",
-      "subscribe’s"
+      "subscribe’s",
+      "Webpack",
+      "OAuth or",
+      "WebAuthn"
     ]
   }
 }

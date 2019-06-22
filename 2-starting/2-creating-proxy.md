@@ -4,7 +4,7 @@ In this guide we will create the basic server to the most simple case:
 
 * You already have back-end HTTP server. It authenticate users
   and generate HTML pages.
-* You use [Logux Redux] or [Logux Client] on the client side.
+* You use [Logux Redux] on the client side.
 
 It is the best case for migrating big legacy project to Logux.
 You can move only few operations to Logux and keep using AJAX or forms
@@ -15,7 +15,6 @@ to [move business logic] directly to Logux Server. Or you can keep
 high-performance parts in Logux Server and send other to back-end HTTP server.
 
 [move business logic]: ./1-creating-server.md
-[Logux Client]: ./5-creating-client.md
 [Logux Redux]: ./3-creating-redux.md
 
 

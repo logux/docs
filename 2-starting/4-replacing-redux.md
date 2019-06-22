@@ -32,8 +32,8 @@ npm i @logux/redux @logux/client
 </details>
 
 Find store definition in your project. Look for `createStore` function call.
-Often you can find it at `src/store/index.js` (TODO). Replace `createStore`
-to `createLoguxCreator`:
+Often you can find it at `src/index.js` or `src/store/index.js`.
+Replace `createStore` to `createLoguxCreator`:
 
 ```diff
 - import { createStore } from 'redux'
@@ -56,7 +56,7 @@ Replace `wss://logux.example.com` to real URL of your Logux Server,
 when you will know it.
 
 
-## Syncronization UI
+## Synchronization UI
 
 To see the state of synchronization process we will add some helpers.
 They are all optional, but they are great for the start.

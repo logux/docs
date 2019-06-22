@@ -46,7 +46,7 @@ npm i @logux/server
 *Under construction*
 
 
-## Syncronization UI
+## Synchronization UI
 
 To see the state of synchronization process we will add some helpers.
 They are all optional, but they are great for the start.
