@@ -33,12 +33,71 @@ Go to you back-end and server and
 
 <details><summary><b>Ruby on Rails</b></summary>
 
-*Under construction*
+Add `jwt` to `Gemfile`:
+
+```ruby
+gem 'jwt'
+```
+
+Install it by `bundle` call.
+
+Add JWT secret key to local `.env`:
+
+```diff
+  LOGUX_CONTROL_PASSWORD=secret
+  LOGUX_URL=http://localhost:31338
++ JWT_SECRET=secret
+```
+
+Edit `config/initializers/logux.rb`:
+
+```diff
+  config.auth_rule = lambda do |user_id, token|
+-   false
++   data = JWT.decode token, ENV['JWT_SECRET'], { algorithm: 'HS256' }
++   data[0]['sub'] == user_id
+  end
+```
+
+Add `<meta>` tags to application layout used for authenticated user:
+
+```haml
+    meta( name="userId" content=current_user.id )
+    meta( name="token" content=JWT.encode({ sub: current_user.id }, ENV['JWT_SECRET'], 'HS256') )
+```
 
 </details>
 <details><summary><b>Any other HTTP server</b></summary>
 
-*Under construction*
+Add JWT secret key to proper storage for your environment. Local `.env`
+with a library to use `.env` is a good option.
+
+```diff
+  LOGUX_CONTROL_PASSWORD=secret
+  LOGUX_URL=http://localhost:31338
++ JWT_SECRET=secret
+```
+
+Add library to support JWT. Add code to check `userId` and `token`
+to your code which works with Logux Back-end Protocol.
+
+```js
+data = JWT.decode(token, ENV['JWT_SECRET'])
+return data.sub == userId
+```
+
+Generate token to use in HTML template:
+
+```js
+token = JWT.encode({ sub: userId }, ENV['JWT_SECRET'])
+```
+
+Add this token and user ID to HTML templates used for authenticated user:
+
+```html
+    <meta name="userId" content=<?= userId ?>>
+    <meta name="token" content=<?= token ?>>
+```
 
 </details>
 
