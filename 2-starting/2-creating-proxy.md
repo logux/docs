@@ -143,7 +143,12 @@ Add Logux to `config/routes.rb`:
 </details>
 <details><summary><b>Any other HTTP server</b></summary>
 
-Read about **[Logux Back-end Protocol]** and implement it in your HTTP server.
+1. Read about **[Logux Back-end Protocol]**.
+2. Implement protocol in your HTTP server.
+3. You can create open source Logux library for you environment.
+   Feel free to ask for help in [Logux support chat].
+
+[Logux support chat]: https://gitter.im/logux/logux
 
 </details>
 
