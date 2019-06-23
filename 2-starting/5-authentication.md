@@ -126,13 +126,13 @@ Use these `<meta>` values in the store:
   })
 ```
 
-*Under construction*
-
 
 ### Check the Result
 
 Start Logux server and Logux client and try to sign-in into application.
 If you will have any problems feel free to ask question at our [support chat].
+
+**[Next chapter →](../3-concepts/1-action.md)**
 
 [support chat]: https://gitter.im/logux/logux
 
@@ -285,5 +285,7 @@ If you will have any problems feel free to ask question at our [support chat].
 In next steps you will need to create good sign-up form, email verification,
 and many other things for good authentication. They are higly depends
 on your application and out of the topic of this guide.
+
+**[Next chapter →](../3-concepts/1-action.md)**
 
 [support chat]: https://gitter.im/logux/logux
