@@ -94,7 +94,7 @@ to `http://localhost:31338`.
 
 Now we need prepare back-end to receive requests from Logux proxy server.
 
-<details open><summary><b>Ruby on Rails server</b></summary>
+<details><summary><b>Ruby on Rails server</b></summary>
 
 [`logux_rails`] gem can add Back-end Protocol support and syntax sugar
 to Ruby on Rails.
