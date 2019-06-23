@@ -226,6 +226,11 @@ if ($req['password'] == LOGUX_PASSWORD) {
    3. [Starting Logux Redux Project](./2-starting/3-creating-redux.md)
    4. [Replacing Redux to Logux Redux](./2-starting/4-replacing-redux.md)
    5. [Authentication](./2-starting/5-authentication.md)
+3. **Core Concepts**
+   1. [Nodes](./2-concepts/1-node.md)
+   2. [Actions](./2-concepts/2-action.md)
+   3. [Meta](./2-concepts/3-meta.md)
+   4. [Channels and Subscriptions](./2-concepts/4-subscription.md)
 4. [Logux Protocol](./protocol/spec.md)
 5. [Logux Back-end Protocol](./backend-protocol/spec.md)
 
