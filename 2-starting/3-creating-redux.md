@@ -30,9 +30,49 @@ write code to change DOM according state changes.
 To create a project with a single command, we will use Create React App.
 We will use `client-logux`, but you can replace it to more relevant.
 
-*Under construction*
+```sh
+npx create-react-app client-logux
+cd client-logux
+```
 
 [install Node.js]: https://nodejs.org/en/download/package-manager/
+
+
+## Adding Redux
+
+Install Redux:
+
+```sh
+npm i react-redux redux
+```
+
+Open `src/index.js`:
+
+```diff
+  import * as serviceWorker from './serviceWorker';
++ import { Provider } from 'react-redux';
++ import reducer from './reducers'
+
++ const store = createStore(reducer)
+
+- ReactDOM.render(<App />, document.getElementById('root'));
++ ReactDOM.render(
++   <Provider store={store}><App /></Provider>,
++   document.getElementById('root')
++ );
+```
+
+Create `src/reducers/index.js`
+
+```js
+import { combineReducers } from 'redux';
+
+export default combineReducers({
+  // TODO: Add reducers depends of application purposes
+})
+```
+
+Read [how to use Redux](http://redux.js.org).
 
 
 ## Adding Logux Redux
@@ -43,7 +83,22 @@ Install Logux Redux:
 npm i @logux/server
 ```
 
-*Under construction*
+Edit `src/index.js`:
+
+```diff
+  import reducer from './reducers';
++ import createLoguxCreator from '@logux/redux/create-logux-creator';
+
++ const createStore = createLoguxCreator({
++   subprotocol: '0.1.0',
++   server: process.env.NODE_ENV === 'development'
++     ? 'ws://localhost:31337'
++     : 'wss://logux.example.com',
++   userId: false,  // TODO: We will fill it in next chapter
++   credentials: '' // TODO: We will fill it in next chapter
++ });
+  const store = createStore(reducer);
+```
 
 
 ## Synchronization UI
@@ -60,7 +115,7 @@ They are all optional, but they are great for the start.
 ```
 
 ```diff
-  const store = createStore(reducer, preloadedState, enhancer)
+  const store = createStore(reducer)
 + badge(store.client)
 + log(store.client)
 ```
