@@ -4,12 +4,12 @@ In this guide we will create the Logux proxy between WebSocket and your
 back-end server.
 
 * You already have back-end HTTP server. It authenticates users
-  and generates HTML pages. You want to continue using this HTTP server
+  and generates HTML pages. You want to continue using this HTTP server
   to process Logux actions.
 * You use [Logux Redux] on the client side.
 
 In you like Node.js and want the best performance, you can try
-to [move business logic] directly to Logux Server. Or you can keep
+to [move business logic] directly to Logux Server. Or you can keep
 high-performance parts in Logux Server and send other to back-end HTTP server.
 
 [move business logic]: ./1-creating-server.md
@@ -80,13 +80,13 @@ To stop the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux
 and Windows.
 
 The proxy will send user’s authentication request, Logux subscriptions
-and actions to `http://localhost:3000/logux`. Your back-end can send actions
+and actions to `http://localhost:3000/logux`. Your back-end can send actions
 to the client by sending HTTP request to `http://localhost:31338`.
 
 [Install Node.js]: https://nodejs.org/en/download/package-manager/
 
 
-## Back-end
+## Back-end Server
 
 Now we need prepare back-end to receive requests from Logux proxy server.
 
