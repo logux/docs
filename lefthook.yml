@@ -2,10 +2,10 @@ pre-push:
   parallel: true
   commands:
     yaspeller:
-      files: git diff --name-only @{push}
+      files: git diff --name-only HEAD @{push}
       glob: "*.md"
       run: npx yaspeller {files}
     links:
-      files: git diff --name-only @{push}
+      files: git diff --name-only HEAD @{push}
       glob: "*.md"
       run: npx markdown-link-check {files}
