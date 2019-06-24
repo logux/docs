@@ -1,15 +1,15 @@
 # Starting Logux Redux Project
 
-In this section we will create UI client for Logux with [Logux Redux].
-Logux Redux can work with any UI framework. We will use React
-and Create React App only as example.
+In this section, we will create a UI client for Logux with [Logux Redux].
+Logux Redux can work with any UI framework. We will use React
+and Create React App only as an example.
 
 [Logux Redux]: https://github.com/logux/redux
 
 
 ## Server
 
-Before starting the client you need to create Logux Server:
+Before starting the client, you need to create Logux Server:
 
 * [How to create the server] on Node.js.
 * [How to create a proxy] to use HTTP server on any other language.
@@ -20,22 +20,22 @@ Before starting the client you need to create Logux Server:
 
 ## Creating the Project
 
-First you need to [install Node.js].
+[Install Node.js].
 
-You will need a bundle to compile npm packages to JS bundle. Webpack or Parcel
-will be perfect. Also we are recommend to use some library to bind Redux state
-with DOM. React or Preact will work great. But for simple UI you can manually
-write code to change DOM according state changes.
+You will need a bundler to compile npm packages into JS bundle.
+Webpack or Parcel is excellent for it. Also, we recommend using some library
+to bind Redux state with DOM. React or Preact is good options.
+However, for simple UI, you can write code to change DOM according
+to state changes.
 
 To create a project with a single command, we will use Create React App.
-We will use `client-logux`, but you can replace it to more relevant.
 
 ```sh
 npx create-react-app client-logux
 cd client-logux
 ```
 
-[install Node.js]: https://nodejs.org/en/download/package-manager/
+[Install Node.js]: https://nodejs.org/en/download/package-manager/
 
 
 ## Adding Redux
@@ -51,9 +51,9 @@ Open `src/index.js`:
 ```diff
   import * as serviceWorker from './serviceWorker';
 + import { Provider } from 'react-redux';
-+ import reducer from './reducers'
++ import reducer from './reducers';
 
-+ const store = createStore(reducer)
++ const store = createStore(reducer);
 
 - ReactDOM.render(<App />, document.getElementById('root'));
 + ReactDOM.render(
@@ -68,7 +68,7 @@ Create `src/reducers/index.js`
 import { combineReducers } from 'redux';
 
 export default combineReducers({
-  // TODO: Add reducers depends of application purposes
+  // TODO: Add reducers depends on application purposes
 })
 ```
 
@@ -80,7 +80,7 @@ Read [how to use Redux](http://redux.js.org).
 Install Logux Redux:
 
 ```sh
-npm i @logux/server
+npm i @logux/redux
 ```
 
 Edit `src/index.js`:
@@ -103,32 +103,40 @@ Edit `src/index.js`:
 
 ## Synchronization UI
 
-To see the state of synchronization process we will add some helpers.
-They are all optional, but they are great for the start.
+To see the state of the synchronization process, we will add some helpers.
+They are all optional, but they are great for a start.
+
+Install Logux Redux:
+
+```sh
+npm i @logux/client
+```
+
+Change `src/index.js`:
 
 ```diff
-  import createLoguxCreator from '@logux/redux/create-logux-creator'
-+ import badge from '@logux/client/badge'
-+ import badgeStyles from '@logux/client/default'
-+ import badgeText from '@logux/client/en'
-+ import log from '@logux/client/log'
+  import createLoguxCreator from '@logux/redux/create-logux-creator';
++ import badge from '@logux/client/badge';
++ import badgeStyles from '@logux/client/default';
++ import badgeText from '@logux/client/en';
++ import log from '@logux/client/log';
 ```
 
 ```diff
-  const store = createStore(reducer)
-+ badge(store.client)
-+ log(store.client)
+  const store = createStore(reducer);
++ badge(store.client);
++ log(store.client);
 ```
 
 
 ## Check the Result
 
-Start the your project by `npm start`. In top left corner you will see the badge
-with authentication error. It is OK, we will add code for authentication
-only in next chapter.
+Start your project by `npm start`. In the top left corner, you will see a badge
+with an authentication error. It is OK. We will add authentication code
+only in the next chapter.
 
-If badge style doesn’t fit your website style you can always tweak it
-or replace with own component. See `@logux/client/badge`
+If badge style doesn’t fit your website style, you can always tweak it
+or replace with your component. See `@logux/client/badge`
 and `@logux/client/status` API.
 
 **[Next chapter →](./5-authentication.md)**
