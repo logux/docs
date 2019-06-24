@@ -15,7 +15,7 @@ If you want to use another language for the server read [Logux Proxy] page.
 
 ## Creating the Project
 
-You need to [install Node.js] (version 10.0 or later).
+[Install Node.js] (version 10.0 or later).
 
 Create a directory for a project. We will use `server-logux` name.
 
@@ -57,7 +57,7 @@ const server = new Server(
 )
 
 server.auth((userId, token) => {
-  return false // Deny all users until we will have a proper authentication method
+  return false // Deny all users until we will have a proper authentication
 })
 
 server.listen()
@@ -72,7 +72,7 @@ npm start
 To stop the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux
 and Windows.
 
-[install Node.js]: https://nodejs.org/en/download/package-manager/
+[Install Node.js]: https://nodejs.org/en/download/package-manager/
 
 ## Database
 

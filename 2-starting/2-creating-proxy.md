@@ -1,16 +1,14 @@
 # Creating Logux Proxy
 
-In this guide we will create the basic server to the most simple case:
+In this guide we will create the Logux proxy between WebSocket and your
+back-end server.
 
-* You already have back-end HTTP server. It authenticate users
-  and generate HTML pages.
+* You already have back-end HTTP server. It authenticates users
+  and generates HTML pages. You want to continue using this HTTP server
+  to process Logux actions.
 * You use [Logux Redux] on the client side.
 
-It is the best case for migrating big legacy project to Logux.
-You can move only few operations to Logux and keep using AJAX or forms
-for rest operations.
-
-In you want a little better performance and like Node.js, you can try
+In you like Node.js and want the best performance, you can try
 to [move business logic] directly to Logux Server. Or you can keep
 high-performance parts in Logux Server and send other to back-end HTTP server.
 
@@ -20,10 +18,9 @@ high-performance parts in Logux Server and send other to back-end HTTP server.
 
 ## Creating the Project
 
-First you need to [install Node.js] (version 10.0 or later).
+[Install Node.js] (version 10.0 or later).
 
-Create a directory with a project. We will use `server-logux`, but you can
-replace it to more relevant.
+Create a directory for a project. We will use `server-logux` name.
 
 ```sh
 mkdir server-logux
@@ -36,7 +33,10 @@ Create `package.json` with:
 {
   "name": "server-logux",
   "private": true,
-  "main": "index.js"
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  }
 }
 ```
 
@@ -55,7 +55,6 @@ const server = new Server(
   Server.loadOptions(process, {
     subprotocol: '0.1.0',
     supports: '^0.1.0',
-    backend: 'http://localhost:3000/logux',
     root: __dirname
   })
 )
@@ -63,31 +62,28 @@ const server = new Server(
 server.listen()
 ```
 
-Create `.env` with Logux password only for development environment.
-Put this file to `.gitignore`.
-
+Create `.env` file. Put this file to `.gitignore`.
 Set your local back-end server URL and secret:
 
-```
+```ini
 LOGUX_BACKEND=http://localhost:3000/
 LOGUX_CONTROL_PASSWORD=secret
 ```
 
-You can start proxy with:
+The proxy is ready. You can start it with:
 
 ```sh
-node index.js
+npm start
 ```
 
 To stop the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux
 and Windows.
 
-Logux proxy server is ready. It will send user’s authentication request,
-Logux subscriptions and actions to `http://localhost:3000/logux`.
-Your back-end can send actions to the client by sending HTTP request
-to `http://localhost:31338`.
+The proxy will send user’s authentication request, Logux subscriptions
+and actions to `http://localhost:3000/logux`. Your back-end can send actions
+to the client by sending HTTP request to `http://localhost:31338`.
 
-[install Node.js]: https://nodejs.org/en/download/package-manager/
+[Install Node.js]: https://nodejs.org/en/download/package-manager/
 
 
 ## Back-end
@@ -96,31 +92,29 @@ Now we need prepare back-end to receive requests from Logux proxy server.
 
 <details><summary><b>Ruby on Rails server</b></summary>
 
-[`logux_rails`] gem can add Back-end Protocol support and syntax sugar
-to Ruby on Rails.
+[`logux_rails`] gem adds Back-end Protocol support to Ruby on Rails.
 
 Go to your Ruby on Rails application folder:
 
 ```sh
-cd ../project-rails
+cd ../server-rails
 ```
 
-Add it to `Gemfile` and call `bundle`:
+Add gems to `Gemfile` and call `bundle`:
 
 ```ruby
 gem 'logux_rails'
 gem 'dotenv-rails', groups: [:development, :test]
 ```
 
-Create `.env` with Logux password only for development environment.
-Put this file to `.gitignore`.
+Create `.env` file. Put this file to `.gitignore`.
 
-```
+```ini
 LOGUX_CONTROL_PASSWORD=secret
 LOGUX_URL=http://localhost:31338
 ```
 
-Create file at `config/initializers/logux.rb`:
+Create `config/initializers/logux.rb` file:
 
 ```ruby
 Logux.configuration do |config|
@@ -128,7 +122,7 @@ Logux.configuration do |config|
   config.logux_host = ENV['LOGUX_URL']
 
   config.auth_rule = lambda do |user_id, token|
-    false
+    false # Deny all users until we will have a proper authentication
   end
 end
 ```
@@ -144,14 +138,13 @@ Add Logux to `config/routes.rb`:
 <details><summary><b>Any other HTTP server</b></summary>
 
 1. Read about **[Logux Back-end Protocol]**.
-2. Implement protocol in your HTTP server.
-3. You can create open source Logux library for you environment.
-   Feel free to ask for help in [Logux support chat].
+2. Implement protocol on your HTTP server.
+3. Feel free to ask for help in [Logux support chat].
 4. You will need proper storage to keep Logux proxy URL and secret.
    We recommend to use `.env` with library to support this file
    in your environment.
 
-   ```
+   ```ini
    LOGUX_CONTROL_PASSWORD=secret
    LOGUX_URL=http://localhost:31338
    ```
