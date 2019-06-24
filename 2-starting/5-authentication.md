@@ -132,7 +132,7 @@ Use these `<meta>` values in the store:
 Start Logux server and Logux client and try to sign-in into application.
 If you will have any problems feel free to ask question at our [support chat].
 
-**[Next chapter →](../3-concepts/1-action.md)**
+**[Next chapter →](../3-concepts/1-node.md)**
 
 [support chat]: https://gitter.im/logux/logux
 
