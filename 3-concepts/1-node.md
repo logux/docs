@@ -2,4 +2,4 @@
 
 *Under construction*
 
-**[Next chapter →](./2-actions.md)**
+**[Next chapter →](./2-action.md)**
