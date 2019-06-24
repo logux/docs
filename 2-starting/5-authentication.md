@@ -200,7 +200,7 @@ server.type('login', {
 
 ### Client
 
-Open your Logux Redux client and add signup form according too your design.
+Open your Logux Redux client and add sign-up form according too your design.
 
 Then add code to login user:
 
@@ -283,9 +283,9 @@ Start Logux server and Logux client and try to sign-in into application.
 If you will have any problems feel free to ask question at our [support chat].
 
 In next steps you will need to create good sign-up form, email verification,
-and many other things for good authentication. They are higly depends
+and many other things for good authentication. They are highly depends
 on your application and out of the topic of this guide.
 
-**[Next chapter →](../3-concepts/1-action.md)**
+**[Next chapter →](../3-concepts/1-node.md)**
 
 [support chat]: https://gitter.im/logux/logux

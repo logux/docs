@@ -2,4 +2,4 @@
 
 *Under construction*
 
-**[Next chapter →](./4-subscriptions.md)**
+**[Next chapter →](./4-subscription.md)**
