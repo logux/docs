@@ -1,13 +1,13 @@
 # Starting Logux Server Project
 
-In this guide we will create the basic server to the most simple case:
+In this guide, we will create the Logux server for the simplest case:
 
-* You have simple HTTP server to serve HTML and static CSS and JS files.
+* You have simple HTTP server to serve static HTML, CSS, and JS files.
 * You use [Logux Redux] on the client side.
 * Logux server do most of back-end business logic.
 * You write Logux server on Node.js.
 
-If you want to use another language for server check [Logux Proxy] section.
+If you want to use another language for the server read [Logux Proxy] page.
 
 [Logux Redux]: ./3-creating-redux.md
 [Logux Proxy]: ./2-creating-proxy.md
@@ -15,10 +15,9 @@ If you want to use another language for server check [Logux Proxy] section.
 
 ## Creating the Project
 
-First you need to [install Node.js] (version 10.0 or later).
+You need to [install Node.js] (version 10.0 or later).
 
-Create a directory with a project. We will use `server-logux`, but you can
-replace it to more relevant.
+Create a directory for a project. We will use `server-logux` name.
 
 ```sh
 mkdir server-logux
@@ -31,7 +30,10 @@ Create `package.json` with:
 {
   "name": "server-logux",
   "private": true,
-  "main": "index.js"
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  }
 }
 ```
 
@@ -55,7 +57,7 @@ const server = new Server(
 )
 
 server.auth((userId, token) => {
-  return false
+  return false // Deny all users until we will have a proper authentication method
 })
 
 server.listen()
@@ -64,7 +66,7 @@ server.listen()
 The simple Logux server is ready. You can start it with:
 
 ```sh
-node index.js
+npm start
 ```
 
 To stop the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux
@@ -74,15 +76,17 @@ and Windows.
 
 ## Database
 
-Logux Server can work with any database. We will use PostgreSQL only as example.
+Logux Server supports any database. We will use PostgreSQL only as an example.
 
-Install PostgreSQL and its tools for Node.js:
+[Install PostgreSQL](https://www.postgresql.org/download/).
+
+Install PostgreSQL tools for Node.js:
 
 ```sh
 npm i dotenv pg-promise node-pg-migrate pg
 ```
 
-Create database. Use [this advice] on `role does not exist` error.
+Create database. Use [this advice] if you will have `role does not exist` error.
 
 ```sh
 createdb server-logux
@@ -90,11 +94,11 @@ createdb server-logux
 
 Create `.env` config with URL to your database. Put this file to `.gitignore`.
 
-```
+```ini
 DATABASE_URL=postgres://localhost/server-logux
 ```
 
-Create new database schema migration:
+Create new migration for database schema:
 
 ```sh
 npx node-pg-migrate create create_users
@@ -122,7 +126,7 @@ Run migration:
 npx node-pg-migrate up
 ```
 
-Connect to database in the server:
+Connect to the database in `index.js`:
 
 ```diff
   const { Server } = require('@logux/server')
