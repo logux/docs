@@ -1,23 +1,20 @@
 # Authentication
 
-In previous chapters we created Logux server and client. Now we need to add
+In previous chapters, we created Logux server and client. Now we need to add
 authentication process to connect them.
 
-In this examples we will use simple email/password authentication.
-But this process can be used for any kind of authentication including OAuth
-or WebAuthn.
+In this example, we will use simple email/password authentication.
+Logux supports any authentication, including OAuth or WebAuthn.
 
-Client will use user ID and JWT token. We will explain 2 the most popular cases:
+We will show two of the most popular cases:
 
 1. You already have Ruby/PHP/Python back-end server and HTML page
-   with email and password fields. When user will pass authentication
-   back-end server will redirect them to application page
-   (like `app.example.com`) and insert user ID and token as `<meta>` tags.
+   with email and password fields. When user passed authentication
+   back-end server redirects them and insert user ID and token as `<meta>` tags.
 2. You keep all your business logic in Logux Server and use HTTP just
-   to send static HTML, JS, and CSS files to client. In this case,
-   Logux client will open Logux connection as a guest to send
-   authentication action. Logux server will send action with user ID and token
-   back to client. Client will save them to `localStorage`.
+   to send static HTML. In this case, Logux client connects as a guest
+   and sends authentication action. Logux server sends action with a user ID
+   and token back to the client. The client will save them to `localStorage`.
 
 If you need another way, you can combine methods or ask for advice
 in [Logux support chat].
@@ -29,17 +26,15 @@ in [Logux support chat].
 
 ### Server
 
-Go to you back-end and server and
+Go to your back-end server.
 
 <details><summary><b>Ruby on Rails</b></summary>
 
-Add `jwt` to `Gemfile`:
+Add `jwt` to `Gemfile` and call `bundle`:
 
 ```ruby
 gem 'jwt'
 ```
-
-Install it by `bundle` call.
 
 Add JWT secret key to local `.env`:
 
@@ -53,7 +48,7 @@ Edit `config/initializers/logux.rb`:
 
 ```diff
   config.auth_rule = lambda do |user_id, token|
--   false
+-   false # Deny all users until we will have a proper authentication
 +   data = JWT.decode token, ENV['JWT_SECRET'], { algorithm: 'HS256' }
 +   data[0]['sub'] == user_id
   end
@@ -69,8 +64,8 @@ Add `<meta>` tags to application layout used for authenticated user:
 </details>
 <details><summary><b>Any other HTTP server</b></summary>
 
-Add JWT secret key to proper storage for your environment. Local `.env`
-with a library to use `.env` is a good option.
+Add JWT secret key to proper storage for your environment.
+Local `.env` is a good option.
 
 ```diff
   LOGUX_CONTROL_PASSWORD=secret
@@ -78,8 +73,7 @@ with a library to use `.env` is a good option.
 + JWT_SECRET=secret
 ```
 
-Add library to support JWT. Add code to check `userId` and `token`
-to your code which works with Logux Back-end Protocol.
+Add library to support JWT. Add code to check `userId` and `token` from Logux:
 
 ```js
 data = JWT.decode(token, ENV['JWT_SECRET'])
@@ -129,8 +123,9 @@ Use these `<meta>` values in the store:
 
 ### Check the Result
 
-Start Logux server and Logux client and try to sign-in into application.
-If you will have any problems feel free to ask question at our [support chat].
+Start back-end server, Logux proxy, and Logux client. Try to sign-in
+into application. If you will have any problems feel free to ask a question
+at our [support chat].
 
 **[Next chapter →](../3-concepts/1-node.md)**
 
@@ -141,13 +136,13 @@ If you will have any problems feel free to ask question at our [support chat].
 
 ### Server
 
-Go to Logux Server and add library to generate JWT:
+Go to Logux Server and add the library to generate JWT:
 
 ```sh
 npm i jwt-then
 ```
 
-Add load it in the server:
+Load it in the `index.js`:
 
 ```diff
   const { Server } = require('@logux/server')
@@ -167,7 +162,6 @@ Replace `server.auth(…)` with this code:
 ```js
 server.auth(async (userId, token) => {
   if (userId === 'false') {
-    // Guests don’t need any validations
     return true
   } else {
     try {
@@ -179,19 +173,23 @@ server.auth(async (userId, token) => {
   }
 })
 
-// Handler for { type: 'login', email, password } actions
 server.type('login', {
   async access (ctx) {
-    // This action is accepted only from guests
     return ctx.userId === 'false'
   },
   async process (ctx, action) {
-    let user = await db.one('SELECT * FROM users WHERE email = ?', action.email)
-    if (user && user.password === action.password) {
+    let user
+    try {
+      user = await db.one('SELECT * FROM users WHERE email = ?', action.email)
+    } catch (e) {
+      server.undo(meta, 'Unknown email')
+      return
+    }
+    if (user.password === action.password) {
       let token = await jwt.sign({ sub: user.id }, process.env.JWT_SECRET)
       ctx.sendBack({ type: 'login/done', userId: user.id, token })
     } else {
-      server.undo(meta, 'wrong')
+      server.undo(meta, 'Wrong password')
     }
   }
 })
@@ -200,7 +198,7 @@ server.type('login', {
 
 ### Client
 
-Open your Logux Redux client and add sign-up form according too your design.
+Open your Logux Redux client and add sign-up form according to your design.
 
 Then add code to login user:
 
@@ -229,8 +227,8 @@ export LoginController = () => {
         location.href = process.env.NODE_ENV === 'development'
           ? 'http://localhost:3000/dashboard'
           : 'https://app.example.com/dashboard'
-      } else if (action === 'logux/undo') {
-        showError('Wrong email or password')
+      } else if (action.type === 'logux/undo') {
+        showError(action.reason)
       }
     })
     client.start()
@@ -254,7 +252,7 @@ Use these `localStorage` values in the store:
 +   location.href = process.env.NODE_ENV === 'development'
 +     ? 'http://localhost:3000/login'
 +     : 'https://example.com/login'
-+ }
++ };
   const createStore = createLoguxCreator({
     subprotocol: '0.1.0',
     server: process.env.NODE_ENV === 'development'
@@ -264,13 +262,13 @@ Use these `localStorage` values in the store:
 -   credentials: '' // TODO: We will fill it in next chapter
 +   userId: localStorage.getItem('userId'),
 +   credentials: localStorage.getItem('token'),
-  })
+  });
 ```
 
 
 ### Check the Result
 
-Add new user by SQL command:
+Add a new user by SQL command:
 
 ```sh
 psql project-logux
@@ -279,12 +277,12 @@ SELECT * FROM users;
 exit
 ```
 
-Start Logux server and Logux client and try to sign-in into application.
-If you will have any problems feel free to ask question at our [support chat].
+Start Logux server and Logux client. Try to sign-in into the application.
+If you will have any problems feel free to ask a question at our [support chat].
 
-In next steps you will need to create good sign-up form, email verification,
-and many other things for good authentication. They are highly depends
-on your application and out of the topic of this guide.
+In the next steps, you will need a good sign-up form, email verification,
+and many other things for proper authentication. They highly depend
+on your application and out of this guide topic.
 
 **[Next chapter →](../3-concepts/1-node.md)**
 
