@@ -1,6 +1,6 @@
 # Creating Logux Proxy
 
-In this guide we will create the Logux proxy between WebSocket and your
+In this guide, we will create the Logux proxy between WebSocket and your
 back-end server.
 
 * You already have back-end HTTP server. It authenticates users
@@ -8,9 +8,10 @@ back-end server.
   to process Logux actions.
 * You use [Logux Redux] on the client side.
 
-In you like Node.js and want the best performance, you can try
+If you like Node.js and want the best performance, you can try
 to [move business logic] directly to Logux Server. Or you can keep
-high-performance parts in Logux Server and send other to back-end HTTP server.
+high-performance parts in Logux Server and send others
+to the back-end HTTP server.
 
 [move business logic]: ./1-creating-server.md
 [Logux Redux]: ./3-creating-redux.md
@@ -79,16 +80,16 @@ npm start
 To stop the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux
 and Windows.
 
-The proxy will send user’s authentication request, Logux subscriptions
+The proxy will send the user’s authentication request, Logux subscriptions,
 and actions to `http://localhost:3000/logux`. Your back-end can send actions
-to the client by sending HTTP request to `http://localhost:31338`.
+to the client by sending an HTTP request to `http://localhost:31338`.
 
 [Install Node.js]: https://nodejs.org/en/download/package-manager/
 
 
 ## Back-end Server
 
-Now we need prepare back-end to receive requests from Logux proxy server.
+Now we need to prepare back-end to receive requests from Logux proxy server.
 
 <details><summary><b>Ruby on Rails server</b></summary>
 
@@ -141,7 +142,7 @@ Add Logux to `config/routes.rb`:
 2. Implement protocol on your HTTP server.
 3. Feel free to ask for help in [Logux support chat].
 4. You will need proper storage to keep Logux proxy URL and secret.
-   We recommend to use `.env` with library to support this file
+   We recommend using `.env` with the library to support this file
    in your environment.
 
    ```ini
