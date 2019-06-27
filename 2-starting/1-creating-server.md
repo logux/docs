@@ -92,7 +92,7 @@ Create database. Use [this advice] if you will have `role does not exist` error.
 createdb server-logux
 ```
 
-Create `.env` config with URL to your database. Put this file to `.gitignore`.
+Create `.env` config file with URL to your database. Put this file to `.gitignore`.
 
 ```ini
 DATABASE_URL=postgres://localhost/server-logux
