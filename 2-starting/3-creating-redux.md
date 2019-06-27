@@ -117,8 +117,8 @@ Change `src/index.js`:
 ```diff
   import createLoguxCreator from '@logux/redux/create-logux-creator';
 + import badge from '@logux/client/badge';
-+ import badgeStyles from '@logux/client/default';
-+ import badgeText from '@logux/client/en';
++ import badgeStyles from '@logux/client/badge/default';
++ import badgeText from '@logux/client/badge/en';
 + import log from '@logux/client/log';
 ```
 
