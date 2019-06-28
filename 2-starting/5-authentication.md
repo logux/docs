@@ -157,7 +157,7 @@ Add JWT secret key to local `.env` config file:
 + JWT_SECRET=secret
 ```
 
-Go to index.js, replace `server.auth(…)` with this code:
+Go to `index.js`, replace `server.auth(…)` with this code:
 
 ```js
 server.auth(async (userId, token) => {
