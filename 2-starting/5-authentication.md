@@ -150,14 +150,14 @@ Load it in the `index.js`:
   const pg = require('pg-promise')
 ```
 
-Add JWT secret key to local `.env`:
+Add JWT secret key to local `.env` config file:
 
 ```diff
   DATABASE_URL=postgres://localhost/server-logux
 + JWT_SECRET=secret
 ```
 
-Replace `server.auth(…)` with this code:
+Go to index.js, replace `server.auth(…)` with this code:
 
 ```js
 server.auth(async (userId, token) => {
