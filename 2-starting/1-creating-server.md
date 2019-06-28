@@ -86,6 +86,8 @@ Install PostgreSQL tools for Node.js:
 npm i dotenv pg-promise node-pg-migrate pg
 ```
 
+Start database depends on your environment.
+
 Create database. Use [this advice] if you will have `role does not exist` error.
 
 ```sh
