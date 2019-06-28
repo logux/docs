@@ -110,8 +110,7 @@ Content-Type: application/json
 }
 ```
 
-After the answer from Logux server, back-end writes the last part
-of an HTTP response:
+After the answer from Logux server, back-end writes the last part of an HTTP response:
 
 ```js
   ["processed", "1560954012858 38:Y7bysd:O0ETfc 0"]

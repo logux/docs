@@ -1,8 +1,6 @@
 # Starting Logux Redux Project
 
-In this section, we will create a UI client for Logux with [Logux Redux].
-Logux Redux can work with any UI framework. We will use React
-and Create React App only as an example.
+In this section, we will create a UI client for Logux with [Logux Redux]. Logux Redux can work with any UI framework. We will use React and Create React App only as an example.
 
 [Logux Redux]: https://github.com/logux/redux
 
@@ -22,11 +20,7 @@ Before starting the client, you need to create Logux Server:
 
 [Install Node.js].
 
-You will need a bundler to compile npm packages into JS bundle.
-Webpack or Parcel is excellent for it. Also, we recommend using some library
-to bind Redux state with DOM. React or Preact is good options.
-However, for simple UI, you can write code to change DOM according
-to state changes.
+You will need a bundler to compile npm packages into JS bundle. Webpack or Parcel is excellent for it. Also, we recommend using some library to bind Redux state with DOM. React or Preact is good options. However, for simple UI, you can write code to change DOM according to state changes.
 
 To create a project with a single command, we will use Create React App.
 
@@ -103,8 +97,7 @@ Edit `src/index.js`:
 
 ## Synchronization UI
 
-To see the state of the synchronization process, we will add some helpers.
-They are all optional, but they are great for a start.
+To see the state of the synchronization process, we will add some helpers. They are all optional, but they are great for a start.
 
 Install Logux Redux:
 
@@ -131,8 +124,6 @@ Change `src/index.js`:
 
 ## Check the Result
 
-Start your project by `npm start`. In the top left corner, you will see a badge
-with an authentication error. It is OK. We will add authentication code
-only in the next chapter.
+Start your project by `npm start`. In the top left corner, you will see a badge with an authentication error. It is OK. We will add authentication code only in the next chapter.
 
 **[Next chapter →](./5-authentication.md)**

@@ -1,23 +1,15 @@
 # Authentication
 
-In previous chapters, we created Logux server and client. Now we need to add
-authentication process to connect them.
+In previous chapters, we created Logux server and client. Now we need to add authentication process to connect them.
 
-In this example, we will use simple email/password authentication.
-Logux supports any authentication, including OAuth or WebAuthn.
+In this example, we will use simple email/password authentication. Logux supports any authentication, including OAuth or WebAuthn.
 
 We will show two of the most popular cases:
 
-1. You already have Ruby/PHP/Python back-end server and HTML page
-   with email and password fields. When user passed authentication
-   back-end server redirects them and insert user ID and token as `<meta>` tags.
-2. You keep all your business logic in Logux Server and use HTTP just
-   to send static HTML. In this case, Logux client connects as a guest
-   and sends authentication action. Logux server sends action with a user ID
-   and token back to the client. The client will save them to `localStorage`.
+1. You already have Ruby/PHP/Python back-end server and HTML page with email and password fields. When user passed authentication back-end server redirects them and insert user ID and token as `<meta>` tags.
+2. You keep all your business logic in Logux Server and use HTTP just to send static HTML. In this case, Logux client connects as a guest and sends authentication action. Logux server sends action with a user ID and token back to the client. The client will save them to `localStorage`.
 
-If you need another way, you can combine methods or ask for advice
-in [Logux support chat].
+If you need another way, you can combine methods or ask for advice in [Logux support chat].
 
 [Logux support chat]: https://gitter.im/logux/logux
 
@@ -64,8 +56,7 @@ Add `<meta>` tags to application layout used for authenticated user:
 </details>
 <details><summary><b>Any other HTTP server</b></summary>
 
-Add JWT secret key to proper storage for your environment.
-Local `.env` is a good option.
+Add JWT secret key to proper storage for your environment. Local `.env` is a good option.
 
 ```diff
   LOGUX_CONTROL_PASSWORD=secret
@@ -123,9 +114,7 @@ Use these `<meta>` values in the store:
 
 ### Check the Result
 
-Start back-end server, Logux proxy, and Logux client. Try to sign-in
-into application. If you will have any problems feel free to ask a question
-at our [support chat].
+Start back-end server, Logux proxy, and Logux client. Try to sign-in into application. If you will have any problems feel free to ask a question at our [support chat].
 
 **[Next chapter →](../3-concepts/1-node.md)**
 
@@ -277,12 +266,9 @@ SELECT * FROM users;
 exit
 ```
 
-Start Logux server and Logux client. Try to sign-in into the application.
-If you will have any problems feel free to ask a question at our [support chat].
+Start Logux server and Logux client. Try to sign-in into the application. If you will have any problems feel free to ask a question at our [support chat].
 
-In the next steps, you will need a good sign-up form, email verification,
-and many other things for proper authentication. They highly depend
-on your application and out of this guide topic.
+In the next steps, you will need a good sign-up form, email verification, and many other things for proper authentication. They highly depend on your application and out of this guide topic.
 
 **[Next chapter →](../3-concepts/1-node.md)**
 

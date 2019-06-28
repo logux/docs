@@ -1,17 +1,11 @@
 # Creating Logux Proxy
 
-In this guide, we will create the Logux proxy between WebSocket and your
-back-end server.
+In this guide, we will create the Logux proxy between WebSocket and your back-end server.
 
-* You already have back-end HTTP server. It authenticates users
-  and generates HTML pages. You want to continue using this HTTP server
-  to process Logux actions.
+* You already have back-end HTTP server. It authenticates users and generates HTML pages. You want to continue using this HTTP server to process Logux actions.
 * You use [Logux Redux] on the client side.
 
-If you like Node.js and want the best performance, you can try
-to [move business logic] directly to Logux Server. Or you can keep
-high-performance parts in Logux Server and send others
-to the back-end HTTP server.
+If you like Node.js and want the best performance, you can try to [move business logic] directly to Logux Server. Or you can keep high-performance parts in Logux Server and send others to the back-end HTTP server.
 
 [move business logic]: ./1-creating-server.md
 [Logux Redux]: ./3-creating-redux.md
@@ -63,8 +57,7 @@ const server = new Server(
 server.listen()
 ```
 
-Create `.env` file. Put this file to `.gitignore`.
-Set your local back-end server URL and secret:
+Create `.env` file. Put this file to `.gitignore`. Set your local back-end server URL and secret:
 
 ```ini
 LOGUX_BACKEND=http://localhost:3000/
@@ -77,12 +70,9 @@ The proxy is ready. You can start it with:
 npm start
 ```
 
-To stop the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux
-and Windows.
+To stop the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux and Windows.
 
-The proxy will send the user’s authentication request, Logux subscriptions,
-and actions to `http://localhost:3000/logux`. Your back-end can send actions
-to the client by sending an HTTP request to `http://localhost:31338`.
+The proxy will send the user’s authentication request, Logux subscriptions, and actions to `http://localhost:3000/logux`. Your back-end can send actions to the client by sending an HTTP request to `http://localhost:31338`.
 
 [Install Node.js]: https://nodejs.org/en/download/package-manager/
 
@@ -141,9 +131,7 @@ Add Logux to `config/routes.rb`:
 1. Read about **[Logux Back-end Protocol]**.
 2. Implement protocol on your HTTP server.
 3. Feel free to ask for help in [Logux support chat].
-4. You will need proper storage to keep Logux proxy URL and secret.
-   We recommend using `.env` with the library to support this file
-   in your environment.
+4. You will need proper storage to keep Logux proxy URL and secret. We recommend using `.env` with the library to support this file in your environment.
 
    ```ini
    LOGUX_CONTROL_PASSWORD=secret

@@ -34,8 +34,7 @@ SERVER < ["sync", 2,
 CLIENT > ["synced", 2]
 ```
 
-Clients may hide some actions from each other,
-so `added` time could be different:
+Clients may hide some actions from each other, so `added` time could be different:
 
 ```ts
 CONNECTED
