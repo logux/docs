@@ -62,17 +62,17 @@ npm i @logux/client
 Use helpers where you create the store.
 
 ```diff
-  import createLoguxCreator from '@logux/redux/create-logux-creator';
-+ import badge from '@logux/client/badge';
-+ import badgeStyles from '@logux/client/default';
-+ import badgeText from '@logux/client/en';
-+ import log from '@logux/client/log';
+  import createLoguxCreator from '@logux/redux/create-logux-creator'
++ import badge from '@logux/client/badge'
++ import badgeStyles from '@logux/client/default'
++ import badgeText from '@logux/client/en'
++ import log from '@logux/client/log'
 ```
 
 ```diff
-  const store = createStore(reducer);
-+ badge(store.client);
-+ log(store.client);
+  const store = createStore(reducer)
++ badge(store.client, { messages: badgeMessages, styles: badgeStyles })
++ log(store.client)
 ```
 
 

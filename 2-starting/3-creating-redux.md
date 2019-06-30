@@ -111,13 +111,13 @@ Change `src/index.js`:
   import createLoguxCreator from '@logux/redux/create-logux-creator';
 + import badge from '@logux/client/badge';
 + import badgeStyles from '@logux/client/badge/default';
-+ import badgeText from '@logux/client/badge/en';
++ import badgeMessages from '@logux/client/badge/en';
 + import log from '@logux/client/log';
 ```
 
 ```diff
   const store = createStore(reducer);
-+ badge(store.client);
++ badge(store.client, { messages: badgeMessages, styles: badgeStyles });
 + log(store.client);
 ```
 
