@@ -171,7 +171,8 @@ Logux clients send pings messages to Web Socket to detect loosing Internet and s
 
 Offline is a normal mode for Logux. The user can work with data and create an action to change the data. Unsent action be kept in the log and user will see *“changes were not saved yet”* warning.
 
-![Logux Client badge with Offline and Changes not saved messages](./offline-badge.png)
+<img src="./offline-badge.png" width="314" height="64"
+     alt="Logux Client badge with Offline and Changes not saved messages">
 
 When user get Internet back, Logux will reconnect to the server, send all actions and receive all data updates.
 
