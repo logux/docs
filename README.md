@@ -209,9 +209,10 @@ if ($req['password'] == LOGUX_PASSWORD) {
 1. **Logux Architecture**
    1. [Core Concepts](./1-architecture/1-core.md)
    2. [Using Concepts in Practice](./1-architecture/2-practice.md)
-   3. [Comparing Logux with AJAX and GraphQL](./1-architecture/3-compare.md)
-   3. [Parts](./1-architecture/4-parts.md)
-   4. [Choosing Right Architecture](./1-architecture/5-choosing.md)
+   3. [What Problems does Logux Solve](./1-architecture/3-solved.md)
+   4. [Comparing Logux with AJAX and GraphQL](./1-architecture/4-compare.md)
+   5. [Parts](./1-architecture/5-parts.md)
+   6. [Choosing Right Architecture](./1-architecture/6-choosing.md)
 2. **Starting Logux Project**
    1. [Starting Logux Server Project](./2-starting/1-creating-server.md)
    2. [Creating Logux Proxy](./2-starting/2-creating-proxy.md)
