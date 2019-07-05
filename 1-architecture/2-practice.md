@@ -15,8 +15,7 @@ Logux server is written in JS. There are two ways to use it:
 
     ```js
     server.auth(async (userId, token) => {
-      let user = await findUser(userId)
-      return user.token === token
+      return verifyJWT(token).userId === userId
     })
     ```
 2. Use **Logux server as a proxy**. Logux can convert all Web Sockets events to the HTTP request to your web server. You can use your favorite back-end language: for instance, PHP, Ruby on Rails or Go.
@@ -171,6 +170,8 @@ Optimistic UI is great for UX. Some actions (like payments) require loader. Logu
 Logux clients send pings messages to Web Socket to detect loosing Internet and show *“you are offline”* warning.
 
 Offline is a normal mode for Logux. The user can work with data and create an action to change the data. Unsent action be kept in the log and user will see *“changes were not saved yet”* warning.
+
+![Logux Client badge with Offline and Changes not saved messages](./offline-badge.png)
 
 When user get Internet back, Logux will reconnect to the server, send all actions and receive all data updates.
 
