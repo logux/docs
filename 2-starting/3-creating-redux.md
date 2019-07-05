@@ -124,6 +124,12 @@ Change `src/index.js`:
 
 ## Check the Result
 
-Start your project by `npm start`. In the top left corner, you will see a badge with an authentication error. It is OK. We will add authentication code only in the next chapter.
+Start your project by `npm start`. In browser console you will see this authentication error:
+
+```
+Logux server sent error: Wrong credentials
+```
+
+It is OK. We will add authentication code only in the next chapter.
 
 **[Next chapter →](./5-authentication.md)**

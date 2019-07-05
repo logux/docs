@@ -78,7 +78,13 @@ Use helpers where you create the store.
 
 ## Check the Result
 
-Start your project by `npm start`. In the top left corner, you will see the badge with an authentication error. It is OK. We will add authentication code only in the next chapter.
+Start your project by `npm start`. In browser console you will see this authentication error:
+
+```
+Logux server sent error: Wrong credentials
+```
+
+It is OK. We will add authentication code only in the next chapter.
 
 If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See `@logux/client/badge` and `@logux/client/status` API.
 
