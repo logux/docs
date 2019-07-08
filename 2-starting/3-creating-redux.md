@@ -93,6 +93,7 @@ Edit `src/index.js`:
 +   credentials: '' // TODO: We will fill it in next chapter
 + });
   const store = createStore(reducer);
++ store.client.start()
 ```
 
 

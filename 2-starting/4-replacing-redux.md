@@ -46,6 +46,7 @@ Find store definition in your project. Look for `createStore` function call. Oft
 +   credentials: '' // TODO: We will fill it in next chapter
 + })
   const store = createStore(reducer, preloadedState, enhancer)
++ store.client.start()
 ```
 
 
