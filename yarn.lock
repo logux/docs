@@ -8,9 +8,9 @@
   integrity sha512-d6lhxhv6gET/31r2eFarSiiz0Otp3uapS772JtDIzL+TWYVOUWLZQ7FCtySQnF3+blQuJPAgAKbIma8tkEMeMg==
 
 ajv@^6.5.5:
-  version "6.10.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.10.0.tgz#90d0d54439da587cd7e843bfb7045f50bd22bdf1"
-  integrity sha512-nffhOpkymDECQyR0mnsUtoCE8RlX38G0rYP+wgLWFyZuUyuuojSSvi/+euOiQBIn63whYwYVIIH1TvE3tu4OEg==
+  version "6.10.1"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.10.1.tgz#ebf8d3af22552df9dd049bfbe50cc2390e823593"
+  integrity sha512-w1YQaVGNC6t2UCPjEawK/vo/dG8OOrVtUmhBT1uJJYxbl5kU2Tj3v6LGqBcsysN1yhuCStJCCA3GqdvKY8sqXQ==
   dependencies:
     fast-deep-equal "^2.0.1"
     fast-json-stable-stringify "^2.0.0"
@@ -769,9 +769,9 @@ resolve-from@^3.0.0:
   integrity sha1-six699nWiBvItuZTM17rywoYh0g=
 
 safe-buffer@^5.0.1, safe-buffer@^5.1.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
-  integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.0.tgz#b74daec49b1148f88c64b68d49b1e815c1f2f519"
+  integrity sha512-fZEwUGbVl7kouZs1jCdMLdt95hdIv0ZeHg6L7qPeciMZhZ+/gdesW4wgTARkrFWEpspjEATAzUGPG8N2jJiwbg==
 
 safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
@@ -969,10 +969,10 @@ yallist@^2.1.2:
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
   integrity sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI=
 
-yandex-speller@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/yandex-speller/-/yandex-speller-2.1.1.tgz#b8bad94b7b4596b8e4c8dcc893bedc575b404243"
-  integrity sha512-Z3rA5ViEdqLKJt3Q9+PfEvycdmrznIB52AXnS683AShg/1+Ql5g9ozDgTdhPL7dp2RzYjczRf4OfLv/SZJpbmQ==
+yandex-speller@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/yandex-speller/-/yandex-speller-4.0.0.tgz#b77d882ac794ef40ede3e90dba3973403cc7f0ac"
+  integrity sha512-fDhxRnDL57UPzWxKwPoBJj3Fd8swv74g2pv653cZzcY7KrZZqovZa989Z4LGSAx6PHTPILmsUWFtp9zIuH8aXA==
 
 yargs-parser@^8.1.0:
   version "8.1.0"
@@ -999,10 +999,10 @@ yargs@^10.0.3:
     y18n "^3.2.1"
     yargs-parser "^8.1.0"
 
-yaspeller@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/yaspeller/-/yaspeller-5.1.0.tgz#3053100d21a0cc435129cdaceebd335fa324b1e4"
-  integrity sha512-OHgmnksjhmj6gvWMmMf9Q50TVA3sdJS7l1+LZ1N2CukAXtzrWfVP1tudXtUkJm5DsD/RHms6Xjn7Jm15aBgpMg==
+yaspeller@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/yaspeller/-/yaspeller-6.0.0.tgz#3799b2bbf2c75ec5549959a2f28ccd741bb63f38"
+  integrity sha512-DE9Yt6G0qh9oPj69AD1PSZdidZxagSbFeeDKWg/05DFFpoye8ggarhWqQurNyz/ksLejhOcKANOLOO1yQ96JWA==
   dependencies:
     async "^2.6.2"
     chalk "^2.4.2"
@@ -1018,4 +1018,4 @@ yaspeller@^5.1.0:
     showdown "^1.9.0"
     strip-json-comments "^3.0.0"
     xml2js "^0.4.19"
-    yandex-speller "^2.1.1"
+    yandex-speller "^4.0.0"

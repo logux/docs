@@ -9,7 +9,7 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.5.7",
     "markdown-link-check": "^3.7.3",
-    "yaspeller": "^5.1.0"
+    "yaspeller": "^6.0.0"
   },
   "yaspeller": {
     "lang": "en",
