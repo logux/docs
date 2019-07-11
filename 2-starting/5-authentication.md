@@ -193,46 +193,30 @@ Open your Logux Redux client and add sign-up form according to your design.
 Then add code to login user:
 
 ```js
-import { useState, useCallback } from 'react'
 import Client from '@logux/client/client'
 
-export LoginController = () => {
-  const [email, changeEmail] = useState('')
-  const [password, changePassword] = useState('')
-  const [error, showError] = useState()
-
-  const submit = useCallback(() => {
-    let client = new Client({
-      subprotocol: '0.1.0',
-      server: process.env.NODE_ENV === 'development'
-        ? 'ws://localhost:31337'
-        : 'wss://logux.example.com',
-      userId: false
-    })
-    client.add({ type: 'logux', email, password }, { sync: true })
-    client.on('add', action => {
-      if (action.type === 'login/done') {
-        localStorage.setItem('userId', action.userId)
-        localStorage.setItem('token', action.token)
-        location.href = process.env.NODE_ENV === 'development'
-          ? 'http://localhost:3000/dashboard'
-          : 'https://app.example.com/dashboard'
-      } else if (action.type === 'logux/undo') {
-        showError(action.reason)
-      }
-    })
-    client.start()
-  }, [email, password])
-
-  return <LoguxForm
-    error={error}
-    email={email}
-    password={password}
-    onSubmit={submit}
-    onEmailChange={changeEmail}
-    onPasswordChange={changePassword}
-  />
-}
+function login (email, password) {
+  let client = new Client({
+    subprotocol: '0.1.0',
+    server: process.env.NODE_ENV === 'development'
+      ? 'ws://localhost:31337'
+      : 'wss://logux.example.com',
+    userId: false
+  })
+  client.on('add', action => {
+    if (action.type === 'login/done') {
+      localStorage.setItem('userId', action.userId)
+      localStorage.setItem('token', action.token)
+      location.href = process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000/dashboard'
+        : 'https://app.example.com/dashboard'
+    } else if (action.type === 'logux/undo') {
+      alert(action.reason)
+    }
+  })
+  client.start()
+  client.add({ type: 'login', email, password }, { sync: true })
+})
 ```
 
 Use these `localStorage` values in the store:
