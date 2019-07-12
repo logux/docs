@@ -27,6 +27,32 @@ Commercial support: [`logux@evilmartians.com`]
 [CRDT]: http://slides.com/ai/crdt
 
 
+## Getting Started
+
+1. **Logux Architecture**
+   1. [Core Concepts](./1-architecture/1-core.md)
+   2. [Using Concepts in Practice](./1-architecture/2-practice.md)
+   3. [What Problems does Logux Solve](./1-architecture/3-solved.md)
+   4. [Comparing Logux with AJAX and GraphQL](./1-architecture/4-compare.md)
+   5. [Parts](./1-architecture/5-parts.md)
+   6. [Choosing Right Architecture](./1-architecture/6-choosing.md)
+2. **Starting Logux Project**
+   1. [Starting Logux Server Project](./2-starting/1-creating-server.md)
+   2. [Creating Logux Proxy](./2-starting/2-creating-proxy.md)
+   3. [Starting Logux Redux Project](./2-starting/3-creating-redux.md)
+   4. [Replacing Redux to Logux Redux](./2-starting/4-replacing-redux.md)
+   5. [Authentication](./2-starting/5-authentication.md)
+3. **Core Concepts**
+   1. [Nodes](./3-concepts/1-node.md)
+   2. [Actions](./3-concepts/2-action.md)
+   3. [Meta](./3-concepts/3-meta.md)
+   4. [Channels and Subscriptions](./3-concepts/4-subscription.md)
+4. [Logux Protocol](./protocol/spec.md)
+5. [Logux Back-end Protocol](./backend-protocol/spec.md)
+
+*Docs are under construction*
+
+
 ## Client Example
 
 <details open><summary><b>React/Redux client</b></summary>
@@ -202,29 +228,3 @@ if ($req['password'] == LOGUX_PASSWORD) {
 ```
 
 </details>
-
-
-## Getting Started
-
-1. **Logux Architecture**
-   1. [Core Concepts](./1-architecture/1-core.md)
-   2. [Using Concepts in Practice](./1-architecture/2-practice.md)
-   3. [What Problems does Logux Solve](./1-architecture/3-solved.md)
-   4. [Comparing Logux with AJAX and GraphQL](./1-architecture/4-compare.md)
-   5. [Parts](./1-architecture/5-parts.md)
-   6. [Choosing Right Architecture](./1-architecture/6-choosing.md)
-2. **Starting Logux Project**
-   1. [Starting Logux Server Project](./2-starting/1-creating-server.md)
-   2. [Creating Logux Proxy](./2-starting/2-creating-proxy.md)
-   3. [Starting Logux Redux Project](./2-starting/3-creating-redux.md)
-   4. [Replacing Redux to Logux Redux](./2-starting/4-replacing-redux.md)
-   5. [Authentication](./2-starting/5-authentication.md)
-3. **Core Concepts**
-   1. [Nodes](./3-concepts/1-node.md)
-   2. [Actions](./3-concepts/2-action.md)
-   3. [Meta](./3-concepts/3-meta.md)
-   4. [Channels and Subscriptions](./3-concepts/4-subscription.md)
-4. [Logux Protocol](./protocol/spec.md)
-5. [Logux Back-end Protocol](./backend-protocol/spec.md)
-
-*Docs are under construction*
