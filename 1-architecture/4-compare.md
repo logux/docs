@@ -49,7 +49,7 @@ export default () => {
 }
 ```
 
-In **GraphQL** you wrap your component in `<Query>` HOC to make request
+In **GraphQL** (Apollo) you wrap your component in `<Query>` to make request
 to single entry point.
 
 ```js
@@ -134,9 +134,9 @@ In **GraphQL** you call a migration:
 
 ```js
 // containers/user-form.js
-const CHANGE_USER = gql`
-  mutation ChangeUser($name: String!) {
-    changeName(name: name) {
+const CHANGE_NAME = gql`
+  mutation ChangeName($name: String!, $id: ID!) {
+    changeName(name: $name, id: $id) {
       id
       name
     }
@@ -144,14 +144,14 @@ const CHANGE_USER = gql`
 `
 
 export default ({ userId }) => {
-  return <Mutation mutation={ADD_TODO}>
+  return <Mutation mutation={CHANGE_NAME}>
     {(changeName, { data }) => {
       if (data.loading) {
         return <Loader>
       } else {
         return <UserForm
           error={data.error}
-          onSubmit={name => changeName({ variables: { name } })}
+          onSubmit={name => changeName({ variables: { name, id: userId } })}
         >
       }
     }}
