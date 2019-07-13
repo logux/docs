@@ -50,7 +50,8 @@
       "Webpack",
       "OAuth or",
       "WebAuthn",
-      "bundler"
+      "bundler",
+      "LTE"
     ]
   }
 }

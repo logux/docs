@@ -1,6 +1,6 @@
 # What Problems does Logux Solve
 
-We created Logux to have better UX in non-stable networks of thr real world. From non-stable LTE connection in subway to non-stable Wi-Fi connection in overpopulated area.
+We created Logux to have better UX in non-stable networks of the real world. From non-stable LTE connection in subway to non-stable WiFi connection in overpopulated area.
 
 
 ## Offline-First and Fixing Merge Conflicts
@@ -16,7 +16,7 @@ Logux has built-in solution for these hard questions. It keeps actions in the me
 
 Optimistic UI us a pattern to accept changes in UI immediately without loader and waiting server response. It increases subjective performance of your application.
 
-Production-ready Optimistic UI is similiar to Offline First. What if user do not have Internet connection (you will find it only after sending the request)?
+Production-ready Optimistic UI is similar to Offline First. What if user do not have Internet connection (you will find it only after sending the request)?
 
 Because Logux is Offline First by design, Optimistic UI will work as expected in many edge cases of real non-stable network and servers.
 
@@ -27,15 +27,15 @@ By default, Logux shows the latest data without need to press Reload button to s
 
 Logux uses WebSockets subscriptions instead of HTTP requests. Your application subscribes to some channel. Server sends current state to the client during the subscription. If server will receive action changing this data (with the same channel in `meta.channels`) server will resend this new action to all subscribed clients.
 
-The same works between brower tabs even in offline. They synchronize new actions, so all browser tabs have the same state.
+The same works between browser tabs even in offline. They synchronize new actions, so all browser tabs have the same state.
 
 
 ## Network Reliability
 
 There are many small problems in working with real network.
 
-* **Request order.** HTTP doesn’t garantee that server will receive request in the same order they were sent. Often this problem appears in wrong results during keyword input. Logux doesn’t have this problem by design because every action has time mark.
-* **Missed responce.** We often see infinite loader if network went down for a second before AJAX response was received. In contrast Logux will send data request again when network will be back
+* **Request order.** HTTP doesn’t guarantee that server will receive request in the same order they were sent. Often this problem appears in wrong results during keyword input. Logux doesn’t have this problem by design because every action has time mark.
+* **Missed response.** We often see infinite loader if network went down for a second before AJAX response was received. In contrast Logux will send data request again when network will be back
 * **Server error.** It is easy to forget server error processing. Logux will undo action during server error and use global UI to show error message.
 
 
@@ -43,12 +43,12 @@ There are many small problems in working with real network.
 
 Logux has built-in cross-tab communication. Calling `dispatch.crossTab()` or `dispatch.sync()` will dispatch action in all browser tabs.
 
-Also in Logux only one browser tab keeps WebSocket connection. All other tabs reuse the same connection. It garantees the same state in all tabs and saves server resources.
+Also in Logux only one browser tab keeps WebSocket connection. All other tabs reuse the same connection. It guarantees the same state in all tabs and saves server resources.
 
 
 ## Compatibility Between Different Client Versions
 
-Sometimes your user may keep webapp in without reloading for a weeks. It may creates probems when you will change the API between client and server and deploy new version. Old client will work with new server.
+Sometimes your user may keep webapp in without reloading for a weeks. It may creates problems when you will change the API between client and server and deploy new version. Old client will work with new server.
 
 In Logux every client has `subprotocol` version. Every action has a `meta.subprotocol` with the version of the client. Server may refuse old clients for connection (client will ask users to reload the page) or may use different code to process action from old API:
 
