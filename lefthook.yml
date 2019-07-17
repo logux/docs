@@ -3,7 +3,7 @@ pre-push:
   commands:
     yaspeller:
       glob: "*.md"
-      run: echo {push_files}
+      run: yaspeller {push_files}
     links:
       glob: "*.md"
       run: npx markdown-link-check {push_files}
