@@ -59,7 +59,7 @@ server.nodeId //=> "server:iSiqWU5J"
 <details><summary><b>Logux Rails</b></summary>
 
 ```ruby
-Logux::Node.instance.node_id
+Logux::Node.instance.node_id #=> "server:iSiqWU5J"
 ```
 
 </details>
