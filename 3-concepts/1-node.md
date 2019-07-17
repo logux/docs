@@ -4,20 +4,20 @@ Logux is based on top of peer-to-peer model, so there is no big difference betwe
 
 Logux Core provides `BaseNode` class, which will synchronize actions between two nodes. `ClientNode` and `ServerNode` classes extend this class with small behaviour changes. Client uses this node inside:
 
-<details open><summary><b>Logux client</b></summary>
-
-```js
-const client = new CrossTabClient({ … })
-client.node //=> ClientNode instance
-```
-
-</details>
-<details><summary><b>Redux client</b></summary>
+<details open><summary><b>Redux client</b></summary>
 
 ```js
 const createStore = createLoguxCreator({ … })
 const store = createStore(reducer)
 store.client.node //=> ClientNode instance
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+const client = new CrossTabClient({ … })
+client.node //=> ClientNode instance
 ```
 
 </details>
@@ -35,14 +35,7 @@ Each node has:
 
 Each node has unique Node ID. A string like `380:Uf_pPwE4:6K7iYdJH` or `server:iSiqWU5J`.
 
-<details open><summary><b>Logux client</b></summary>
-
-```js
-client.node.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
-```
-
-</details>
-<details><summary><b>Redux client</b></summary>
+<details open><summary><b>Redux client</b></summary>
 
 ```js
 store.client.node.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
@@ -88,17 +81,7 @@ In the web, user can open multiple browser tabs with the same website. Logux cli
 
 Mobile clients use user ID as client ID, since they do not have different tabs. Node ID will be like `580:jn1Ws0Iu`. User ID and client ID will be both `580`.
 
-<details open><summary><b>Logux client</b></summary>
-
-```js
-const client = new CrossTabClient({ userId: '580', … })
-client.node.userId   //=> "580"
-client.node.clientId //=> "580:Uf_pPwE4"
-client.node.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
-```
-
-</details>
-<details><summary><b>Redux client</b></summary>
+<details open><summary><b>Redux client</b></summary>
 
 ```js
 const createStore = createLoguxCreator({ userId: '580' })
@@ -106,6 +89,16 @@ const store = createStore(reducer)
 store.client.node.userId   //=> "580"
 store.client.node.clientId //=> "580:Uf_pPwE4"
 store.client.node.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+const client = new CrossTabClient({ userId: '580', … })
+client.node.userId   //=> "580"
+client.node.clientId //=> "580:Uf_pPwE4"
+client.node.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
 ```
 
 </details>
