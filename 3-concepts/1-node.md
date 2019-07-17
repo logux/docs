@@ -26,10 +26,15 @@ Each node has:
 
 * [Node ID](#node-id)
 * [User ID and client ID](#user-id-and-client-id)
-* [Log of actions](#log)
+* List of actions. Actions will be explained in [next chapter].
 * [Synchronization state and tab role](#state-and-role)
-* Optional [application subprotocol](#subprotocol)
 * Optional [credentials](#credentials)
+* Optional [application subprotocol](#subprotocol)
+
+See also `@logux/core/base-node.js` for node’s API.
+
+[next chapter]: ./2-action.md
+
 
 ## Node ID
 
@@ -143,22 +148,84 @@ end
 </details>
 
 
-## Log
-
-*Under construction*
-
-
 ## State and Role
+
+Node has current synchronization state. Possible values:
+
+* `disconnected`
+* `connecting`
+* `sending`
+* `synchronized`
+
+State has reason only on the client. You can get current state by:
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+store.client.state //=> "synchronized"
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+client.state //=> "synchronized"
+```
+
+</details>
+
+`@logux/client/status` provides useful syntax sugar around state with extra values:
+
+```js
+import status from '@logux/client/state'
+
+status(client, current => {
+  switch (current) {
+    case 'protocolError':
+      askUserToReloadPage()
+      break
+    case 'syncError':
+      showError('Logux error')
+      break
+    case 'denied':
+      showError('You do not have rights for this changes')
+      break
+    case 'error':
+      showError('You changes was reverted by server')
+      break
+    case 'disconnected':
+      showWarning('You are offline')
+      break
+    case 'wait':
+      showWarning('You have changes which are waiting for Internet')
+      break
+    case 'connectingAfterWait':
+      showWarning('We are saving your changes from offline')
+      break
+    case 'synchronizedAfterWait':
+      showWarning('Your changes was saved')
+      break
+    case 'connecting':
+      showWarning('Connecting to the server')
+      break
+    case 'synchronized':
+      showWarning('You are online')
+      break
+  }
+})
+```
+
+If user will open website with Logux in multiple browser tabs, tabs will elect one leader and only this leader will keep the connection. If user will close leader tab, tabs will re-elect new leader.
+
+`client.state` show connection state of this leader. `client.node.state` shows the state of this browser node and should *not be used*. You can use `client.role` to detect current leader. Possible values are `leader`, `follower` and `candidate` (during the election).
+
+
+## Credentials
 
 *Under construction*
 
 
 ## Subprotocol
-
-*Under construction*
-
-
-## Credentials
 
 *Under construction*
 

@@ -84,6 +84,6 @@ Use helpers where you create the store.
 3. Start your back-end server in the second terminal.
 4. Start your client in the third terminal by `npm start` in client directory.
 
-If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See `@logux/client/badge` and `@logux/client/status` API.
+If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See `@logux/client/badge.js` and `@logux/client/status.js` API.
 
 **[Next chapter →](../3-concepts/1-node.md)**
