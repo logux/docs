@@ -222,7 +222,55 @@ If user will open website with Logux in multiple browser tabs, tabs will elect o
 
 ## Credentials
 
-*Under construction*
+Client should use some authentication credentials to prove it’s user ID. The best way is to use [JWT] token generated on the server.
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+const createStore = createLoguxCreator({
+  userId: localStorage.getItem('userId'),
+  credentials: localStorage.getItem('userToken'),
+  …
+})
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+const client = new CrossTabClient({
+  userId: localStorage.getItem('userId'),
+  credentials: localStorage.getItem('userToken'),
+  …
+})
+```
+
+</details>
+
+User ID and credentials will be checked on the server:
+
+<details open><summary><b>Logux Server</b></summary>
+
+```js
+server.auth((userId, credentials) => {
+  const data = await jwt.verify(credentials, process.env.JWT_SECRET)
+  return data.sub === userId
+})
+```
+
+</details>
+<details><summary><b>Logux Rails</b></summary>
+
+```ruby
+config.auth_rule = lambda do |user_id, token|
+  data = JWT.decode token, ENV['JWT_SECRET'], { algorithm: 'HS256' }
+  data[0]['sub'] == user_id
+end
+```
+
+</details>
+
+[JWT]: https://jwt.io/introduction/
 
 
 ## Subprotocol
