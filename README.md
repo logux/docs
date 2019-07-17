@@ -41,7 +41,6 @@ Commercial support: [`logux@evilmartians.com`]
    2. [Creating Logux Proxy](./2-starting/2-creating-proxy.md)
    3. [Starting Logux Redux Project](./2-starting/3-creating-redux.md)
    4. [Replacing Redux to Logux Redux](./2-starting/4-replacing-redux.md)
-   5. [Authentication](./2-starting/5-authentication.md)
 3. **Core Concepts**
    1. [Nodes](./3-concepts/1-node.md)
    2. [Actions](./3-concepts/2-action.md)

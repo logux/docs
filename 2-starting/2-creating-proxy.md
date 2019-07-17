@@ -113,7 +113,8 @@ Logux.configuration do |config|
   config.logux_host = ENV['LOGUX_URL']
 
   config.auth_rule = lambda do |user_id, token|
-    false # Deny all users until we will have a proper authentication
+    # Allow only local users until we will have a proper authentication 
+    Rails.env.development?
   end
 end
 ```

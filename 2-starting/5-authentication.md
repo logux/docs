@@ -1,5 +1,7 @@
 # Authentication
 
+*Under construction. Should be moved to Recipes*
+
 In previous chapters, we created Logux server and client. Now we need to add authentication process to connect them.
 
 In this example, we will use simple email/password authentication. Logux supports any authentication, including OAuth or WebAuthn.

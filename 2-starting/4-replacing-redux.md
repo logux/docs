@@ -79,14 +79,11 @@ Use helpers where you create the store.
 
 ## Check the Result
 
-Start your project by `npm start`. In browser console you will see this authentication error:
-
-```
-Logux server sent error: Wrong credentials
-```
-
-It is OK. We will add authentication code only in the next chapter.
+1. Open three terminals.
+2. Start your Logux server in one terminal by `npm start` in server directory.
+3. Start your back-end server in the second terminal.
+4. Start your client in the third terminal by `npm start` in client directory.
 
 If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See `@logux/client/badge` and `@logux/client/status` API.
 
-**[Next chapter →](./5-authentication.md)**
+**[Next chapter →](../3-concepts/1-node.md)**
