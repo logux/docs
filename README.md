@@ -46,6 +46,8 @@ Commercial support: [`logux@evilmartians.com`]
    2. [Actions](./3-concepts/2-action.md)
    3. [Meta](./3-concepts/3-meta.md)
    4. [Channels and Subscriptions](./3-concepts/4-subscription.md)
+   5. [Action Reasons](./3-concepts/5-reason.md)
+   6. [Subprotocols of Logux Application](./3-concepts/6-subprotocol.md)
 4. [Logux Protocol](./protocol/spec.md)
 5. [Logux Back-end Protocol](./backend-protocol/spec.md)
 

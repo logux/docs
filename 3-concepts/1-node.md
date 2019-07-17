@@ -29,10 +29,11 @@ Each node has:
 * List of actions. Actions will be explained in [next chapter].
 * [Synchronization state and tab role](#state-and-role)
 * Optional [credentials](#credentials)
-* Optional [application subprotocol](#subprotocol)
+* Optional application subprotocol. We will explain it in [special chapter].
 
 See also `@logux/core/base-node.js` for node’s API.
 
+[special chapter]: ./6-subprotocol.md
 [next chapter]: ./2-action.md
 
 
@@ -180,37 +181,26 @@ client.state //=> "synchronized"
 import status from '@logux/client/state'
 
 status(client, current => {
-  switch (current) {
-    case 'protocolError':
-      askUserToReloadPage()
-      break
-    case 'syncError':
-      showError('Logux error')
-      break
-    case 'denied':
-      showError('You do not have rights for this changes')
-      break
-    case 'error':
-      showError('You changes was reverted by server')
-      break
-    case 'disconnected':
-      showWarning('You are offline')
-      break
-    case 'wait':
-      showWarning('You have changes which are waiting for Internet')
-      break
-    case 'connectingAfterWait':
-      showWarning('We are saving your changes from offline')
-      break
-    case 'synchronizedAfterWait':
-      showWarning('Your changes was saved')
-      break
-    case 'connecting':
-      showWarning('Connecting to the server')
-      break
-    case 'synchronized':
-      showWarning('You are online')
-      break
+  if (current === 'protocolError') {
+    askUserToReloadPage()
+  } else if (current === 'syncError') {
+    showError('Logux error')
+  } else if (current === 'denied') {
+    showError('You do not have rights for this changes')
+  } else if (current === 'error') {
+    showError('You changes was reverted by server')
+  } else if (current === 'disconnected') {
+    showWarning('You are offline')
+  } else if (current === 'wait') {
+    showWarning('You have changes which are waiting for Internet')
+  } else if (current === 'connectingAfterWait') {
+    showWarning('We are saving your changes from offline')
+  } else if (current === 'synchronizedAfterWait') {
+    showWarning('Your changes was saved')
+  } else if (current === 'connecting') {
+    showWarning('Connecting to the server')
+  } else if (current === 'synchronized') {
+    showWarning('You are online')
   }
 })
 ```
@@ -271,11 +261,6 @@ end
 </details>
 
 [JWT]: https://jwt.io/introduction/
-
-
-## Subprotocol
-
-*Under construction*
 
 
 **[Next chapter →](./2-action.md)**
