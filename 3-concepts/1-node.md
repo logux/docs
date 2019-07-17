@@ -57,7 +57,7 @@ Logux::Node.instance.node_id #=> "server:iSiqWU5J"
 
 </details>
 
-Node ID uses user ID, client ID and random string by [Nano ID] to be unique. Node ID contains few blocks splitted by `:`.
+Node ID uses user ID, client ID and random string by [Nano ID] to be unique. Node ID contains few blocks separated by `:`.
 
 In `server:iSiqWU5J`:
 
@@ -67,7 +67,7 @@ In `server:iSiqWU5J`:
 In `380:Uf_pPwE4:6K7iYdJH`:
 
 1. `380` is user ID.
-2. `380:Uf_pPwE4` is client ID. Each browser tab has unique node ID, but every browseer tab in this browser will have the same client ID.
+2. `380:Uf_pPwE4` is client ID. Each browser tab has unique node ID, but every browser tab in this browser will have the same client ID.
 3. `6K7iYdJH` is random string by Nano ID.
 
 [Nano ID]: https://github.com/ai/nanoid/
@@ -153,7 +153,7 @@ end
 *Under construction*
 
 
-## Suprotocol
+## Subprotocol
 
 *Under construction*
 
