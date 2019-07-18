@@ -28,7 +28,7 @@ Each action in the log has own **meta** with:
 * `meta.time`: action creation time. It uses local client’s time and could be different on different clients.
 * `meta.added`: counter independent for each node, to track what actions must be synchronized on next connection.
 * `meta.reasons`: an array of the strings. Each string is a code of some “reason” why action is still actual. When application will remove all reasons, Logux will clean the action from the log.
-* Logux Client and Logux Server add `meta.subprotocol` with version of application-level protocol. What
+* Logux Client and Logux Server add `meta.subprotocol` with version of application-level protocol.
 * Applications could add own data to **meta**.
 
   ```js
