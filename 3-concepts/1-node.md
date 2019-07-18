@@ -93,7 +93,7 @@ In `380:Uf_pPwE4:6K7iYdJH`:
 
 Each node has a user ID — a string like `380`, `server` or `false`. Only servers can use `server` user ID. `false` means that user wasn’t authenticated yet.
 
-In the web, user can open multiple browser tabs with the same website. Logux client in each browser tab will have a unique node ID. Sometimes we need to send a message to all browser tabs on this machine. To do it, we have a client ID — a string like `580:Uf_pPwE4` with a user ID and random string from Nano ID.
+Logux client in each browser tab will have a unique node ID. Sometimes we need to send a message to all browser tabs on this machine. To do it, we have a client ID — a string like `580:Uf_pPwE4` with a user ID and random string from Nano ID.
 
 Mobile clients use user ID as client ID since they do not have different tabs. Node ID will be like `580:jn1Ws0Iu`. User ID and client ID will be both `580`.
 
