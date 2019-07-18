@@ -42,12 +42,19 @@ See also `@logux/core/base-node.js` for node’s API.
 
 ## Node ID
 
-Each node has a unique Node ID. A string like `380:Uf_pPwE4:6K7iYdJH` or `server:iSiqWU5J`.
+Each node has a unique node ID — a string like `380:Uf_pPwE4:6K7iYdJH` or `server:iSiqWU5J`.
 
 <details open><summary><b>Redux client</b></summary>
 
 ```js
-store.client.node.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
+store.client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
+```
+
+</details>
+<details open><summary><b>Logux client</b></summary>
+
+```js
+client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
 ```
 
 </details>
@@ -66,11 +73,11 @@ Logux::Node.instance.node_id #=> "server:iSiqWU5J"
 
 </details>
 
-Node ID uses user ID, client ID, and random string by [Nano ID] to be unique. Node ID contains few blocks separated by `:`.
+Node ID uses user ID, client ID, and random string by [Nano ID] to be unique.
 
 In `server:iSiqWU5J`:
 
-1. `server` is the user ID. Only servers can have this user ID.
+1. `server` is the user ID. Only servers can uses this user ID.
 2. `iSiqWU5J` is random string by Nano ID.
 
 In `380:Uf_pPwE4:6K7iYdJH`:
@@ -84,9 +91,9 @@ In `380:Uf_pPwE4:6K7iYdJH`:
 
 ## User ID and Client ID
 
-Each node has a user ID — a string like `380`, `server` or `false`. Only servers can use `server` user ID. User ID `false` was reserved for the cases when a user wasn’t authenticated yet.
+Each node has a user ID — a string like `380`, `server` or `false`. Only servers can use `server` user ID. `false` means that user wasn’t authenticated yet.
 
-In the web, user can open multiple browser tabs with the same website. Logux client in each browser tab will have a unique node ID. Sometimes we need to send a message to all browser tabs on this machine. To do it, we have a client ID. A string like `580:Uf_pPwE4` with a user ID and random string from Nano ID.
+In the web, user can open multiple browser tabs with the same website. Logux client in each browser tab will have a unique node ID. Sometimes we need to send a message to all browser tabs on this machine. To do it, we have a client ID — a string like `580:Uf_pPwE4` with a user ID and random string from Nano ID.
 
 Mobile clients use user ID as client ID since they do not have different tabs. Node ID will be like `580:jn1Ws0Iu`. User ID and client ID will be both `580`.
 
@@ -177,9 +184,9 @@ const client = new CrossTabClient({
 
 </details>
 
-By default, Logux force you to use WebSocket over TLS (`wss:`) in production. It is important to fix the problem between WebSocket and old firewalls and routers. Encryption makes traffic looks like any keep-alive HTTPS connection.
+By default, Logux forces you to use WebSocket over TLS (`wss:`) in production. It is important to fix the problem between WebSocket and old firewalls and routers. Encryption makes traffic looks like any keep-alive HTTPS connection.
 
-You can use WebSocket without encryption in development or with `allowDangerousProtocol`.
+You can use WebSocket without encryption in development or with `allowDangerousProtocol` option.
 
 If you do not want to use WebSocket, you can implementation own `Connection` class and pass it to `server` option. For instance, you can use `@logux/core/test-pair` in tests:
 
@@ -213,14 +220,7 @@ const client = new CrossTabClient({
 
 ## State and Role
 
-Node has current synchronization state. Possible values:
-
-* `disconnected`
-* `connecting`
-* `sending`
-* `synchronized`
-
-State has reason only on the client. You can get current state by:
+Node has current synchronization state. Possible values are `disconnected`, `connecting`, `sending`, and `synchronized`. You can get current state by:
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -267,7 +267,7 @@ status(client, current => {
 })
 ```
 
-In the web, user can open multiple browser tabs with the same website. Only one leader Logux client will keep the connection with the server. `client.state` shows the connection state of this leader. `client.node.state` shows the state of this browser node and should *not be used*. You can use `client.role` to detect the current leader. Possible values are `leader`, `follower`, and `candidate` (during the election).
+In the web, user can open multiple browser tabs with the same website. Only one leader Logux client will keep the connection with the server. `client.state` shows the connection state of this leader. You can use `client.role` to detect the current leader. Possible values are `leader`, `follower`, and `candidate` (during the election).
 
 
 ## Credentials
@@ -320,9 +320,6 @@ end
 
 </details>
 
-Logux allows you to use credentials for the server. However, we do not recommend to do it, since WebSocket over TLS (`wss:`) is a much better way to validate the server.
-
 [JWT]: https://jwt.io/introduction/
-
 
 **[Next chapter →](./2-action.md)**
