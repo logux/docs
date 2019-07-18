@@ -25,7 +25,7 @@ Because Logux is Offline First by design, Optimistic UI will work as expected in
 
 By default, Logux shows the latest data without the need to press the Reload button to see changes.
 
-Logux uses WebSockets subscriptions instead of HTTP requests. Your application subscribes to some channel. The server sends the current state to the client during the subscription. If the server will receive action changing this data (with the same channel in `meta.channels`) the server will resend this new action to all subscribed clients.
+Logux uses WebSocket subscriptions instead of HTTP requests. Your application subscribes to some channel. The server sends the current state to the client during the subscription. If the server will receive action changing this data (with the same channel in `meta.channels`) the server will resend this new action to all subscribed clients.
 
 The same works between browser tabs even in offline. They synchronize new actions, so all browser tabs have the same state.
 

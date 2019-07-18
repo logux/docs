@@ -9,7 +9,7 @@ Logux is a client-server communication protocol. It synchronizes actions between
 
 ## Basics
 
-You can use any encoding and any low-level protocol: JSON encoding over WebSockets, XML over AJAX and HTTP “keep-alive”. Low-level protocol must guarantee messages order and content. Main way is JSON over WebSocket Secure.
+You can use any encoding and any low-level protocol: JSON encoding over WebSocket, XML over AJAX and HTTP “keep-alive”. Low-level protocol must guarantee messages order and content. Main way is JSON over WebSocket Secure.
 
 This protocol is based on simple JS types: boolean, number, string, array and key-value object.
 

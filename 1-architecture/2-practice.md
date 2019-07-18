@@ -5,9 +5,9 @@ Logux architecture was designed to be peer-to-peer and flexible. You can build d
 
 ## Connecting
 
-Logux client keeps only one Web Socket connection even if the user opens an application in multiple browser’s tabs. Logux clients in different **elect one leader** to keep the connection. If the user closes the leader tab, other tabs will re-elect a leader.
+Logux client keeps only one WebSocket connection even if the user opens an application in multiple browser’s tabs. Logux clients in different **elect one leader** to keep the connection. If the user closes the leader tab, other tabs will re-elect a leader.
 
-When Logux client opens Web Socket connection, it sends a user ID and user token to the server.
+When Logux client opens WebSocket connection, it sends a user ID and user token to the server.
 
 Logux server is written in JS. There are two ways to use it:
 
@@ -18,7 +18,7 @@ Logux server is written in JS. There are two ways to use it:
       return verifyJWT(token).userId === userId
     })
     ```
-2. Use **Logux server as a proxy**. Logux can convert all Web Sockets events to the HTTP request to your web server. You can use your favorite back-end language: for instance, PHP, Ruby on Rails or Go.
+2. Use **Logux server as a proxy**. Logux can convert all WebSocket events to the HTTP request to your web server. You can use your favorite back-end language: for instance, PHP, Ruby on Rails or Go.
 
 We will show examples in JS API, but you can use Logux proxy with any back-end language for all our examples.
 
@@ -106,7 +106,7 @@ function usersReducers (state = { }, action) {
 
 If the user changed their name in the form, the client does not need to show loader on the Save button. The client creates action and applies this action to the state **immediately**.
 
-In the background, the client will send this new action to the server by Web Socket. While the client is waiting for the answer from the server, it is showing small *“changes were not saved yet”* warning.
+In the background, the client will send this new action to the server by WebSocket. While the client is waiting for the answer from the server, it is showing small *“changes were not saved yet”* warning.
 
 When the server receives new action it does three things:
 
@@ -167,7 +167,7 @@ Optimistic UI is great for UX. Some actions (like payments) require loader. Logu
 
 ## Offline
 
-Logux clients send pings messages to Web Socket to detect loosing Internet and show *“you are offline”* warning.
+Logux clients send pings messages to WebSocket to detect loosing Internet and show *“you are offline”* warning.
 
 Offline is a normal mode for Logux. The user can work with data and create an action to change the data. Unsent action be kept in the log and user will see *“changes were not saved yet”* warning.
 
