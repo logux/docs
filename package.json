@@ -42,7 +42,6 @@
       "subprotocol",
       "subprotocols",
       "npm",
-      "WebSockets",
       "UUID",
       "SemVer",
       "JWT",
@@ -51,7 +50,8 @@
       "OAuth or",
       "WebAuthn",
       "bundler",
-      "LTE"
+      "LTE",
+      "TLS"
     ]
   }
 }
