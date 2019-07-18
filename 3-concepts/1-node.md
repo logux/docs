@@ -27,6 +27,7 @@ Each node has:
 * [Node ID](#node-id)
 * [User ID and client ID](#user-id-and-client-id)
 * List of actions. Actions will be explained in [next chapter].
+* [Connection](#connection)
 * [Synchronization state and tab role](#state-and-role)
 * Optional [credentials](#credentials)
 * Optional application subprotocol. We will explain it in [special chapter].
@@ -149,6 +150,65 @@ end
 </details>
 
 
+## Connection
+
+By default, nodes use WebSocket to connect to each other. You just pass URL to the server:
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+const createStore = createLoguxCreator({
+  server: 'wss://example.com',
+  …
+})
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+const client = new CrossTabClient({
+  server: 'wss://example.com',
+  …
+})
+```
+
+</details>
+
+By default, Logux force you to use WebSocket over TLS (`wss:`) in production. It is important to fix the problem between WebSocket and old firewalls and routers. Encryption makes traffic looks like any keep-alive HTTPS connection.
+
+You can use WebSocket without encryption in development or with `allowDangerousProtocol`.
+
+If you do not want to use WebSocket, you can implementation own `Connection` class and pass it to `server` option. For instance, you can use `@logux/core/test-pair` in tests:
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+import { testPair } from 'logux-core'
+
+const pair = new testPair()
+const createStore = createLoguxCreator({
+  server: pair.left,
+  …
+})
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+import { testPair } from 'logux-core'
+
+const pair = new testPair()
+const client = new CrossTabClient({
+  server: pair.left,
+  …
+})
+```
+
+</details>
+
+
 ## State and Role
 
 Node has current synchronization state. Possible values:
@@ -259,6 +319,8 @@ end
 ```
 
 </details>
+
+Logux allows you to use credentials for server. However, we do not recommend to do it, since WebSocket over TLS (`wss:`) is much better way to validate server.
 
 [JWT]: https://jwt.io/introduction/
 
