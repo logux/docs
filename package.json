@@ -51,7 +51,8 @@
       "WebAuthn",
       "bundler",
       "LTE",
-      "TLS"
+      "TLS",
+      "opens WebSocket"
     ]
   }
 }
