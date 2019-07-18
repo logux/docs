@@ -102,9 +102,9 @@ Mobile clients use user ID as client ID since they do not have different tabs. N
 ```js
 const createStore = createLoguxCreator({ userId: '580' })
 const store = createStore(reducer)
-store.client.node.userId   //=> "580"
-store.client.node.clientId //=> "580:Uf_pPwE4"
-store.client.node.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
+store.client.options.userId   //=> "580"
+store.client.clientId //=> "580:Uf_pPwE4"
+store.client.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
 ```
 
 </details>
@@ -112,9 +112,9 @@ store.client.node.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
 
 ```js
 const client = new CrossTabClient({ userId: '580', … })
-client.node.userId   //=> "580"
-client.node.clientId //=> "580:Uf_pPwE4"
-client.node.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
+client.options.userId   //=> "580"
+client.clientId //=> "580:Uf_pPwE4"
+client.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
 ```
 
 </details>
