@@ -46,8 +46,8 @@ Each action in the log has own **meta** with:
 
 Differences between action and meta:
 
-* **Actions are immutable.** But you can change meta (except `meta.id`, `meta.added` and `meta.time`).
-* Logux synchronizes actions, but **only few meta keys will be synchronized**. Each Logux implementation decides what meta keys it will synchronize.
+* **Actions are immutable.** But you can change meta (except `meta.id`, `meta.added`, and `meta.time`).
+* Logux synchronizes actions, but **only meta.id, meta.time, and meta.subprotocol will be synchronized** by default. Each Logux implementation decides what meta keys it will synchronize.
 
 You can use any method to connect Logux nodes. Logux uses **WebSocket** only as default way. You can replace connection class to own implementation.
 
