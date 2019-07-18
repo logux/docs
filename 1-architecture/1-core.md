@@ -19,7 +19,7 @@ Each node has **action** log (list of operations). When you want to change the a
 Action **log** is append-only. You can only add actions, but can’t change or delete them. However, you can compress log by cleaning old actions, which are not actual anymore.
 
 ```js
-app.log.add(action)
+app.log.add(action, meta)
 ```
 
 Each action in the log has own **meta** with:
