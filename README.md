@@ -45,10 +45,10 @@ Commercial support: [`logux@evilmartians.com`]
    1. [Nodes](./3-concepts/1-node.md)
    2. [Actions](./3-concepts/2-action.md)
    3. [Meta](./3-concepts/3-meta.md)
-   4. [State](./3-concepts/4-state.md)
+   4. [Application State](./3-concepts/4-state.md)
    5. [Channels and Subscriptions](./3-concepts/5-subscription.md)
    6. [Action Reasons](./3-concepts/6-reason.md)
-   7. [Subprotocols of Logux Application](./3-concepts/7-subprotocol.md)
+   7. [Subprotocols](./3-concepts/7-subprotocol.md)
 4. [Logux Protocol](./protocol/spec.md)
 5. [Logux Back-end Protocol](./backend-protocol/spec.md)
 

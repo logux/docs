@@ -1,4 +1,4 @@
-# Logux Channels and Subscriptions
+# Channels and Subscriptions
 
 *Under construction*
 

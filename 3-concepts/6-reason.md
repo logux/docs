@@ -1,4 +1,4 @@
-# Action Reasons in Logux
+# Action Reasons
 
 *Under construction*
 

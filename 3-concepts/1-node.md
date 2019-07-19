@@ -1,4 +1,4 @@
-# Logux Nodes
+# Nodes
 
 Logux uses the peer-to-peer model. There is no big difference between client and server. This is why we call both client and server “nodes”.
 

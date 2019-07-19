@@ -1,4 +1,4 @@
-# Logux State
+# Application State
 
 *Under construction*
 

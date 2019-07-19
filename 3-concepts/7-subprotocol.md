@@ -1,3 +1,3 @@
-# Subprotocols of Logux Application
+# Subprotocols
 
 *Under construction*

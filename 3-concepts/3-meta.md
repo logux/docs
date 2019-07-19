@@ -1,4 +1,4 @@
-# Logux Meta
+# Meta
 
 *Under construction*
 
