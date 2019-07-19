@@ -18,6 +18,11 @@ There are only 2 mandatory requirements for actions:
 [Redux actions]: https://redux.js.org/basics/actions
 
 
+## Recommendations
+
+*Under construction*
+
+
 ## System Actions
 
 Logux has few built-in actions with `logux/` prefix.
@@ -106,6 +111,24 @@ Developers can define additional custom properties in subscribe action:
 ```
 
 Of course, clients has also an action to unsubscribe from channels. It can has additional custom properties as well.
+
+
+## Adding Actions
+
+*Under construction*
+
+
+## Removing Actions
+
+*Under construction*
+
+
+## Synchronization
+
+*Under construction*
+
+
+## Events
 
 *Under construction*
 
