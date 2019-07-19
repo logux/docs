@@ -121,6 +121,11 @@ Of course, clients has also an action to unsubscribe from channels. It can has a
 *Under construction*
 
 
+## Permissions
+
+*Under construction*
+
+
 ## Cleaning Old Actions
 
 *Under construction*
