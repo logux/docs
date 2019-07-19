@@ -8,7 +8,7 @@ For instance, if user press like, your application will create an action like:
 { type: 'like/add', postId: 39678 }
 ```
 
-When you add action, you can’t change it. If you want to change the data or revert changes, you need to add new action.
+Actions are immutable. You can’t change added action. If you want to change the data or revert changes, you need to add new action.
 
 There are only 2 mandatory requirements for actions:
 
@@ -121,7 +121,7 @@ Of course, clients has also an action to unsubscribe from channels. It can has a
 *Under construction*
 
 
-## Removing Actions
+## Cleaning Old Actions
 
 *Under construction*
 
