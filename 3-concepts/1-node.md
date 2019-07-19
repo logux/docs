@@ -24,16 +24,6 @@ client.node //=> ClientNode instance
 
 </details>
 
-Each node has:
-
-* [Node ID](#node-id)
-* [User ID and client ID](#user-id-and-client-id)
-* [Store](#store) for actions.
-* [Connection](#connection).
-* [Synchronization state and tab role](#state-and-role).
-* Optional [credentials](#credentials).
-* Optional application subprotocol. We will explain it in [special chapter].
-
 See also `@logux/core/base-node.js` for node’s API.
 
 [special chapter]: ./7-subprotocol.md
@@ -85,39 +75,6 @@ In `380:Uf_pPwE4:6K7iYdJH`:
 2. `380:Uf_pPwE4` is client ID. Each browser tab has a unique node ID, but every browser tab in this browser will have the same client ID.
 3. `6K7iYdJH` is random string by Nano ID.
 
-[Nano ID]: https://github.com/ai/nanoid/
-
-
-## User ID and Client ID
-
-Each node has a user ID — a string like `380`, `server` or `false`. Only servers can use `server` user ID. `false` means that user wasn’t authenticated yet.
-
-Logux client in each browser tab will have a unique node ID. Sometimes we need to send a message to all browser tabs on this machine. To do it, we have a client ID — a string like `580:Uf_pPwE4` with a user ID and random string from Nano ID.
-
-Mobile clients use user ID as client ID since they do not have different tabs. Node ID will be like `580:jn1Ws0Iu`. User ID and client ID will be both `580`.
-
-<details open><summary><b>Redux client</b></summary>
-
-```js
-const createStore = createLoguxCreator({ userId: '580', … })
-const store = createStore(reducer)
-store.client.options.userId   //=> "580"
-store.client.clientId //=> "580:Uf_pPwE4"
-store.client.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
-```
-
-</details>
-<details><summary><b>Logux client</b></summary>
-
-```js
-const client = new CrossTabClient({ userId: '580', … })
-client.options.userId   //=> "580"
-client.clientId //=> "580:Uf_pPwE4"
-client.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
-```
-
-</details>
-
 On the server you can get user ID and client ID of the client by:
 
 <details open><summary><b>Logux Server</b></summary>
@@ -127,7 +84,6 @@ server.type('INC', {
   access (ctx, action, meta) {
     ctx.userId   //=> "580"
     ctx.clientId //=> "580:Uf_pPwE4"
-    ctx.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
   }
 })
 
@@ -135,7 +91,6 @@ server.channel('counter', {
   access (ctx, action, meta) {
     ctx.userId   //=> "580"
     ctx.clientId //=> "580:Uf_pPwE4"
-    ctx.nodeId   //=> "580:Uf_pPwE4:jn1Ws0Iu"
   }
 })
 ```
@@ -149,13 +104,14 @@ module Actions
     def inc
       user_id   #=> "580"
       client_id #=> "580:Uf_pPwE4"
-      node_id   #=> "580:Uf_pPwE4:jn1Ws0Iu"
     end
   end
 end
 ```
 
 </details>
+
+[Nano ID]: https://github.com/ai/nanoid/
 
 
 ## Store
@@ -253,7 +209,7 @@ const client = new CrossTabClient({
 </details>
 
 
-## State and Role
+## State
 
 Node has current synchronization state. Possible values are `disconnected`, `connecting`, `sending`, and `synchronized`. You can get current state by:
 
@@ -261,6 +217,10 @@ Node has current synchronization state. Possible values are `disconnected`, `con
 
 ```js
 store.client.state //=> "synchronized"
+
+store.client.on('state', () => {
+  console.log(store.client.state) // Track state changes
+})
 ```
 
 </details>
@@ -268,6 +228,10 @@ store.client.state //=> "synchronized"
 
 ```js
 client.state //=> "synchronized"
+
+client.on('state', () => {
+  console.log(client.state) // Track state changes
+})
 ```
 
 </details>
@@ -303,6 +267,44 @@ status(client, current => {
 ```
 
 In the web, user can open multiple browser tabs with the same website. Only one leader Logux client will keep the connection with the server. `client.state` shows the connection state of this leader. You can use `client.role` to detect the current leader. Possible values are `leader`, `follower`, and `candidate` (during the election).
+
+
+## Cross-Tab Communication
+
+In the web, user can open multiple browser tabs with the same website. In Logux only one browser tab will keep WebSocket connection with a server. All other tabs will use this connection. It keeps the same state in all tabs and save server resources.
+
+When you open 2 browser tabs, they start election and elect only one leader. If you will close leader tab, other tabs will detect it and start election again.
+
+You can use `role` to detect the current leader. Possible values are `leader`, `follower`, and `candidate` (during the election).
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+store.client.role //=> "leader"
+
+store.client.on('role', () => {
+  console.log(store.client.role) // Track role changes
+})
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+client.role //=> "leader"
+
+client.on('role', () => {
+  console.log(client.role) // Track role changes
+})
+```
+
+</details>
+
+Each brower tab will have unique node ID, but they all have the same client ID. Because many browser tabs can use one connection, server need to send responce to all browsers tab. You can do by using client ID as an address.
+
+In `380:Uf_pPwE4:6K7iYdJH` node ID (3 blocks), `380:Uf_pPwE4` will be client ID.
+
+Browser tabs can synchronize actions between each other. Actions from server and for the server (with `meta.sync = true`) are sharing between browser tabs by default.
 
 
 ## Credentials
