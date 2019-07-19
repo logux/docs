@@ -33,6 +33,8 @@ See also `@logux/core/base-node.js` for node’s API.
 
 Each node has a unique node ID — a string like `380:Uf_pPwE4:6K7iYdJH` or `server:iSiqWU5J`.
 
+Current node ID of client:
+
 <details open><summary><b>Redux client</b></summary>
 
 ```js
@@ -47,7 +49,10 @@ client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
 ```
 
 </details>
-<details><summary><b>Logux Server</b></summary>
+
+Current node ID of server:
+
+<details open><summary><b>Logux Server</b></summary>
 
 ```js
 server.nodeId //=> "server:iSiqWU5J"

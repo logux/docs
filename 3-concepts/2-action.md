@@ -51,23 +51,9 @@ This action ask clients to revert action. `action.id` will be equal to `meta.id`
 
 Logux Server sends this action on any error during action processing. In this case `logux/processed` will not be sent.
 
-Developer can create `logux/undo` in any moment on the server even after `logux/processed` was sent. Clients can also create `logux/undo` to revert action and ask other clients to revert it (if server allows it).
+Developer can create `logux/undo` in any moment on the server even after `logux/processed` was sent.
 
-<details open><summary><b>Redux client</b></summary>
-
-```js
-store.dispatch.sync({ type: 'logux/undo', id: meta.id, reason: 'too late' })
-```
-
-</details>
-<details><summary><b>Logux client</b></summary>
-
-```js
-client.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true })
-```
-
-</details>
-<details><summary><b>Logux Server</b></summary>
+<details open><summary><b>Logux Server</b></summary>
 
 ```js
   process (ctx, action, meta) {
@@ -80,6 +66,23 @@ client.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true
 
 ```ruby
 Logux.undo(meta, reason: 'too late')
+```
+
+</details>
+
+Clients can also create `logux/undo` to revert action and ask other clients to revert it (if server allows it).
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+store.dispatch.sync({ type: 'logux/undo', id: meta.id, reason: 'too late' })
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+client.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true })
 ```
 
 </details>
