@@ -28,16 +28,15 @@ Each node has:
 
 * [Node ID](#node-id)
 * [User ID and client ID](#user-id-and-client-id)
-* List of actions. Actions will be explained in [next chapter].
-* [Connection](#connection)
-* [Synchronization state and tab role](#state-and-role)
-* Optional [credentials](#credentials)
+* [Store](#store) for actions.
+* [Connection](#connection).
+* [Synchronization state and tab role](#state-and-role).
+* Optional [credentials](#credentials).
 * Optional application subprotocol. We will explain it in [special chapter].
 
 See also `@logux/core/base-node.js` for node’s API.
 
 [special chapter]: ./6-subprotocol.md
-[next chapter]: ./2-action.md
 
 
 ## Node ID
@@ -100,7 +99,7 @@ Mobile clients use user ID as client ID since they do not have different tabs. N
 <details open><summary><b>Redux client</b></summary>
 
 ```js
-const createStore = createLoguxCreator({ userId: '580' })
+const createStore = createLoguxCreator({ userId: '580', … })
 const store = createStore(reducer)
 store.client.options.userId   //=> "580"
 store.client.clientId //=> "580:Uf_pPwE4"
@@ -157,6 +156,42 @@ end
 ```
 
 </details>
+
+
+## Store
+
+Nodes synchronize actions. You can read about actions in [next chapter].
+
+Nodes need a store for these actions and action meta. By default client and server keep actions in memory. It is not a problem for server, because it saves data from actions to database.
+
+You can change action store. For instance, you can use` indexedDB` store for better offline support.
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+import IndexedStore from '@logux/client/indexed-store'
+
+const createStore = createLoguxCreator({
+  store: new IndexedStore(),
+  …
+})
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+import IndexedStore from '@logux/client/indexed-store'
+
+const client = new CrossTabClient({
+  store: new IndexedStore(),
+  …
+})
+```
+
+</details>
+
+[next chapter]: ./2-action.md
 
 
 ## Connection
