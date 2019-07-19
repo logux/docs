@@ -1,6 +1,6 @@
 # Actions
 
-Logux actions are very similiar to [Redux actions]. It is JSON objects, which describe what was changed in application state. If user do something, you should create action to change the state. State changes will update UI.
+Logux actions are very similar to [Redux actions]. It is JSON objects, which describe what was changed in application state. If user do something, you should create action to change the state. State changes will update UI.
 
 For instance, if user press like, your application will create an action like:
 
@@ -13,7 +13,7 @@ When you add action, you can’t change it. If you want to change the data or re
 There are only 2 mandatory requirements for actions:
 
 1. They must have `type` property with string value.
-2. You can use only strings, numbers, booleans, `null`, arrays and objects as values. All values should be serializable to JSON. This is why functions, class instances, `Symbol`, `BigInt` is prohibited.
+2. You can use only string, number, boolean, `null`, array and object as values. All values should be serializable to JSON. This is why functions, class instances, `Symbol`, `BigInt` is prohibited.
 
 [Redux actions]: https://redux.js.org/basics/actions
 
@@ -31,7 +31,7 @@ Logux has few built-in actions with `logux/` prefix.
 
 Logux Server response with `logux/processed` when it received and processed the action from the client. `action.id` of `logux/processed` will be equal to `meta.id` of received action.
 
-Logux Server uses [client ID] sends `logux/processed` back to the client. So all browser tabs will recieve this action from the server.
+Logux Server uses [client ID] sends `logux/processed` back to the client. So all browser tabs will receive this action from the server.
 
 [client ID]: ./1-node.md#cross-tab-communication
 
@@ -105,7 +105,7 @@ Developers can define additional custom properties in subscribe action:
 { type: 'logux/unsubscribe', channel: 'users/380' }
 ```
 
-Of course, clients has also an action to unsubscribe from channels. It can has additionial custom properties as well.
+Of course, clients has also an action to unsubscribe from channels. It can has additional custom properties as well.
 
 *Under construction*
 
