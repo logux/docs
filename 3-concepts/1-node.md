@@ -36,7 +36,7 @@ Each node has:
 
 See also `@logux/core/base-node.js` for node’s API.
 
-[special chapter]: ./6-subprotocol.md
+[special chapter]: ./7-subprotocol.md
 
 
 ## Node ID

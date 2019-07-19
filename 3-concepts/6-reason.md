@@ -2,4 +2,4 @@
 
 *Under construction*
 
-**[Next chapter →](./6-subprotocol.md)**
+**[Next chapter →](./7-subprotocol.md)**
