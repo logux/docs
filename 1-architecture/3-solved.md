@@ -3,6 +3,19 @@
 We created Logux to have better UX in non-stable networks of the real world. From non-stable LTE connection in the subway to non-stable WiFi connection in an overpopulated area.
 
 
+## Reactive Programming and WebSocket Integration
+
+Sending data to the server is a basic fature of any web application. AJAX is easy in simple non-read examples in docs. Unfortunatelly, in produciton we have a lot of abstractions for AJAX: action creator, Promises, loader flags, HTTP parameters and body.
+
+In Logux we try to simplify the system. You have actions. You use this actions to change UI. And you use the same actions to communicate with servers. Back-end code works with the same action. And server response is actions as well.
+
+```js
+store.dispatch.sync({ type: 'user/rename', userId: 380, name: 'New name' })
+```
+
+A lot of complicated systems like live updates, Optimistic UI and conflict resolution works in Logux out of box.
+
+
 ## Offline-First and Fixing Merge Conflicts
 
 Server Worker is great in serving JS and CSS files in offline. But you need a special application architecture to work with data without server connection.
