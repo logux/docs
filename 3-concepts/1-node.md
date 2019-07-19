@@ -40,7 +40,7 @@ store.client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
 ```
 
 </details>
-<details open><summary><b>Logux client</b></summary>
+<details><summary><b>Logux client</b></summary>
 
 ```js
 client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
