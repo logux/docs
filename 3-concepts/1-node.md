@@ -266,8 +266,6 @@ status(client, current => {
 })
 ```
 
-In the web, user can open multiple browser tabs with the same website. Only one leader Logux client will keep the connection with the server. `client.state` shows the connection state of this leader. You can use `client.role` to detect the current leader. Possible values are `leader`, `follower`, and `candidate` (during the election).
-
 
 ## Cross-Tab Communication
 
@@ -300,7 +298,7 @@ client.on('role', () => {
 
 </details>
 
-Each brower tab will have unique node ID, but they all have the same client ID. Because many browser tabs can use one connection, server need to send responce to all browsers tab. You can do by using client ID as an address.
+Each browser tab will have unique node ID, but they all have the same client ID. Because many browser tabs can use one connection, server need to response to all browsers tab. You can do by using client ID as an address.
 
 In `380:Uf_pPwE4:6K7iYdJH` node ID (3 blocks), `380:Uf_pPwE4` will be client ID.
 
