@@ -5,7 +5,7 @@ We created Logux to have better UX in non-stable networks of the real world. Fro
 
 ## Reactive Programming and WebSocket Integration
 
-Sending data to the server is a basic fature of any web application. AJAX is easy in simple non-read examples in docs. Unfortunatelly, in produciton we have a lot of abstractions for AJAX: action creator, Promises, loader flags, HTTP parameters and body.
+Sending data to the server is a basic future of any web application. AJAX is easy in simple non-read examples in docs. Unfortunately, in production we have a lot of abstractions for AJAX: action creator, Promises, loader flags, HTTP parameters and body.
 
 In Logux we try to simplify the system. You have actions. You use this actions to change UI. And you use the same actions to communicate with servers. Back-end code works with the same action. And server response is actions as well.
 
