@@ -116,17 +116,12 @@ Developers can define additional custom properties in subscribe action:
 Of course, clients has also an action to unsubscribe from channels. It can has additional custom properties as well.
 
 
-## Adding Actions
+## Adding Actions on the Client
 
 *Under construction*
 
 
-## Permissions
-
-*Under construction*
-
-
-## Cleaning Old Actions
+## Adding Actions on the Server
 
 *Under construction*
 
@@ -136,7 +131,22 @@ Of course, clients has also an action to unsubscribe from channels. It can has a
 *Under construction*
 
 
-## Events
+## Permissions Check
+
+*Under construction*
+
+
+## Cleaning Old Actions
+
+*Under construction*
+
+
+## Client Events
+
+*Under construction*
+
+
+## Server Events
 
 *Under construction*
 
