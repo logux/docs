@@ -192,7 +192,49 @@ There are four ways to add action to Logux Redux.
 
 ## Adding Actions on the Server
 
-*Under construction*
+Server adds actions to it’s log to send these actions to clients. So, in most of the cases, you need to specify in action’s meta who is receiver of these actions.
+
+* `meta.channels` sends action to all clients subscribed to any of listed channels.
+* `meta.clients` sends action to clients with listed client IDs.
+* `meta.users` sends action to clients with listed user IDs.
+* `meta.nodes` sends action to clients with listed node IDs.
+
+<details open><summary><b>Logux Server</b></summary>
+
+The most universal way is:
+
+```js
+someService.on('error', () => {
+  server.log.add({ type: 'someService/error' }, { channels: ['admins'] })
+})
+```
+
+Horewer, in most of the cases, you will use `ctx.sendBack` shortcut, which is available in `server.type()` and `server.channel()` callbacks.
+
+```js
+server.channel('user/:id', {
+  …
+  async init (ctx, action, meta) {
+    ler user = await db.first('users', { id: ctx.params.id })
+    ctx.sendBack({ type: 'users/add', user })
+  }
+})
+```
+
+</details>
+<details><summary><b>Logux Rails</b></summary>
+
+```ruby
+some_service.on(:error) do
+  Logux.add({ type: 'someService/error' }, { channels: ['admins'] })
+end
+```
+
+*Under construction. Util `send_back` will be implemented in gem.*
+
+</details>
+
+[client IDs]: ./1-node.md#node-id
 
 
 ## Synchronization
