@@ -118,7 +118,76 @@ Of course, clients has also an action to unsubscribe from channels. It can has a
 
 ## Adding Actions on the Client
 
-*Under construction*
+Adding actions to the log is the only way to change [application state] in Logux. Log is append-only. You can add action, but can’t change added action or change the state by removing actions from the log.
+
+<details open><summary><b>Redux client</b></summary>
+
+There are four ways to add action to Logux Redux.
+
+1. The **standard Redux** way to dispatch actions. It adds local action. Action will *not* be sent to server or another browser tab. There is no way to set action’s meta in this method.
+
+   ```js
+   store.dispatch(action)
+   ```
+
+  This way is the best for small UI states, like opened/closed menu state.
+
+2. **Local action with metadata**. It adds local action. Action will *not* be sent to server or another browser tab. Compare to standard Redux way with `dispatch.local` you can set action’s meta.
+
+   ```js
+   store.dispatch.local(action)
+   store.dispatch.local(action, meta)
+   ```
+
+3. **Cross-tab action.** It sends action to all tabs in this browser.
+
+   ```js
+   store.dispatch.crossTab(action)
+   store.dispatch.crossTab(action, meta)
+   ```
+
+  This method is the best to work with local data like client settings, which you will save to `localStorage`.
+
+4. **Send to server.** It sends action to the server *and* all tabs in this browser.
+
+   ```js
+   store.dispatch.sync(action)
+   store.dispatch.sync(action, meta)
+   ```
+
+  This method is the best for working with models. For instance, when user add new comment or changed the post.
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+1. **Local action.** Action will *not* be sent to server or another browser tab.
+
+   ```js
+   client.log.add(action, { tab: client.id })
+   ```
+
+   This way is the best for small UI states, like opened/closed menu state.
+
+2. **Cross-tab action.** It sends action to all tabs in this browser.
+
+   ```js
+   client.log.add(action, meta)
+   ```
+
+   This method is the best to work with local data like client settings, which you will save to `localStorage`.
+
+3. **Send to server.** It sends action to the server *and* all tabs in this browser.
+
+   ```js
+   client.log.add(action, { sync: true })
+   ```
+
+   This method is the best for working with models. For instance, when user add new comment or changed the post.
+
+</details>
+
+[application state]: ./4-state.md
+[reasons]: ./6-reasons.md
 
 
 ## Adding Actions on the Server
