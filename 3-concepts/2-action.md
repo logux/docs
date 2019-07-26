@@ -190,6 +190,16 @@ There are four ways to add action to Logux Redux.
 [reasons]: ./6-reasons.md
 
 
+## Sending Actions from Client to Server
+
+*Under construction*
+
+
+## Permissions Check
+
+*Under construction*
+
+
 ## Adding Actions on the Server
 
 Server adds actions to it’s log to send these actions to clients. So, in most of the cases, you need to specify in action’s meta who is receiver of these actions.
@@ -237,12 +247,7 @@ end
 [client IDs]: ./1-node.md#node-id
 
 
-## Synchronization
-
-*Under construction*
-
-
-## Permissions Check
+## Sending Actions from Server to Client
 
 *Under construction*
 
