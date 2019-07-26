@@ -209,7 +209,7 @@ someService.on('error', () => {
 })
 ```
 
-Horewer, in most of the cases, you will use `ctx.sendBack` shortcut, which is available in `server.type()` and `server.channel()` callbacks.
+However, in most of the cases, you will use `ctx.sendBack` shortcut, which is available in `server.type()` and `server.channel()` callbacks.
 
 ```js
 server.channel('user/:id', {
@@ -230,7 +230,7 @@ some_service.on(:error) do
 end
 ```
 
-*Under construction. Util `send_back` will be implemented in gem.*
+*Under construction. Until `send_back` will be implemented in gem.*
 
 </details>
 
