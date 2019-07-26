@@ -130,7 +130,7 @@ There are four ways to add action to Logux Redux.
    store.dispatch(action)
    ```
 
-  This way is the best for small UI states, like opened/closed menu state.
+   This way is the best for small UI states, like opened/closed menu state.
 
 2. **Local action with metadata**. It adds local action. Action will *not* be sent to server or another browser tab. Compare to standard Redux way with `dispatch.local` you can set action’s meta.
 
@@ -146,7 +146,7 @@ There are four ways to add action to Logux Redux.
    store.dispatch.crossTab(action, meta)
    ```
 
-  This method is the best to work with local data like client settings, which you will save to `localStorage`.
+   This method is the best to work with local data like client settings, which you will save to `localStorage`.
 
 4. **Send to server.** It sends action to the server *and* all tabs in this browser.
 
@@ -155,7 +155,7 @@ There are four ways to add action to Logux Redux.
    store.dispatch.sync(action, meta)
    ```
 
-  This method is the best for working with models. For instance, when user add new comment or changed the post.
+   This method is the best for working with models. For instance, when user add new comment or changed the post.
 
 </details>
 <details><summary><b>Logux client</b></summary>
