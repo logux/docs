@@ -401,7 +401,15 @@ end
 
 ## Sending Actions from Server to Client
 
-*Under construction*
+When you add new action to the server’s log, server will try to send it
+to all connected clients according to `meta.channels`, `meta.users`,
+`meta.clients` and `meta.nodes`.
+
+By default, server doesn’t keep actions in the log for offline users to make scaling easy. You can enable keeping action in the log, by setting and removing [`reasons`] on `preadd` and `processed` events. But we recommend to use subscriptions.
+
+Every time client will connect to the server, it sends `logux/subscribe` again. Server can load the latest state from database and send it back.
+
+[`reasons`]: ./6-reason.md
 
 
 ## Cleaning Old Actions
