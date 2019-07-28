@@ -412,14 +412,37 @@ Every time client will connect to the server, it sends `logux/subscribe` again. 
 [`reasons`]: ./6-reason.md
 
 
-## Cleaning Old Actions
-
-*Under construction*
-
-
 ## Client Events
 
-*Under construction*
+Logux uses [Nano Events] API to add and remove event listener.
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+store.client.on(event, (action, meta) => {
+  …
+})
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+client.on(event, (action, meta) => {
+  …
+})
+```
+
+</details>
+
+Events:
+
+* `preadd`: action is goind to be added to the log. It is a only way to set [`meta.reasons`]. This event will not be called for cross-tab actions added in different browser tab.
+* `add`: action was added to the log.
+* `clean`: action was removed from the log. It will happen if nobody will set [`meta.reasons`] for new action or you remove all reasons for old action.
+
+[`meta.reasons`]: ./6-reason.md
+[Nano Events]: https://github.com/ai/nanoevents/
 
 
 ## Server Events
