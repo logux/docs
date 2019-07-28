@@ -192,7 +192,103 @@ There are four ways to add action to Logux Redux.
 
 ## Sending Actions from Client to Server
 
-*Under construction*
+When you added new action to the log, Logux will update application state and will try to send the action to the server in background. If client doesn’t have Internet connection right now, Logux will keep the action in the memory and will send action to the server automatically, when client will get the connection.
+
+We recommend to use Optimistic UI: do not show loaders when you change data (save the form and press a Like button).
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+dispatch.sync({ type: 'likes/inc', postId })
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+client.log.add({ type: 'likes/inc', postId }, { sync: true })
+```
+
+</details>
+
+You can use `@logux/client/badge` or `@logux/client/status` to show small notice if changes was not saved to server and Logux waiting for Internet connection.
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+import badge from '@logux/client/badge'
+import badgeStyles from '@logux/client/default'
+import badgeText from '@logux/client/en'
+
+badge(store.client, { messages: badgeMessages, styles: badgeStyles })
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+import badge from '@logux/client/badge'
+import badgeStyles from '@logux/client/default'
+import badgeText from '@logux/client/en'
+
+badge(client, { messages: badgeMessages, styles: badgeStyles })
+```
+
+</details>
+
+But, of course, you can use pessimistic UI too for critical actions like payment:
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+showLoader()
+dispatch.sync({ type: 'likes/inc', postId }).then(() => {
+  hideLoader()
+}).catch(() => {
+  showError()
+})
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+const waiting = { }
+client.log.on('add', action => {
+  if (action.type === 'logux/processed' && waiting[action.id]) {
+    waiting[action.id].resolve()
+    delete waiting[action.id]
+  } else if (action.type === 'logux/undo' && waiting[action.id]) {
+    waiting[action.id].reject()
+    delete waiting[action.id]
+  }
+})
+
+showLoader()
+client.log.add({ type: 'likes/inc', postId }, { sync: true }).then(meta => {
+  waiting[meta.id] = {
+    resolve: hideLoader,
+    reject: showError
+  }
+})
+```
+
+</details>
+
+By default, Logux will forget all unsaved actions if user will close the browser before getting the Internet. You can change log store to `@logux/client/indexed-store` or you can show warning to prevent closing browser:
+
+```js
+import confirm from '@logux/client/confirm'
+confirm(store.client)
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+import confirm from '@logux/client/confirm'
+confirm(client)
+```
 
 
 ## Permissions Check
