@@ -61,7 +61,7 @@ Logux.undo(meta, reason: 'too late')
 
 </details>
 
-Clients can also create `logux/undo` to revert action and ask other clients to revert it (if developer allowed to re-send this actions on the server).
+Clients can also create `logux/undo` to revert action and ask other clients to revert it (if the developer allowed to re-send these actions on the server).
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -114,7 +114,7 @@ Of course, clients also have an action to unsubscribe from channels. It can have
 
 ## Adding Actions on the Client
 
-Adding actions to the log is the only way to change [application state] in Logux. Log is append-only. You can add action, but can’t change added action or change the state by removing actions from the log.
+Adding actions to the log is the only way to change [application state] in Logux. The log is append-only. You can add action, but can’t change added action or change the state by removing actions from the log.
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -187,9 +187,9 @@ There are four ways to add action to Logux Redux.
 
 ## Sending Actions from Client to Server
 
-When you added a new action to the log, Logux will update the application state and will try to send the action to the server in the background. If the client doesn’t have Internet connection, Logux will keep the action in the memory and will send action to the server automatically, when the client will get the connection.
+When you added a new action to the log, Logux will update the application state and will try to send the action to the server in the background. If the client doesn’t have an Internet connection, Logux will keep the action in the memory and will send action to the server automatically, when the client gets the connection.
 
-We recommend to use Optimistic UI: do not show loaders when user changed data (save the form and press a Like button).
+We recommend to use Optimistic UI: do not show loaders when a user changed data (save the form and press a Like button).
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -206,7 +206,7 @@ client.log.add({ type: 'likes/add', postId }, { sync: true })
 
 </details>
 
-You could use `@logux/client/badge` or `@logux/client/status` to show small notice if Logux waiting for an Internet to save changes.
+You could use `@logux/client/badge` or `@logux/client/status` to show small notice if Logux is waiting for an Internet to save changes.
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -327,7 +327,7 @@ If server refused the action, it would send `logux/undo` action with `reason: 'd
 
 If the server accepted the action, it would re-send this action to:
 
-* `channels` or `channel`: clients subscribed to any of listed channels.
+* `channels` or `channel`: clients subscribed to any of the listed channels.
 * `clients` or `client`: clients with listed client IDs.
 * `users` or `users`: clients with listed user IDs.
 * `nodes` or `nodes`: clients with listed node IDs.
@@ -351,7 +351,7 @@ server.type('likes/add', () => {
 
 </details>
 
-Then the server will accept the action to the database. When changes will be saved, the server will send `logux/process` action back to the client.
+Then the server will accept the action to the database. When changes are saved, the server will send `logux/process` action back to the client.
 
 
 ## Adding Actions on the Server
