@@ -1,6 +1,6 @@
 # Actions
 
-Logux actions are very similar to [Redux actions]. It is JSON objects, which describe what was changed in application state. If user do something, you should create action to change the state. State changes will update UI.
+Logux actions are very similar to [Redux actions]. It is JSON objects, which describe what was changed in the application state. If the user does something, you should create action to change the state. State changes will update UI.
 
 For instance, if user press like, your application will create an action like:
 
@@ -8,12 +8,12 @@ For instance, if user press like, your application will create an action like:
 { type: 'like/add', postId: 39678 }
 ```
 
-Actions are immutable. You can’t change added action. If you want to change the data or revert changes, you need to add new action.
+Actions are immutable. You can’t change added action. If you want to change the data or revert changes, you need to add a new action.
 
-There are only 2 mandatory requirements for actions:
+There are only two mandatory requirements for actions:
 
-1. They must have `type` property with string value.
-2. You can use only string, number, boolean, `null`, array and object as values. All values should be serializable to JSON. This is why functions, class instances, `Symbol`, `BigInt` is prohibited.
+1. They must have `type` property with a string value.
+2. You can use only string, number, boolean, `null`, array, and object as values. All values should be serializable to JSON. This is why functions, class instances, `Symbol`, `BigInt` is prohibited.
 
 [Redux actions]: https://redux.js.org/basics/actions
 
@@ -25,7 +25,7 @@ There are only 2 mandatory requirements for actions:
 
 ## System Actions
 
-Logux has few built-in actions with `logux/` prefix.
+Logux has a few built-in actions with `logux/` prefix.
 
 
 ### `logux/processed`
@@ -47,11 +47,11 @@ Logux Server uses [client ID] sends `logux/processed` back to the client. So all
 { type: 'logux/undo', id: '1560954012838 380:Y7bysd:O0ETfc 0', reason: 'error' }
 ```
 
-This action ask clients to revert action. `action.id` will be equal to `meta.id` of reverted action.
+This action asks clients to revert action. `action.id` will be equal to `meta.id` of reverted action.
 
-Logux Server sends this action on any error during action processing. In this case `logux/processed` will not be sent.
+Logux Server sends this action on any error during action processing. In this case, `logux/processed` will not be sent.
 
-Developer can create `logux/undo` in any moment on the server even after `logux/processed` was sent.
+A developer can create `logux/undo` at any moment on the server even after `logux/processed` was sent.
 
 <details open><summary><b>Logux Server</b></summary>
 
@@ -70,7 +70,7 @@ Logux.undo(meta, reason: 'too late')
 
 </details>
 
-Clients can also create `logux/undo` to revert action and ask other clients to revert it (if server allows it).
+Clients can also create `logux/undo` to revert action and ask other clients to revert it (if the server allows it).
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -87,7 +87,7 @@ client.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true
 
 </details>
 
-`action.reason` describes the reason of reverting. There are only two build-in values: `denied` if `access()` callback was not passed on the server and `error` on error during processing. Developers can use any other `reason`.
+`action.reason` describes the reason for reverting. There are only two build-in values: `denied` if `access()` callback was not passed on the server and `error` on error during processing. Developers can use any other `reason`.
 
 
 ### `logux/subscribe`
@@ -96,7 +96,7 @@ client.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true
 { type: 'logux/subscribe', channel: 'users/380' }
 ```
 
-Clients use this action to subscribe to channel. Next we will have [special chapter] about channels and subscriptions.
+Clients use this action to subscribe to the channel. Next, we will have [special chapter] about channels and subscriptions.
 
 Developers can define additional custom properties in subscribe action:
 
@@ -113,7 +113,7 @@ Developers can define additional custom properties in subscribe action:
 { type: 'logux/unsubscribe', channel: 'users/380' }
 ```
 
-Of course, clients has also an action to unsubscribe from channels. It can has additional custom properties as well.
+Of course, clients also have an action to unsubscribe from channels. It can have additional custom properties as well.
 
 
 ## Adding Actions on the Client
@@ -124,7 +124,7 @@ Adding actions to the log is the only way to change [application state] in Logux
 
 There are four ways to add action to Logux Redux.
 
-1. The **standard Redux** way to dispatch actions. It adds local action. Action will *not* be sent to server or another browser tab. There is no way to set action’s meta in this method.
+1. The **standard Redux** way to dispatch actions. It adds local action. Action will *not* be sent to the server or another browser tab. There is no way to set action’s meta in this method.
 
    ```js
    store.dispatch(action)
@@ -132,7 +132,7 @@ There are four ways to add action to Logux Redux.
 
    This way is the best for small UI states, like opened/closed menu state.
 
-2. **Local action with metadata**. It adds local action. Action will *not* be sent to server or another browser tab. Compare to standard Redux way with `dispatch.local` you can set action’s meta.
+2. **Local action with metadata**. It adds local action. Action will *not* be sent to the server or another browser tab. Compare to standard Redux way with `dispatch.local` you can set action’s meta.
 
    ```js
    store.dispatch.local(action)
@@ -155,12 +155,12 @@ There are four ways to add action to Logux Redux.
    store.dispatch.sync(action, meta)
    ```
 
-   This method is the best for working with models. For instance, when user add new comment or changed the post.
+   This method is the best for working with models. For instance, when the user adds a new comment or changed the post.
 
 </details>
 <details><summary><b>Logux client</b></summary>
 
-1. **Local action.** Action will *not* be sent to server or another browser tab.
+1. **Local action.** Action will *not* be sent to the server or another browser tab.
 
    ```js
    client.log.add(action, { tab: client.id })
@@ -182,7 +182,7 @@ There are four ways to add action to Logux Redux.
    client.log.add(action, { sync: true })
    ```
 
-   This method is the best for working with models. For instance, when user add new comment or changed the post.
+   This method is the best for working with models. For instance, when the user adds a new comment or changed the post.
 
 </details>
 
@@ -192,7 +192,7 @@ There are four ways to add action to Logux Redux.
 
 ## Sending Actions from Client to Server
 
-When you added new action to the log, Logux will update application state and will try to send the action to the server in background. If client doesn’t have Internet connection right now, Logux will keep the action in the memory and will send action to the server automatically, when client will get the connection.
+When you added a new action to the log, Logux will update the application state and will try to send the action to the server in the background. If the client doesn’t have Internet connection right now, Logux will keep the action in the memory and will send action to the server automatically, when the client gets the connection.
 
 We recommend to use Optimistic UI: do not show loaders when you change data (save the form and press a Like button).
 
@@ -211,7 +211,7 @@ client.log.add({ type: 'likes/inc', postId }, { sync: true })
 
 </details>
 
-You can use `@logux/client/badge` or `@logux/client/status` to show small notice if changes was not saved to server and Logux waiting for Internet connection.
+You could use `@logux/client/badge` or `@logux/client/status` to show small notice if changes were not saved to server and Logux waiting for an Internet connection.
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -275,7 +275,7 @@ client.log.add({ type: 'likes/inc', postId }, { sync: true }).then(meta => {
 
 </details>
 
-By default, Logux will forget all unsaved actions if user will close the browser before getting the Internet. You can change log store to `@logux/client/indexed-store` or you can show warning to prevent closing browser:
+By default, Logux will forget all unsaved actions if the user will close the browser before getting the Internet. You can change the log store to `@logux/client/indexed-store` or you can show a warning to prevent closing browser:
 
 ```js
 import confirm from '@logux/client/confirm'
@@ -326,9 +326,9 @@ end
 
 </details>
 
-If server refused the action, server will send `logux/undo` action with `reason: 'denied'` and Logux Redux will remove action from history and replay application state.
+If server refused the action, the server would send `logux/undo` action with `reason: 'denied'` and Logux Redux would remove the action from history and replay application state.
 
-If server accepted the action, it will re-send this action to all clients subscribed to some channel, or to specific clients by `userId` or `clientId`.
+If the server accepted the action, it would re-send this action to all clients subscribed to some channel, or specific clients by `userId` or `clientId`.
 
 <details open><summary><b>Logux Server</b></summary>
 
@@ -345,16 +345,16 @@ server.type('likes/inc', () => {
 </details>
 <details><summary><b>Logux Rails</b></summary>
 
-*Under construction. Until `resend` will be implemented in gem.*
+*Under construction. Until `resend` will be implemented in the gem.*
 
 </details>
 
-Then server will accept the action to database.
+Then the server will accept the action to the database.
 
 
 ## Adding Actions on the Server
 
-Server adds actions to it’s log to send these actions to clients. So, in most of the cases, you need to specify in action’s meta who is receiver of these actions.
+The server adds actions to its log to send these actions to clients. So, in most of the cases, you need to specify in action’s meta who is a receiver of these actions.
 
 * `meta.channels` sends action to all clients subscribed to any of listed channels.
 * `meta.clients` sends action to clients with listed client IDs.
@@ -392,7 +392,7 @@ some_service.on(:error) do
 end
 ```
 
-*Under construction. Until `send_back` will be implemented in gem.*
+*Under construction. Until `send_back` will be implemented in the gem.*
 
 </details>
 
@@ -401,13 +401,13 @@ end
 
 ## Sending Actions from Server to Client
 
-When you add new action to the server’s log, server will try to send it
+When you add a new action to the server’s log, the server will try to send it
 to all connected clients according to `meta.channels`, `meta.users`,
 `meta.clients` and `meta.nodes`.
 
-By default, server doesn’t keep actions in the log for offline users to make scaling easy. You can enable keeping action in the log, by setting and removing [`reasons`] on `preadd` and `processed` events. But we recommend to use subscriptions.
+By default, the server doesn’t keep actions in the log for offline users to make scaling easy. You can enable keeping the action in the log, by setting and removing [`reasons`] on `preadd` and `processed` events. But we recommend using subscriptions.
 
-Every time client will connect to the server, it sends `logux/subscribe` again. Server can load the latest state from database and send it back.
+Every time the client will connect to the server, it sends `logux/subscribe` again. The server can load the latest state from the database and send it back.
 
 [`reasons`]: ./6-reason.md
 
@@ -437,7 +437,7 @@ client.on(event, (action, meta) => {
 
 Events:
 
-* `preadd`: action is going to be added to the log. It is a only way to set [`meta.reasons`]. This event will not be called for cross-tab actions added in different browser tab.
+* `preadd`: action is going to be added to the log. It is the only way to set [`meta.reasons`]. This event will not be called for cross-tab actions added in a different browser tab.
 * `add`: action was added to the log.
 * `clean`: action was removed from the log. It will happen if nobody will set [`meta.reasons`] for new action or you remove all reasons for old action.
 
