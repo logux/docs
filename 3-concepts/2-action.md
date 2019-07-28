@@ -18,11 +18,6 @@ There are only two mandatory requirements for actions:
 [Redux actions]: https://redux.js.org/basics/actions
 
 
-## Recommendations
-
-*Under construction*
-
-
 ## System Actions
 
 Logux has a few built-in actions with `logux/` prefix.
@@ -199,14 +194,14 @@ We recommend to use Optimistic UI: do not show loaders when you change data (sav
 <details open><summary><b>Redux client</b></summary>
 
 ```js
-dispatch.sync({ type: 'likes/inc', postId })
+dispatch.sync({ type: 'likes/add', postId })
 ```
 
 </details>
 <details><summary><b>Logux client</b></summary>
 
 ```js
-client.log.add({ type: 'likes/inc', postId }, { sync: true })
+client.log.add({ type: 'likes/add', postId }, { sync: true })
 ```
 
 </details>
@@ -242,7 +237,7 @@ But, of course, you can use pessimistic UI too for critical actions like payment
 
 ```js
 showLoader()
-dispatch.sync({ type: 'likes/inc', postId }).then(() => {
+dispatch.sync({ type: 'likes/add', postId }).then(() => {
   hideLoader()
 }).catch(() => {
   showError()
@@ -265,7 +260,7 @@ client.log.on('add', action => {
 })
 
 showLoader()
-client.log.add({ type: 'likes/inc', postId }, { sync: true }).then(meta => {
+client.log.add({ type: 'likes/add', postId }, { sync: true }).then(meta => {
   waiting[meta.id] = {
     resolve: hideLoader,
     reject: showError
@@ -298,7 +293,7 @@ Logux Server will reject any action if it was not explicitly allowed by develope
 <details open><summary><b>Logux Server</b></summary>
 
 ```js
-server.type('likes/inc', () => {
+server.type('likes/add', () => {
   async access (ctx, action, meta) {
     let user = db.findUser(ctx.userId)
     return !user.isTroll && user.canRead(action.postId)
@@ -315,7 +310,7 @@ server.type('likes/inc', () => {
 module Policies
   module Channels
     class Likes < Policies::Base
-      def inc?
+      def add?
         user = User.find(user_id)
         !user.troll? && user.can_read? action[:postId]
       end
@@ -333,7 +328,7 @@ If the server accepted the action, it would re-send this action to all clients s
 <details open><summary><b>Logux Server</b></summary>
 
 ```js
-server.type('likes/inc', () => {
+server.type('likes/add', () => {
   …
   resend (ctx, action, meta) {
     return { channel: `posts/${ action.postId }` }
