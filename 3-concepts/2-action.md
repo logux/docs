@@ -293,7 +293,63 @@ confirm(client)
 
 ## Permissions Check
 
-*Under construction*
+Logux Server will reject any action if it was not explicitly allowed by developer:
+
+<details open><summary><b>Logux Server</b></summary>
+
+```js
+server.type('likes/inc', () => {
+  async access (ctx, action, meta) {
+    let user = db.findUser(ctx.userId)
+    return !user.isTroll && user.canRead(action.postId)
+  },
+  …
+})
+```
+
+</details>
+<details><summary><b>Logux Rails</b></summary>
+
+```ruby
+# app/logux/policies/channels/likes.rb
+module Policies
+  module Channels
+    class Likes < Policies::Base
+      def inc?
+        user = User.find(user_id)
+        !user.troll? && user.can_read? action[:postId]
+      end
+    end
+  end
+end
+```
+
+</details>
+
+If server refused the action, server will send `logux/undo` action with `reason: 'denied'` and Logux Redux will remove action from history and replay application state.
+
+If server accepted the action, it will re-send this action to all clients subscribed to some channel, or to specific clients by `userId` or `clientId`.
+
+<details open><summary><b>Logux Server</b></summary>
+
+```js
+server.type('likes/inc', () => {
+  …
+  resend (ctx, action, meta) {
+    return { channel: `posts/${ action.postId }` }
+  },
+  …
+})
+```
+
+</details>
+<details><summary><b>Logux Rails</b></summary>
+
+*Under construction. Until `resend` will be implemented in gem.*
+
+</details>
+
+Then server will accept the action to database.
 
 
 ## Adding Actions on the Server
