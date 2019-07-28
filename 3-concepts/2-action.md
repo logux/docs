@@ -290,7 +290,7 @@ confirm(client)
 
 ## Permissions Check
 
-Logux Server will reject any action if it was not explicitly allowed by developer:
+Logux Server rejects any action if it was not explicitly allowed by developer:
 
 <details open><summary><b>Logux Server</b></summary>
 
@@ -323,9 +323,14 @@ end
 
 </details>
 
-If server refused the action, the server would send `logux/undo` action with `reason: 'denied'` and Logux Redux would remove the action from history and replay application state.
+If server refused the action, it would send `logux/undo` action with `reason: 'denied'`. Logux Redux would remove the action from history and replay application state.
 
-If the server accepted the action, it would re-send this action to all clients subscribed to some channel, or specific clients by `userId` or `clientId`.
+If the server accepted the action, it would re-send this action to:
+
+* `channels` or `channel`: clients subscribed to any of listed channels.
+* `clients` or `client`: clients with listed client IDs.
+* `users` or `users`: clients with listed user IDs.
+* `nodes` or `nodes`: clients with listed node IDs.
 
 <details open><summary><b>Logux Server</b></summary>
 
@@ -346,17 +351,17 @@ server.type('likes/add', () => {
 
 </details>
 
-Then the server will accept the action to the database.
+Then the server will accept the action to the database. When changes will be saved, the server will send `logux/process` action back to the client.
 
 
 ## Adding Actions on the Server
 
-The server adds actions to its log to send these actions to clients. So, in most of the cases, you need to specify in action’s meta who is a receiver of these actions.
+The server adds actions to its log to send these actions to clients. There are four ways to specify receivers of new action:
 
-* `meta.channels` sends action to all clients subscribed to any of listed channels.
-* `meta.clients` sends action to clients with listed client IDs.
-* `meta.users` sends action to clients with listed user IDs.
-* `meta.nodes` sends action to clients with listed node IDs.
+* `meta.channels` or `meta.channel`: clients subscribed to any of listed channels.
+* `meta.clients` or `meta.client`: clients with listed client IDs.
+* `meta.users` or `meta.users`: clients with listed user IDs.
+* `meta.nodes` or `meta.nodes`: clients with listed node IDs.
 
 <details open><summary><b>Logux Server</b></summary>
 
@@ -368,7 +373,7 @@ someService.on('error', () => {
 })
 ```
 
-However, in most of the cases, you will use `ctx.sendBack` shortcut, which is available in `server.type()` and `server.channel()` callbacks.
+But, in most of the cases, you will use `ctx.sendBack` shortcut. It sets `meta.client` to `ctx.clientId`.
 
 ```js
 server.channel('user/:id', {
@@ -402,9 +407,9 @@ When you add a new action to the server’s log, the server will try to send it
 to all connected clients according to `meta.channels`, `meta.users`,
 `meta.clients` and `meta.nodes`.
 
-By default, the server doesn’t keep actions in the log for offline users to make scaling easy. You can enable keeping the action in the log, by setting and removing [`reasons`] on `preadd` and `processed` events. But we recommend using subscriptions.
+By default, the server doesn’t keep actions in the log for offline users to make scaling easy. You can change it by setting [`reasons`] on `preadd` and removing it `processed` events.
 
-Every time the client will connect to the server, it sends `logux/subscribe` again. The server can load the latest state from the database and send it back.
+We recommend to use subscription rather than working with `reasons`. Every time a client will connect to the server, it sends `logux/subscribe` again. The server can load the latest state from the database and send it back.
 
 [`reasons`]: ./6-reason.md
 
