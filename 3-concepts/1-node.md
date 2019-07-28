@@ -71,13 +71,13 @@ Node ID uses user ID, client ID, and random string by [Nano ID] to be unique.
 
 In `server:iSiqWU5J`:
 
-1. `server` is the user ID. Only servers can uses this user ID.
+1. `server` is the **user ID**. Only servers can uses this user ID.
 2. `iSiqWU5J` is random string by Nano ID.
 
 In `380:Uf_pPwE4:6K7iYdJH`:
 
-1. `380` is the user ID.
-2. `380:Uf_pPwE4` is client ID. Each browser tab has a unique node ID, but every browser tab in this browser will have the same client ID.
+1. `380` is the **user ID**.
+2. `380:Uf_pPwE4` is **client ID**. Each browser tab has a unique node ID, but every browser tab in this browser will have the same client ID.
 3. `6K7iYdJH` is random string by Nano ID.
 
 On the server you can get user ID and client ID of the client by:
@@ -276,7 +276,7 @@ status(client, current => {
 
 In the web, user can open multiple browser tabs with the same website. In Logux only one browser tab will keep WebSocket connection with a server. All other tabs will use this connection. It keeps the same state in all tabs and save server resources.
 
-When you open 2 browser tabs, they start election and elect only one leader. If you will close leader tab, other tabs will detect it and start election again.
+When you open 2 browser tabs, they start election and elect the leader. If you will close leader tab, other tabs will detect it and start election again.
 
 You can use `role` to detect the current leader. Possible values are `leader`, `follower`, and `candidate` (during the election).
 
@@ -303,9 +303,9 @@ client.on('role', () => {
 
 </details>
 
-Each browser tab will have unique node ID, but they all have the same client ID. Because many browser tabs can use one connection, server need to response to all browsers tab. You can do by using client ID as an address.
+Each browser tab will have unique node ID, but they all have the same client ID. The server responses to all browsers tab, because multiple browser tabs can use one connection. You can do it by using client ID as an address.
 
-In `380:Uf_pPwE4:6K7iYdJH` node ID (3 blocks), `380:Uf_pPwE4` will be client ID.
+In `380:Uf_pPwE4:6K7iYdJH` node ID, `380:Uf_pPwE4` will be client ID.
 
 Browser tabs can synchronize actions between each other. Actions from server and for the server (with `meta.sync = true`) are sharing between browser tabs by default.
 
