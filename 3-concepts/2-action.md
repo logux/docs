@@ -437,7 +437,7 @@ client.on(event, (action, meta) => {
 
 Events:
 
-* `preadd`: action is goind to be added to the log. It is a only way to set [`meta.reasons`]. This event will not be called for cross-tab actions added in different browser tab.
+* `preadd`: action is going to be added to the log. It is a only way to set [`meta.reasons`]. This event will not be called for cross-tab actions added in different browser tab.
 * `add`: action was added to the log.
 * `clean`: action was removed from the log. It will happen if nobody will set [`meta.reasons`] for new action or you remove all reasons for old action.
 
