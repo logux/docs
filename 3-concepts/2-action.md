@@ -444,9 +444,4 @@ Events:
 [`meta.reasons`]: ./6-reason.md
 [Nano Events]: https://github.com/ai/nanoevents/
 
-
-## Server Events
-
-*Under construction*
-
 **[Next chapter →](./3-meta.md)**
