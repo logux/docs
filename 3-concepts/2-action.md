@@ -1,6 +1,6 @@
 # Actions
 
-Logux actions are very similar to [Redux actions]. JSON objects describes what was changed in the application state. If the user does something, client should create action to change the state. State changes will update UI.
+Logux actions are very similar to [Redux actions]. JSON objects describe what was changed in the application state. If the user does something, the client should create action to change the state. State changes will update UI.
 
 For instance, if user press Like button, your application will create an action:
 
@@ -15,9 +15,9 @@ There are only two mandatory requirements for actions:
 1. They must have `type` property with a string value.
 2. You can use only string, number, boolean, `null`, array, and object as values. All values should be serializable to JSON. This is why functions, class instances, `Symbol`, `BigInt` is prohibited.
 
-We recommend to keep actions atomic. It means that action should not contain current state. For instance, it is better to generate `likes/add` and `logux/remove` on the client, rather than `likes/set` with exact number.
+We recommend keeping actions atomic. It means that action should not contain current state. For instance, it is better to generate `likes/add` and `logux/remove` on the client, rather than `likes/set` with the exact number.
 
-Server can send old action made by another user when this client was offline (for instance, another users will set like to the post too). In this case Logux Redux will revert own recent actions, add old changes from the server, and replay own actions again. As result, action will be applied again to the different state. Atomic `likes/add` will work great, but non-atomic `likes/set` will override other changes.
+The server can send old action made by another user when this client was offline (for instance, other users will set like to the post too). In this case, Logux Redux will revert own recent actions, add old changes from the server, and replay own actions again. As a result, action will be applied again to a different state. Atomic `likes/add` will work great, but non-atomic `likes/set` will override other changes.
 
 [Redux actions]: https://redux.js.org/basics/actions
 
@@ -35,10 +35,6 @@ Logux has a few built-in actions with `logux/` prefix.
 
 Logux Server response with `logux/processed` when it received and processed the action from the client. `action.id` of `logux/processed` will be equal to `meta.id` of received action.
 
-Logux Server uses [client ID] sends `logux/processed` back to the client. So all browser tabs will receive this action from the server.
-
-[client ID]: ./1-node.md#cross-tab-communication
-
 
 ### `logux/undo`
 
@@ -46,18 +42,14 @@ Logux Server uses [client ID] sends `logux/processed` back to the client. So all
 { type: 'logux/undo', id: '1560954012838 380:Y7bysd:O0ETfc 0', reason: 'error' }
 ```
 
-This action asks clients to revert action. `action.id` will be equal to `meta.id` of reverted action.
-
-Logux Server sends this action on any error during action processing. In this case, `logux/processed` will not be sent.
+This action asks clients to revert action. `action.id` will be equal to `meta.id` of reverted action. Logux Server sends this action on any error during action processing. In this case, `logux/processed` will not be sent.
 
 A developer can create `logux/undo` at any moment on the server even after `logux/processed` was sent.
 
 <details open><summary><b>Logux Server</b></summary>
 
 ```js
-  process (ctx, action, meta) {
-    server.undo(meta, 'too late')
-  }
+server.undo(meta, 'too late')
 ```
 
 </details>
@@ -69,7 +61,7 @@ Logux.undo(meta, reason: 'too late')
 
 </details>
 
-Clients can also create `logux/undo` to revert action and ask other clients to revert it (if the server allows it).
+Clients can also create `logux/undo` to revert action and ask other clients to revert it (if developer allowed to re-send this actions on the server).
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -86,7 +78,12 @@ client.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true
 
 </details>
 
-`action.reason` describes the reason for reverting. There are only two build-in values: `denied` if `access()` callback was not passed on the server and `error` on error during processing. Developers can use any other `reason`.
+`action.reason` describes the reason for reverting. There are only two build-in values:
+
+* `denied` if `access()` callback on the server was not passed
+* `error` on error during processing.
+
+Developers can use any other `reason`.
 
 
 ### `logux/subscribe`
@@ -95,7 +92,7 @@ client.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true
 { type: 'logux/subscribe', channel: 'users/380' }
 ```
 
-Clients use this action to subscribe to the channel. Next, we will have [special chapter] about channels and subscriptions.
+Clients use this action to subscribe to a channel. Next, we will have [special chapter] about channels and subscriptions.
 
 Developers can define additional custom properties in subscribe action:
 
@@ -123,18 +120,17 @@ Adding actions to the log is the only way to change [application state] in Logux
 
 There are four ways to add action to Logux Redux.
 
-1. The **standard Redux** way to dispatch actions. It adds local action. Action will *not* be sent to the server or another browser tab. There is no way to set action’s meta in this method.
+1. The **standard Redux** way to dispatch actions. Action will *not* be sent to the server or another browser tab. There is no way to set action’s meta in this method.
 
    ```js
    store.dispatch(action)
    ```
 
-   This way is the best for small UI states, like opened/closed menu state.
+   This way is the best for small UI states, like to open/close menu.
 
-2. **Local action with metadata**. It adds local action. Action will *not* be sent to the server or another browser tab. Compare to standard Redux way with `dispatch.local` you can set action’s meta.
+2. **Local action with metadata**. Action will *not* be sent to the server or another browser tab. Compare to standard Redux way, `dispatch.local` can set action’s meta.
 
    ```js
-   store.dispatch.local(action)
    store.dispatch.local(action, meta)
    ```
 
@@ -145,16 +141,16 @@ There are four ways to add action to Logux Redux.
    store.dispatch.crossTab(action, meta)
    ```
 
-   This method is the best to work with local data like client settings, which you will save to `localStorage`.
+   This method is the best for local data like client settings, which you will save to `localStorage`.
 
-4. **Send to server.** It sends action to the server *and* all tabs in this browser.
+4. **Server actions.** It sends action to the server *and* all tabs in this browser.
 
    ```js
    store.dispatch.sync(action)
    store.dispatch.sync(action, meta)
    ```
 
-   This method is the best for working with models. For instance, when the user adds a new comment or changed the post.
+   This method is the best for models. For instance, when the user adds a new comment or changed the post.
 
 </details>
 <details><summary><b>Logux client</b></summary>
@@ -191,9 +187,9 @@ There are four ways to add action to Logux Redux.
 
 ## Sending Actions from Client to Server
 
-When you added a new action to the log, Logux will update the application state and will try to send the action to the server in the background. If the client doesn’t have Internet connection right now, Logux will keep the action in the memory and will send action to the server automatically, when the client gets the connection.
+When you added a new action to the log, Logux will update the application state and will try to send the action to the server in the background. If the client doesn’t have Internet connection, Logux will keep the action in the memory and will send action to the server automatically, when the client will get the connection.
 
-We recommend to use Optimistic UI: do not show loaders when you change data (save the form and press a Like button).
+We recommend to use Optimistic UI: do not show loaders when user changed data (save the form and press a Like button).
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -210,7 +206,7 @@ client.log.add({ type: 'likes/add', postId }, { sync: true })
 
 </details>
 
-You could use `@logux/client/badge` or `@logux/client/status` to show small notice if changes were not saved to server and Logux waiting for an Internet connection.
+You could use `@logux/client/badge` or `@logux/client/status` to show small notice if Logux waiting for an Internet to save changes.
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -235,7 +231,7 @@ badge(client, { messages: badgeMessages, styles: badgeStyles })
 
 </details>
 
-But, of course, you can use pessimistic UI too for critical actions like payment:
+But, of course, you can use “pessimistic” UI for critical actions like payment:
 
 <details open><summary><b>Redux client</b></summary>
 
@@ -288,6 +284,8 @@ confirm(store.client)
 import confirm from '@logux/client/confirm'
 confirm(client)
 ```
+
+</details>
 
 
 ## Permissions Check
