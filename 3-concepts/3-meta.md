@@ -124,7 +124,16 @@ if (isFirstOlder(meta1, meta2)) {
 
 ## Common Meta Keys
 
-*Under construction*
+These meta’s keys are available on client and server:
+
+* `id` string: unique action’s ID.
+* `time` timestamp: when action was created. It uses local node’s time.
+* `added` number: action’s serial number. Logux uses this number to track what actions were already synchronized.
+* `reasons` array of strings: reasons for action to not be cleaned from log. We will cover it in [next chapter].
+* `subprotocol` string: [subprotocol] of application, which generates this action.
+
+[next chapter]: ./6-reason.md
+[subprotocol]: ./7-subprotocol.md
 
 
 ## Client Meta Keys
