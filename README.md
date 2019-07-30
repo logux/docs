@@ -49,8 +49,10 @@ Commercial support: [`logux@evilmartians.com`]
    5. [Channels and Subscriptions](./3-concepts/5-subscription.md)
    6. [Action Reasons](./3-concepts/6-reason.md)
    7. [Subprotocols](./3-concepts/7-subprotocol.md)
-4. [Logux Protocol](./protocol/spec.md)
-5. [Logux Back-end Protocol](./backend-protocol/spec.md)
+4. **Recipes**
+   1. [Authentication](./4-recipes/1-authentication.md)
+5. [Logux Protocol](./protocol/spec.md)
+6. [Logux Back-end Protocol](./backend-protocol/spec.md)
 
 *Docs are under construction*
 

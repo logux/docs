@@ -1,8 +1,4 @@
-# Authentication
-
-*Under construction. Should be moved to Recipes*
-
-In previous chapters, we created Logux server and client. Now we need to add authentication process to connect them.
+# Authentication with Logux
 
 In this example, we will use simple email/password authentication. Logux supports any authentication, including OAuth or WebAuthn.
 
@@ -42,7 +38,8 @@ Edit `config/initializers/logux.rb`:
 
 ```diff
   config.auth_rule = lambda do |user_id, token|
--   false # Deny all users until we will have a proper authentication
+-   # Allow only local users until we will have a proper authentication
+-   Rails.env.development?
 +   data = JWT.decode token, ENV['JWT_SECRET'], { algorithm: 'HS256' }
 +   data[0]['sub'] == user_id
   end
@@ -174,8 +171,7 @@ server.type('login', {
     try {
       user = await db.one('SELECT * FROM users WHERE email = ?', action.email)
     } catch (e) {
-      server.undo(meta, 'Unknown email')
-      return
+      return server.undo(meta, 'Unknown email')
     }
     if (await argon2.verify(hash, action.password)) {
       let token = await jwt.sign({ sub: user.id }, process.env.JWT_SECRET)
@@ -262,7 +258,5 @@ exit
 Start Logux server and Logux client. Try to sign-in into the application. If you will have any problems feel free to ask a question at our [support chat].
 
 In the next steps, you will need a good sign-up form, email verification, and many other things for proper authentication. They highly depend on your application and out of this guide topic.
-
-**[Next chapter →](../3-concepts/1-node.md)**
 
 [support chat]: https://gitter.im/logux/logux
