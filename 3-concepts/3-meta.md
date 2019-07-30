@@ -81,7 +81,48 @@ Logux synachronizes only 3 meta’s keys:
 All other meta keys are local and both server and client do not send them.
 
 
-## Basic Meta Keys
+## ID and Time
+
+Each action has unique ID. This ID is unique on all machines.
+
+```js
+"1564508138460 380:R7BNGAP5:px3-J3oc 0"
+```
+
+To generate ID unique across all nodes in Logux cluster, Logux combines 3 values:
+
+* `1564508138460`: local timestamp on the node, which generate the action.
+* `380:R7BNGAP5:px3-J3oc`: [unique ID] of node, which generate the action.
+* `0` is a counter for the case, when node will generate several actions during the same timestamp.
+
+```js
+log.generateId() //=> "1564508138460 380:R7BNGAP5:px3-J3oc 0"
+log.generateId() //=> "1564508138460 380:R7BNGAP5:px3-J3oc 1"
+log.generateId() //=> "1564508138461 380:R7BNGAP5:px3-J3oc 0"
+```
+
+In real world, every node will have own time. For instance, user could set wrong time on own phone. This is why you should not use `meta.id` as a time. Logux has special `meta.time`, which will use time of current node. During the connection client and server will calculate time difference between them and change `meta.time` during synchronization. As result, `meta.time` could be different on different nodes.
+
+```js
+const time = new Date(meta.time) //=> Date 2019-07-30T17:35:38.460Z
+```
+
+`meta.time` is a timestamp. Few actions can have the same `meta.time` if these actions was generated very fast in the same millisecond. Logux has `isFirstOlder` helper, which uses both `meta.time` and `meta.id` to always be sure what action was generated later.
+
+```js
+import isFirstOlder from '@logux/core/is-first-older'
+
+if (isFirstOlder(meta1, meta2)) {
+  lastName = action1.name
+} else {
+  lastName = action2.name
+}
+```
+
+[node ID]: ./1-node.md#node-id
+
+
+## Common Meta Keys
 
 *Under construction*
 
@@ -92,11 +133,6 @@ All other meta keys are local and both server and client do not send them.
 
 
 ## Server Meta Keys
-
-*Under construction*
-
-
-## Time
 
 *Under construction*
 
