@@ -33,7 +33,7 @@ Commercial support: [`logux@evilmartians.com`]
    1. [Core Concepts](./1-architecture/1-core.md)
    2. [Using Concepts in Practice](./1-architecture/2-practice.md)
    3. [What Problems does Logux Solve](./1-architecture/3-solved.md)
-   4. [Comparing Logux with AJAX and GraphQL](./1-architecture/4-compare.md)
+   4. *[Comparing Logux with AJAX and GraphQL](./1-architecture/4-compare.md)*
    5. [Parts](./1-architecture/5-parts.md)
    6. [Choosing Right Architecture](./1-architecture/6-choosing.md)
 2. **Starting Logux Project**
@@ -44,11 +44,11 @@ Commercial support: [`logux@evilmartians.com`]
 3. **Core Concepts**
    1. [Nodes](./3-concepts/1-node.md)
    2. [Actions](./3-concepts/2-action.md)
-   3. [Meta](./3-concepts/3-meta.md)
-   4. [Application State](./3-concepts/4-state.md)
-   5. [Channels and Subscriptions](./3-concepts/5-subscription.md)
-   6. [Action Reasons](./3-concepts/6-reason.md)
-   7. [Subprotocols](./3-concepts/7-subprotocol.md)
+   3. *[Meta](./3-concepts/3-meta.md)*
+   4. *[Application State](./3-concepts/4-state.md)*
+   5. *[Channels and Subscriptions](./3-concepts/5-subscription.md)*
+   6. *[Action Reasons](./3-concepts/6-reason.md)*
+   7. *[Subprotocols](./3-concepts/7-subprotocol.md)*
 4. **Recipes**
    1. [Authentication](./4-recipes/1-authentication.md)
 5. [Logux Protocol](./protocol/spec.md)
