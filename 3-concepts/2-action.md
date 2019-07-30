@@ -414,7 +414,7 @@ We recommend to use subscription rather than working with `reasons`. Every time 
 [`reasons`]: ./6-reason.md
 
 
-## Client Events
+## Events
 
 Logux uses [Nano Events] API to add and remove event listener.
 
@@ -442,6 +442,8 @@ Events:
 * `preadd`: action is going to be added to the log. It is the only way to set [`meta.reasons`]. This event will not be called for cross-tab actions added in a different browser tab.
 * `add`: action was added to the log.
 * `clean`: action was removed from the log. It will happen if nobody will set [`meta.reasons`] for new action or you remove all reasons for old action.
+
+See `@logux/server/server#on` API docs for server events.
 
 [`meta.reasons`]: ./6-reason.md
 [Nano Events]: https://github.com/ai/nanoevents/
