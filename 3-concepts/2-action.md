@@ -1,6 +1,6 @@
 # Actions
 
-Logux actions are very similar to [Redux actions]. JSON objects describe what was changed in the application state. If the user does something, the client should create action to change the state. State changes will update UI.
+Logux actions are very similar to [Redux actions]. JSON objects describe what was changed in the [application state]. If the user does something, the client should create action to change the state. State changes will update UI.
 
 For instance, if user press Like button, your application will create an action:
 
@@ -19,6 +19,7 @@ We recommend keeping actions atomic. It means that action should not contain cur
 
 The server can send old action made by another user when this client was offline (for instance, other users will set like to the post too). In this case, Logux Redux will revert own recent actions, add old changes from the server, and replay own actions again. As a result, action will be applied again to a different state. Atomic `likes/add` will work great, but non-atomic `likes/set` will override other changes.
 
+[application state]: ./4-state.md
 [Redux actions]: https://redux.js.org/basics/actions
 
 
