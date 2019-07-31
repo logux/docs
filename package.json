@@ -53,7 +53,9 @@
       "LTE",
       "TLS",
       "opens WebSocket",
-      "serializable"
+      "serializable",
+      "meta’s",
+      "timestamp"
     ]
   }
 }

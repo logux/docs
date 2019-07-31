@@ -72,7 +72,7 @@ You can not change meta’s keys related to action’s order: `id`, `time`, `add
 
 ## Meta Synchronization
 
-Logux synachronizes only 3 meta’s keys:
+Logux synchronizes only 3 meta’s keys:
 
 * `id`
 * `time`, but it will be changed to fix time difference between client and server
@@ -138,10 +138,14 @@ These meta’s keys are available on client and server:
 
 ## Client Meta Keys
 
-*Under construction*
+* `sync` boolean: optional key to mark that this action should be synchronized with other browser tabs and server.
+* `tab` string: optional key to mark that action should be visible only for browser tab with the same `client.id`.
 
 
 ## Server Meta Keys
+
+* `status` `"waiting"|"processed"|"error"`: action processing status.
+* `server` string: [node ID] of the server received the action.
 
 *Under construction*
 
