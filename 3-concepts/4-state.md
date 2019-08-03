@@ -192,9 +192,44 @@ There is no single solution for conflict resolution. It is always depends on dat
 
 As result, if developer used [atomic actions], conflict actions will override each other (“last write wins” model). In complicated cases, you can make your can define merge logic in reducers.
 
-By default, **Server** doesn’t use time travel, because average state can’t be stored in the memory.
+By default, **Server** doesn’t use time travel, because average state can’t be stored in the memory. You need manually compare action’s time and latest change time to implement “last write wins”. In the similiar way you can implement any other conflict resolution logic.
 
-*Under construction*
+<details open><summary><b>Node.js</b></summary>
+
+```js
+server.type('users/rename', {
+  …,
+  async process (ctx, action, meta) {
+    const user = await db.getUser(action.userId)
+    if (isFirstOlder(user.nameChangedAt, meta)) {
+      user.name = action.name
+      user.nameChangedAt = meta
+      await user.save()
+    }
+  }
+})
+```
+
+</details>
+<details><summary><b>Ruby on Rails</b></summary>
+
+```ruby
+# app/logux/actions/users.rb
+module Channels
+  class Users < Logux::ChannelController
+    def rename
+      user = User.find(action[:userId])
+      if user.name_changed_at <= meta.time
+        user.name = action[:name]
+        user.name_changed_at = meta.time
+        user.save!
+      end
+    end
+  end
+end
+```
+
+</details>
 
 [atomic actions]: ./2-actions.md#atomic-actions
 [ID and time]: ./3-meta.md#id-and-time
