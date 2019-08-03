@@ -145,7 +145,7 @@ Using [`logux_rails`](https://github.com/logux/logux_rails/):
 ```ruby
 # app/logux/channels/counter.rb
 module Channels
-  class Counter < Channels::Base
+  class Counter < Logux::ChannelController
     def initial_data
       [{ type: 'INC', value: db.counter }]
     end
@@ -156,7 +156,7 @@ end
 ```ruby
 # app/logux/actions/inc.rb
 module Actions
-  class Inc < Actions::Base
+  class Inc < Logux::ActionController
     def inc
       # Don’t forget to keep action atomic
       db.update_counter! 'value += 1'

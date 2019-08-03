@@ -105,7 +105,7 @@ server.channel('counter', {
 
 ```ruby
 module Actions
-  class Inc < Actions::Base
+  class Inc < Logux::ActionController
     def inc
       user_id   #=> "580"
       client_id #=> "580:Uf_pPwE4"

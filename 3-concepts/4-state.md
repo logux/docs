@@ -95,6 +95,8 @@ However, you can change this behaviour and have event sourcing on the server too
 
 Every time when client subscribes to some data, server go to database and send initial value:
 
+<details open><summary><b>Node.js</b></summary>
+
 ```js
 server.channel('users/:id', {
   …,
@@ -105,7 +107,26 @@ server.channel('users/:id', {
 })
 ```
 
+</details>
+<details><summary><b>Ruby on Rails</b></summary>
+
+```ruby
+# app/logux/channels/users.rb
+module Channels
+  class Users < Logux::ChannelController
+    def initial_data
+      user = User.find(action.channel.split('/')[1])
+      [{ type: 'user/add', user: user }]
+    end
+  end
+end
+```
+
+</details>
+
 After initial subscribing, server will just re-send changes without going to database:
+
+<details open><summary><b>Node.js</b></summary>
 
 ```js
 server.type('users/add', {
@@ -117,7 +138,16 @@ server.type('users/add', {
 })
 ```
 
+</details>
+<details><summary><b>Ruby on Rails</b></summary>
+
+*Under construction. Until `resend` will be implemented in the gem.*
+
+</details>
+
 Every time when user sends action, server change the data in database:
+
+<details open><summary><b>Node.js</b></summary>
 
 ```js
 server.type('users/add', {
@@ -127,6 +157,29 @@ server.type('users/add', {
   }
 })
 ```
+
+</details>
+<details><summary><b>Ruby on Rails</b></summary>
+
+```ruby
+# app/logux/actions/users.rb
+module Channels
+  class Users < Logux::ChannelController
+    def add
+      user = User.new(user_params)
+      user.save!
+    end
+
+    private
+
+    def user_params
+      action.require(:user).permit(:id, :name)
+    end
+  end
+end
+```
+
+</details>
 
 
 ## Conflict Resolution
