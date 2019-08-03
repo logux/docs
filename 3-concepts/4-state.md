@@ -55,7 +55,7 @@ As result, with a history of actions you can always re-generate the same state. 
 
 By default, Logux keep last 1000 action (you can change it, see [reasons chapter]) and cache state every 50 actions to make time-travel faster.
 
-[reasons chapter]: ./6-reasons.md
+[reasons chapter]: ./6-reason.md
 
 ## Client State and UI
 
@@ -192,7 +192,7 @@ There is no single solution for conflict resolution. It is always depends on dat
 
 As result, if developer used [atomic actions], conflict actions will override each other (“last write wins” model). In complicated cases, you can make your can define merge logic in reducers.
 
-By default, **Server** doesn’t use time travel, because average state can’t be stored in the memory. You need manually compare action’s time and latest change time to implement “last write wins”. In the similiar way you can implement any other conflict resolution logic.
+By default, **Server** doesn’t use time travel, because average state can’t be stored in the memory. You need manually compare action’s time and latest change time to implement “last write wins”. In the similar way you can implement any other conflict resolution logic.
 
 <details open><summary><b>Node.js</b></summary>
 
@@ -231,7 +231,7 @@ end
 
 </details>
 
-[atomic actions]: ./2-actions.md#atomic-actions
+[atomic actions]: ./2-action.md#atomic-actions
 [ID and time]: ./3-meta.md#id-and-time
 
 

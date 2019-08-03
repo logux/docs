@@ -55,7 +55,9 @@
       "opens WebSocket",
       "serializable",
       "meta’s",
-      "timestamp"
+      "timestamp",
+      "Vue",
+      "sourcing"
     ]
   }
 }

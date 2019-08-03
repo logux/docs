@@ -69,7 +69,7 @@ client.log.changeMeta(actionId, {
 
 You can not change meta’s keys related to action’s order: `id`, `time`, `added`.
 
-On the server you can set `channels`, `users`, `clients` and `nodes` keys (and singluar versions) for new action from the client by `resend` callback:
+On the server you can set `channels`, `users`, `clients` and `nodes` keys (and singular versions) for new action from the client by `resend` callback:
 
 <details open><summary><b>Node.js</b></summary>
 
