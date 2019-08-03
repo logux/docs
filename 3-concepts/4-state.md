@@ -5,7 +5,7 @@ State describes all data of your application. On the client-side state describe 
 
 ## Client State
 
-Logux uses *event sourcing* pattern on client-side. Actions describe the current state. State object is just an cache.
+Logux Redux uses *event sourcing* pattern on client-side. Actions describe the current state. State object is just an cache.
 
 Developer provide reducer. Reducer has initial state (`[]` in this example) and describe how to change the current state on this action:
 
@@ -57,9 +57,39 @@ By default, Logux keep last 1000 action (you can change it, see [reasons chapter
 
 [reasons chapter]: ./6-reasons.md
 
+## Client State and UI
+
+Logux Redux generates big JS object as application state. We recommend to use some reactive UI library (React, Vue.js, Svelte, etc) to render and change UI according state changes:
+
+```js
+import { useSelector } from 'react-redux'
+
+export const Users = ({ id }) => {
+  const users = useSelector(state => state.users)
+  return <>
+    {users.map(user => <User key={user.id} user={user}>)}
+  </>
+}
+```
+
+Often we need non-pure logic and we can’t put it to reducer. For instance, we need to change `document.title` on new error. For this cases, you need to set listener for state changes:
+
+```js
+store.subscribe(() => {
+  if (store.getState().errors.length) {
+    document.title = '* Error'
+  } else {
+    document.title = 'OK'
+  }
+})
+```
+
+
 ## Server State
 
-By default, server state is opposite to client state. Because server-side cache could be very big, the database is the single source of truth. Logux Server removes action after processing and always look to database for the latest value. As result, you can’t undo actions on the server.
+By default, server state is opposite to client state. Because server-side cache could be very big, the database is the single source of truth. You can use any database with Logux.
+
+Logux Server removes action after processing and always look to database for the latest value. As result, you can’t undo actions on the server.
 
 However, you can change this behaviour and have event sourcing on the server too.
 
@@ -101,7 +131,20 @@ server.type('users/add', {
 
 ## Conflict Resolution
 
+If several users can work on the same document in your application, you need to think about conflict resolution. It is especially important for offline first application. However, because of network latency, online-only collaborative applications need conflict resolution too.
+
+There is no single solution for conflict resolution. It is always depends on data type and business processes. Logux gives you few basements to not care about conflict resolutions in the simple cases and write custom logic in complicated cases.
+
+**Logux Redux** uses time travel to keep the same actions order on all machines. It uses [ID and time] from meta to detect order and time travel to insert action in the correct moment of the history. Time travel is a technique when Logux Redux revert recent actions, apply new action and then re-apply recent actions.
+
+As result, if developer used [atomic actions], conflict actions will override each other (“last write wins” model). In complicated cases, you can make your can define merge logic in reducers.
+
+By default, **Server** doesn’t use time travel, because average state can’t be stored in the memory.
+
 *Under construction*
+
+[atomic actions]: ./2-actions.md#atomic-actions
+[ID and time]: ./3-meta.md#id-and-time
 
 
 ## Reverting Changes

@@ -15,12 +15,17 @@ There are only two mandatory requirements for actions:
 1. They must have `type` property with a string value.
 2. You can use only string, number, boolean, `null`, array, and object as values. All values should be serializable to JSON. This is why functions, class instances, `Symbol`, `BigInt` is prohibited.
 
+[application state]: ./4-state.md
+[Redux actions]: https://redux.js.org/basics/actions
+
+
+## Atomic Actions
+
 We recommend keeping actions atomic. It means that action should not contain current state. For instance, it is better to generate `likes/add` and `logux/remove` on the client, rather than `likes/set` with the exact number.
 
 The server can send old action made by another user when this client was offline (for instance, other users will set like to the post too). In this case, Logux Redux will revert own recent actions, add old changes from the server, and replay own actions again. As a result, action will be applied again to a different state. Atomic `likes/add` will work great, but non-atomic `likes/set` will override other changes.
 
-[application state]: ./4-state.md
-[Redux actions]: https://redux.js.org/basics/actions
+You can use CRDT as inspiration to create atomic actions.
 
 
 ## System Actions
