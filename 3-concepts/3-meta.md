@@ -71,7 +71,7 @@ You can not change meta’s keys related to action’s order: `id`, `time`, `add
 
 On the server you can set `channels`, `users`, `clients` and `nodes` keys (and singluar versions) for new action from the client by `resend` callback:
 
-<details open><summary><b>Logux Server</b></summary>
+<details open><summary><b>Node.js</b></summary>
 
 ```js
 server.type('users/rename', {
@@ -84,7 +84,7 @@ server.type('users/rename', {
 ```
 
 </details>
-<details><summary><b>Logux Rails</b></summary>
+<details><summary><b>Ruby on Rails</b></summary>
 
 *Under construction. Until `resend` will be implemented in the gem.*
 

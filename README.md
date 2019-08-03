@@ -105,7 +105,7 @@ log.add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
 
 ## Server Example
 
-<details open><summary><b>Node.js server</b></summary>
+<details open><summary><b>Node.js</b></summary>
 
 Using [`@logux/server`](https://github.com/logux/server/):
 
@@ -138,7 +138,7 @@ server.type('INC', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails server</b></summary>
+<details><summary><b>Ruby on Rails</b></summary>
 
 Using [`logux_rails`](https://github.com/logux/logux_rails/):
 

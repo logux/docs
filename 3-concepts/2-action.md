@@ -52,14 +52,14 @@ This action asks clients to revert action. `action.id` will be equal to `meta.id
 
 A developer can create `logux/undo` at any moment on the server even after `logux/processed` was sent.
 
-<details open><summary><b>Logux Server</b></summary>
+<details open><summary><b>Node.js</b></summary>
 
 ```js
 server.undo(meta, 'too late')
 ```
 
 </details>
-<details><summary><b>Logux Rails</b></summary>
+<details><summary><b>Ruby on Rails</b></summary>
 
 ```ruby
 Logux.undo(meta, reason: 'too late')
@@ -298,7 +298,7 @@ confirm(client)
 
 Logux Server rejects any action if it was not explicitly allowed by developer:
 
-<details open><summary><b>Logux Server</b></summary>
+<details open><summary><b>Node.js</b></summary>
 
 ```js
 server.type('likes/add', () => {
@@ -311,7 +311,7 @@ server.type('likes/add', () => {
 ```
 
 </details>
-<details><summary><b>Logux Rails</b></summary>
+<details><summary><b>Ruby on Rails</b></summary>
 
 ```ruby
 # app/logux/policies/channels/likes.rb
@@ -338,7 +338,7 @@ If the server accepted the action, it would re-send this action to:
 * `users` or `users`: clients with listed user IDs.
 * `nodes` or `nodes`: clients with listed node IDs.
 
-<details open><summary><b>Logux Server</b></summary>
+<details open><summary><b>Node.js</b></summary>
 
 ```js
 server.type('likes/add', () => {
@@ -351,7 +351,7 @@ server.type('likes/add', () => {
 ```
 
 </details>
-<details><summary><b>Logux Rails</b></summary>
+<details><summary><b>Ruby on Rails</b></summary>
 
 *Under construction. Until `resend` will be implemented in the gem.*
 
@@ -369,7 +369,7 @@ The server adds actions to its log to send these actions to clients. There are f
 * `meta.users` or `meta.users`: clients with listed user IDs.
 * `meta.nodes` or `meta.nodes`: clients with listed node IDs.
 
-<details open><summary><b>Logux Server</b></summary>
+<details open><summary><b>Node.js</b></summary>
 
 The most universal way is:
 
@@ -392,7 +392,7 @@ server.channel('user/:id', {
 ```
 
 </details>
-<details><summary><b>Logux Rails</b></summary>
+<details><summary><b>Ruby on Rails</b></summary>
 
 ```ruby
 some_service.on(:error) do

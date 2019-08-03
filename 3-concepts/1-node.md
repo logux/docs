@@ -52,14 +52,14 @@ client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
 
 Current node ID of server:
 
-<details open><summary><b>Logux Server</b></summary>
+<details open><summary><b>Node.js</b></summary>
 
 ```js
 server.nodeId //=> "server:iSiqWU5J"
 ```
 
 </details>
-<details><summary><b>Logux Rails</b></summary>
+<details><summary><b>Ruby on Rails</b></summary>
 
 ```ruby
 Logux::Node.instance.node_id #=> "server:iSiqWU5J"
@@ -82,7 +82,7 @@ In `380:Uf_pPwE4:6K7iYdJH`:
 
 On the server you can get user ID and client ID of the client by:
 
-<details open><summary><b>Logux Server</b></summary>
+<details open><summary><b>Node.js</b></summary>
 
 ```js
 server.type('INC', {
@@ -101,7 +101,7 @@ server.channel('counter', {
 ```
 
 </details>
-<details><summary><b>Logux Rails</b></summary>
+<details><summary><b>Ruby on Rails</b></summary>
 
 ```ruby
 module Actions
@@ -339,7 +339,7 @@ const client = new CrossTabClient({
 
 User ID and credentials will be checked on the server:
 
-<details open><summary><b>Logux Server</b></summary>
+<details open><summary><b>Node.js</b></summary>
 
 ```js
 server.auth((userId, credentials) => {
@@ -349,7 +349,7 @@ server.auth((userId, credentials) => {
 ```
 
 </details>
-<details><summary><b>Logux Rails</b></summary>
+<details><summary><b>Ruby on Rails</b></summary>
 
 ```ruby
 config.auth_rule = lambda do |user_id, token|
