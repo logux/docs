@@ -69,6 +69,27 @@ client.log.changeMeta(actionId, {
 
 You can not change meta’s keys related to action’s order: `id`, `time`, `added`.
 
+On the server you can set `channels`, `users`, `clients` and `nodes` keys (and singluar versions) for new action from the client by `resend` callback:
+
+<details open><summary><b>Logux Server</b></summary>
+
+```js
+server.type('users/rename', {
+  …,
+  resend (ctx, action, meta) {
+    return { channel: `users/${ action.userId }` }
+  },
+  …
+})
+```
+
+</details>
+<details><summary><b>Logux Rails</b></summary>
+
+*Under construction. Until `resend` will be implemented in the gem.*
+
+</details>
+
 
 ## Meta Synchronization
 
@@ -146,7 +167,11 @@ These meta’s keys are available on client and server:
 
 * `status` `"waiting"|"processed"|"error"`: action processing status.
 * `server` string: [node ID] of the server received the action.
+* `channels` array and `channel` string: all clients subscribed to listed [channels] will receive the action.
+* `users` array and `user` string: all clients with listed user IDs will receive the action.
+* `clients` array and `client` string: all clients with listed client IDs will receive the action.
+* `nodes` array and `node` string: all clients with listed node IDs will receive the action.
 
-*Under construction*
+[channels]: ./5-subscription.md
 
 **[Next chapter →](./4-state.md)**
