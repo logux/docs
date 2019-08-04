@@ -24,7 +24,6 @@ Meta has unique action’s ID, creating time, processing status and many other t
 }
 ```
 
-[application state]: ./4-state.md
 [action]: ./2-action.md
 
 
@@ -140,7 +139,7 @@ if (isFirstOlder(meta1, meta2)) {
 }
 ```
 
-[node ID]: ./1-node.md#node-id
+[unique ID]: ./1-node.md#node-id
 
 
 ## Common Meta Keys
@@ -173,5 +172,6 @@ These meta’s keys are available on client and server:
 * `nodes` array and `node` string: all clients with listed node IDs will receive the action.
 
 [channels]: ./5-subscription.md
+[node ID]: ./1-node.md#node-id
 
 **[Next chapter →](./4-state.md)**

@@ -13,8 +13,6 @@ You can use any encoding and any low-level protocol: JSON encoding over WebSocke
 
 This protocol is based on simple JS types: boolean, number, string, array and key-value object.
 
-[Logux logs]: https://github.com/logux/core
-
 
 ## Messages
 
@@ -196,8 +194,6 @@ number shift
 Every action should have unique `id`. If receiver’s log already contains action with same `id`, receiver must silently ignore new action from `sync`.
 
 Received action’s `time` time may be different with sender’s `time`, because sender could correct action’s time based on data from [`connected`] message. This correction could fix problems when some client have wrong time or time zone.
-
-[Logux Core docs]: https://github.com/logux/core#created-time
 
 
 ## `synced`

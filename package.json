@@ -2,14 +2,39 @@
   "name": "logux",
   "private": true,
   "scripts": {
-    "links": "find . -maxdepth 2 -name \\*.md | xargs -n 1 markdown-link-check -p",
+    "lint": "remark --no-stdout --frail --quiet *.md */*.md",
     "spell": "yaspeller *.md */*.md",
-    "test": "yarn spell && yarn links"
+    "test": "yarn spell && yarn lint"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.6.3",
-    "markdown-link-check": "^3.7.3",
+    "remark-cli": "^7.0.0",
+    "remark-lint-no-dead-urls": "^0.4.1",
+    "remark-lint-no-empty-sections": "^3.0.0",
+    "remark-preset-lint-recommended": "^3.0.3",
+    "remark-validate-links": "^9.0.1",
     "yaspeller": "^6.0.0"
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended",
+      [
+        "remark-lint-list-item-indent",
+        "space"
+      ],
+      [
+        "remark-lint-no-shortcut-reference-link",
+        false
+      ],
+      [
+        "remark-lint-no-dead-urls",
+        {
+          "skipOffline": true
+        }
+      ],
+      "remark-validate-links",
+      "remark-lint-no-empty-sections"
+    ]
   },
   "yaspeller": {
     "lang": "en",

@@ -12,7 +12,7 @@ It was created on top ideas of **[CRDT]** to have live updates, optimistic UI, a
 * Built-in **offline-first** will improve UX on unstable connection. It is useful from next billion users to New York subway.
 * Compatible with modern stack: **Redux** API, works with **any back-end language** and **any database**.
 
-Twitter: [`@logux_io`]<br>
+Twitter: `@logux_io`<br>
 Ask your questions at [our Gitter]<br>
 Commercial support: [`logux@evilmartians.com`]
 
@@ -23,8 +23,7 @@ Commercial support: [`logux@evilmartians.com`]
 
 [`logux@evilmartians.com`]: mailto:logux@evilmartians.com
 [our Gitter]: https://gitter.im/logux/logux
-[`@logux_io`]: https://twitter.com/logux_io
-[CRDT]: http://slides.com/ai/crdt
+[CRDT]: https://slides.com/ai/crdt
 
 
 ## Getting Started

@@ -1,9 +1,9 @@
 pre-push:
   parallel: true
   commands:
-    yaspeller:
+    spell:
       glob: "*.md"
       run: yaspeller {push_files}
-    links:
+    lint:
       glob: "*.md"
-      run: npx markdown-link-check {push_files}
+      run: remark --no-stdout --frail --quiet {push_files}

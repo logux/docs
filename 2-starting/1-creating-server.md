@@ -146,7 +146,6 @@ Connect to the database in `index.js`:
 + let db = pg()(process.env.DATABASE_URL)
 ```
 
-[Install PostgreSQL]: https://www.postgresql.org/download/
 [this advice]: https://stackoverflow.com/questions/16973018/createuser-could-not-connect-to-database-postgres-fatal-role-tom-does-not-e
 
 **[Next chapter →](./3-creating-redux.md)**

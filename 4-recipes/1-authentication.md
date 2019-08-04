@@ -258,5 +258,3 @@ exit
 Start Logux server and Logux client. Try to sign-in into the application. If you will have any problems feel free to ask a question at our [support chat].
 
 In the next steps, you will need a good sign-up form, email verification, and many other things for proper authentication. They highly depend on your application and out of this guide topic.
-
-[support chat]: https://gitter.im/logux/logux

@@ -187,9 +187,6 @@ There are four ways to add action to Logux Redux.
 
 </details>
 
-[application state]: ./4-state.md
-[reasons]: ./6-reasons.md
-
 
 ## Sending Actions from Client to Server
 
@@ -403,8 +400,6 @@ end
 *Under construction. Until `send_back` will be implemented in the gem.*
 
 </details>
-
-[client IDs]: ./1-node.md#node-id
 
 
 ## Sending Actions from Server to Client
