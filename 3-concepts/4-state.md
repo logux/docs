@@ -249,7 +249,7 @@ Logux servers send `logux/undo` in 3 cases:
 
 1. Access check didn’t pass.
 2. Error during action processing.
-3. Dveloper write custom code to add `logux/undo` action.
+3. Developer wrote a custom code to add `logux/undo` action.
 
 <details open><summary><b>Node.js</b></summary>
 
