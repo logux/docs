@@ -9,7 +9,7 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.6.3",
     "remark-cli": "^7.0.0",
-    "remark-lint-no-dead-urls": "^0.4.1",
+    "remark-lint-no-dead-urls": "^0.5.0",
     "remark-lint-no-empty-sections": "^3.0.0",
     "remark-preset-lint-recommended": "^3.0.3",
     "remark-validate-links": "^9.0.1",
