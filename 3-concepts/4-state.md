@@ -237,6 +237,33 @@ end
 
 ## Reverting Changes
 
-*Under construction*
+Optimistic UI is great to improve your website performance. Instead of showing loader during saving you allow user to move to next task. However, you need to think about two cases: offline and server error.
+
+Offline support is easy in Logux. Logux will keep unsaved actions in the log and synchronize them later.
+
+But processing server error is more complicated. Other reducer can already change the data according that document was saved, but after few minutes server can send that user doesn’t have access to change this document.
+
+Logux Redux uses event sourcing to deal with this extreme case. In any moment server can send `logux/undo` action and client will revert changes of this action. Logux Redux will load the closest state snapshot and then re-apply all actions without reverted.
+
+Logux servers send `logux/undo` in 3 cases:
+
+1. Access check didn’t pass.
+2. Error during action processing.
+3. Dveloper write custom code to add `logux/undo` action.
+
+<details open><summary><b>Node.js</b></summary>
+
+```js
+server.undo(meta, 'too late')
+```
+
+</details>
+<details><summary><b>Ruby on Rails</b></summary>
+
+```ruby
+Logux.undo(meta, reason: 'too late')
+```
+
+</details>
 
 **[Next chapter →](./5-subscription.md)**
