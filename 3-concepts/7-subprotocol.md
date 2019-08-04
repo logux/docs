@@ -1,12 +1,12 @@
 # Subprotocols
 
-Deploying SPA is not easy. You can deploy new versions of client and server, but users may use old client for weeks, because they do not reload the page. It could be even worse for mobile application. User may avoid updating client and use old client for months.
+Deploying a SPA is not easy. You can deploy new versions of client and server, but users may use old client for weeks because they do not reload the page. It could be even worse for mobile application. User may avoid updating client and use old client for months.
 
-As result, the server need to be able to speak with different versions of clients. Logux has subprotocol versions to do it.
+As a result, the server needs to be able to speak with different versions of clients. Logux has subprotocol versions to do it.
 
 Subprotocol is your application-level protocol:
 
-* What actions can be generated on the client and on the server.
+* What actions can be generated on the client and the server.
 * The schema of action’s objects.
 * The reaction on this actions.
 
@@ -35,7 +35,7 @@ const client = new Client({
 
 </details>
 
-In Logux Node.js server or Logux proxy you define what subprotocol does server use and what clients does it support (by [SemVer range syntax]).
+In Logux Node.js server or Logux proxy, you define what subprotocol does server use and what clients does it support (by [SemVer range syntax]).
 
 ```js
 const server = new Server(
@@ -47,7 +47,7 @@ const server = new Server(
 )
 ```
 
-If server doesn’t support client’s subprotocol it will refuse the connection and client will show “Please reload page” warning to the user.
+If the server doesn’t support the client’s subprotocol, it will refuse the connection and client will show “Please reload page” warning to the user.
 
 On the server you can have different logic for different clients:
 
