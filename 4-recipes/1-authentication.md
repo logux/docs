@@ -127,14 +127,14 @@ Start back-end server, Logux proxy, and Logux client. Try to sign-in into applic
 Go to Logux Server and add the library to generate JWT:
 
 ```sh
-npm i jwt-then argon2
+npm i jwt-then bcrypt
 ```
 
 Load it in the `index.js`:
 
 ```diff
   const { Server } = require('@logux/server')
-+ const argon2 = require('argon2')
++ const bcrypt = require('bcrypt')
 + const jwt = require('jwt-then')
   const pg = require('pg-promise')
 ```
@@ -173,7 +173,7 @@ server.type('login', {
     } catch (e) {
       return server.undo(meta, 'Unknown email')
     }
-    if (await argon2.verify(hash, action.password)) {
+    if (await bcrypt.compare(action.password, hash)) {
       let token = await jwt.sign({ sub: user.id }, process.env.JWT_SECRET)
       ctx.sendBack({ type: 'login/done', userId: user.id, token })
     } else {
@@ -239,22 +239,5 @@ Use these `localStorage` values in the store:
 
 
 ### Check the Result
-
-Get has for your password:
-
-```sh
-echo -n "qwerty" | npx argon2-cli -e
-```
-
-Add a new user by SQL command:
-
-```sh
-psql project-logux
-INSERT INTO users (email, password) VALUES ('test@example.com', '$argon2i$v=19$m=4096,t=3,p=1$LB0q/JD17fYFH6Naq5sVCA$4bRGQ38wAVJaPYJFJfPzYya70Hqq7kOEPhOXD95irxE');
-SELECT * FROM users;
-exit
-```
-
-Start Logux server and Logux client. Try to sign-in into the application. If you will have any problems feel free to ask a question at our [support chat].
 
 In the next steps, you will need a good sign-up form, email verification, and many other things for proper authentication. They highly depend on your application and out of this guide topic.
