@@ -99,7 +99,7 @@ Use these `<meta>` values in the store:
 +     : 'https://example.com/login'
 + }
   const createStore = createLoguxCreator({
-    subprotocol: '0.1.0',
+    subprotocol: '1.0.0',
     server: process.env.NODE_ENV === 'development'
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
@@ -195,7 +195,7 @@ import Client from '@logux/client/client'
 
 function login (email, password) {
   let client = new Client({
-    subprotocol: '0.1.0',
+    subprotocol: '1.0.0',
     server: process.env.NODE_ENV === 'development'
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
@@ -226,7 +226,7 @@ Use these `localStorage` values in the store:
 +     : 'https://example.com/login'
 + };
   const createStore = createLoguxCreator({
-    subprotocol: '0.1.0',
+    subprotocol: '1.0.0',
     server: process.env.NODE_ENV === 'development'
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
