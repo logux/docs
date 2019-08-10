@@ -38,7 +38,7 @@ Find store definition in your project. Look for `createStore` function call. Oft
 
 ```diff
 + const createStore = createLoguxCreator({
-+   subprotocol: '0.1.0',
++   subprotocol: '1.0.0',
 +   server: process.env.NODE_ENV === 'development'
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
