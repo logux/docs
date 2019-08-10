@@ -201,7 +201,7 @@ function login (email, password) {
       : 'wss://logux.example.com',
     userId: false
   })
-  client.on('add', action => {
+  client.log.on('add', action => {
     if (action.type === 'login/done') {
       localStorage.setItem('userId', action.userId)
       localStorage.setItem('token', action.token)
@@ -213,7 +213,7 @@ function login (email, password) {
     }
   })
   client.start()
-  client.add({ type: 'login', email, password }, { sync: true })
+  client.log.add({ type: 'login', email, password }, { sync: true })
 })
 ```
 
