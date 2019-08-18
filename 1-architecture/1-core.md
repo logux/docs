@@ -56,7 +56,7 @@ During the synchronization Logux **guarantee**:
 * Each action will be synchronized **only once**.
 * Actions will have **the same order** on each node.
 
-Logux us based on the **Optimistic UI** idea. When a node creates action, it applies it immediately to own application state. In the background, Logux will synchronize this new action with other nodes.
+Logux is based on the **Optimistic UI** idea. When a node creates action, it applies it immediately to own application state. In the background, Logux will synchronize this new action with other nodes.
 
 When node synchronizes action to another node, the next node will apply the action and synchronize action to other nodes.
 
