@@ -18,7 +18,7 @@ A lot of complicated systems like live updates, Optimistic UI and conflict resol
 
 ## Offline-First and Fixing Merge Conflicts
 
-Server Worker is great in serving JS and CSS files in offline. But you need a special application architecture to work with data without server connection.
+Service Worker is great in serving JS and CSS files in offline. But you need a special application architecture to work with data without server connection.
 
 You need to apply changes to the local state and keep requests for the server until you will have a connection. What if during offline another user changed the same document? We need somehow merge our changes in the right order. What if the user does not have rights to apply that changes? We need to revert these changes locally.
 
