@@ -150,7 +150,7 @@ Go back to `index.js` and replace `server.auth(…)` with this code:
 
 ```js
 server.auth(async (userId, token) => {
-  if (userId === 'false') {
+  if (!userId) {
     return true
   } else {
     try {
