@@ -57,6 +57,7 @@ By default, Logux keeps last 1000 action (you can change it, see [reasons chapte
 
 [reasons chapter]: ./6-reason.md
 
+
 ## Client State and UI
 
 Logux Redux generates big JS object as application state. We recommend to use some reactive UI library (React, Vue.js, Svelte, etc.) to render and change UI according to state changes:
