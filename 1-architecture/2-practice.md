@@ -69,10 +69,11 @@ Logux client shows loader while the server loads data. When the client will rece
 ```js
 export const User = ({ userId }) => {
   const isSubscribing = useSubscription(`user/${ userId }`)
+  const user = useSelector(state => state.users[userId])
+
   if (isSubscribing) {
     return <Loader />
   } else {
-    const user = useSelector(state => state.users[userId])
     return <Name>{user.name}</Name>
   }
 }
