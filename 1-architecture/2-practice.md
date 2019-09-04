@@ -27,7 +27,7 @@ After authenticating user server will calculate **time different** between clien
 
 ## Subscriptions
 
-Because live updates are important parts of Logux idea, in Logux *subscriptions* is a way to request data from the server.
+Because real-time are important parts of Logux idea, in Logux *subscriptions* is a way to request data from the server.
 
 On the client, you use `useSubscription` hook or wrap a component into `subscribe` decorator. Every time, when component added to UI, Logux will subscribe for the channel with the data. Every time, when the component will be removed, Logux will unsubscribe from the channel.
 

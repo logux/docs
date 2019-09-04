@@ -13,7 +13,7 @@ In Logux we try to simplify the system. You have actions. You use this actions t
 store.dispatch.sync({ type: 'user/rename', userId: 380, name: 'New name' })
 ```
 
-A lot of complicated systems like live updates, Optimistic UI and conflict resolution works in Logux out of box.
+A lot of complicated systems like real-time, Optimistic UI and conflict resolution works in Logux out of box.
 
 
 ## Offline-First and Fixing Merge Conflicts
@@ -34,7 +34,7 @@ Production-ready Optimistic UI is similar to Offline First. What if the user doe
 Because Logux is Offline First by design, Optimistic UI will work as expected in many edge cases of real non-stable network and servers.
 
 
-## Live Updates to See the Latest Data
+## Real-Time Updates to See the Latest Data
 
 By default, Logux shows the latest data without the need to press the Reload button to see changes.
 
