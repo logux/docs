@@ -183,6 +183,38 @@ end
 </details>
 
 
+## Time Travel
+
+Logux Redux keeps old actions and old state values.
+
+This history allows Logux Redux to do “time travel” recalculate state with
+different action order or without some action from the past. This feature is critical for conflict resolution (important for collaborative editing) and changes reverting (important for Optimistic UI).
+
+Be default, Logux Redux keeps last 1000 actions. You can change it or implemented more complex logic. See [reasons chapter] for detailes.
+
+Logux Redux saves state every 50 actions. You can change it by `saveStateEvery` option in `createLoguxCreator` function.
+
+In some cases 1000 action could be not enough for time travel. For instance, some client was offline for a few hours and only now send their actions to the server. In this case, client will receive very old actions and will not be able to revert history at that moment to put that client’s actions into the right moment of the history.
+
+In this case, Logux Redux will time travel to latest possible moment. In most cases, it will be enough. If your application is critical for this changes, you have 2 options:
+
+1. Use [`reasons`] to make custom algorithm to keep actual action in the memory.
+2. Set `onMissedHistory` callback to process this cases:
+
+   ```js
+   let store = createLoguxCreator({
+     …,
+     onMissedHistory (action) {
+       if (CRITICAL_ACTIONS.includes(action.type)) {
+         store.dispatch.sync({ type: 'reload/state' }) // Ask server for latest state
+       }
+     }
+   })
+   ```
+
+[`reasons`]: ./6-reason.md
+
+
 ## Conflict Resolution
 
 If several users can work on the same document in your application, you need to think about conflict resolution. It is especially crucial for the offline-first application. However, because of network latency, online-only collaborative applications need conflict resolution too.
