@@ -102,7 +102,7 @@ Every time when client subscribes to some data, server go to database and send i
 server.channel('users/:id', {
   …,
   async init (ctx, action, meta) {
-    let user = await db.loadUser(action.userId)
+    let user = await db.loadUser(params.id))
     ctx.sendBack({ type: 'user/add', user })
   }
 })
@@ -125,7 +125,7 @@ end
 
 </details>
 
-After initial subscribing, server will just re-send changes without going to database:
+After initial subscribing, server will re-send changes to other clients:
 
 <details open><summary><b>Node.js</b></summary>
 
@@ -146,7 +146,7 @@ server.type('users/add', {
 
 </details>
 
-Every time when user sends action, server change the data in database:
+After resending action, server will save data to database:
 
 <details open><summary><b>Node.js</b></summary>
 
