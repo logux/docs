@@ -2,9 +2,9 @@
 
 Logux uses reasons API for it to clean log from outdated actions.
 
-In real systems you may have different strategies to keep action in the log. Development tools may need last 1000 action. Synchronization may require to keep all unsynchronized actions in the log. Application may need action with latest value of each model field. Reasons API allow you to combine these different strategies.
+In real systems, you may have different strategies to keep the action in the log. Development tools may need last 1000 action. Synchronization may require to keep all unsynchronized actions in the log. An application may need action with the latest value of each model field. Reasons API allow you to combine these different strategies.
 
-Every action has ann array of string in `meta.reasons`. Application can add or remove reasons of any action.
+Every action has an array of string in `meta.reasons`. An application can add or remove reasons of any action.
 
 ```js
 meta.reasons //=> ['syncing', 'devtool']
@@ -25,7 +25,7 @@ server.log.on('clean', (action, meta) => {
 })
 ```
 
-If you add action without reasons, Logux will not even put it to the log. Logux will call `preadd` event, check reasons after, call `add` event and remove action from the memory if it doesn’t have any reasons.
+If you add action without reasons, Logux will not even put it to the log. Logux will call `preadd` event, check reasons after, call `add` event, and remove an action from the memory if it doesn’t have any reasons.
 
 ```js
 // Actions will be removed from the memory
@@ -36,7 +36,7 @@ server.log.add(action, { reasons: [] })
 server.log.add(action, { reasons: ['someReason'] })
 ```
 
-Logux doesn’t synchronize `reasons` between nodes. This is why the best way to set reasons is `preadd` event listener.
+Logux doesn’t synchronize `reasons` between nodes. The best way to set reasons is `preadd` event listener.
 
 ```js
 server.log.on('preadd', (action, meta) {
@@ -51,12 +51,12 @@ server.log.removeReason('syncing', { maxAdded: lastSynced })
 server.log.removeReason('devtool', { maxAdded: last - 1000 })
 ```
 
-However, most of Logux implementation has built-in strategies on top of this reasons API.
+However, most of Logux implementation has built-in strategies on top of these reasons API.
 
 
 ## `keepLast`
 
-`meta.keepLast` is a shortcut to set passed string as a reason and remove this reasons from all previous actions. Note that this shortcut will keep reason on latest action according to `meta.id` and `meta.time`. Latest action could not be the action which you are adding.
+`meta.keepLast` is a shortcut to set a passed string as a reason and remove these reasons from all previous actions. Note that this shortcut will keep reason on the latest action according to `meta.id` and `meta.time`. Latest action could not be the action which you are adding.
 
 ```js
 // Keep action with latest name
@@ -69,15 +69,15 @@ server.log.add(
 
 ## Server
 
-By default, Logux Server doesn’t keep any actions in the memory. This is why you should keep all data in database and get data from database on every subscription.
+By default, Logux Server doesn’t keep any actions in the memory. This is why you should keep all data in the database and get data from the database on every subscription.
 
-If you want a complete event-sourcing system, you can implement log store in persistent database and define actions cleaning strategy with reasons API and `preadd` event.
+If you want a complete event-sourcing system, you can implement a log store in persistent database and define actions cleaning strategy with reasons API and `preadd` event.
 
 ## Logux Client
 
 By default, Logux Client keeps actions with `meta.sync`, which was not synchronized yet.
 
-Logux Client is low-level API. If you do not want to have deal with complicated reasons API, Logux Redux is a better option.
+Logux Client is low-level API. If you do not want to have a deal with complicated reasons API, Logux Redux is a better option.
 
 
 ## Logux Redux
@@ -94,7 +94,7 @@ store.dispatch.crossTab(action, { reasons: [] })
 
 You can change actions limit by `reasonlessHistory` option in `createLoguxCreator`.
 
-If Logux Redux will need cleaned action from time travel, it will call `onMissedHistory` callback. You can ask user to reload page or load latest data state from the server, because time travel can’t guarantee the result in this case.
+If Logux Redux needs cleaned action from time travel, it will call `onMissedHistory` callback. You can ask a user to reload the page or load the latest data state from the server because time travel can’t guarantee the result in this case.
 
 ```js
 let store = createLoguxCreator({

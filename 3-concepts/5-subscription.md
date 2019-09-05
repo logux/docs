@@ -1,6 +1,7 @@
+
 # Channels and Subscriptions
 
-Since Logux is real-time system, subscriptions and channels is the main way to get data from the server. It asks server to send current data state and re-send all actions with this data changes.
+Since Logux is a real-time system, subscriptions and channels are the main way to get data from the server. It asks the server to send current data state and re-send all actions with these data changes.
 
 Channel is just a string like `exchange-rate` or `users/14`.
 
@@ -24,12 +25,12 @@ client.log.add({ type: 'logux/unsubscribe', channel: 'users/14' }, { sync: true 
 
 </details>
 
-Client remembers all subscriptions. If client will loose connection, it will re-subscribe to channels again.
+The client remembers all the subscriptions. If the client loses connection, it will re-subscribe to channels again.
 
-When server will receive `logux/subscribe` it will:
+When the server receives `logux/subscribe` it will:
 
 1. Check does this user has access to this data.
-2. Load current state from database.
+2. Load the current state from the database.
 3. Send actions with current state back to the client.
 
 <details open><summary><b>Node.js</b></summary>
@@ -79,7 +80,7 @@ end
 
 </details>
 
-After sending initial state server needs to mark all action related to this channel in `resend` callback. Logux will resend these actions to all clients subscribed to this channel.
+After sending initial state, the server needs to mark all action related to this channel in `resend` callback. Logux will resend these actions to all clients subscribed to this channel.
 
 <details open><summary><b>Node.js</b></summary>
 
@@ -103,7 +104,7 @@ server.type('users/add', {
 
 ## `useSubscription`
 
-The best way to use subscriptions is `useSubscription` React hook. This hook automatically subscribes during component render and unsubscribe when component will be unmounted. For instance, when you will render some page, this page will automatically request that data from the server.
+The best way to use subscriptions is `useSubscription` React hook. This hook automatically subscribes during component render and unsubscribe when a component is unmounted. For instance, when you will render some page, this page will automatically request that data from the server.
 
 `useSubscription` returns `true` during the downloading current state. You should show some loader at that moment.
 
@@ -122,7 +123,7 @@ const UserPage = ({ userId }) => {
 
 This hook automatically tracks all subscriptions and doesn’t subscribe to channel if another component already subscribed to the same channel.
 
-`useSubscription` doesn’t return the data from the server. It just dispatch subscribe/unsubscribe actions and track loading. Subscription ask server to send you Redux actions. You should process this actions with reducers and put data from actions to the store (see Redux docs).
+`useSubscription` doesn’t return the data from the server. It just dispatches subscribe/unsubscribe actions and track loading. Subscription asks the server to send you Redux actions. You should process these actions with reducers and put data from actions to the store (see Redux docs).
 
 ```js
 export default function usersReducer (state = [], action) {
@@ -132,7 +133,7 @@ export default function usersReducer (state = [], action) {
 }
 ```
 
-In component you should use Redux’s `useSelector` hook to select that data from store.
+In component, you should use Redux’s `useSelector` hook to select that data from the store.
 
 ```diff
   import useSubscription from '@logux/redux/use-subscription'
@@ -153,7 +154,7 @@ In component you should use Redux’s `useSelector` hook to select that data fro
 
 ## `connect`
 
-For legacy React components with class syntax you can use `connect` decorator.
+For legacy React components with the class syntax, you can use `connect` decorator.
 
 ```js
 import subscribe from '@logux/redux/subscribe'
@@ -167,9 +168,9 @@ export default subscribe(({ userId }) => `users/${ userId }`)(UserPage)
 
 ## Re-subscription
 
-Logux Client tracks current subscriptions. If client will loose connection to the server, Logux Client will re-subscribe when client will get connection again. Server will load data state from the database and send it to the client again.
+Logux Client tracks current subscriptions. If the client loses connection to the server, Logux Client will re-subscribe when the client gets connection again. The server will load data state from the database and send it to the client back.
 
-During re-subscription client send the time of latest action from the server in `action.since`. Server can use this time to send only data which was updated since this time.
+During re-subscription client send the time of latest action from the server in `action.since`. The server can use this time to send only data which was updated since this time.
 
 `action.since` use [Logux distributed time].
 
@@ -177,7 +178,7 @@ During re-subscription client send the time of latest action from the server in 
 action.since //=> { time: '1564508138460', id: '1564508138460 380:R7BNGAP5:px3-J3oc 0' }
 ```
 
-For simple cases, you can use `action.since.time` with timestamp. For more complicated cases you can use `isFirstOlder()` function to compare `action.since` with meta of some action.
+For simple cases, you can use `action.since.time` with a timestamp. For more complicated cases, you can use `isFirstOlder()` function to compare `action.since` with meta of some action.
 
 <details open><summary><b>Node.js</b></summary>
 
@@ -218,9 +219,9 @@ end
 
 ## Channel Filters
 
-Client by default subscribes to all further actions in this channel. If you need to subscribe client to some part of these actions, you can define channel filter on the server. For instance, you can use it to subscribe client to specific fields or your model.
+Client by default subscribes to all further actions in this channel. If you need to subscribe the client to some part of these actions, you can define channel filter on the server. For instance, you can use it to subscribe to the client to specific fields or your model.
 
-Only Node.js server API support channel filters.
+Only Node.js server support channel filters API.
 
 We can add additional keys to `logux/subscribe` action to define what fields do we need.
 
