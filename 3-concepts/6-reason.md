@@ -36,7 +36,7 @@ server.log.add(action, { reasons: [] })
 server.log.add(action, { reasons: ['someReason'] })
 ```
 
-Logux doesn’t sysynchronize `reasons` between nodes. This is why the best way to set reasons is `preadd` event listener.
+Logux doesn’t synchronize `reasons` between nodes. This is why the best way to set reasons is `preadd` event listener.
 
 ```js
 server.log.on('preadd', (action, meta) {
@@ -69,10 +69,9 @@ server.log.add(
 
 ## Server
 
-By default, Logux Server doesn’t keep any actions in the memory. This is why you should keep all data in database and get data from dadatabase on every subscription.
+By default, Logux Server doesn’t keep any actions in the memory. This is why you should keep all data in database and get data from database on every subscription.
 
-If you want a complete event-sourcing system, you can implement log store in persistant database and define actions cleaning strategy with reasons API and `preadd` event.
-
+If you want a complete event-sourcing system, you can implement log store in persistent database and define actions cleaning strategy with reasons API and `preadd` event.
 
 ## Logux Client
 
@@ -95,7 +94,7 @@ store.dispatch.crossTab(action, { reasons: [] })
 
 You can change actions limit by `reasonlessHistory` option in `createLoguxCreator`.
 
-If Logux Redux will need cleaned action from time travel, it will call `onMissedHistory` callback. You can ask user to reload page or load latest data state from the server, becaue time travel can’t guarantee the result in this case.
+If Logux Redux will need cleaned action from time travel, it will call `onMissedHistory` callback. You can ask user to reload page or load latest data state from the server, because time travel can’t guarantee the result in this case.
 
 ```js
 let store = createLoguxCreator({

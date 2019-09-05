@@ -24,7 +24,7 @@ client.log.add({ type: 'logux/unsubscribe', channel: 'users/14' }, { sync: true 
 
 </details>
 
-Client remembers all subscriptions. If client will loose connection, it will resubscribe to channels again.
+Client remembers all subscriptions. If client will loose connection, it will re-subscribe to channels again.
 
 When server will receive `logux/subscribe` it will:
 
@@ -122,7 +122,7 @@ const UserPage = ({ userId }) => {
 
 This hook automatically tracks all subscriptions and doesn’t subscribe to channel if another component already subscribed to the same channel.
 
-`useSubscription` doesn’t return the data from the server. It just dispatch subscribe/unsubscribe acactions and track loading. Subscription ask server to send you Redux actions. You should process this actions with reducers and put data from actions to the store (see Redux docs).
+`useSubscription` doesn’t return the data from the server. It just dispatch subscribe/unsubscribe actions and track loading. Subscription ask server to send you Redux actions. You should process this actions with reducers and put data from actions to the store (see Redux docs).
 
 ```js
 export default function usersReducer (state = [], action) {
@@ -218,7 +218,7 @@ end
 
 ## Channel Filters
 
-Client by default subscribes to all futher actions in this channel. If you need to subscribe client to some part of these actions, you can define channel filter on the server. For instance, you can use it to subscribe client to specific fields or your model.
+Client by default subscribes to all further actions in this channel. If you need to subscribe client to some part of these actions, you can define channel filter on the server. For instance, you can use it to subscribe client to specific fields or your model.
 
 Only Node.js server API support channel filters.
 
