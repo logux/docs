@@ -190,7 +190,7 @@ Logux Redux keeps old actions and old state values.
 This history allows Logux Redux to do “time travel” recalculate state with
 different action order or without some action from the past. This feature is critical for conflict resolution (important for collaborative editing) and changes reverting (important for Optimistic UI).
 
-Be default, Logux Redux keeps last 1000 actions. You can change it or implemented more complex logic. See [reasons chapter] for detailes.
+Be default, Logux Redux keeps last 1000 actions. You can change it or implemented more complex logic. See [reasons chapter] for details.
 
 Logux Redux saves state every 50 actions. You can change it by `saveStateEvery` option in `createLoguxCreator` function.
 
