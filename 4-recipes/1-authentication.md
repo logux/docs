@@ -127,7 +127,7 @@ Start back-end server, Logux proxy, and Logux client. Try to sign-in into applic
 Go to Logux Server and add the library to generate JWT:
 
 ```sh
-npm i jwt-then bcrypt
+npm i jwt-simple bcrypt
 ```
 
 Load it in the `index.js`:
@@ -135,7 +135,7 @@ Load it in the `index.js`:
 ```diff
   const { Server } = require('@logux/server')
 + const bcrypt = require('bcrypt')
-+ const jwt = require('jwt-then')
++ const jwt = require('jwt-simple')
   const pg = require('pg-promise')
 ```
 
@@ -149,12 +149,12 @@ Add JWT secret key to local `.env` config file:
 Go back to `index.js` and replace `server.auth(…)` with this code:
 
 ```js
-server.auth(async (userId, token) => {
+server.auth((userId, token) => {
   if (!userId) {
     return true
   } else {
     try {
-      const data = await jwt.verify(token, process.env.JWT_SECRET)
+      const data = jwt.decode(token, process.env.JWT_SECRET)
       return data.sub === userId
     } catch (e) {
       return false
@@ -174,7 +174,7 @@ server.type('login', {
       return server.undo(meta, 'Unknown email')
     }
     if (await bcrypt.compare(action.password, hash)) {
-      let token = await jwt.sign({ sub: user.id }, process.env.JWT_SECRET)
+      let token = jwt.encode({ sub: user.id }, process.env.JWT_SECRET)
       ctx.sendBack({ type: 'login/done', userId: user.id, token })
     } else {
       server.undo(meta, 'Wrong password')
