@@ -45,7 +45,7 @@ Commercial support: [`logux@evilmartians.com`]
    3. [Meta](./3-concepts/3-meta.md)
    4. [Application State](./3-concepts/4-state.md)
    5. [Channels and Subscriptions](./3-concepts/5-subscription.md)
-   6. *[Cleaning Log and Action Reasons](./3-concepts/6-reason.md)*
+   6. [Cleaning Log and Action Reasons](./3-concepts/6-reason.md)
    7. [Subprotocols](./3-concepts/7-subprotocol.md)
 4. **Recipes**
    1. [Authentication](./4-recipes/1-authentication.md)
