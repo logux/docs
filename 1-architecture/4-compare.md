@@ -180,13 +180,4 @@ export default ({ userId }) => {
 }
 ```
 
-
-## Differences
-
-*Under construction*
-
-## What to Choose
-
-*Under construction*
-
 **[Next chapter →](./5-parts.md)**
