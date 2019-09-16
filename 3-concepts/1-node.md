@@ -76,7 +76,7 @@ In `380:Uf_pPwE4:6K7iYdJH`:
 
 1. `380` is the **user ID**.
 2. `380:Uf_pPwE4` is **client ID**. Each browser tab has a unique node ID, but every browser tab in this browser will have the same client ID.
-3. `6K7iYdJH` is random string by Nano ID.
+3. `6K7iYdJH` is **tab ID**. Each browser tab will have unique value.
 
 On the server you can get user ID and client ID of the client by:
 
@@ -303,7 +303,24 @@ client.on('role', () => {
 
 Each browser tab will have unique node ID, but they all have the same client ID. The server responses to all browsers tab, because multiple browser tabs can use one connection. You can do it by using client ID as an address.
 
-In `380:Uf_pPwE4:6K7iYdJH` node ID, `380:Uf_pPwE4` will be client ID.
+In `380:Uf_pPwE4:6K7iYdJH` node ID, `380:Uf_pPwE4` is client ID and `6K7iYdJH` is tab ID.
+
+<details open><summary><b>Redux client</b></summary>
+
+```js
+store.client.clientId //=> "380:Uf_pPwE4"
+store.client.tabId //=> "6K7iYdJH"
+```
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+```js
+client.clientId //=> "380:Uf_pPwE4"
+client.tabId //=> "6K7iYdJH"
+```
+
+</details>
 
 Browser tabs can synchronize actions between each other. Actions from server and for the server (with `meta.sync = true`) are sharing between browser tabs by default.
 
