@@ -107,4 +107,15 @@ let store = createLoguxCreator({
 })
 ```
 
+Logux Redux keeps last 1000 action by setting `timeTravel` and `timeTravelTab…` reasons for new actions. If you want to specify reasons manually, you should set reasons in `preadd` event and set `noAutoReason` meta key:
+
+```js
+store.log.on('preadd', (action, meta) => {
+  if (action.type === 'user/rename') {
+    meta.noAutoReason = true
+    meta.keepLast = `user/${ action.userId }/name`
+  }
+})
+```
+
 **[Next chapter →](./7-subprotocol.md)**
