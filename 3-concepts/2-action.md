@@ -188,6 +188,42 @@ There are four ways to add action to Logux Redux.
 </details>
 
 
+## Sending Actions to Another Browser Tab
+
+<details open><summary><b>Redux client</b></summary>
+
+Actions added by `dispatch.sync()` and `dispatch.crossTab()` will be visible to all browser tabs.
+
+```js
+// All browser tabs will receive these actions
+store.dispatch.crossTab(action)
+store.dispatch.sync(action)
+
+// Only current browser tab will receive these actions
+store.dispatch(action)
+store.dispatch.local(action)
+```
+
+`store.client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `store.client.on('add', fn)`. Reducers will see cross-tab actions, you do not need to do anything.
+
+</details>
+<details><summary><b>Logux client</b></summary>
+
+Any action without explicit `meta.tab` will be sent to all browser tabs.
+
+```js
+// All browser tabs will receive this action
+client.log.add(action)
+
+// Only current browser tab will receive this action
+client.log.add(action, { tab: client.tabId })
+```
+
+`client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `client.on('add', fn)`.
+
+</details>
+
+
 ## Sending Actions from Client to Server
 
 When you added a new action to the log, Logux will update the application state and will try to send the action to the server in the background. If the client doesn’t have an Internet connection, Logux will keep the action in the memory and will send action to the server automatically, when the client gets the connection.
@@ -197,7 +233,7 @@ We recommend to use Optimistic UI: do not show loaders when a user changed data 
 <details open><summary><b>Redux client</b></summary>
 
 ```js
-dispatch.sync({ type: 'likes/add', postId })
+store.dispatch.sync({ type: 'likes/add', postId })
 ```
 
 </details>
@@ -441,7 +477,7 @@ client.on(event, (action, meta) => {
 Events:
 
 * `preadd`: action is going to be added to the log. It is the only way to set [`meta.reasons`]. This event will not be called for cross-tab actions added in a different browser tab.
-* `add`: action was added to the log.
+* `add`: action was added to the log. Do not use `client.log.on('add', fn)`. Use only `client.on('add', fn)` to get cross-tab actions.
 * `clean`: action was removed from the log. It will happen if nobody will set [`meta.reasons`] for new action or you remove all reasons for old action.
 
 See `@logux/server/server#on` API docs for server events.
