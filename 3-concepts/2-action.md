@@ -252,7 +252,7 @@ dispatch.sync({ type: 'likes/add', postId }).then(() => {
 
 ```js
 const waiting = { }
-client.log.on('add', action => {
+client.on('add', action => {
   if (action.type === 'logux/processed' && waiting[action.id]) {
     waiting[action.id].resolve()
     delete waiting[action.id]
