@@ -5,11 +5,11 @@
 
 Logux is a new way to connect client (webapp, mobile app) and server. Instead of sending HTTP requests (e.g., AJAX, REST, and GraphQL) it synchronizes log of operations between client, server, and other clients through WebSocket.
 
-It was created on top ideas of **[CRDT]** to have live updates, optimistic UI, and offline-first by design.
+It was created on top of **[CRDT]**, with ideas of having live updates and optimistic UI, and being offline-first by design.
 
 * Built-in **optimistic UI** will improve UI performance.
-* Built-in **live updates** allows to build collaborative tools (like Google Docs).
-* Built-in **offline-first** will improve UX on unstable connection. It is useful from next billion users to New York subway.
+* Built-in **live updates** allow to create collaborative tools (like Google Docs).
+* Built-in **offline-first** principle respect will improve UX on unstable connection. It is useful both for the next billion users and New York subway.
 * Compatible with modern stack: **Redux** API, works with **any back-end language** and **any database**.
 
 Ask your questions at [our Gitter]<br>
@@ -193,7 +193,7 @@ end
 </details>
 <details><summary><b>Any other HTTP server</b></summary>
 
-You can use any HTTP server with Logux WebSocket proxy server. Here PHP pseudocode:
+You can use any HTTP server with Logux WebSocket proxy server. Here is a PHP-like pseudocode example:
 
 ```php
 <?php
