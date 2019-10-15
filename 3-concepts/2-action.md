@@ -334,7 +334,7 @@ Logux Server rejects any action if it was not explicitly allowed by developer:
 <details open><summary><b>Node.js</b></summary>
 
 ```js
-server.type('likes/add', () => {
+server.type('likes/add', {
   async access (ctx, action, meta) {
     let user = db.findUser(ctx.userId)
     return !user.isTroll && user.canRead(action.postId)
@@ -374,7 +374,7 @@ If the server accepted the action, it would re-send this action to:
 <details open><summary><b>Node.js</b></summary>
 
 ```js
-server.type('likes/add', () => {
+server.type('likes/add', {
   …
   resend (ctx, action, meta) {
     return { channel: `posts/${ action.postId }` }
