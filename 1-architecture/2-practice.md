@@ -33,7 +33,7 @@ On the client, you use `useSubscription` hook or wrap a component into `subscrib
 
 ```js
 export const User = (userId) => {
-  const isSubscribing = useSubscription(`user/${ userId }`)
+  const isSubscribing = useSubscription([`user/${ userId }`])
   …
 }
 ```
@@ -68,7 +68,7 @@ Logux client shows loader while the server loads data. When the client will rece
 
 ```js
 export const User = ({ userId }) => {
-  const isSubscribing = useSubscription(`user/${ userId }`)
+  const isSubscribing = useSubscription([`user/${ userId }`])
   const user = useSelector(state => state.users[userId])
 
   if (isSubscribing) {
