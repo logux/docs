@@ -88,7 +88,7 @@ export default function (state = { }, action) {
 
 // containers/users.js
 export default () => {
-  const isSubscribing = useSubscription('users')
+  const isSubscribing = useSubscription(['users'])
   const users = useSelector(state => state.users)
   if (isSubscribing) {
     return <Loader />

@@ -228,7 +228,7 @@ We can add additional keys to `logux/subscribe` action to define what fields do 
 ```diff
   const UserPage = ({ userId }) => {
 -   const isSubscribing = useSubscription([`user/${ userId }`])
-+   const isSubscribing = useSubscription({
++   const isSubscribing = useSubscription([
 +     { channel: `user/${ userId }`, fields: ['name'] }
 +   ])
     const user = useSelector(state => state.users.find(i => i.id === userId))
