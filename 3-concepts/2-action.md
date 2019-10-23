@@ -79,7 +79,7 @@ store.dispatch.sync({ type: 'logux/undo', id: meta.id, reason: 'too late' })
 <details><summary><b>Logux client</b></summary>
 
 ```js
-client.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true })
+client.log.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true })
 ```
 
 </details>
