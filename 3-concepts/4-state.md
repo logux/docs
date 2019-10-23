@@ -102,7 +102,7 @@ Every time when client subscribes to some data, server go to database and send i
 server.channel('users/:id', {
   …,
   async init (ctx, action, meta) {
-    let user = await db.loadUser(params.id))
+    let user = await db.loadUser(ctx.params.id))
     ctx.sendBack({ type: 'user/add', user })
   }
 })

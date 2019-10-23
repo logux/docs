@@ -39,10 +39,10 @@ When the server receives `logux/subscribe` it will:
 server.channel('users/:id', {
   async access (ctx, action, meta) {
     let client = await db.loadUser(ctx.userId)
-    return client.hasAccessToUser(params.id)
+    return client.hasAccessToUser(ctx.params.id)
   },
   async init (ctx, action, meta) {
-    let user = await db.loadUser(params.id))
+    let user = await db.loadUser(ctx.params.id))
     ctx.sendBack({ type: 'user/add', user })
   }
 })
@@ -186,7 +186,7 @@ For simple cases, you can use `action.since.time` with a timestamp. For more com
   server.channel('users/:id', {
     …,
     async init (ctx, action, meta) {
-      let user = await db.loadUser(params.id))
+      let user = await db.loadUser(ctx.params.id))
 -     ctx.sendBack({ type: 'user/add', user })
 +     if (!action.since || user.changesAt > action.since.time) {
 +       ctx.sendBack({ type: 'user/add', user })
