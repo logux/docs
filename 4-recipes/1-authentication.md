@@ -164,7 +164,7 @@ server.auth((userId, token) => {
 
 server.type('login', {
   async access (ctx) {
-    return ctx.userId === 'false'
+    return ctx.userId === false
   },
   async process (ctx, action) {
     const user = await db.oneOrNone('SELECT * FROM users WHERE email = $1', action.email);
