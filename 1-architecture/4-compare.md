@@ -130,7 +130,7 @@ export default ({ userId }) => {
 }
 ```
 
-In **GraphQL** you call a migration:
+In **GraphQL** you call a mutation:
 
 ```js
 // containers/user-form.js
