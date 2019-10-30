@@ -82,13 +82,13 @@ Logux Client is low-level API. If you do not want to have a deal with complicate
 
 ## Logux Redux
 
-By default, Logux Redux will keep last 1000 action without explicit `meta.reasons`.
+By default, Logux Redux will keep last 1000 actions without explicit `meta.reasons`.
 
 ```js
-// Logux Redux will 1000 action without defined reasons
+// Logux Redux will keep 1000 actions without defined reasons
 store.dispatch.crossTab(action)
 
-// Logux Redux will not keep this actiom since we define reasons manually
+// Logux Redux will not keep this action since we define reasons manually
 store.dispatch.crossTab(action, { reasons: [] })
 ```
 
