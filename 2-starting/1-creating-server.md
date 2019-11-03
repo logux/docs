@@ -70,8 +70,7 @@ The simple Logux server is ready. You can start it with:
 npm start
 ```
 
-To stop the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux
-and Windows.
+To stop the server press <kbd>Command</kbd>+<kbd>.</kbd> on Mac OS X and <kbd>Ctrl</kbd>+<kbd>C</kbd> on Linux and Windows.
 
 [Install Node.js]: https://nodejs.org/en/download/package-manager/
 

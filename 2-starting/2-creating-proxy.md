@@ -70,7 +70,7 @@ The proxy is ready. You can start it with:
 npm start
 ```
 
-To stop the server press `Command`+`.` on Mac OS X and `Ctrl`+`C` on Linux and Windows.
+To stop the server press <kbd>Command</kbd>+<kbd>.</kbd> on Mac OS X and <kbd>Ctrl</kbd>+<kbd>C</kbd> on Linux and Windows.
 
 The proxy will send the user’s authentication request, Logux subscriptions, and actions to `http://localhost:3000/logux`. Your back-end can send actions to the client by sending an HTTP request to `http://localhost:31338`.
 
