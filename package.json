@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "remark --no-stdout --frail --quiet *.md */*.md",
     "spell": "yaspeller *.md */*.md",
-    "test": "yarn spell && yarn lint"
+    "test": "yarn lint && yarn spell"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.6.3",
