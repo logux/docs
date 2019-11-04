@@ -15,6 +15,7 @@
     "remark-validate-links": "^9.0.1",
     "yaspeller": "^6.0.2"
   },
+  "license": "MIT",
   "remarkConfig": {
     "plugins": [
       "remark-preset-lint-recommended",
