@@ -24,7 +24,7 @@ Meta has unique action’s ID, creating time, processing status and many other t
 }
 ```
 
-[action]: ./2-action.md
+[action]: ./action.md
 
 
 ## Setting Meta
@@ -139,7 +139,7 @@ if (isFirstOlder(meta1, meta2)) {
 }
 ```
 
-[unique ID]: ./1-node.md#node-id
+[unique ID]: ./node.md#node-id
 
 
 ## Common Meta Keys
@@ -152,8 +152,8 @@ These meta’s keys are available on client and server:
 * `reasons` array of strings: reasons for action to not be cleaned from log. We will cover it in [next chapter].
 * `subprotocol` string: [subprotocol] of application, which generates this action.
 
-[next chapter]: ./6-reason.md
-[subprotocol]: ./7-subprotocol.md
+[next chapter]: ./reason.md
+[subprotocol]: ./subprotocol.md
 
 
 ## Client Meta Keys
@@ -172,7 +172,7 @@ These meta’s keys are available on client and server:
 * `clients` array and `client` string: all clients with listed client IDs will receive the action.
 * `nodes` array and `node` string: all clients with listed node IDs will receive the action.
 
-[channels]: ./5-subscription.md
-[node ID]: ./1-node.md#node-id
+[channels]: ./subscription.md
+[node ID]: ./node.md#node-id
 
-**[Next chapter →](./4-state.md)**
+**[Next chapter →](./state.md)**

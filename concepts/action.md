@@ -15,7 +15,7 @@ There are only two mandatory requirements for actions:
 1. They must have `type` property with a string value.
 2. You can use only string, number, boolean, `null`, array, and object as values. All values should be serializable to JSON. This is why functions, class instances, `Symbol`, `BigInt` is prohibited.
 
-[application state]: ./4-state.md
+[application state]: ./state.md
 [Redux actions]: https://redux.js.org/basics/actions
 
 
@@ -106,7 +106,7 @@ Developers can define additional custom properties in subscribe action:
 { type: 'logux/subscribe', channel: 'users/380', fields: ['name'] }
 ```
 
-[special chapter]: ./5-subscription.md
+[special chapter]: ./subscription.md
 
 
 ### `logux/unsubscribe`
@@ -448,7 +448,7 @@ By default, the server doesn’t keep actions in the log for offline users to ma
 
 We recommend to use subscription rather than working with `reasons`. Every time a client will connect to the server, it sends `logux/subscribe` again. The server can load the latest state from the database and send it back.
 
-[`reasons`]: ./6-reason.md
+[`reasons`]: ./reason.md
 
 
 ## Events
@@ -482,7 +482,7 @@ Events:
 
 See `@logux/server/server#on` API docs for server events.
 
-[`meta.reasons`]: ./6-reason.md
+[`meta.reasons`]: ./reason.md
 [Nano Events]: https://github.com/ai/nanoevents/
 
-**[Next chapter →](./3-meta.md)**
+**[Next chapter →](./meta.md)**

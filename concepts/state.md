@@ -55,7 +55,7 @@ As a result, with a history of actions, you can always re-generate the same stat
 
 By default, Logux keeps last 1000 action (you can change it, see [reasons chapter]) and cache state every 50 actions to make time-travel faster.
 
-[reasons chapter]: ./6-reason.md
+[reasons chapter]: ./reason.md
 
 
 ## Client State and UI
@@ -212,7 +212,7 @@ In this case, Logux Redux will time travel to latest possible moment. In most ca
    })
    ```
 
-[`reasons`]: ./6-reason.md
+[`reasons`]: ./reason.md
 
 
 ## Conflict Resolution
@@ -264,8 +264,8 @@ end
 
 </details>
 
-[atomic actions]: ./2-action.md#atomic-actions
-[ID and time]: ./3-meta.md#id-and-time
+[atomic actions]: ./action.md#atomic-actions
+[ID and time]: ./meta.md#id-and-time
 
 
 ## Reverting Changes
@@ -299,4 +299,4 @@ Logux.undo(meta, reason: 'too late')
 
 </details>
 
-**[Next chapter →](./5-subscription.md)**
+**[Next chapter →](./subscription.md)**

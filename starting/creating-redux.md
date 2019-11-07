@@ -12,8 +12,8 @@ Before starting the client, you need to create Logux Server:
 * [How to create the server] on Node.js.
 * [How to create a proxy] to use HTTP server on any other language.
 
-[How to create the server]: ./1-creating-server.md
-[How to create a proxy]: ./2-creating-proxy.md
+[How to create the server]: ./creating-server.md
+[How to create a proxy]: ./creating-proxy.md
 
 
 ## Creating the Project
@@ -130,4 +130,4 @@ Change `src/index.js`:
 2. Start your Logux server in one terminal by `npm start` in server directory.
 3. Start your client in the second terminal by `npm start` in client directory.
 
-**[Next chapter →](../3-concepts/1-node.md)**
+**[Next chapter →](../concepts/node.md)**

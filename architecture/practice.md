@@ -1,6 +1,6 @@
 # Using Logux Concepts in Practice
 
-Logux architecture was designed to be peer-to-peer and flexible. You can build different architecture on top of core concepts depends on your needs. But in this docs, we will show how to use [Logux core concepts](./1-core.md) for the most popular standard case with web clients and several servers.
+Logux architecture was designed to be peer-to-peer and flexible. You can build different architecture on top of core concepts depends on your needs. But in this docs, we will show how to use [Logux core concepts](./core.md) for the most popular standard case with web clients and several servers.
 
 
 ## Connecting
@@ -209,4 +209,4 @@ Logux client and server use different approaches to work with action’s order.
   all reverted actions back. As a result, *A’s* action was placed in the correct moment of history. So, *A’s* title changes were overridden by later
   *B’s* action.
 
-**[Next chapter →](./3-solved.md)**
+**[Next chapter →](./solved.md)**

@@ -115,8 +115,6 @@ Use these `<meta>` values in the store:
 
 Start back-end server, Logux proxy, and Logux client. Try to sign-in into application. If you will have any problems feel free to ask a question at our [support chat].
 
-**[Next chapter →](../3-concepts/1-node.md)**
-
 [support chat]: https://gitter.im/logux/logux
 
 

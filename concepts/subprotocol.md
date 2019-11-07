@@ -90,4 +90,4 @@ end
 [Semantic Versioning]: https://semver.org/
 [SemVer range syntax]: https://github.com/npm/node-semver#advanced-range-syntax
 
-**[Next chapter →](../4-recipes/1-authentication.md)**
+**[Next chapter →](../recipes/authentication.md)**

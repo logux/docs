@@ -18,7 +18,7 @@ Benefits:
 
 Next step:
 
-* Read **[Starting Logux Server Project](../2-starting/1-creating-server.md)**.
+* Read **[Starting Logux Server Project](../starting/creating-server.md)**.
 
 ### Proxy Server
 
@@ -34,7 +34,7 @@ Benefits:
 
 Next step:
 
-* Read **[Creating Logux Proxy](../2-starting/2-creating-proxy.md)**.
+* Read **[Creating Logux Proxy](../starting/creating-proxy.md)**.
 
 
 ### Mixed Server
@@ -45,7 +45,7 @@ When you should choose it:
 
 Next step:
 
-1. Read **[Starting Logux Server Project](../2-starting/1-creating-server.md)**.
+1. Read **[Starting Logux Server Project](../starting/creating-server.md)**.
 2. Set `LOGUX_BACKEND` or `backend` option.
 3. All actions with `server.type()` and all subscriptions with `server.channel()` will be processed by Logux Server. All actions and subscriptions without these definitions will be sent to HTTP server from `backend` option.
 
@@ -65,8 +65,8 @@ Benefits:
 
 Next step:
 
-* If you are starting new project, read **[Starting Logux Redux Project](../2-starting/3-creating-redux.md)**.
-* If you have old Redux project, read **[Replacing Redux to Logux Redux](../2-starting/4-replacing-redux.md)**.
+* If you are starting new project, read **[Starting Logux Redux Project](../starting/creating-redux.md)**.
+* If you have old Redux project, read **[Replacing Redux to Logux Redux](../starting/replacing-redux.md)**.
 
 
 ### Logux Client

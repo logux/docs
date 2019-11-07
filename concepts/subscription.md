@@ -214,7 +214,7 @@ end
 
 </details>
 
-[Logux distributed time]: ./3-meta.md#id-and-time
+[Logux distributed time]: ./meta.md#id-and-time
 
 
 ## Channel Filters
@@ -255,4 +255,4 @@ server.channel('users/:id', {
 })
 ```
 
-**[Next chapter →](./6-reason.md)**
+**[Next chapter →](./reason.md)**

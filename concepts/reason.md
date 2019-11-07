@@ -118,4 +118,4 @@ store.log.on('preadd', (action, meta) => {
 })
 ```
 
-**[Next chapter →](./7-subprotocol.md)**
+**[Next chapter →](./subprotocol.md)**

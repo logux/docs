@@ -180,4 +180,4 @@ export default ({ userId }) => {
 }
 ```
 
-**[Next chapter →](./5-parts.md)**
+**[Next chapter →](./parts.md)**

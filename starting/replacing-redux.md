@@ -4,7 +4,7 @@ If you already have Redux application, this guide will help you to add [Logux Re
 
 If you are starting new project use [special guide].
 
-[special guide]: ./3-creating-redux.md
+[special guide]: ./creating-redux.md
 [Logux Redux]: https://github.com/logux/redux
 
 
@@ -15,8 +15,8 @@ Before starting the client, you need to create Logux Server:
 * [How to create the server] on Node.js.
 * [How to create a proxy] to use HTTP server on any other language.
 
-[How to create the server]: ./1-creating-server.md
-[How to create a proxy]: ./2-creating-proxy.md
+[How to create the server]: ./creating-server.md
+[How to create a proxy]: ./creating-proxy.md
 
 
 ## Adding Logux Server
@@ -86,4 +86,4 @@ Use helpers where you create the store.
 
 If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See `@logux/client/badge.js` and `@logux/client/status.js` API.
 
-**[Next chapter →](../3-concepts/1-node.md)**
+**[Next chapter →](../concepts/node.md)**

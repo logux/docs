@@ -150,7 +150,7 @@ const client = new CrossTabClient({
 
 </details>
 
-[next chapter]: ./2-action.md
+[next chapter]: ./action.md
 
 
 ## Connection
@@ -377,4 +377,4 @@ end
 
 [JWT]: https://jwt.io/introduction/
 
-**[Next chapter →](./2-action.md)**
+**[Next chapter →](./action.md)**
