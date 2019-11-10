@@ -123,7 +123,7 @@ Nodes synchronize actions. You can read about actions in [next chapter].
 
 Nodes need a store for these actions and action meta. By default client and server keep actions in memory. It is not a problem for server, because it saves data from actions to database.
 
-You can change action store. For instance, you can use` indexedDB` store for better offline support.
+You can change action store. For instance, you can use `indexedDB` store for better offline support.
 
 <details open><summary><b>Redux client</b></summary>
 
