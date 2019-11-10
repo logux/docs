@@ -14,7 +14,7 @@ If you need another way, you can combine methods or ask for advice in [Logux sup
 
 ## Method 1: HTML Form and Meta Tags
 
-### Server
+### Method 1: Server
 
 Go to your back-end server.
 
@@ -86,7 +86,7 @@ Add this token and user ID to HTML templates used for authenticated user:
 </details>
 
 
-### Client
+### Method 1: Client
 
 Use these `<meta>` values in the store:
 
@@ -111,7 +111,7 @@ Use these `<meta>` values in the store:
 ```
 
 
-### Check the Result
+### Method 1: Check the Result
 
 Start back-end server, Logux proxy, and Logux client. Try to sign-in into application. If you will have any problems feel free to ask a question at our [support chat].
 
@@ -120,7 +120,7 @@ Start back-end server, Logux proxy, and Logux client. Try to sign-in into applic
 
 ## Method 2: Everything in Logux
 
-### Server
+### Method 2: Server
 
 Go to Logux Server and add the library to generate JWT:
 
@@ -179,7 +179,7 @@ server.type('login', {
 ```
 
 
-### Client
+### Method 2: Client
 
 Open your Logux Redux client and add sign-up form according to your design.
 
@@ -233,6 +233,6 @@ Use these `localStorage` values in the store:
 ```
 
 
-### Check the Result
+### Method 2: Check the Result
 
 In the next steps, you will need a good sign-up form, email verification, and many other things for proper authentication. They highly depend on your application and out of this guide topic.
