@@ -7,8 +7,8 @@
     "test": "yarn lint && yarn spell"
   },
   "devDependencies": {
-    "@arkweid/lefthook": "^0.6.3",
-    "remark-cli": "^7.0.0",
+    "@arkweid/lefthook": "^0.6.5",
+    "remark-cli": "^7.0.1",
     "remark-lint-no-dead-urls": "^1.0.0",
     "remark-lint-no-empty-sections": "^3.0.0",
     "remark-preset-lint-recommended": "^3.0.3",
