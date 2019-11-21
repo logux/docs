@@ -57,7 +57,7 @@ Commercial support: [`logux@evilmartians.com`]
 
 ## Client Example
 
-<details open><summary><b>React/Redux client</b></summary>
+<details open><summary>React/Redux client</summary>
 
 Using [`@logux/redux`](https://github.com/logux/redux/):
 
@@ -80,7 +80,7 @@ export const Counter = () => {
 ```
 
 </details>
-<details><summary><b>Pure JS client</b></summary>
+<details><summary>Pure JS client</summary>
 
 Using [`@logux/client`](https://github.com/logux/client/):
 
@@ -103,7 +103,7 @@ log.add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
 
 ## Server Example
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 Using [`@logux/server`](https://github.com/logux/server/):
 
@@ -136,7 +136,7 @@ server.type('INC', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 Using [`logux_rails`](https://github.com/logux/logux_rails/):
 
@@ -191,7 +191,7 @@ end
 ```
 
 </details>
-<details><summary><b>Any other HTTP server</b></summary>
+<details><summary>Any other HTTP server</summary>
 
 You can use any HTTP server with Logux WebSocket proxy server. Here is a PHP-like pseudocode example:
 

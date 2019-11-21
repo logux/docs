@@ -52,14 +52,14 @@ This action asks clients to revert action. `action.id` will be equal to `meta.id
 
 A developer can create `logux/undo` at any moment on the server even after `logux/processed` was sent.
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.undo(meta, 'too late')
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 Logux.undo(meta, reason: 'too late')
@@ -69,14 +69,14 @@ Logux.undo(meta, reason: 'too late')
 
 Clients can also create `logux/undo` to revert action and ask other clients to revert it (if the developer allowed to re-send these actions on the server).
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 store.dispatch.sync({ type: 'logux/undo', id: meta.id, reason: 'too late' })
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 client.log.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true })
@@ -122,7 +122,7 @@ Of course, clients also have an action to unsubscribe from channels. It can have
 
 Adding actions to the log is the only way to change [application state] in Logux. The log is append-only. You can add action, but can’t change added action or change the state by removing actions from the log.
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 There are four ways to add action to Logux Redux.
 
@@ -159,7 +159,7 @@ There are four ways to add action to Logux Redux.
    This method is the best for models. For instance, when the user adds a new comment or changed the post.
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 1. **Local action.** Action will *not* be sent to the server or another browser tab.
 
@@ -190,7 +190,7 @@ There are four ways to add action to Logux Redux.
 
 ## Sending Actions to Another Browser Tab
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 Actions added by `dispatch.sync()` and `dispatch.crossTab()` will be visible to all browser tabs.
 
@@ -207,7 +207,7 @@ store.dispatch.local(action)
 `store.client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `store.client.on('add', fn)`. Reducers will see cross-tab actions, you do not need to do anything.
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 Any action without explicit `meta.tab` will be sent to all browser tabs.
 
@@ -230,14 +230,14 @@ When you added a new action to the log, Logux will update the application state 
 
 We recommend to use Optimistic UI: do not show loaders when a user changed data (save the form and press a Like button).
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 store.dispatch.sync({ type: 'likes/add', postId })
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 client.log.add({ type: 'likes/add', postId }, { sync: true })
@@ -247,7 +247,7 @@ client.log.add({ type: 'likes/add', postId }, { sync: true })
 
 You could use `@logux/client/badge` or `@logux/client/status` to show small notice if Logux is waiting for an Internet to save changes.
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 import badge from '@logux/client/badge'
@@ -258,7 +258,7 @@ badge(store.client, { messages: badgeMessages, styles: badgeStyles })
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 import badge from '@logux/client/badge'
@@ -272,7 +272,7 @@ badge(client, { messages: badgeMessages, styles: badgeStyles })
 
 But, of course, you can use “pessimistic” UI for critical actions like payment:
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 showLoader()
@@ -284,7 +284,7 @@ dispatch.sync({ type: 'likes/add', postId }).then(() => {
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 const waiting = { }
@@ -317,7 +317,7 @@ confirm(store.client)
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 import confirm from '@logux/client/confirm'
@@ -331,7 +331,7 @@ confirm(client)
 
 Logux Server rejects any action if it was not explicitly allowed by developer:
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.type('likes/add', {
@@ -344,7 +344,7 @@ server.type('likes/add', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 # app/logux/policies/channels/likes.rb
@@ -371,7 +371,7 @@ If the server accepted the action, it would re-send this action to:
 * `users` or `users`: clients with listed user IDs.
 * `nodes` or `nodes`: clients with listed node IDs.
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.type('likes/add', {
@@ -384,7 +384,7 @@ server.type('likes/add', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 *Under construction. Until `resend` will be implemented in the gem.*
 
@@ -402,7 +402,7 @@ The server adds actions to its log to send these actions to clients. There are f
 * `meta.users` or `meta.users`: clients with listed user IDs.
 * `meta.nodes` or `meta.nodes`: clients with listed node IDs.
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 The most universal way is:
 
@@ -425,7 +425,7 @@ server.channel('user/:id', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 some_service.on(:error) do
@@ -455,7 +455,7 @@ We recommend to use subscription rather than working with `reasons`. Every time 
 
 Logux uses [Nano Events] API to add and remove event listener.
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 store.client.on(event, (action, meta) => {
@@ -464,7 +464,7 @@ store.client.on(event, (action, meta) => {
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 client.on(event, (action, meta) => {

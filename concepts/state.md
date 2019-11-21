@@ -96,7 +96,7 @@ However, you can change this behavior and have event sourcing on the server too.
 
 Every time when client subscribes to some data, server go to database and send initial value:
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.channel('users/:id', {
@@ -109,7 +109,7 @@ server.channel('users/:id', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 # app/logux/channels/users.rb
@@ -127,7 +127,7 @@ end
 
 After initial subscribing, server will re-send changes to other clients:
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.type('users/add', {
@@ -140,7 +140,7 @@ server.type('users/add', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 *Under construction. Until `resend` will be implemented in the gem.*
 
@@ -148,7 +148,7 @@ server.type('users/add', {
 
 After resending action, server will save data to database:
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.type('users/add', {
@@ -160,7 +160,7 @@ server.type('users/add', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 # app/logux/actions/users.rb
@@ -227,7 +227,7 @@ As a result, if the developer used [atomic actions], conflict actions will overr
 
 By default, **Server** doesn’t use time travel, because the average state can’t be stored in the memory. You need manually compare action’s time and latest change time to implement “last write wins.” Similarly, you can implement any other conflict resolution logic.
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.type('users/rename', {
@@ -244,7 +244,7 @@ server.type('users/rename', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 # app/logux/actions/users.rb
@@ -284,14 +284,14 @@ Logux servers send `logux/undo` in 3 cases:
 2. Error during action processing.
 3. A developer wrote custom code to add `logux/undo` action.
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.undo(meta, 'too late')
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 Logux.undo(meta, reason: 'too late')

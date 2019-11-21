@@ -18,7 +18,7 @@ If you need another way, you can combine methods or ask for advice in [Logux sup
 
 Go to your back-end server.
 
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 Add `jwt` to `Gemfile` and call `bundle`:
 
@@ -53,7 +53,7 @@ Add `<meta>` tags to application layout used for authenticated user:
 ```
 
 </details>
-<details><summary><b>Any other HTTP server</b></summary>
+<details><summary>Any other HTTP server</summary>
 
 Add JWT secret key to proper storage for your environment. Local `.env` is a good option.
 

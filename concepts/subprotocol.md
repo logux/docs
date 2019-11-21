@@ -14,7 +14,7 @@ Subprotocol version is a [Semantic Versioning] string with 3 numbers: `0.3.4`, `
 
 On the client you define what subprotocol version does it use:
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 const createStore = createLoguxCreator({
@@ -24,7 +24,7 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 const client = new Client({
@@ -51,7 +51,7 @@ If the server doesn’t support the client’s subprotocol, it will refuse the c
 
 On the server you can have different logic for different clients:
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.type('user/add', {
@@ -67,7 +67,7 @@ server.type('user/add', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 # app/logux/actions/users.rb

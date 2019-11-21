@@ -6,7 +6,7 @@ If a user opens a website with Logux in multiple browser tabs, tabs will elect o
 
 Logux Core provides `BaseNode` class, which will synchronize actions between two nodes. `ClientNode` and `ServerNode` classes extend this class with small behaviour changes.
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 const createStore = createLoguxCreator({ … })
@@ -15,7 +15,7 @@ store.client.node //=> ClientNode instance
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 const client = new CrossTabClient({ … })
@@ -33,14 +33,14 @@ Each node has a unique node ID — a string like `380:Uf_pPwE4:6K7iYdJH` or `ser
 
 Current node ID of client:
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 store.client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
@@ -50,14 +50,14 @@ client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
 
 Current node ID of server:
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.nodeId //=> "server:iSiqWU5J"
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 Logux::Node.instance.node_id #=> "server:iSiqWU5J"
@@ -80,7 +80,7 @@ In `380:Uf_pPwE4:6K7iYdJH`:
 
 On the server you can get user ID and client ID of the client by:
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.type('INC', {
@@ -99,7 +99,7 @@ server.channel('counter', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 module Actions
@@ -125,7 +125,7 @@ Nodes need a store for these actions and action meta. By default client and serv
 
 You can change action store. For instance, you can use `indexedDB` store for better offline support.
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 import IndexedStore from '@logux/client/indexed-store'
@@ -137,7 +137,7 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 import IndexedStore from '@logux/client/indexed-store'
@@ -157,7 +157,7 @@ const client = new CrossTabClient({
 
 By default, nodes use WebSocket to connect to each other. You just pass URL to the server:
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 const createStore = createLoguxCreator({
@@ -167,7 +167,7 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 const client = new CrossTabClient({
@@ -184,7 +184,7 @@ You can use WebSocket without encryption in development or with `allowDangerousP
 
 If you do not want to use WebSocket, you can implementation own `Connection` class and pass it to `server` option. For instance, you can use `@logux/core/test-pair` in tests:
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 import { testPair } from 'logux-core'
@@ -197,7 +197,7 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 import { testPair } from 'logux-core'
@@ -216,7 +216,7 @@ const client = new CrossTabClient({
 
 Node has current synchronization state. Possible values are `disconnected`, `connecting`, `sending`, and `synchronized`. You can get current state by:
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 store.client.state //=> "synchronized"
@@ -227,7 +227,7 @@ store.client.on('state', () => {
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 client.state //=> "synchronized"
@@ -278,7 +278,7 @@ When you open 2 browser tabs, they start election and elect the leader. If you w
 
 You can use `role` to detect the current leader. Possible values are `leader`, `follower`, and `candidate` (during the election).
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 store.client.role //=> "leader"
@@ -289,7 +289,7 @@ store.client.on('role', () => {
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 client.role //=> "leader"
@@ -305,7 +305,7 @@ Each browser tab will have unique node ID, but they all have the same client ID.
 
 In `380:Uf_pPwE4:6K7iYdJH` node ID, `380:Uf_pPwE4` is client ID and `6K7iYdJH` is tab ID.
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 store.client.clientId //=> "380:Uf_pPwE4"
@@ -313,7 +313,7 @@ store.client.tabId //=> "6K7iYdJH"
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 client.clientId //=> "380:Uf_pPwE4"
@@ -329,7 +329,7 @@ Browser tabs can synchronize actions between each other. Actions from server and
 
 The client should use some authentication credentials to prove it’s user ID. The best way is to use [JWT] token generated on the server.
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 const createStore = createLoguxCreator({
@@ -340,7 +340,7 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 const client = new CrossTabClient({
@@ -354,7 +354,7 @@ const client = new CrossTabClient({
 
 User ID and credentials will be checked on the server:
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.auth((userId, credentials) => {
@@ -364,7 +364,7 @@ server.auth((userId, credentials) => {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 config.auth_rule = lambda do |user_id, token|

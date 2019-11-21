@@ -81,7 +81,7 @@ The proxy will send the user’s authentication request, Logux subscriptions, an
 
 Now we need to prepare back-end to receive requests from Logux proxy server.
 
-<details><summary><b>Ruby on Rails server</b></summary>
+<details><summary>Ruby on Rails server</summary>
 
 [`logux_rails`] gem adds Back-end Protocol support to Ruby on Rails.
 
@@ -127,7 +127,7 @@ Add Logux to `config/routes.rb`:
 ```
 
 </details>
-<details><summary><b>Any other HTTP server</b></summary>
+<details><summary>Any other HTTP server</summary>
 
 1. Read about **[Logux Back-end Protocol]**.
 2. Implement protocol on your HTTP server.

@@ -8,7 +8,7 @@ Channel is just a string like `exchange-rate` or `users/14`.
 Clients subscribe by sending `logux/subscribe` action to the server. To unsubscribe
 you need to send `logux/unsubscribe` with the same channel.
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 store.dispatch.sync({ type: 'logux/subscribe', channel: 'users/14' })
@@ -16,7 +16,7 @@ store.dispatch.sync({ type: 'logux/unsubscribe', channel: 'users/14' })
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 client.log.add({ type: 'logux/subscribe', channel: 'users/14' }, { sync: true })
@@ -33,7 +33,7 @@ When the server receives `logux/subscribe` it will:
 2. Load the current state from the database.
 3. Send actions with current state back to the client.
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.channel('users/:id', {
@@ -49,7 +49,7 @@ server.channel('users/:id', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 # app/logux/policies/channels/users.rb
@@ -82,7 +82,7 @@ end
 
 After sending initial state, the server needs to mark all action related to this channel in `resend` callback. Logux will resend these actions to all clients subscribed to this channel.
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.type('users/add', {
@@ -95,7 +95,7 @@ server.type('users/add', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 *Under construction. Until `resend` will be implemented in the gem.*
 
@@ -180,7 +180,7 @@ action.since //=> { time: '1564508138460', id: '1564508138460 380:R7BNGAP5:px3-J
 
 For simple cases, you can use `action.since.time` with a timestamp. For more complicated cases, you can use `isFirstOlder()` function to compare `action.since` with meta of some action.
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```diff
   server.channel('users/:id', {
@@ -196,7 +196,7 @@ For simple cases, you can use `action.since.time` with a timestamp. For more com
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 # app/logux/channels/users.rb

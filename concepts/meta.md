@@ -47,7 +47,7 @@ In Logux architecture, you can change application state only by adding new actio
 
 Since meta doesn’t contain anything related to application state, you can change meta if it will not affect action’s order.
 
-<details open><summary><b>Redux client</b></summary>
+<details open><summary>Redux client</summary>
 
 ```js
 store.log.changeMeta(actionId, {
@@ -56,7 +56,7 @@ store.log.changeMeta(actionId, {
 ```
 
 </details>
-<details><summary><b>Logux client</b></summary>
+<details><summary>Logux client</summary>
 
 ```js
 client.log.changeMeta(actionId, {
@@ -70,7 +70,7 @@ You can not change meta’s keys related to action’s order: `id`, `time`, `add
 
 On the server you can set `channels`, `users`, `clients` and `nodes` keys (and singular versions) for new action from the client by `resend` callback:
 
-<details open><summary><b>Node.js</b></summary>
+<details open><summary>Node.js</summary>
 
 ```js
 server.type('users/rename', {
@@ -83,7 +83,7 @@ server.type('users/rename', {
 ```
 
 </details>
-<details><summary><b>Ruby on Rails</b></summary>
+<details><summary>Ruby on Rails</summary>
 
 *Under construction. Until `resend` will be implemented in the gem.*
 
