@@ -2,8 +2,8 @@
   "name": "logux",
   "private": true,
   "scripts": {
-    "lint": "remark --no-stdout --frail --quiet *.md */*.md",
-    "spell": "yaspeller *.md */*.md",
+    "lint": "remark --no-stdout --frail --quiet *.md */*.md guide/*/*.md",
+    "spell": "yaspeller *.md */*.md guide/*/*.md",
     "test": "yarn lint && yarn spell"
   },
   "devDependencies": {

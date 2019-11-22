@@ -27,32 +27,32 @@ Commercial support: [`logux@evilmartians.com`]
 
 ## Getting Started
 
-1. **Logux Architecture**
-   1. [Core Concepts](./architecture/core.md)
-   2. [Using Concepts in Practice](./architecture/practice.md)
-   3. [What Problems does Logux Solve](./architecture/solved.md)
-   4. [Comparing Logux with AJAX and GraphQL](./architecture/compare.md)
-   5. [Parts](./architecture/parts.md)
-   6. [Choosing Right Architecture](./architecture/choosing.md)
-2. **Starting Logux Project**
-   1. [Starting Logux Server Project](./starting/creating-server.md)
-   2. [Creating Logux Proxy](./starting/creating-proxy.md)
-   3. [Starting Logux Redux Project](./starting/creating-redux.md)
-   4. [Replacing Redux to Logux Redux](./starting/replacing-redux.md)
-3. **Core Concepts**
-   1. [Nodes](./concepts/node.md)
-   2. [Actions](./concepts/action.md)
-   3. [Meta](./concepts/meta.md)
-   4. [Application State](./concepts/state.md)
-   5. [Channels and Subscriptions](./concepts/subscription.md)
-   6. [Cleaning Log and Action Reasons](./concepts/reason.md)
-   7. [Subprotocols](./concepts/subprotocol.md)
-4. **Recipes**
+1. **Guide**
+   1. **Logux Architecture**
+      1. [Core Concepts](./guide/architecture/core.md)
+      2. [Using Concepts in Practice](./guide/architecture/practice.md)
+      3. [What Problems does Logux Solve](./guide/architecture/solved.md)
+      4. [Comparing Logux with AJAX and GraphQL](./guide/architecture/compare.md)
+      5. [Parts](./guide/architecture/parts.md)
+      6. [Choosing Right Architecture](./guide/architecture/choosing.md)
+   2. **Starting Logux Project**
+      1. [Starting Logux Server Project](./guide/starting/creating-server.md)
+      2. [Creating Logux Proxy](./guide/starting/creating-proxy.md)
+      3. [Starting Logux Redux Project](./guide/starting/creating-redux.md)
+      4. [Replacing Redux to Logux Redux](./guide/starting/replacing-redux.md)
+   3. **Core Concepts**
+      1. [Nodes](./guide/concepts/node.md)
+      2. [Actions](./guide/concepts/action.md)
+      3. [Meta](./guide/concepts/meta.md)
+      4. [Application State](./guide/concepts/state.md)
+      5. [Channels and Subscriptions](./guide/concepts/subscription.md)
+      6. [Cleaning Log and Action Reasons](./guide/concepts/reason.md)
+      7. [Subprotocols](./guide/concepts/subprotocol.md)
+2. **Recipes**
    1. [Authentication](./recipes/authentication.md)
-5. [Logux Protocol](./protocol/spec.md)
-6. [Logux Back-end Protocol](./backend-protocol/spec.md)
-
-*Docs are under construction*
+3. **Protocols**
+   1. [WebSocket Protocol](./protocols/ws/spec.md)
+   2. [Back-end Protocol](./protocols/backend/spec.md)
 
 
 ## Client Example

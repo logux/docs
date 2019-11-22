@@ -143,7 +143,7 @@ Add Logux to `config/routes.rb`:
 
 </details>
 
-[Logux Back-end Protocol]: ../backend-protocol/spec.md
+[Logux Back-end Protocol]: ../../protocols/backend/spec.md
 [`logux_rails`]: https://github.com/logux/logux_rails
 
 **[Next chapter →](./replacing-redux.md)**
