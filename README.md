@@ -1,7 +1,7 @@
 # Logux
 
 <img align="right" width="95" height="95" title="Logux logo"
-     src="https://cdn.rawgit.com/logux/logux/master/logo.svg">
+     src="https://logux.io/logo.svg">
 
 Logux is a new way to connect client (webapp, mobile app) and server. Instead of sending HTTP requests (e.g., AJAX, REST, and GraphQL) it synchronizes log of operations between client, server, and other clients through WebSocket.
 
@@ -12,6 +12,7 @@ It was created on top of **[CRDT]**, with ideas of having live updates and optim
 * Built-in **offline-first** principle respect will improve UX on unstable connection. It is useful both for the next billion users and New York subway.
 * Compatible with modern stack: **Redux** API, works with **any back-end language** and **any database**.
 
+Read more: [logux.io]<br>
 Ask your questions at [our Gitter]<br>
 Commercial support: [`logux@evilmartians.com`]
 
@@ -22,37 +23,8 @@ Commercial support: [`logux@evilmartians.com`]
 
 [`logux@evilmartians.com`]: mailto:logux@evilmartians.com
 [our Gitter]: https://gitter.im/logux/logux
+[logux.io]: https://logux.io/
 [CRDT]: https://slides.com/ai/crdt
-
-
-## Getting Started
-
-1. **Guide**
-   1. **Logux Architecture**
-      1. [Core Concepts](./guide/architecture/core.md)
-      2. [Using Concepts in Practice](./guide/architecture/practice.md)
-      3. [What Problems does Logux Solve](./guide/architecture/solved.md)
-      4. [Comparing Logux with AJAX and GraphQL](./guide/architecture/compare.md)
-      5. [Parts](./guide/architecture/parts.md)
-      6. [Choosing Right Architecture](./guide/architecture/choosing.md)
-   2. **Starting Logux Project**
-      1. [Starting Logux Server Project](./guide/starting/creating-server.md)
-      2. [Creating Logux Proxy](./guide/starting/creating-proxy.md)
-      3. [Starting Logux Redux Project](./guide/starting/creating-redux.md)
-      4. [Replacing Redux to Logux Redux](./guide/starting/replacing-redux.md)
-   3. **Core Concepts**
-      1. [Nodes](./guide/concepts/node.md)
-      2. [Actions](./guide/concepts/action.md)
-      3. [Meta](./guide/concepts/meta.md)
-      4. [Application State](./guide/concepts/state.md)
-      5. [Channels and Subscriptions](./guide/concepts/subscription.md)
-      6. [Cleaning Log and Action Reasons](./guide/concepts/reason.md)
-      7. [Subprotocols](./guide/concepts/subprotocol.md)
-2. **Recipes**
-   1. [Authentication](./recipes/authentication.md)
-3. **Protocols**
-   1. [WebSocket Protocol](./protocols/ws/spec.md)
-   2. [Back-end Protocol](./protocols/backend/spec.md)
 
 
 ## Client Example
