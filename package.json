@@ -1,5 +1,5 @@
 {
-  "name": "logux",
+  "name": "logux-docs",
   "private": true,
   "scripts": {
     "lint": "remark --no-stdout --frail --quiet *.md */*.md guide/*/*.md",
@@ -15,6 +15,8 @@
     "remark-validate-links": "^9.0.1",
     "yaspeller": "^6.0.2"
   },
+  "repository": "logux/logux-docs",
+  "homepage": "https://logux.io/",
   "license": "MIT",
   "remarkConfig": {
     "plugins": [
