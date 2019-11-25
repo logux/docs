@@ -24,7 +24,7 @@ client.node //=> ClientNode instance
 
 </details>
 
-See also [`BaseNode`](https://logux.io/web-api/#basenode) for node’s API.
+See also [`BaseNode`](https://logux.io/node-api/#basenode) for node’s API.
 
 
 ## Node ID
