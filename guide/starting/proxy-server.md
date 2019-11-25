@@ -7,8 +7,8 @@ In this guide, we will create the Logux proxy between WebSocket and your back-en
 
 If you like Node.js and want the best performance, you can try to [move business logic] directly to Logux Server. Or you can keep high-performance parts in Logux Server and send others to the back-end HTTP server.
 
-[move business logic]: ./creating-server.md
-[Logux Redux]: ./creating-redux.md
+[move business logic]: ./node-server.md
+[Logux Redux]: ./replace-redux.md
 
 
 ## Creating the Project
@@ -146,4 +146,4 @@ Add Logux to `config/routes.rb`:
 [Logux Back-end Protocol]: ../../protocols/backend/spec.md
 [`logux_rails`]: https://github.com/logux/logux_rails
 
-**[Next chapter →](./replacing-redux.md)**
+**[Next chapter →](./replace-redux.md)**

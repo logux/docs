@@ -3,7 +3,7 @@
 Logux is a client-server communication protocol. It synchronizes actions between clients and server logs.
 
 * [Communication examples](./examples.md)
-* [Protocol versions](./changes.md)
+* [Protocol versions](./versions.md)
 * Referral JS implementation: [`@logux/core`](https://github.com/logux/core)
 
 

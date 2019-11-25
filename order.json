@@ -6,17 +6,17 @@
     "architecture/compare",
     "architecture/parts",
     "architecture/choosing",
+    "starting/node-server",
+    "starting/proxy-server",
+    "starting/new-client",
+    "starting/replace-redux",
     "concepts/node",
     "concepts/action",
     "concepts/meta",
     "concepts/state",
     "concepts/subscription",
     "concepts/reason",
-    "concepts/subprotocol",
-    "starting/creating-server",
-    "starting/creating-proxy",
-    "starting/creating-redux",
-    "starting/replacing-redux"
+    "concepts/subprotocol"
   ],
   "recipes": [
     "authentication"
@@ -24,9 +24,9 @@
   "protocols": [
     "ws/spec",
     "ws/examples",
-    "ws/changes",
+    "ws/versions",
     "backend/spec",
     "backend/examples",
-    "backend/changes"
+    "backend/versions"
   ]
 }

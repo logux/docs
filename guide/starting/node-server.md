@@ -9,8 +9,8 @@ In this guide, we will create the Logux server for the simplest case:
 
 If you want to use another language for the server read [Logux Proxy] page.
 
-[Logux Redux]: ./creating-redux.md
-[Logux Proxy]: ./creating-proxy.md
+[Logux Redux]: ./new-client.md
+[Logux Proxy]: ./proxy-server.md
 
 
 ## Creating the Project
@@ -147,4 +147,6 @@ Connect to the database in `index.js`:
 
 [this advice]: https://stackoverflow.com/questions/16973018/createuser-could-not-connect-to-database-postgres-fatal-role-tom-does-not-e
 
-**[Next chapter →](./creating-redux.md)**
+Look at [Node.js API](https://logux.io/node-api/#server) to see what you can do next.
+
+**[Next chapter →](./new-client.md)**

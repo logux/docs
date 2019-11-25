@@ -4,7 +4,7 @@ If you already have Redux application, this guide will help you to add [Logux Re
 
 If you are starting new project use [special guide].
 
-[special guide]: ./creating-redux.md
+[special guide]: ./new-client.md
 [Logux Redux]: https://github.com/logux/redux
 
 
@@ -15,8 +15,8 @@ Before starting the client, you need to create Logux Server:
 * [How to create the server] on Node.js.
 * [How to create a proxy] to use HTTP server on any other language.
 
-[How to create the server]: ./creating-server.md
-[How to create a proxy]: ./creating-proxy.md
+[How to create the server]: ./node-server.md
+[How to create a proxy]: ./proxy-server.md
 
 
 ## Adding Logux Server
@@ -84,6 +84,6 @@ Use helpers where you create the store.
 3. Start your back-end server in the second terminal.
 4. Start your client in the third terminal by `npm start` in client directory.
 
-If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See `@logux/client/badge.js` and `@logux/client/status.js` API.
+If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See [`badge()`](https://logux.io/web-api/#globals-badge) and [`status()`](https://logux.io/web-api/#globals-status) API.
 
 **[Next chapter →](../concepts/node.md)**

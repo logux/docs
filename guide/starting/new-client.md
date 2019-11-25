@@ -12,8 +12,8 @@ Before starting the client, you need to create Logux Server:
 * [How to create the server] on Node.js.
 * [How to create a proxy] to use HTTP server on any other language.
 
-[How to create the server]: ./creating-server.md
-[How to create a proxy]: ./creating-proxy.md
+[How to create the server]: ./node-server.md
+[How to create a proxy]: ./proxy-server.md
 
 
 ## Creating the Project

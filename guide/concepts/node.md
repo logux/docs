@@ -24,7 +24,7 @@ client.node //=> ClientNode instance
 
 </details>
 
-See also `@logux/core/base-node.js` for node’s API.
+See also [`BaseNode`](https://logux.io/web-api/#basenode) for node’s API.
 
 
 ## Node ID
@@ -182,7 +182,7 @@ By default, Logux forces you to use WebSocket over TLS (`wss:`) in production. I
 
 You can use WebSocket without encryption in development or with `allowDangerousProtocol` option.
 
-If you do not want to use WebSocket, you can implementation own `Connection` class and pass it to `server` option. For instance, you can use `@logux/core/test-pair` in tests:
+If you do not want to use WebSocket, you can implementation own [`Connection`](https://logux.io/web-api/#connection) class and pass it to `server` option. For instance, you can use [`TestPair`](https://logux.io/web-api/#testpair) in tests:
 
 <details open><summary>Redux client</summary>
 

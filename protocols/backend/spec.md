@@ -3,7 +3,7 @@
 Logux uses Back-end Protocol to make a proxy between WebSocket and HTTP. Logux Server sends the user’s authentication requests, subscriptions, and actions to an HTTP server and receives new actions by HTTP to send them to Logux clients.
 
 * [Communication examples](./examples.md)
-* [Protocol versions](./changes.md)
+* [Protocol versions](./versions.md)
 * Ruby implementation: [`logux_rails`](https://github.com/logux/logux_rails)
 * Node.js implementation: [`tchak/logux-processor`](https://github.com/tchak/logux-processor)
 
