@@ -5,18 +5,6 @@ All three technologies (Logux, AJAX, GraphQL) was created for communication betw
 
 ## Similarities
 
-### Terms
-
-| Term           | AJAX            | GraphQL            | Logux
-| -------------- | --------------- | ------------------ | -----
-| Data request   | GET request     | Query              | Subscription to the channel
-| Request ID     | URL             | Query name         | Channel name
-| Requested data | HTTP response   | Query response     | Server sends action on subscription
-| Change data    | POST/DELETE/PUT | Mutation           | Add action and synchronize logs
-| Changes ID     | URL             | Mutation name      | Action type
-| Changed values | POST/PUT body   | Mutation variables | Other action keys
-| Authentication | Session cookie  | Session cookie     | User ID from `meta.id` of each action
-
 
 ### Loading the Data from Client
 
