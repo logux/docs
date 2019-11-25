@@ -17,7 +17,7 @@
     "remark-validate-links": "^9.0.1",
     "yaspeller": "^6.0.2"
   },
-  "repository": "logux/logux-docs",
+  "repository": "logux/docs",
   "homepage": "https://logux.io/",
   "license": "MIT",
   "type": "module",
