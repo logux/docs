@@ -16,7 +16,7 @@ Read more: [logux.io]<br>
 Ask your questions at [our Gitter]<br>
 Commercial support: [`logux@evilmartians.com`]
 
-<a href="https://evilmartians.com/?utm_source=logux">
+<a href="https://evilmartians.com/?utm_source=logux-docs">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
        alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
