@@ -1,6 +1,9 @@
 pre-push:
   parallel: true
   commands:
+    order:
+      glob: "{order.json,**/*.md}"
+      run: ./scripts/check-order
     spell:
       glob: "*.md"
       run: yaspeller {push_files}
