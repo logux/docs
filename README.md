@@ -1,7 +1,7 @@
-# Logux
+# Logux Docs
 
-<img align="right" width="95" height="95" title="Logux logo"
-     src="https://logux.io/logo.svg">
+<img align="right" width="95" height="148" title="Logux logo"
+     src="https://logux.io/logotype.svg">
 
 Logux is a new way to connect client (webapp, mobile app) and server. Instead of sending HTTP requests (e.g., AJAX, REST, and GraphQL) it synchronizes log of operations between client, server, and other clients through WebSocket.
 
