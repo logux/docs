@@ -20,7 +20,7 @@ On the client you define what subprotocol version does it use:
 const createStore = createLoguxCreator({
   subprotocol: '1.1.0',
   …
-});
+})
 ```
 
 </details>
