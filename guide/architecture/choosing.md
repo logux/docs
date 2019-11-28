@@ -18,7 +18,7 @@ Benefits:
 
 Next step:
 
-* Read **[Starting Logux Server Project](../starting/node-server.md)**.
+* Read **[Starting Logux Server](../starting/node-server.md)**.
 
 ### Proxy Server
 
@@ -45,7 +45,7 @@ When you should choose it:
 
 Next step:
 
-1. Read **[Starting Logux Server Project](../starting/node-server.md)**.
+1. Read **[Starting Logux Server](../starting/node-server.md)**.
 2. Set `LOGUX_BACKEND` or `backend` option.
 3. All actions with `server.type()` and all subscriptions with `server.channel()` will be processed by Logux Server. All actions and subscriptions without these definitions will be sent to HTTP server from `backend` option.
 

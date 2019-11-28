@@ -81,4 +81,4 @@ server.type('user/rename', {
 ```
 
 
-**[Next chapter →](./compare.md)**
+**[Next chapter](./compare.md)**

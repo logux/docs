@@ -86,4 +86,4 @@ Use helpers where you create the store.
 
 If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See [`badge()`](https://logux.io/web-api/#globals-badge) and [`status()`](https://logux.io/web-api/#globals-status) API.
 
-**[Next chapter →](../concepts/node.md)**
+**[Next chapter](../concepts/node.md)**

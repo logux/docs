@@ -130,4 +130,4 @@ Change `src/index.js`:
 2. Start your Logux server in one terminal by `npm start` in server directory.
 3. Start your client in the second terminal by `npm start` in client directory.
 
-**[Next chapter →](../concepts/node.md)**
+**[Next chapter](../concepts/node.md)**
