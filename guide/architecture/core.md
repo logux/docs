@@ -62,4 +62,4 @@ When node synchronizes action to another node, the next node will apply the acti
 
 Logux is based on the **offline-first** idea. If the node is offline right now, new actions will wait for a connection in the node’s log. Offline is a standard mode for Logux application.
 
-**[Next chapter](./practice.md)**
+[Next chapter](./practice.md)

@@ -168,4 +168,4 @@ export default ({ userId }) => {
 }
 ```
 
-**[Next chapter](./parts.md)**
+[Next chapter](./parts.md)

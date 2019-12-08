@@ -255,4 +255,4 @@ server.channel('users/:id', {
 })
 ```
 
-**[Next chapter](./reason.md)**
+[Next chapter](./reason.md)

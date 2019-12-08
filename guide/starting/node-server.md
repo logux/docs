@@ -149,4 +149,4 @@ Connect to the database in `index.js`:
 
 Look at [Node.js API](https://logux.io/node-api/#server) to see what you can do next.
 
-**[Next chapter](./new-client.md)**
+[Next chapter](./new-client.md)

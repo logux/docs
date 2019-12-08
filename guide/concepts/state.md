@@ -299,4 +299,4 @@ Logux.undo(meta, reason: 'too late')
 
 </details>
 
-**[Next chapter](./subscription.md)**
+[Next chapter](./subscription.md)

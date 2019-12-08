@@ -377,4 +377,4 @@ end
 
 [JWT]: https://jwt.io/introduction/
 
-**[Next chapter](./action.md)**
+[Next chapter](./action.md)

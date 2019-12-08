@@ -175,4 +175,4 @@ These meta’s keys are available on client and server:
 [channels]: ./subscription.md
 [node ID]: ./node.md#node-id
 
-**[Next chapter](./state.md)**
+[Next chapter](./state.md)

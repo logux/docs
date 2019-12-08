@@ -485,4 +485,4 @@ See [`Server#on`](https://logux.io/node-api/#server-on) API docs for server even
 [`meta.reasons`]: ./reason.md
 [Nano Events]: https://github.com/ai/nanoevents/
 
-**[Next chapter](./meta.md)**
+[Next chapter](./meta.md)
