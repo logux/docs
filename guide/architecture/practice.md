@@ -189,7 +189,6 @@ To merge edit conflicts in Logux:
     { type: 'document/set', docId: 12, prop: 'title', value: 'New title' }
     { type: 'document/tags/add', docId: 12, tag: 'crdt' }
     ```
-
 2. Each action has a **creation time**. In our example, both users changed the title.
    The most popular merge strategy is to keep the latest change.
 
