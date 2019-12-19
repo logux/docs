@@ -115,7 +115,7 @@ When the server receives new action it does three things:
 2. Check user **access** to do this action.
 3. **Re-send** this action to all clients subscribed to `meta.channels`.
 4. Apply this action to **database**.
-5. **Clean** server log from this action since server do not need it anymore. When other clients will connect to the server, server will create a new action for them as described in “Subscriptions” section.
+5. **Clean** server log from this action since server does not need it anymore. When other clients will connect to the server, server will create a new action for them as described in “Subscriptions” section.
 
 ```js
 server.type('user/name', {
@@ -168,7 +168,7 @@ Optimistic UI is great for UX. Some actions (like payments) require loader. Logu
 
 ## Offline
 
-Logux clients send pings messages to WebSocket to detect loosing Internet and show *“you are offline”* warning.
+Logux clients send pings messages to WebSocket to detect losing Internet and show *“you are offline”* warning.
 
 Offline is a normal mode for Logux. The user can work with data and create an action to change the data. Unsent action be kept in the log and user will see *“changes were not saved yet”* warning.
 
