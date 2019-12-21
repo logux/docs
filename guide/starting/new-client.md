@@ -45,8 +45,8 @@ Open `src/index.js`:
 ```diff
   import * as serviceWorker from './serviceWorker';
 + import { Provider } from 'react-redux';
-+ import { createStore } from 'redux';
 + import reducer from './reducers';
++ import { createStore } from 'redux';
 
 + const store = createStore(reducer);
 
@@ -83,6 +83,7 @@ Edit `src/index.js`:
 
 ```diff
   import reducer from './reducers';
+- import { createStore } from 'redux';
 + import createLoguxCreator from '@logux/redux/create-logux-creator';
 
 + const createStore = createLoguxCreator({
