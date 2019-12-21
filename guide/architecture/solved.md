@@ -61,7 +61,7 @@ Also in Logux, only one browser tab keeps WebSocket connection. All other tabs r
 
 ## Compatibility Between Different Client Versions
 
-Sometimes your user may keep web app in without reloading for a week. It may create problems when you will change the API between client and server and deploy a new version. The old client will work with the new server.
+Sometimes your user may keep web app without reloading for a week. It may create problems when you will change the API between client and server and deploy a new version. The old client will work with the new server.
 
 In Logux every client has `subprotocol` version. Every action has a `meta.subprotocol` with the version of the client. The server may refuse old clients for connection (client will ask users to reload the page) or may use different code to process action from old API:
 
