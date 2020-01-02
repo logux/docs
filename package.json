@@ -7,7 +7,7 @@
     "test": "./scripts/check-order && yarn lint && yarn spell"
   },
   "devDependencies": {
-    "@arkweid/lefthook": "^0.6.6",
+    "@arkweid/lefthook": "^0.7.0",
     "chalk": "^3.0.0",
     "globby": "^10.0.1",
     "remark-cli": "^7.0.1",
