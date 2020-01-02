@@ -5,16 +5,11 @@
 
 Logux and client/server framework to make:
 
-* **Collaborative apps** when multiple users work with the same document. Logux has features inspired by **[CRDT]** to resolve edit conflicts between users. Real time updates to prevent conflicts. Time travel to keep actions order the same on every client. Distributed timer to detect latest changes.
-* **Real-time** to see changes by another user immediately. Logux combines **WebSockets** with modern reactive client architecture. It synchronizes Redux actions between clients and server and **keep the same order** of actions.
-* **Optimistic UI** to improve UI performance by updating UI without waiting answer from the server. **Time travel** feature will revert changes later if server refuse them.
-* **Offline-first** for the next billion users or New York subway. Logux saves Redux actions to **IndexedDB** and has a lot features to **merge changes** from different users.
-* Compatible with modern stack: , works with **any back-end language** and **any database**.
-
-Logux contains:
-
-* Client-side JS libraries with **Redux compatible** and pure JS API.
-* Server-side **Node.js API** or **WebSocket proxy** to process Redux action in **Ruby on Rails** app or any HTTP server.
+* **Collaborative apps** when multiple users work with the same document. Logux has features inspired by **[CRDT]** to resolve edit conflicts between users. Real-time updates to prevent conflicts. Time travel to keep actions order the same on every client. A distributed timer to detect the latest changes.
+* **Real-time** to see changes by another user immediately. Logux combines **WebSockets** with modern reactive client architecture. It synchronizes Redux actions between clients and servers, and ** keeps the same order** of actions.
+* **Optimistic UI** to improve UI performance by updating UI without waiting for an answer from the server. **Time travel** feature will revert changes later if the server refuses them.
+* **Offline-first** for the next billion users or New York subway. Logux saves Redux actions to **IndexedDB** and has a lot of features to **merge changes** from different users.
+* Compatible with modern stack: **Redux** and pure JS API, works with **any back-end language** and **any database**.
 
 Ask your questions at [community chat] or [commercial support].
 
@@ -26,7 +21,6 @@ Ask your questions at [community chat] or [commercial support].
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
        alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
-
 
 
 ## Client Example
@@ -112,7 +106,7 @@ server.type('INC', {
 </details>
 <details><summary>Ruby on Rails</summary>
 
-Using [`logux_rails`](https://github.com/logux/logux_rails/) gem with Logux WebSocket proxy server.
+[`logux_rails`](https://github.com/logux/logux_rails/) gem with the Logux WebSocket proxy server.
 
 ```ruby
 # app/logux/channels/counter.rb
