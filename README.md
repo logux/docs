@@ -1,37 +1,39 @@
-# Logux Docs
+# Logux
 
 <img align="right" width="95" height="148" title="Logux logotype"
      src="https://logux.io/branding/logotype.svg">
 
-Logux is a new way to connect client (webapp, mobile app) and server. Instead of sending HTTP requests (e.g., AJAX, REST, and GraphQL) it synchronizes log of operations between client, server, and other clients through WebSocket.
+Logux and client/server framework to make:
 
-It was created on top of **[CRDT]**, with ideas of having live updates and optimistic UI, and being offline-first by design.
+* **Collaborative apps** when multiple users work with the same document. Logux has features inspired by **[CRDT]** to resolve edit conflicts between users. Real time updates to prevent conflicts. Time travel to keep actions order the same on every client. Distributed timer to detect latest changes.
+* **Real-time** to see changes by another user immediately. Logux combines **WebSockets** with modern reactive client architecture. It synchronizes Redux actions between clients and server and **keep the same order** of actions.
+* **Optimistic UI** to improve UI performance by updating UI without waiting answer from the server. **Time travel** feature will revert changes later if server refuse them.
+* **Offline-first** for the next billion users or New York subway. Logux saves Redux actions to **IndexedDB** and has a lot features to **merge changes** from different users.
+* Compatible with modern stack: , works with **any back-end language** and **any database**.
 
-* Built-in **optimistic UI** will improve UI performance.
-* Built-in **live updates** allow to create collaborative tools (like Google Docs).
-* Built-in **offline-first** principle respect will improve UX on unstable connection. It is useful both for the next billion users and New York subway.
-* Compatible with modern stack: **Redux** API, works with **any back-end language** and **any database**.
+Logux contains:
 
-Read more: [logux.io]<br>
-Ask your questions at [our Gitter]<br>
-Commercial support: [`logux@evilmartians.com`]
+* Client-side JS libraries with **Redux compatible** and pure JS API.
+* Server-side **Node.js API** or **WebSocket proxy** to process Redux action in **Ruby on Rails** app or any HTTP server.
+
+Ask your questions at [community chat] or [commercial support].
+
+[commercial support]: mailto:logux@evilmartians.com
+[community chat]: https://gitter.im/logux/logux
+[CRDT]: https://slides.com/ai/crdt
 
 <a href="https://evilmartians.com/?utm_source=logux-docs">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
        alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
 
-[`logux@evilmartians.com`]: mailto:logux@evilmartians.com
-[our Gitter]: https://gitter.im/logux/logux
-[logux.io]: https://logux.io/
-[CRDT]: https://slides.com/ai/crdt
 
 
 ## Client Example
 
 <details open><summary>React/Redux client</summary>
 
-Using [`@logux/redux`](https://github.com/logux/redux/):
+Using [Logux Redux](https://github.com/logux/redux/):
 
 ```js
 export const Counter = () => {
@@ -54,7 +56,7 @@ export const Counter = () => {
 </details>
 <details><summary>Pure JS client</summary>
 
-Using [`@logux/client`](https://github.com/logux/client/):
+You can use [Logux Client](https://github.com/logux/client/) API with any framework:
 
 ```js
 log.on('add', (action, meta) => {
@@ -77,7 +79,7 @@ log.add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
 
 <details open><summary>Node.js</summary>
 
-Using [`@logux/server`](https://github.com/logux/server/):
+Using [Logux Server](https://github.com/logux/server/):
 
 ```js
 server.channel('counter', {
@@ -110,7 +112,7 @@ server.type('INC', {
 </details>
 <details><summary>Ruby on Rails</summary>
 
-Using [`logux_rails`](https://github.com/logux/logux_rails/):
+Using [`logux_rails`](https://github.com/logux/logux_rails/) gem with Logux WebSocket proxy server.
 
 ```ruby
 # app/logux/channels/counter.rb
@@ -202,3 +204,5 @@ if ($req['password'] == LOGUX_PASSWORD) {
 ```
 
 </details>
+
+[Next chapter](./guide/architecture/core.md)
