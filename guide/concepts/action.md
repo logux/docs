@@ -76,7 +76,7 @@ store.dispatch.sync({ type: 'logux/undo', id: meta.id, reason: 'too late' })
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 client.log.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true })
@@ -159,7 +159,7 @@ There are four ways to add action to Logux Redux.
    This method is the best for models. For instance, when the user adds a new comment or changed the post.
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 1. **Local action.** Action will *not* be sent to the server or another browser tab.
 
@@ -207,7 +207,7 @@ store.dispatch.local(action)
 `store.client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `store.client.on('add', fn)`. Reducers will see cross-tab actions, you do not need to do anything.
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 Any action without explicit `meta.tab` will be sent to all browser tabs.
 
@@ -237,7 +237,7 @@ store.dispatch.sync({ type: 'likes/add', postId })
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 client.log.add({ type: 'likes/add', postId }, { sync: true })
@@ -258,7 +258,7 @@ badge(store.client, { messages: badgeMessages, styles: badgeStyles })
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 import badge from '@logux/client/badge'
@@ -284,7 +284,7 @@ dispatch.sync({ type: 'likes/add', postId }).then(() => {
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 const waiting = { }
@@ -317,7 +317,7 @@ confirm(store.client)
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 import confirm from '@logux/client/confirm'
@@ -464,7 +464,7 @@ store.client.on(event, (action, meta) => {
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 client.on(event, (action, meta) => {

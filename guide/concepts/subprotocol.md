@@ -24,7 +24,7 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 const client = new Client({

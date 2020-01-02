@@ -56,7 +56,7 @@ store.log.changeMeta(actionId, {
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 client.log.changeMeta(actionId, {

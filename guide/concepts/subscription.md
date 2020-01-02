@@ -16,7 +16,7 @@ store.dispatch.sync({ type: 'logux/unsubscribe', channel: 'users/14' })
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 client.log.add({ type: 'logux/subscribe', channel: 'users/14' }, { sync: true })

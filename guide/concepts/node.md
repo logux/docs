@@ -15,7 +15,7 @@ store.client.node //=> ClientNode instance
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 const client = new CrossTabClient({ … })
@@ -40,7 +40,7 @@ store.client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
@@ -137,7 +137,7 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 import IndexedStore from '@logux/client/indexed-store'
@@ -167,7 +167,7 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 const client = new CrossTabClient({
@@ -197,7 +197,7 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 import { testPair } from 'logux-core'
@@ -227,7 +227,7 @@ store.client.on('state', () => {
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 client.state //=> "synchronized"
@@ -289,7 +289,7 @@ store.client.on('role', () => {
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 client.role //=> "leader"
@@ -313,7 +313,7 @@ store.client.tabId //=> "6K7iYdJH"
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 client.clientId //=> "380:Uf_pPwE4"
@@ -340,7 +340,7 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
-<details><summary>Logux client</summary>
+<details><summary>Pure JS client</summary>
 
 ```js
 const client = new CrossTabClient({
