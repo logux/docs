@@ -31,18 +31,18 @@ Using [Logux Redux](https://github.com/logux/redux/):
 
 ```js
 export const Counter = () => {
-  // Will load current counter from server and subscribe to counter changes
+  const counter = useSelector(state => state.counter)
+  const dispatch = useDispatch()
+  // Load current counter from server and subscribe to counter changes
   const isSubscribing = useSubscription(['counter'])
   if (isSubscribing) {
-    return <Loader />
+    return <Loader></Loader>
   } else {
-    const counter = useSelector(state => state.counter)
-    const dispatch = useDispatch()
-    return <>
-      <div>{ counter }</div>
-      // `dispatch.sync()` instead of Redux `dispatch()` will send action to all clients
+    // dispatch.sync() will send Redux action to all clients
+    return <div>
+      <h1>{ counter }</h1>
       <button onClick={ dispatch.sync({ type: 'INC' }) }>
-    </>
+    </div>
   }
 }
 ```
