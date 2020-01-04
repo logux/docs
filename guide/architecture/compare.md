@@ -147,7 +147,7 @@ export default ({ userId }) => {
 }
 ```
 
-In **Logux** you create the Redux action by `dispatch.sync`. Logux is uses Optimistic UI by default, so you do not need a loader in this case.
+In **Logux** you create the Redux action by `dispatch.sync`. Logux uses Optimistic UI by default, so you do not need a loader in this case.
 
 ```js
 // reducers/users.js
