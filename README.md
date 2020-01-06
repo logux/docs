@@ -8,7 +8,7 @@ Logux and client/server framework to make:
 * **Collaborative apps** when multiple users work with the same document. Logux has features inspired by **[CRDT]** to resolve edit conflicts between users. Real-time updates to prevent conflicts. Time travel to keep actions order the same on every client. A distributed timer to detect the latest changes.
 * **Real-time** to see changes by another user immediately. Logux combines **WebSocket** with modern reactive client architecture. It synchronizes Redux actions between clients and servers, and **keeps the same order** of actions.
 * **Optimistic UI** to improve UI performance by updating UI without waiting for an answer from the server. **Time travel** will revert changes later if the server refuses them.
-* **Offline-first** for the next billion users or New York subway. Logux saves Redux actions to **IndexedDB** and has a lot of features to **merge changes** from different users.
+* **Offline-first** for the next billion users or New York City Subway. Logux saves Redux actions to **IndexedDB** and has a lot of features to **merge changes** from different users.
 * Compatible with modern stack: **Redux** and pure JS API, works with **any back-end language** and **any database**.
 
 Ask your questions at [community chat] or [commercial support].
