@@ -206,9 +206,9 @@ if ($req['password'] == LOGUX_PASSWORD) {
 
 ### CRDT ideas in Logux
 
-<iframe src="https://www.youtube-nocookie.com/embed/c7t_YBNHkeo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+`Youtube:c7t_YBNHkeo` CRDT ideas in Logux talk
 
 
 ### Using Logux in Production
 
-<iframe src="https://www.youtube-nocookie.com/embed/DvHNOplQ-tY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+`Youtube:DvHNOplQ-tY` Using Logux in Production talk
