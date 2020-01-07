@@ -13,6 +13,8 @@ Logux and client/server framework to make:
 
 Ask your questions at [community chat] or [commercial support].
 
+[Next chapter](./guide/starting/choosing-architecture.md)
+
 [commercial support]: mailto:logux@evilmartians.com
 [community chat]: https://gitter.im/logux/logux
 [CRDT]: https://slides.com/ai/crdt

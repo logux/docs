@@ -1,5 +1,6 @@
 {
   "guide": [
+    "starting/choosing-architecture",
     "starting/node-server",
     "starting/proxy-server",
     "starting/new-client",
@@ -9,7 +10,6 @@
     "architecture/solved",
     "architecture/compare",
     "architecture/parts",
-    "architecture/choosing",
     "concepts/node",
     "concepts/action",
     "concepts/meta",
