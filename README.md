@@ -199,4 +199,13 @@ if ($req['password'] == LOGUX_PASSWORD) {
 
 </details>
 
-[Next chapter](./guide/architecture/core.md)
+
+## Talks
+
+### CRDT ideas in Logux
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/c7t_YBNHkeo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Using Logux in Production
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/DvHNOplQ-tY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
