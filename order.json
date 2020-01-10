@@ -20,7 +20,8 @@
   ],
   "recipes": [
     "authentication",
-    "cross-tab"
+    "cross-tab",
+    "subprotocol"
   ],
   "protocols": [
     "ws/spec",
