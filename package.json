@@ -9,12 +9,12 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.0",
     "chalk": "^3.0.0",
-    "globby": "^10.0.1",
+    "globby": "^11.0.0",
     "remark-cli": "^7.0.1",
     "remark-lint-no-dead-urls": "^1.0.1",
     "remark-lint-no-empty-sections": "^3.0.0",
     "remark-preset-lint-recommended": "^3.0.3",
-    "remark-validate-links": "^9.0.1",
+    "remark-validate-links": "^9.1.0",
     "yaspeller": "^6.0.2"
   },
   "repository": "logux/docs",
