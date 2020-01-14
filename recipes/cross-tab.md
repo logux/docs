@@ -24,7 +24,7 @@ dispatch({ type: 'menu/open' })
 dispatch.crossTab({ type: 'notification/close' })
 ```
 
-</detailt>
+</details>
 <details><summary>Pure JS client</summary>
 
 In pure JS Logux Client all actions are cross-tab by default.
@@ -41,7 +41,7 @@ You need to set `meta.tab` with `client.id` to create tab-specific action:
 client.log.add({ type: 'menu/open' }, { tab: client.id })
 ```
 
-</detailt>
+</details>
 
 [actions]: ../guide/concepts/action.md
 
@@ -70,7 +70,7 @@ All actions, which the client sends to the server, is cross-tab actions too.
 dispatch.sync({ type: 'USERS/RENAME', id, name })
 ```
 
-</detailt>
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -78,7 +78,7 @@ dispatch.sync({ type: 'USERS/RENAME', id, name })
 client.log.add({ type: 'USERS/RENAME', id, name }, { sync: true })
 ```
 
-</detailt>
+</details>
 
 We recommend you to create [reducers] with thinking about it. For instance, the reducer should ignore the “rename user” action if there is no user in the tab’s state.
 
