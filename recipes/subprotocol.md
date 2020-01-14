@@ -1,28 +1,28 @@
 # Supporting Different Versions of Client
 
-Client-server application should support different versions of the clients.
+The client-server application should support different versions of the clients.
 
-If you deploy a new client and server, users may not reload page and use old client to connect to the new server. It is normal to see old clients for a week. Mobile apps or Electron apps have much longer update process, than web clients. You may expect to see old clients for months.
+If you deploy a new client and server, users may not reload the page and use the old client to connect to the new server. It is normal to see old clients for a week. Mobile apps or Electron apps have a much longer update process than web clients. You may expect to see old clients for months.
 
-If you use persistance storage, new client will load actions from old client.
+If you use persistent storage, new clients will load actions from an old client.
 
 Logux gives your [`meta.subprotocol`](../guide/concepts/subprotocol.md) API to deal with this complex case of old and new clients mix.
 
 
 ## Subprotocol Best Practices
 
-Developer must to specify subprotocol version ([Semantic Versioning] string like `1.5.2`) for both client and server.
+The developer must specify the subprotocol version ([Semantic Versioning] string like `1.5.2`) for both client and server.
 
 We suggest to change major subprotocol version (first number `X.x.x`) on client/server API breaking changes:
 
 * Renaming action.
-* Big changes in reacton for action.
+* Big changes in reaction for action.
 
 You can optionally update minor (`x.X.x`) or patch (`x.x.X`) versions of subprotocol on new actions and features or bug fixes. It can be useful for statistics.
 
 <details open><summary>Redux client</summary>
 
-You can change subprotocol version at `src/index.js` file (or another file where you create store):
+You can change the subprotocol version at `src/index.js` file (or another file where you create store):
 
 ```diff
   const createStore = createLoguxCreator({
@@ -35,7 +35,7 @@ You can change subprotocol version at `src/index.js` file (or another file where
 </details>
 <details><summary>Pure JS client</summary>
 
-You can change subprotocol version in the file where you create the client.
+You can change the subprotocol version in the file where you create the client.
 
 ```diff
   const client = new Client({
@@ -61,12 +61,14 @@ In Logux Node.js server or Logux proxy you need to change `index.js`:
   )
 ```
 
+[Semantic Versioning]: https://semver.org/
+
 
 ## Checking Client Version on the Server
 
-On the server you can support different versions of the client.
+On the server, you can support different versions of the client.
 
-Note, that every action has own subprotocol. With persistance store like `IndexedStore` user can create action in old client, reload client and upload old action to the server from new client.
+Note that every action has its subprotocol. With a persistence store like `IndexedStore`, user can create action in an old client, reload the client, and upload the old action to the server from a new client.
 
 <details open><summary>Node.js</summary>
 
@@ -107,13 +109,13 @@ end
 
 ## Checking Action Version on the Client
 
-If on the client-side you are using persistance store like `IndexedStore` your client may load actions created in different version of the client.
+If on the client-side, you are using a persistence store like `IndexedStore` your client may load actions created in a different version of the client.
 
 You need to think about it if you want to support offline.
 
 <details open><summary>Redux client</summary>
 
-Unfortunatelly, there is no API to pass `meta.subprotocol` to Redux’s reducers. We will make solution for old action in our future Redux API extenstion.
+Unfortunately, there is no API to pass `meta.subprotocol` to Redux’s reducers. We will make a solution for old action in our future Redux API extension.
 
 Right now you need to be read and look into action structure:
 
@@ -147,7 +149,7 @@ client.on('add', (action, meta) => {
 
 ## Forcing Clients to Update Client
 
-Server will refuse connection if client’s subprotocol doesn’t pass `supports` requirements. Client will show “Reload the page” error to the user.
+The server will refuse a connection if the client’s subprotocol doesn’t pass `supports` requirements. The client will show “Reload the page” error to the user.
 
 For instance, if you do not want to support `1.x.x` clients and force them to update an app, change this line in server’s or proxy’s `index.js`:
 

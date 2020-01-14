@@ -1,12 +1,12 @@
 # Cross-Tab Communication with Logux
 
-We created Logux with thoughts that good UX means that user have the same state in every browser tab. If user added product to Shopping Cart in one browser tab, it will see the same produc in another tab.
+We created Logux with thoughts that good UX means that user has the same state in every browser tab. If the user added a product to Shopping Cart in one browser tab, it would see the same product in another tab.
 
-To archive that UX on client-side Logux separated all [actions] into 2 categories:
-1. **Cross-tab actions:** any changes of global state. If user change some document or add comment it should be a cross-tab action.
-2. **Tab-specific action:** everything related to current context. For instance, open or close menu, start animation, etc.
+To archive that UX on client-side Logux separated all [actions] into two categories:
+1. **Cross-tab actions:** any changes in the global state. If the user changes a document or adds a comment, it should be a cross-tab action.
+2. **Tab-specific action:** everything related to the current context. For instance, open or close menu, start an animation, etc.
 
-Logux will synchronize all cross-tab actions between all openned tabs.
+Logux will synchronize all cross-tab actions between all opened tabs.
 
 <details open><summary>Redux client</summary>
 
@@ -48,20 +48,20 @@ client.log.add({ type: 'menu/open' }, { tab: client.id })
 
 ## New Tab
 
-Note, that if user will open a new tab, Logux will not load action from other tab. New tab will load latest state only in two cases:
+Note that if a user opens a new tab, Logux will not load action from another tab. A new tab will load the latest state only in two cases:
 
-1. You use persistance log store on the client-side like
+1. You use persistent log store on the client-side like
    [`IndexedStore`](/web-api/#indexedstore).
-2. New tab loads latest state from the server with [subscriptions].
+2. The new tab loads the latest state from the server with [subscriptions].
 
 [subscriptions]: ../guide/concepts/subscription.md
 
 
 ## Server Actions
 
-By default, all actions came from server are **cross-tab** action. All tabs will receive actions from the server, even if only single tab subscribed for them.
+By default, all actions that came from a server are **cross-tab** action. All tabs will receive actions from the server, even if only a single tab subscribed to them.
 
-All actions, which client send to the server is cross-tab actions too.
+All actions, which the client sends to the server, is cross-tab actions too.
 
 <details open><summary>Redux client</summary>
 
@@ -80,7 +80,7 @@ client.log.add({ type: 'USERS/RENAME', id, name }, { sync: true })
 
 </detailt>
 
-We recommend you to create [reducers] with thinking about it. For instance, reducer should ignore “rename user” action if there if no this user in tab’s state.
+We recommend you to create [reducers] with thinking about it. For instance, the reducer should ignore the “rename user” action if there is no user in the tab’s state.
 
 ```js
 export default function reduceUsers(state = { }, action) {
