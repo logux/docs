@@ -2,7 +2,7 @@
 
 We created Logux with thoughts that good UX means that user has the same state in every browser tab. If the user added a product to Shopping Cart in one browser tab, it would see the same product in another tab.
 
-To archive that UX on client-side Logux separated all [actions] into two categories:
+To achieve that UX on client-side Logux separated all [actions] into two categories:
 1. **Cross-tab actions:** any changes in the global state. If the user changes a document or adds a comment, it should be a cross-tab action.
 2. **Tab-specific action:** everything related to the current context. For instance, open or close menu, start an animation, etc.
 
