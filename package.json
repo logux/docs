@@ -95,7 +95,8 @@
       "sourcing",
       "Versioning",
       "unsynchronized",
-      "IndexedDB"
+      "IndexedDB",
+      "KB"
     ]
   }
 }

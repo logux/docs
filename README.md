@@ -10,7 +10,7 @@ Logux and WebSocket client/server framework to make:
 * **Optimistic UI** to improve UI performance by updating UI without waiting for an answer from the server. **Time travel** will revert changes later if the server refuses them.
 * **Offline-first** for the next billion users or New York City Subway. Logux saves Redux actions to **IndexedDB** and has a lot of features to **merge changes** from different users.
 * Compatible with modern stack: **Redux** and pure JS API, works with **any back-end language** and **any database**.
-* Just extra [**9 kB**] in client-side JS bundle.
+* Just extra [**9 KB**] in client-side JS bundle.
 
 Ask your questions at [community chat] or [commercial support].
 
