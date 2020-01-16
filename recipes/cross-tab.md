@@ -17,7 +17,7 @@ In Redux client `dispatch()` and `dispatch.local()` create tab-specific actions:
 dispatch({ type: 'menu/open' })
 ```
 
-`dispatch.sync()` creates cross-tab action and send it to the server. `dispatch.crossTan()` creates cross-tab action without sending it to the server.
+`dispatch.sync()` creates cross-tab action and send it to the server. `dispatch.crossTab()` creates cross-tab action without sending it to the server.
 
 ```js
 // All tabs will receive this action
