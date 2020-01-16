@@ -10,7 +10,7 @@ Logux and WebSocket client/server framework to make:
 * **Optimistic UI** to improve UI performance by updating UI without waiting for an answer from the server. **Time travel** will revert changes later if the server refuses them.
 * **Offline-first** for the next billion users or New York City Subway. Logux saves Redux actions to **IndexedDB** and has a lot of features to **merge changes** from different users.
 * Compatible with modern stack: **Redux** and pure JS API, works with **any back-end language** and **any database**.
-* Size of the client [**9kB**](https://github.com/logux/client/blob/master/package.json#L89)
+* Just extra [**9 kB**] in client-side JS bundle.
 
 Ask your questions at [community chat] or [commercial support].
 
@@ -18,6 +18,7 @@ Ask your questions at [community chat] or [commercial support].
 
 [commercial support]: mailto:logux@evilmartians.com
 [community chat]: https://gitter.im/logux/logux
+[**9 kB**]: https://github.com/logux/client/blob/master/package.json#L89
 [CRDT]: https://slides.com/ai/crdt
 
 <a href="https://evilmartians.com/?utm_source=logux-docs">
