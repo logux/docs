@@ -67,7 +67,17 @@ increase.addEventListener('click', () => {
   log.add({ type: 'INC' }, { sync: true })
 })
 
-log.add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
+loading.classList.add('is-show')
+log
+  .add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
+  .then(meta => {
+    const unbind = log.on('add', action => {
+      if (action.type === 'logux/processed' && action.id === meta.id) {
+        loading.classList.remove('is-show')
+        unbind()
+      }
+    })
+  })
 ```
 
 </details>
