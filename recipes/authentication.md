@@ -164,7 +164,7 @@ server.type('login', {
   async access (ctx) {
     return ctx.userId === false
   },
-  async process (ctx, action) {
+  async process (ctx, action, meta) {
     const user = await db.oneOrNone('SELECT * FROM users WHERE email = $1', action.email);
     if(!user) {
       server.undo(meta, 'Unknown email')
