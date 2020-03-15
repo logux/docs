@@ -159,7 +159,7 @@ These meta’s keys are available on client and server:
 ## Client Meta Keys
 
 * `sync` boolean: optional key to mark that this action should be synchronized with other browser tabs and server.
-* `tab` string: optional key to mark that action should be visible only for browser tab with the same `client.id`.
+* `tab` string: optional key to mark that action should be visible only for browser tab with the same `client.tabId`.
 * `noAutoReason` boolean: optional key to disable setting `timeTravel` reasons.
 
 
