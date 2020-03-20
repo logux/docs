@@ -166,7 +166,7 @@ server.type('login', {
   },
   async process (ctx, action, meta) {
     const user = await db.oneOrNone('SELECT * FROM users WHERE email = $1', action.email);
-    if(!user) {
+    if (!user) {
       server.undo(meta, 'Unknown email')
     } else if (await bcrypt.compare(action.password, hash)) {
       let token = jwt.encode({ sub: user.id }, process.env.JWT_SECRET)
