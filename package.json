@@ -92,6 +92,8 @@
       "meta’s",
       "timestamp",
       "Vue",
+      "Vuex",
+      "instance",
       "sourcing",
       "Versioning",
       "unsynchronized",
