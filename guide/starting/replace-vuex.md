@@ -1,8 +1,10 @@
 # Replacing Vuex to Logux Vuex
 
-If you already have Vuex application, this guide will help you to add [Logux Vuex] to project. Logux Vuex can work with any UI framework. We will use Vue only as an example.
+Logux has [Vuex] support, an official flux-like state management library for Vue.js. This guide will help you to integrate [Logux Vuex] with your Vuex store.
 
+[Vuex]: https://vuex.vuejs.org
 [Logux Vuex]: https://github.com/logux/vuex
+
 
 
 ## Server
