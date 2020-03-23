@@ -5,6 +5,7 @@
     "starting/proxy-server",
     "starting/new-client",
     "starting/replace-redux",
+    "starting/replace-vuex",
     "architecture/core",
     "architecture/practice",
     "architecture/solved",
