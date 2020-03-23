@@ -3,7 +3,7 @@ pre-push:
   commands:
     order:
       glob: "{order.json,**/*.md}"
-      run: ./scripts/check-order
+      run: ./scripts/check-order.js
     spell:
       glob: "*.md"
       run: yaspeller {push_files}
