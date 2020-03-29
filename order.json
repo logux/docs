@@ -23,7 +23,7 @@
     "authentication",
     "typescript",
     "cross-tab",
-    "subprotocol",
+    "subprotocol"
   ],
   "protocols": [
     "ws/spec",
