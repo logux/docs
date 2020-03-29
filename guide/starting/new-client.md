@@ -84,7 +84,7 @@ Edit `src/index.js`:
 ```diff
   import reducer from './reducers';
 - import { createStore } from 'redux';
-+ import createLoguxCreator from '@logux/redux/create-logux-creator';
++ import { createLoguxCreator } from '@logux/redux';
 
 + const createStore = createLoguxCreator({
 +   subprotocol: '1.0.0',
@@ -112,16 +112,14 @@ npm i @logux/client
 Change `src/index.js`:
 
 ```diff
-  import createLoguxCreator from '@logux/redux/create-logux-creator';
-+ import badge from '@logux/client/badge';
-+ import badgeStyles from '@logux/client/badge/default';
-+ import badgeMessages from '@logux/client/badge/en';
-+ import log from '@logux/client/log';
+  import { createLoguxCreator } from '@logux/redux';
++ import { createLoguxCreator, badge, badgeEn, log } from '@logux/client';
++ import { badgeStyles } from '@logux/client/badge/styles';
 ```
 
 ```diff
   const store = createStore(reducer);
-+ badge(store.client, { messages: badgeMessages, styles: badgeStyles });
++ badge(store.client, { messages: badgeEn, styles: badgeStyles });
 + log(store.client);
 ```
 

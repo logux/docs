@@ -109,7 +109,7 @@ The best way to use subscriptions is `useSubscription` React hook. This hook aut
 `useSubscription` returns `true` during the downloading current state. You should show some loader at that moment.
 
 ```js
-import useSubscription from '@logux/redux/use-subscription'
+import { useSubscription } from '@logux/redux'
 
 const UserPage = ({ userId }) => {
   const isSubscribing = useSubscription([`user/${ userId }`])
@@ -136,7 +136,7 @@ export default function usersReducer (state = [], action) {
 In component, you should use Redux’s `useSelector` hook to select that data from the store.
 
 ```diff
-  import useSubscription from '@logux/redux/use-subscription'
+  import { useSubscription } from '@logux/redux'
 + import { useSelector } from 'react-redux'
 
   const UserPage = ({ userId }) => {
@@ -157,7 +157,7 @@ In component, you should use Redux’s `useSelector` hook to select that data fr
 For legacy React components with the class syntax, you can use `connect` decorator.
 
 ```js
-import subscribe from '@logux/redux/subscribe'
+import { subscribe } from '@logux/redux'
 
 class UserPage extends React.Component {
   …

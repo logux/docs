@@ -33,7 +33,7 @@ Find store definition in your project. Look for `createStore` function call. Oft
 
 ```diff
 - import { createStore } from 'redux'
-+ import createLoguxCreator from '@logux/redux/create-logux-creator'
++ import { createLoguxCreator } from '@logux/redux'
 ```
 
 ```diff
@@ -63,16 +63,14 @@ npm i @logux/client
 Use helpers where you create the store.
 
 ```diff
-  import createLoguxCreator from '@logux/redux/create-logux-creator'
-+ import badge from '@logux/client/badge'
-+ import badgeStyles from '@logux/client/default'
-+ import badgeText from '@logux/client/en'
-+ import log from '@logux/client/log'
+  import { createLoguxCreator } from '@logux/redux'
++ import { createLoguxCreator, badge, badgeEn, log } from '@logux/client'
++ import { badgeStyles } from '@logux/client/badge/styles'
 ```
 
 ```diff
   const store = createStore(reducer)
-+ badge(store.client, { messages: badgeMessages, styles: badgeStyles })
++ badge(store.client, { messages: badgeEn, styles: badgeStyles })
 + log(store.client)
 ```
 

@@ -130,7 +130,7 @@ const time = new Date(meta.time) //=> Date 2019-07-30T17:35:38.460Z
 `meta.time` is a timestamp. Few actions can have the same `meta.time` if these actions was generated very fast in the same millisecond. Logux has `isFirstOlder` helper, which uses both `meta.time` and `meta.id` to always be sure what action was generated later.
 
 ```js
-import isFirstOlder from '@logux/core/is-first-older'
+import { isFirstOlder } from '@logux/core'
 
 if (isFirstOlder(meta1, meta2)) {
   lastName = action1.name

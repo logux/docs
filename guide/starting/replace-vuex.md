@@ -72,10 +72,8 @@ Use helpers where you create the store.
 
 ```diff
   import { createLogux } from '@logux/vuex'
-+ import badge from '@logux/client/badge'
-+ import badgeStyles from '@logux/client/default'
-+ import badgeText from '@logux/client/en'
-+ import log from '@logux/client/log'
++ import { createLoguxCreator, badge, badgeEn, log } from '@logux/client'
++ import { badgeStyles } from '@logux/client/badge/styles'
 ```
 
 ```diff
@@ -86,7 +84,7 @@ Use helpers where you create the store.
     modules: {}
   })
 
-+ badge(store.client, { messages: badgeMessages, styles: badgeStyles })
++ badge(store.client, { messages: badgeEn, styles: badgeStyles })
 + log(store.client)
 
   store.client.start()

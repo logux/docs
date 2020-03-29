@@ -128,7 +128,7 @@ You can change action store. For instance, you can use `indexedDB` store for bet
 <details open><summary>Redux client</summary>
 
 ```js
-import IndexedStore from '@logux/client/indexed-store'
+import { IndexedStore } from '@logux/client'
 
 const createStore = createLoguxCreator({
   store: new IndexedStore(),
@@ -140,7 +140,7 @@ const createStore = createLoguxCreator({
 <details><summary>Pure JS client</summary>
 
 ```js
-import IndexedStore from '@logux/client/indexed-store'
+import { IndexedStore } from '@logux/client'
 
 const client = new CrossTabClient({
   store: new IndexedStore(),
@@ -242,7 +242,7 @@ client.on('state', () => {
 `@logux/client/status` provides useful syntax sugar around state with extra values:
 
 ```js
-import status from '@logux/client/state'
+import { status } from '@logux/client'
 
 status(client, current => {
   if (current === 'protocolError') {

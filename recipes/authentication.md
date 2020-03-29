@@ -186,7 +186,7 @@ Open your Logux Redux client and add sign-up form according to your design.
 Then add code to login user:
 
 ```js
-import Client from '@logux/client/client'
+import { Client } from '@logux/client'
 
 function login (email, password) {
   let client = new Client({

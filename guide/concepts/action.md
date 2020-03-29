@@ -250,9 +250,8 @@ You could use [`badge()`](https://logux.io/web-api/#globals-badge) or [`status()
 <details open><summary>Redux client</summary>
 
 ```js
-import badge from '@logux/client/badge'
-import badgeStyles from '@logux/client/default'
-import badgeText from '@logux/client/en'
+import { badge, badgeEn } from '@logux/client'
+import { badgeStyles } from '@logux/client/badge/styles'
 
 badge(store.client, { messages: badgeMessages, styles: badgeStyles })
 ```
@@ -261,11 +260,10 @@ badge(store.client, { messages: badgeMessages, styles: badgeStyles })
 <details><summary>Pure JS client</summary>
 
 ```js
-import badge from '@logux/client/badge'
-import badgeStyles from '@logux/client/default'
-import badgeText from '@logux/client/en'
+import { badge, badgeEn } from '@logux/client'
+import { badgeStyles } from '@logux/client/badge/styles'
 
-badge(client, { messages: badgeMessages, styles: badgeStyles })
+badge(client, { messages: badgeEn, styles: badgeStyles })
 ```
 
 </details>
@@ -312,7 +310,7 @@ client.log.add({ type: 'likes/add', postId }, { sync: true }).then(meta => {
 By default, Logux will forget all unsaved actions if the user will close the browser before getting the Internet. You can change the log store to [`IndexedStore`](https://logux.io/web-api/#indexedstore) or you can show a warning to prevent closing browser:
 
 ```js
-import confirm from '@logux/client/confirm'
+import { confirm } from '@logux/client'
 confirm(store.client)
 ```
 
@@ -320,7 +318,7 @@ confirm(store.client)
 <details><summary>Pure JS client</summary>
 
 ```js
-import confirm from '@logux/client/confirm'
+import { confirm } from '@logux/client'
 confirm(client)
 ```
 
