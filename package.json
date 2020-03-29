@@ -98,7 +98,8 @@
       "Versioning",
       "unsynchronized",
       "IndexedDB",
-      "KB"
+      "KB",
+      "generics"
     ]
   }
 }

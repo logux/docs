@@ -39,7 +39,7 @@ server.channel<UserParams>('user/:id', {
 })
 ```
 
-`server.type` and `server.channel` are also receiving types for `ctx.data`. And you can specify subcription action:
+`server.type` and `server.channel` are also receiving types for `ctx.data`. And you can specify subscription action:
 
 ```js
 import { LoguxSubscribeAction } from '@logux/server'
