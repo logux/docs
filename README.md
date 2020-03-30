@@ -9,7 +9,7 @@ Logux and WebSocket client/server framework to make:
 * **Real-time** to see changes by another user immediately. Logux combines WebSocket with modern reactive client architecture. It synchronizes Redux actions between clients and servers, and **keeps the same order** of actions.
 * **Optimistic UI** to improve UI performance by updating UI without waiting for an answer from the server. **Time travel** will revert changes later if the server refuses them.
 * **Offline-first** for the next billion users or New York City Subway. Logux saves Redux actions to **IndexedDB** and has a lot of features to **merge changes** from different users.
-* Compatible with modern stack: **Redux** and pure JS API, works with **any back-end language** and **any database**.
+* Compatible with modern stack: **Redux**, **Vuex** and pure JS API, works with **any back-end language** and **any database**.
 * Just extra [**9 KB**] in client-side JS bundle.
 
 Ask your questions at [community chat] or [commercial support].
