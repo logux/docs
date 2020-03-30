@@ -52,6 +52,55 @@ export const Counter = () => {
 ```
 
 </details>
+<details><summary>Vue/Vuex client</summary>
+
+Using [Logux Vuex](https://github.com/logux/vuex/):
+
+```js
+<template>
+	<div v-if="counter">
+		<h1>{{ counter }}</h1>
+		<button @click="increment" />
+	</div>
+	<div v-else>
+		<Loader />
+	</div>
+</template>
+
+<script>
+export default {
+	name: 'Counter',
+	computed: {
+		// Retrieve counter state from store
+		counter () {
+			return this.$store.state.counter
+		}
+	},
+	mouted () {
+		// Load current counter from server and subscribe to counter changes
+		this.$store.commit.sync({
+			type: 'logux/subscribe',
+			channel: 'counter'
+		})
+	},
+	beforeDestroy () {
+		// Unsubscribe from counter before component destroyed
+		this.$store.commit.sync({
+			type: 'logux/unsubscribe',
+			channel: 'counter'
+		})
+	},
+	methods: {
+		increment () {
+			// Send action to the server and all tabs in this browser
+			this.$store.commit.sync({ type: 'INC' })
+		}
+	}
+}
+</script>
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 You can use [Logux Client](https://github.com/logux/client/) API with any framework:
