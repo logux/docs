@@ -56,7 +56,7 @@ export const Counter = () => {
 
 Using [Logux Vuex](https://github.com/logux/vuex/):
 
-```js
+```html
 <template>
   <div v-if="counter">
     <h1>{{ counter }}</h1>
@@ -79,15 +79,13 @@ export default {
   mouted () {
     // Load current counter from server and subscribe to counter changes
     this.$store.commit.sync({
-      type: 'logux/subscribe',
-      channel: 'counter'
+      type: 'logux/subscribe', channel: 'counter'
     })
   },
   beforeDestroy () {
     // Unsubscribe from counter before component destroyed
     this.$store.commit.sync({
-      type: 'logux/unsubscribe',
-      channel: 'counter'
+      type: 'logux/unsubscribe', channel: 'counter'
     })
   },
   methods: {
