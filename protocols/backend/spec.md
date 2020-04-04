@@ -10,7 +10,7 @@ Logux uses Back-end Protocol to make a proxy between WebSocket and HTTP. Logux S
 
 ## Requests
 
-HTTP requests use `POST` method and JSON to encode the body.
+Logux Server sends HTTP requests to single entry point (user specifies URL by `LOGUX_BACKEND`) with `POST` method and JSON to encode the body.
 
 Each request contains protocol version (the latest version is `2`), the password to protect servers from unknown requests from Internet (you set this password by `LOGUX_CONTROL_PASSWORD`) and list of commands.
 
