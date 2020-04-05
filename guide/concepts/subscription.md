@@ -86,7 +86,6 @@ After sending initial state, the server needs to mark all action related to this
 
 ```js
 server.type('users/add', {
-  …,
   resend (ctx, action, meta) {
     return { channel: `users/${ action.userId }` }
   },

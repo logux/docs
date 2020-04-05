@@ -325,6 +325,34 @@ confirm(client)
 </details>
 
 
+## Preparing Action for Resend
+
+If the server will accepted the action (see next section), it would re-send this action to:
+
+* `channels` or `channel`: clients subscribed to any of the listed channels.
+* `clients` or `client`: clients with listed client IDs.
+* `users` or `users`: clients with listed user IDs.
+* `nodes` or `nodes`: clients with listed node IDs.
+
+<details open><summary>Node.js</summary>
+
+```js
+server.type('likes/add', {
+  resend (ctx, action, meta) {
+    return { channel: `posts/${ action.postId }` }
+  },
+  …
+})
+```
+
+</details>
+<details><summary>Ruby on Rails</summary>
+
+*Under construction. Until `resend` will be implemented in the gem.*
+
+</details>
+
+
 ## Permissions Check
 
 Logux Server rejects any action if it was not explicitly allowed by developer:
@@ -333,6 +361,7 @@ Logux Server rejects any action if it was not explicitly allowed by developer:
 
 ```js
 server.type('likes/add', {
+  …
   async access (ctx, action, meta) {
     let user = db.findUser(ctx.userId)
     return !user.isTroll && user.canRead(action.postId)
@@ -362,33 +391,7 @@ end
 
 If server refused the action, it would send `logux/undo` action with `reason: 'denied'`. Logux Redux would remove the action from history and replay application state.
 
-If the server accepted the action, it would re-send this action to:
-
-* `channels` or `channel`: clients subscribed to any of the listed channels.
-* `clients` or `client`: clients with listed client IDs.
-* `users` or `users`: clients with listed user IDs.
-* `nodes` or `nodes`: clients with listed node IDs.
-
-<details open><summary>Node.js</summary>
-
-```js
-server.type('likes/add', {
-  …
-  resend (ctx, action, meta) {
-    return { channel: `posts/${ action.postId }` }
-  },
-  …
-})
-```
-
-</details>
-<details><summary>Ruby on Rails</summary>
-
-*Under construction. Until `resend` will be implemented in the gem.*
-
-</details>
-
-Then the server will accept the action to the database. When changes are saved, the server will send `logux/process` action back to the client.
+Then the server send actions to all channels and clients from previous `resend` step. In the same time it will accept the action to the database. When changes are saved, the server will send `logux/process` action back to the client.
 
 
 ## Adding Actions on the Server

@@ -146,11 +146,11 @@ server.channel('counter', {
 })
 
 server.type('INC', {
-  access () {
-    return true
-  },
   resend () {
     return { channel: 'counter' }
+  },
+  access () {
+    return true
   },
   async process () {
     // Don’t forget to keep action atomic
