@@ -58,35 +58,30 @@ Using [Logux Vuex](https://github.com/logux/vuex/):
 
 ```html
 <template>
-  <div v-if="counter">
-    <h1>{{ counter }}</h1>
-    <button @click="increment" />
+  <div v-if="isSubscribing">
+    <h1>Loading</h1>
   </div>
   <div v-else>
-    <Loader />
+    <h1>{{ counter }}</h1>
+    <button @click="increment" />
   </div>
 </template>
 
 <script>
+import { subscriptionMixin } from '@logux/vuex'
+
 export default {
   name: 'Counter',
+  mixins: [subscriptionMixin],
   computed: {
     // Retrieve counter state from store
     counter () {
       return this.$store.state.counter
-    }
-  },
-  mouted () {
+    },
     // Load current counter from server and subscribe to counter changes
-    this.$store.commit.sync({
-      type: 'logux/subscribe', channel: 'counter'
-    })
-  },
-  beforeDestroy () {
-    // Unsubscribe from counter before component destroyed
-    this.$store.commit.sync({
-      type: 'logux/unsubscribe', channel: 'counter'
-    })
+    channels () {
+      return ['counter']
+    }
   },
   methods: {
     increment () {
