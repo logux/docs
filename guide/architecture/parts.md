@@ -8,6 +8,7 @@ We split Logux into many projects.
 * **[Logux Redux]:** wrapper around Logux Client with Redux compatible API. With time travel it avoids you from thinking about action’s time and order. The best option for React, Preact and any other SPA.
 * **[Logux Vuex]:** wrapper around Logux Client with Vuex compatible API. With time travel it avoids you from thinking about action’s time and order. The best option for Vue.
 * **[Logux Server]:** high-level components to build your Logux Server on JavaScript or to create a proxy between WebSocket and HTTP and keep the back-end on any language, that you want.
+* **[Logux Django]:** syntax sugar to connect Django application with Logux Server in proxy mode.
 * **[Logux Rails]:** syntax sugar to connect Ruby on Rails application with Logux Server in proxy mode.
 * **[Logux Rack]:** low-level library for creating syntax sugar to connect Ruby applications with Logux Server in proxy mode.
 * **Logux Server Pro:** closed source additional features for Logux Server for monitoring and scaling. Write to [`logux@evilmartians.com`] for access.
@@ -15,6 +16,7 @@ We split Logux into many projects.
 [`logux@evilmartians.com`]: mailto:logux@evilmartians.com
 [Logux Client]: https://github.com/logux/client
 [Logux Server]: https://github.com/logux/server
+[Logux Django]: https://github.com/logux/django/
 [Logux Rails]: https://github.com/logux/logux_rails
 [Logux Redux]: https://github.com/logux/redux
 [Logux Rack]: https://github.com/logux/logux-rack
