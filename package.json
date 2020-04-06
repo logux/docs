@@ -99,7 +99,8 @@
       "unsynchronized",
       "IndexedDB",
       "KB",
-      "generics"
+      "generics",
+      "Django"
     ]
   }
 }
