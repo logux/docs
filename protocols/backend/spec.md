@@ -42,7 +42,7 @@ HTTP server should use keep-alive HTTP response to write answers to TCP socket d
 ## `auth`
 
 ```ts
-["auth", string userId, any credentials, string authId]
+["auth", string userId, string token, string authId]
 ```
 
 `auth` command asks back-end server to authenticate the user by ID and credentials (for instance, string of JWT token). `authId` is used to specify the command, when the HTTP request contains multiple `auth` commands.
