@@ -89,6 +89,6 @@ meta.id.split(' ')[1].split(':').slice(0, 2).join(':') //=> '38:Y7bysd'
 
 If back-end server doesn’t have code to validate action it must write `["unknownChannel", meta.id]` for `logux/subscribe` action and `["unknownAction", meta.id]` for other actions.
 
-If back-end server had any errors during action validating and processing it should write `["error", string stacktrace]` answer.
+If back-end server had any errors during action validating and processing it should write `["error", meta.id, string stacktrace]` answer.
 
 See [action examples](./examples.md#actions).
