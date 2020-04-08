@@ -325,7 +325,7 @@ client.tabId //=> "6K7iYdJH"
 Browser tabs can synchronize actions between each other. Actions from server and for the server (with `meta.sync = true`) are sharing between browser tabs by default.
 
 
-## Authentificaion
+## Authentication
 
 The client should use some token to prove it’s user ID. The best way is to use [JWT] token generated on the server.
 
