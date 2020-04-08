@@ -67,7 +67,7 @@ Right now there are 7 possible errors:
 * `wrong-protocol`: client Logux protocol version is not supported by server. Error options object will contain `supported` key with minimum supported version and `used` with used version.
 * `wrong-format`: message is not correct JSON, is not a array or have no `type`. Error options will contain bad message string.
 * `unknown-message`: message’s type is not supported. Error options will contain bad message type.
-* `wrong-credentials`: sent credentials doesn’t pass authentication.
+* `wrong-credentials`: sent token doesn’t pass authentication.
 * `missed-auth`: not `connect`, `connected` or `error` messages was sent before authentication. Error options will contain bad message string.
 * `timeout`: a timeout was reached. Errors options will contain timeout duration in milliseconds.
 * `wrong-subprotocol`: client application subprotocol version is not supported by server. Error options object will contain `supported` key with requirements and `used` with used version.
@@ -93,11 +93,11 @@ Third position contains unique node name. Same node name is used in default log 
 
 Fourth position contains last `added` time used by receiver in previous connection (`0` on first connection). message with all new actions since `synced` (all actions on first connection).
 
-Fifth position is optional and contains extra client option in object. Right now protocol supports only `subprotocol` and `credentials` keys there.
+Fifth position is optional and contains extra client option in object. Right now protocol supports only `subprotocol` and `token` keys there.
 
 Subprotocol version is a string in [SemVer] format. It describes a application subprotocol, which developer will create on top of Logux protocol. If other node doesn’t support this subprotocol version, it could send `wrong-subprotocol` error.
 
-Credentials could be in any type. Receiver may check credentials data. On wrong credentials data receiver may send `wrong-credentials` error and close connection.
+Token could be a string. On wrong token data receiver may send `wrong-credentials` error and close connection.
 
 In most cases client will initiate connection, so client will send `connect`.
 
@@ -118,7 +118,7 @@ This message is answer to received [`connect`] message.
 ]
 ```
 
-`protocol`, `nodeId` and `options` are same with [`connect`] message, but contains server’s protocol, server’s Node ID and optional server credentials.
+`protocol`, `nodeId` and `options` are same with [`connect`] message, but contains server’s protocol, server’s Node ID and optional server token.
 
 Fourth position contains [`connect`] receiving time and `connected` sending time. Time should be a milliseconds elapsed since 1 January 1970 00:00:00 UTC. Receiver may use this information to calculate difference between sender and receiver time. It could prevents problems if somebody has wrong time or wrong time zone. Calculated time fix may be used to correct action’s `time` in [`sync`] messages.
 

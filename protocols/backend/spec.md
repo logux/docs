@@ -45,7 +45,7 @@ HTTP server should use keep-alive HTTP response to write answers to TCP socket d
 ["auth", string userId, string token, string authId]
 ```
 
-`auth` command asks back-end server to authenticate the user by ID and credentials (for instance, string of JWT token). `authId` is used to specify the command, when the HTTP request contains multiple `auth` commands.
+`auth` command asks back-end server to authenticate the user by ID and token (for instance, JWT). `authId` is used to specify the command, when the HTTP request contains multiple `auth` commands.
 
 Back-end server must answer `["authenticated", authId]` on correct user ID and credentials or `["denied", authId]` on wrong credentials or unknown user ID.
 

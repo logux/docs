@@ -104,9 +104,9 @@ Use these `<meta>` values in the store:
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
 -   userId: false,  // TODO: We will fill it in next chapter
--   credentials: '' // TODO: We will fill it in next chapter
+-   token: '' // TODO: We will fill it in next chapter
 +   userId: userId.content,
-+   credentials: token.content,
++   token: token.content,
   })
 ```
 
@@ -226,9 +226,9 @@ Use these `localStorage` values in the store:
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
 -   userId: false,  // TODO: We will fill it in next chapter
--   credentials: '' // TODO: We will fill it in next chapter
+-   token: '' // TODO: We will fill it in next chapter
 +   userId: localStorage.getItem('userId'),
-+   credentials: localStorage.getItem('token'),
++   token: localStorage.getItem('token'),
   });
 ```
 

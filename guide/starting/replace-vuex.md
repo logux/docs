@@ -43,7 +43,7 @@ Find store definition in your project. Look for creating an instance of `Vuex.St
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
 +   userId: false,  // TODO: We will fill it in next chapter
-+   credentials: '' // TODO: We will fill it in next chapter
++   token: '' // TODO: We will fill it in next chapter
 + })
 
 - const store = new Vuex.Store({

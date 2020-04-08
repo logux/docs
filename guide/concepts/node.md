@@ -325,16 +325,16 @@ client.tabId //=> "6K7iYdJH"
 Browser tabs can synchronize actions between each other. Actions from server and for the server (with `meta.sync = true`) are sharing between browser tabs by default.
 
 
-## Credentials
+## Authentificaion
 
-The client should use some authentication credentials to prove it’s user ID. The best way is to use [JWT] token generated on the server.
+The client should use some token to prove it’s user ID. The best way is to use [JWT] token generated on the server.
 
 <details open><summary>Redux client</summary>
 
 ```js
 const createStore = createLoguxCreator({
   userId: localStorage.getItem('userId'),
-  credentials: localStorage.getItem('userToken'),
+  token: localStorage.getItem('userToken'),
   …
 })
 ```
@@ -345,20 +345,20 @@ const createStore = createLoguxCreator({
 ```js
 const client = new CrossTabClient({
   userId: localStorage.getItem('userId'),
-  credentials: localStorage.getItem('userToken'),
+  token: localStorage.getItem('userToken'),
   …
 })
 ```
 
 </details>
 
-User ID and credentials will be checked on the server:
+User ID and token will be checked on the server:
 
 <details open><summary>Node.js</summary>
 
 ```js
-server.auth((userId, credentials) => {
-  const data = await jwt.verify(credentials, process.env.JWT_SECRET)
+server.auth((userId, token) => {
+  const data = await jwt.verify(token, process.env.JWT_SECRET)
   return data.sub === userId
 })
 ```

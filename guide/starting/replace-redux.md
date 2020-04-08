@@ -43,7 +43,7 @@ Find store definition in your project. Look for `createStore` function call. Oft
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
 +   userId: false,  // TODO: We will fill it in next chapter
-+   credentials: '' // TODO: We will fill it in next chapter
++   token: '' // TODO: We will fill it in next chapter
 + })
   const store = createStore(reducer, preloadedState, enhancer)
 + store.client.start()
