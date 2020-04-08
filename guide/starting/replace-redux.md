@@ -42,7 +42,7 @@ Find store definition in your project. Look for `createStore` function call. Oft
 +   server: process.env.NODE_ENV === 'development'
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
-+   userId: false,  // TODO: We will fill it in next chapter
++   userId: 'todo',  // TODO: We will fill it in next chapter
 +   token: '' // TODO: We will fill it in next chapter
 + })
   const store = createStore(reducer, preloadedState, enhancer)

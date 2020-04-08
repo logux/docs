@@ -103,7 +103,7 @@ Use these `<meta>` values in the store:
     server: process.env.NODE_ENV === 'development'
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
--   userId: false,  // TODO: We will fill it in next chapter
+-   userId: 'todo',  // TODO: We will fill it in next chapter
 -   token: '' // TODO: We will fill it in next chapter
 +   userId: userId.content,
 +   token: token.content,
@@ -148,7 +148,7 @@ Go back to `index.js` and replace `server.auth(…)` with this code:
 
 ```js
 server.auth((userId, token) => {
-  if (!userId) {
+  if (userId === 'anonymous') {
     return true
   } else {
     try {
@@ -162,7 +162,7 @@ server.auth((userId, token) => {
 
 server.type('login', {
   async access (ctx) {
-    return ctx.userId === false
+    return ctx.userId === 'anonymous'
   },
   async process (ctx, action, meta) {
     const user = await db.oneOrNone('SELECT * FROM users WHERE email = $1', action.email);
@@ -194,7 +194,7 @@ function login (email, password) {
     server: process.env.NODE_ENV === 'development'
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
-    userId: false
+    userId: 'anonymous'
   })
   client.on('add', action => {
     if (action.type === 'login/done') {
@@ -225,7 +225,7 @@ Use these `localStorage` values in the store:
     server: process.env.NODE_ENV === 'development'
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
--   userId: false,  // TODO: We will fill it in next chapter
+-   userId: 'todo',  // TODO: We will fill it in next chapter
 -   token: '' // TODO: We will fill it in next chapter
 +   userId: localStorage.getItem('userId'),
 +   token: localStorage.getItem('token'),
