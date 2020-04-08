@@ -29,7 +29,7 @@ gem 'jwt'
 Add JWT secret key to local `.env`:
 
 ```diff
-  LOGUX_CONTROL_PASSWORD=secret
+  LOGUX_CONTROL_SECRET=secret
   LOGUX_URL=http://localhost:31338
 + JWT_SECRET=secret
 ```
@@ -58,7 +58,7 @@ Add `<meta>` tags to application layout used for authenticated user:
 Add JWT secret key to proper storage for your environment. Local `.env` is a good option.
 
 ```diff
-  LOGUX_CONTROL_PASSWORD=secret
+  LOGUX_CONTROL_SECRET=secret
   LOGUX_URL=http://localhost:31338
 + JWT_SECRET=secret
 ```

@@ -61,7 +61,7 @@ Create `.env` file. Put this file to `.gitignore`. Set your local back-end serve
 
 ```ini
 LOGUX_BACKEND=http://localhost:3000/
-LOGUX_CONTROL_PASSWORD=secret
+LOGUX_CONTROL_SECRET=secret
 ```
 
 The proxy is ready. You can start it with:
@@ -101,7 +101,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 Create `.env` file. Put this file to `.gitignore`.
 
 ```ini
-LOGUX_CONTROL_PASSWORD=secret
+LOGUX_CONTROL_SECRET=secret
 LOGUX_URL=http://localhost:31338
 ```
 
@@ -109,11 +109,11 @@ Create `config/initializers/logux.rb` file:
 
 ```ruby
 Logux.configuration do |config|
-  config.password = ENV['LOGUX_CONTROL_PASSWORD']
+  config.password = ENV['LOGUX_CONTROL_SECRET']
   config.logux_host = ENV['LOGUX_URL']
 
   config.auth_rule = lambda do |user_id, token|
-    # Allow only local users until we will have a proper authentication 
+    # Allow only local users until we will have a proper authentication
     Rails.env.development?
   end
 end
@@ -135,7 +135,7 @@ Add Logux to `config/routes.rb`:
 4. You will need proper storage to keep Logux proxy URL and secret. We recommend using `.env` with the library to support this file in your environment.
 
    ```ini
-   LOGUX_CONTROL_PASSWORD=secret
+   LOGUX_CONTROL_SECRET=secret
    LOGUX_URL=http://localhost:31338
    ```
 
