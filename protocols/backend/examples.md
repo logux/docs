@@ -39,13 +39,29 @@ Content-Type: application/json
   "commands": [
     [
       "action",
-      { type: 'user/rename', user: 38, name: 'New' },
-      { id: "1560954012838 38:Y7bysd:O0ETfc 0", time: 1560954012838 }
+      {
+        "type": "user/rename",
+        "user": 38,
+        "name": "New"
+      },
+      {
+        "id": "1560954012838 38:Y7bysd:O0ETfc 0",
+        "time": 1560954012838,
+        "subprotocol": "1.0.0"
+      }
     ],
     [
       "action",
-      { type: 'user/rename', user: 21, name: 'New' },
-      { id: "1560954012900 38:Y7bysd:O0ETfc 1", time: 1560954012900 }
+      {
+        "type": "user/rename",
+        "user": 21,
+        "name": "New"
+      },
+      {
+        "id": "1560954012900 38:Y7bysd:O0ETfc 1",
+        "time": 1560954012900,
+        "subprotocol": "1.0.0"
+      }
     ]
   ]
 }
@@ -77,8 +93,16 @@ Content-Type: application/json
   "commands": [
     [
       "action",
-      { type: 'logux/subscribe', channel: '38/name' },
-      { id: "1560954012858 38:Y7bysd:O0ETfc 0", time: 1560954012858 }
+      {
+        "type": "logux/subscribe",
+        "channel": "38/name",
+        "since": { "id": "1560954012838 38:Y7bysd:O0ETfc 0", "time": 1560954012838 }
+      },
+      {
+        "id": "1560954012858 38:Y7bysd:O0ETfc 0",
+        "time": 1560954012858,
+        "subprotocol": "1.0.0"
+      }
     ]
   ]
 }
@@ -103,8 +127,8 @@ Content-Type: application/json
   "commands": [
     [
       "action",
-      { type: 'user/name', user: 38, name: 'The User' },
-      { clients: ['38:Y7bysd'] }
+      { "type": "user/name", "user": 38, "name": "The User" },
+      { "client": "38:Y7bysd" }
     ]
   ]
 }
@@ -132,13 +156,13 @@ Content-Type: application/json
   "commands": [
     [
       "action",
-      { type: 'logux/subscribe', channel: 'usrs/38' },
-      { id: "1560954022858 38:Y7bysd:O0ETfc 0", time: 1560954022858 }
+      { "type": "logux/subscribe", "channel": "usrs/38" },
+      { "id": "1560954022858 38:Y7bysd:O0ETfc 0", "time": 1560954022858 }
     ],
     [
       "action",
-      { type: 'user/renam', user: 38, name: 'New' },
-      { id: "1560954022858 38:Y7bysd:O0ETfc 1", time: 1560954022858 }
+      { "type": "user/renam", "user": 38, "name": "New" },
+      { "id": "1560954022858 38:Y7bysd:O0ETfc 1", "time": 1560954022858 }
     ]
   ]
 }
