@@ -10,7 +10,7 @@ Content-Type: application/json
 
 {
   "version": 1,
-  "password": "secret",
+  "secret": "secret",
   "commands": [
     ["auth", "38", "good-token", "gf4Ygi6grYZYDH5Z2BsoR"]
   ]
@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
   "version": 1,
-  "password": "secret",
+  "secret": "secret",
   "commands": [
     [
       "action",
@@ -73,7 +73,7 @@ Content-Type: application/json
 
 {
   "version": 1,
-  "password": "secret",
+  "secret": "secret",
   "commands": [
     [
       "action",
@@ -99,7 +99,7 @@ Content-Type: application/json
 
 {
   "version": 1,
-  "password": "secret",
+  "secret": "secret",
   "commands": [
     [
       "action",
@@ -128,7 +128,7 @@ Content-Type: application/json
 
 {
   "version": 1,
-  "password": "secret",
+  "secret": "secret",
   "commands": [
     [
       "action",
