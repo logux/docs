@@ -21,7 +21,7 @@ There are only two mandatory requirements for actions:
 
 ## Atomic Actions
 
-We recommend keeping actions atomic. It means that action should not contain current state. For instance, it is better to generate `likes/add` and `logux/remove` on the client, rather than `likes/set` with the exact number.
+We recommend keeping actions atomic. It means that action should not contain current state. For instance, it is better to generate `likes/add` and `likes/remove` on the client, rather than `likes/set` with the exact number.
 
 The server can send old action made by another user when this client was offline (for instance, other users will set like to the post too). In this case, Logux Redux will revert own recent actions, add old changes from the server, and replay own actions again. As a result, action will be applied again to a different state. Atomic `likes/add` will work great, but non-atomic `likes/set` will override other changes.
 
