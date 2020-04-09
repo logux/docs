@@ -52,12 +52,12 @@ Next step:
 
 ## Client
 
-### Logux Redux
+### Logux Redux or Vuex
 
 When you should choose it:
 
-* You want to add WebSocket to Redux application.
-* You are creating rich application on top of React.
+* You want to add WebSocket to Redux or Vuex application.
+* You are creating rich application on top of React or Vue.js.
 
 Benefits:
 
@@ -65,8 +65,9 @@ Benefits:
 
 Next step:
 
-* If you are starting new project, read **[Starting Logux Redux Project](../starting/new-client.md)**.
+* If you are starting new React project, read **[Starting Logux Redux Project](../starting/new-client.md)**.
 * If you have old Redux project, read **[Replacing Redux to Logux Redux](../starting/replace-redux.md)**.
+* If you have old Vuex project, read **[Replacing Vuex to Logux Vuex](../starting/replace-vuex.md)**.
 
 
 ### Logux Client
