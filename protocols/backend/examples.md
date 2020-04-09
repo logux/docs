@@ -184,6 +184,10 @@ Back-end server response on an internal error:
 
 ```js
 [
-  ["error", "PostgreSQLError: No connection to database\n    at DB.connnect"]
+  [
+    "error",
+    "1560954012838 38:Y7bysd:O0ETfc 0",
+    "PostgreSQLError: No connection to database\n    at DB.connnect"
+  ]
 ]
 ```
