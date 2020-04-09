@@ -3,7 +3,7 @@
 ## 3
 
 * Rename `password` to `secret`.
-* Add action ID to `error` responce.
+* Add action ID to `error` response.
 * Token must be a string.
 
 
