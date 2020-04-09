@@ -30,7 +30,6 @@ Create `package.json` with:
 {
   "name": "server-logux",
   "private": true,
-  "main": "index.js",
   "scripts": {
     "start": "node index.js"
   }

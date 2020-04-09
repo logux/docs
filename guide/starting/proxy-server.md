@@ -28,7 +28,6 @@ Create `package.json` with:
 {
   "name": "server-logux",
   "private": true,
-  "main": "index.js",
   "scripts": {
     "start": "node index.js"
   }
@@ -102,7 +101,7 @@ Create `.env` file. Put this file to `.gitignore`.
 
 ```ini
 LOGUX_CONTROL_SECRET=secret
-LOGUX_URL=http://localhost:31338
+LOGUX_URL=http://localhost:31338/
 ```
 
 Create `config/initializers/logux.rb` file:
@@ -136,7 +135,7 @@ Add Logux to `config/routes.rb`:
 
    ```ini
    LOGUX_CONTROL_SECRET=secret
-   LOGUX_URL=http://localhost:31338
+   LOGUX_URL=http://localhost:31338/
    ```
 
 [Logux support chat]: https://gitter.im/logux/logux
