@@ -1,5 +1,11 @@
 # Logux Protocol Changes
 
+## 3 “Iţkuîl”
+
+* Rename `credentials` to `token`.
+* Token must be a string.
+
+
 ## 2 “Toki Pona”
 
 * Use single number for protocol version.
