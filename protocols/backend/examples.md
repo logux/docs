@@ -95,7 +95,7 @@ Content-Type: application/json
       "action",
       {
         "type": "logux/subscribe",
-        "channel": "38/name",
+        "channel": "user/38",
         "since": { "id": "1560954012838 38:Y7bysd:O0ETfc 0", "time": 1560954012838 }
       },
       {
