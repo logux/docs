@@ -56,7 +56,7 @@ server.channel('user/:id', {
     // User can subscribe only to own data
     return ctx.params.id === ctx.userId
   },
-  async init (ctx) {
+  async load (ctx) {
     let name = await db.loadUserName(ctx.params.id)
     // Creating action to set user name and sending it to subscriber
     ctx.sendBack({ type: 'user/name', name })

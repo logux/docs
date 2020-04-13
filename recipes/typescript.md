@@ -61,7 +61,7 @@ server.channel<UserParams, UserData, UserSubscribeAction>('user/:id', {
     ctx.data.user = new User(ctx.params.id)
     return ctx.data.user.group.includes(ctx.userId)
   },
-  async init (ctx) {
+  async load (ctx) {
     if (action.fields.includes('name')) {
       await ctx.sendBack({
         type: 'user/rename',

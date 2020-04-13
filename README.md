@@ -137,7 +137,7 @@ server.channel('counter', {
     // Access control is mandatory. API was designed to make it harder to write dangerous code.
     return true
   },
-  async init (ctx) {
+  async load (ctx) {
     // Load initial state when client subscribing to the channel.
     // You can use any database.
     let value = await db.get('counter')

@@ -418,7 +418,7 @@ But, in most of the cases, you will use `ctx.sendBack` shortcut. It sets `meta.c
 ```js
 server.channel('user/:id', {
   …
-  async init (ctx, action, meta) {
+  async load (ctx, action, meta) {
     ler user = await db.first('users', { id: ctx.params.id })
     ctx.sendBack({ type: 'users/add', user })
   }
