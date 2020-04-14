@@ -74,6 +74,7 @@ On the server you can set `channels`, `users`, `clients` and `nodes` keys (and s
 
 ```js
 server.type('users/rename', {
+  …
   resend (ctx, action, meta) {
     return { channel: `users/${ action.userId }` }
   },

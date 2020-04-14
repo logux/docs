@@ -119,13 +119,13 @@ When the server receives new action it does three things:
 
 ```js
 server.type('user/name', {
-  resend (ctx, action, meta) {
-    // Resend this action to everyone who subscribed to this user
-    return { channel: `user/${ action.userId }` }
-  },
   access (ctx, action, meta) {
     // User can change only own name
     return action.userId === ctx.userId
+  },
+  resend (ctx, action, meta) {
+    // Resend this action to everyone who subscribed to this user
+    return { channel: `user/${ action.userId }` }
   },
   async process (ctx, action, meta) {
     let lastChanged = await db.getChangeTimeForUserName(action.userId)
