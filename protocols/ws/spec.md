@@ -34,6 +34,7 @@ First string in message array is a message type. Possible types:
 * [`pong`]
 * [`sync`]
 * [`synced`]
+* [`context`]
 * [`debug`]
 
 If client received unknown type, it should send `wrong-format` error and continue communication.
@@ -47,6 +48,7 @@ Protocol design has no client and server roles. But in most real cases client wi
 [`ping`]:      #ping
 [`pong`]:      #pong
 [`sync`]:      #sync
+[`context`]:   #context
 [`debug`]:     #debug
 
 
@@ -198,7 +200,7 @@ Received action’s `time` time may be different with sender’s `time`, because
 
 ## `synced`
 
-`synced` message is a answer to [`sync`] message.
+`synced` message is a answer to [`sync`] and [`context`] messages.
 
 ```ts
 [
@@ -208,6 +210,20 @@ Received action’s `time` time may be different with sender’s `time`, because
 ```
 
 Receiver should mark all actions with lower `added` time as synchronized.
+
+## `context`
+
+`context` message contains some user related context data. For example language.
+
+```ts
+[
+  "context",
+  number synced
+  (object data)
+]
+```
+
+Data object could contains any keys and values.
 
 
 ## `debug`
