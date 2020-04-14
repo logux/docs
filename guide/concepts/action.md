@@ -50,6 +50,13 @@ Logux Server response with `logux/processed` when it received and processed the 
 
 This action asks clients to revert action. `action.id` will be equal to `meta.id` of reverted action. Logux Server sends this action on any error during action processing. In this case, `logux/processed` will not be sent.
 
+There are 4 standard `reason` values in the action:
+
+* `error`
+* `denied`
+* `unknownType`
+* `wrongChannel`
+
 A developer can create `logux/undo` at any moment on the server even after `logux/processed` was sent.
 
 <details open><summary>Node.js</summary>
