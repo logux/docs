@@ -200,7 +200,7 @@ Received action’s `time` time may be different with sender’s `time`, because
 
 ## `synced`
 
-`synced` message is a answer to [`sync`] and [`context`] messages.
+`synced` message is a answer to [`sync`] message.
 
 ```ts
 [
@@ -213,7 +213,7 @@ Receiver should mark all actions with lower `added` time as synchronized.
 
 ## `context`
 
-`context` message contains some user related context data. For example language.
+`context` message contains some user related context data.
 
 ```ts
 [
@@ -223,7 +223,11 @@ Receiver should mark all actions with lower `added` time as synchronized.
 ]
 ```
 
-Data object could contains any keys and values.
+Second position contains last added time used by receiver in previous connection (0 on first connection). 
+
+Third position contains data object. This object could contains any keys and values.
+
+On `context` command server answer with same command `context` but with data: `{ updated: true }`.
 
 
 ## `debug`
