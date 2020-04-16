@@ -28,19 +28,20 @@ Communication is based on messages. Every message is a array with string in the 
 First string in message array is a message type. Possible types:
 
 * [`error`]
+* [`headers`]
 * [`connect`]
 * [`connected`]
 * [`ping`]
 * [`pong`]
 * [`sync`]
 * [`synced`]
-* [`context`]
 * [`debug`]
 
 If client received unknown type, it should send `wrong-format` error and continue communication.
 
-Protocol design has no client and server roles. But in most real cases client will send `connect` and `ping`. Server will send `connected` and `pong`. Both will send `error`, `sync` and `synced`.
+Protocol design has no client and server roles. But in most real cases client will send `headers`, `connect` and `ping`. Server will send `connected` and `pong`. Both will send `error`, `sync` and `synced`.
 
+[`headers`]: #headers
 [`connected`]: #connected
 [`connect`]:   #connect
 [`synced`]:    #synced
@@ -48,7 +49,6 @@ Protocol design has no client and server roles. But in most real cases client wi
 [`ping`]:      #ping
 [`pong`]:      #pong
 [`sync`]:      #sync
-[`context`]:   #context
 [`debug`]:     #debug
 
 
@@ -73,6 +73,29 @@ Right now there are 7 possible errors:
 * `missed-auth`: not `connect`, `connected` or `error` messages was sent before authentication. Error options will contain bad message string.
 * `timeout`: a timeout was reached. Errors options will contain timeout duration in milliseconds.
 * `wrong-subprotocol`: client application subprotocol version is not supported by server. Error options object will contain `supported` key with requirements and `used` with used version.
+
+## `headers`
+
+`headers` message contains some user related data.
+
+```ts
+[
+  "headers",
+  (object data)
+]
+```
+
+The second position is data object. This object could contain any keys and values.
+
+After receiving this command receiver doesn't send any messages back.
+
+Receiver saved data object for a particular sender.
+
+The sender could send this command multiple times but data will be saved only from the last command.
+
+Command `headers` valid only before command `connect`.
+
+After the receiver sends command `connected` back sender should not send `headers` anymore.
 
 
 ## `connect`
@@ -211,23 +234,6 @@ Received action’s `time` time may be different with sender’s `time`, because
 
 Receiver should mark all actions with lower `added` time as synchronized.
 
-## `context`
-
-`context` message contains some user related context data.
-
-```ts
-[
-  "context",
-  number synced
-  (object data)
-]
-```
-
-Second position contains last added time used by receiver in previous connection (0 on first connection). 
-
-Third position contains data object. This object could contains any keys and values.
-
-On `context` command server answer with same command `context` but with data: `{ updated: true }`.
 
 
 ## `debug`

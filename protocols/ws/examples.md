@@ -62,10 +62,8 @@ Clients may update context:
 
 ```ts
 CONNECTED
+CLIENT > ["headers", { language: "pl" }]
 CLIENT > ["connect", 0, "client1", 130, { token: "token" }]
 SERVER < ["connected", 0, "server", [1475316168379, 1475316169987]]
-
-CLIENT > ["context", 0, { language: 'en' }]
-SERVER < ["context", 0, { update: true }]
 DISCONNECTED
 ```
