@@ -59,7 +59,7 @@ SERVER < ["synced", 4]
 DISCONNECTED
 ```
 
-Clients may update context:
+Clients may receive headers from the server:
 
 ```ts
 CONNECTED
