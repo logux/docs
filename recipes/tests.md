@@ -4,7 +4,7 @@
 
 <details open><summary>Node.js</summary>
 
-To make tests easy, we suggest to split server logic into modules. Each module will be a function, which will receive server intance.
+To make tests easy, we suggest to split server logic into modules. Each module will be a function, which will receive server instance.
 
 ```js
 // modules/posts/index.js
@@ -33,7 +33,7 @@ postsModule(server)
 server.listen()
 ```
 
-You can use any tst framework, but we will show examples with [Jest](https://jestjs.io/).
+You can use any test framework, but we will show examples with [Jest](https://jestjs.io/).
 
 ```sh
 npm i --dev jest
@@ -88,7 +88,7 @@ Now you can run tests by:
 npx jest
 ```
 
-See [`TestServer`](https://logux.io/node-api/#testserver) and [`TestClient`](https://logux.io/node-api/#testclient) APIs for avaiable methods.
+See [`TestServer`](https://logux.io/node-api/#testserver) and [`TestClient`](https://logux.io/node-api/#testclient) APIs for available methods.
 
 You can enable server log during the test debugging.
 
@@ -100,6 +100,6 @@ it.only('creates and loads posts', () => {
 </details>
 <details><summary>Ruby on Rails server</summary>
 
-*TODO: Add docs for Ruby*
+*Under construction*
 
 </details>
