@@ -98,6 +98,6 @@ Use helpers where you create the store.
 3. Start your back-end server in the second terminal.
 4. Start your client in the third terminal by `npm start` in client directory.
 
-If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See [`badge()`](https://logux.io/web-api/#globals-badge) and [`status()`](https://logux.io/web-api/#globals-status) API.
+If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See [`badge()`](https://logux.io/vuex-api/#globals-badge) and [`status()`](https://logux.io/vuex-api/#globals-status) API.
 
 [Next chapter](../architecture/core.md)

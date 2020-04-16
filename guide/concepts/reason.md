@@ -44,7 +44,7 @@ server.log.on('preadd', (action, meta) {
 })
 ```
 
-You can use `removeReason` API to remove some reason from all action passed some criteria. See [`Log#removeReason`](https://logux.io/web-api/#log-removereason) API for criteria API.
+You can use `removeReason` API to remove some reason from all action passed some criteria. See [`Log#removeReason`](https://logux.io/redux-api/#log-removereason) API for criteria API.
 
 ```js
 server.log.removeReason('syncing', { maxAdded: lastSynced })

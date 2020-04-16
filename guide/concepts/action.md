@@ -252,7 +252,7 @@ client.log.add({ type: 'likes/add', postId }, { sync: true })
 
 </details>
 
-You could use [`badge()`](https://logux.io/web-api/#globals-badge) or [`status()`](https://logux.io/web-api/#globals-status) to show small notice if Logux is waiting for an Internet to save changes.
+You could use [`badge()`](https://logux.io/redux-api/#globals-badge) or [`status()`](https://logux.io/redux-api/#globals-status) to show small notice if Logux is waiting for an Internet to save changes.
 
 <details open><summary>Redux client</summary>
 
@@ -314,7 +314,7 @@ client.log.add({ type: 'likes/add', postId }, { sync: true }).then(meta => {
 
 </details>
 
-By default, Logux will forget all unsaved actions if the user will close the browser before getting the Internet. You can change the log store to [`IndexedStore`](https://logux.io/web-api/#indexedstore) or you can show a warning to prevent closing browser:
+By default, Logux will forget all unsaved actions if the user will close the browser before getting the Internet. You can change the log store to [`IndexedStore`](https://logux.io/redux-api/#indexedstore) or you can show a warning to prevent closing browser:
 
 ```js
 import { confirm } from '@logux/client'
