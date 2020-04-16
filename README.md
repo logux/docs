@@ -134,7 +134,7 @@ Using [Logux Server](https://github.com/logux/server/):
 ```js
 server.channel('counter', {
   access () {
-    // Access control is mandatory. API was designed to make it harder to write dangerous code.
+    // Access control is mandatory
     return true
   },
   async load (ctx) {
