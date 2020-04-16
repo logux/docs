@@ -13,14 +13,13 @@ You can specify type for action:
 import type { BaseServer } from '@logux/server'
 import { Action } from '@logux/core'
 
+type UserRenameAction = Action & {
+  type: 'user/rename',
+  userId: string,
+  name: string
+}
+
 export default (server: BaseServer) => {
-
-  type UserRenameAction = Action & {
-    type: 'user/rename',
-    userId: string,
-    name: string
-  }
-
   server.type<UserRenameAction>('user/rename', {
     access (ctx, action, meta) {
       // TypeScript will know that action must have `userId` key
