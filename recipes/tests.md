@@ -22,6 +22,7 @@ In the server you will load modules and apply to the server:
 
 ```js
 // index.js
+
 const { Server } = require('@logux/server')
 
 const postsModule = require('./modules/posts')
@@ -62,7 +63,7 @@ function createServer () {
 it('creates and loads posts', () => {
   const server = createServer()
   const client1 = await server.connect('1')
-  const client1 = await server.connect('2')
+  const client2 = await server.connect('2')
 
   const post = { … }
   // Check that action will not return error
