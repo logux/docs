@@ -86,7 +86,7 @@ Right now there are 7 possible errors:
 ```
 
 The second position is data object. This object could contain any keys and values.
-After receiving this command receiver doesn't send any messages back.
+After receiving this command receiver doesn’t send any messages back.
 Receiver saved data object for a particular sender.
 
 The sender could send this command multiple times but data will be saved only from the last command.
