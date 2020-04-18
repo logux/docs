@@ -13,6 +13,7 @@ Correct synchronization:
 
 ```ts
 CONNECTED
+CLIENT > ["headers", { language: "pl" }]
 CLIENT > ["connect", 0, "client1", 0, { token: "token" }]
 SERVER < ["connected", 0, "server", [1475316481050, 1475316482879]]
 
@@ -55,5 +56,18 @@ CLIENT > ["sync", 4,
           { type: 'd' }, { id: 234257, time: 234257 }]
           { type: 'e' }, { id: [234257, 1], time: 234257 }]
 SERVER < ["synced", 4]
+DISCONNECTED
+```
+
+Clients may receive headers from the server:
+
+```ts
+CONNECTED
+SERVER < ["headers", { env: "development" }]
+CLIENT > ["connect", 0, "client1", 130, { token: "token" }]
+SERVER < ["connected", 0, "server", [1475316168379, 1475316169987]]
+
+CLIENT > ["ping", 0]
+SERVER < ["pong", 0]
 DISCONNECTED
 ```

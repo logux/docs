@@ -28,6 +28,7 @@ Communication is based on messages. Every message is a array with string in the 
 First string in message array is a message type. Possible types:
 
 * [`error`]
+* [`headers`]
 * [`connect`]
 * [`connected`]
 * [`ping`]
@@ -38,8 +39,9 @@ First string in message array is a message type. Possible types:
 
 If client received unknown type, it should send `wrong-format` error and continue communication.
 
-Protocol design has no client and server roles. But in most real cases client will send `connect` and `ping`. Server will send `connected` and `pong`. Both will send `error`, `sync` and `synced`.
+Protocol design has no client and server roles. But in most real cases client will send `connect` and `ping`. Server will send `connected` and `pong`. Both will send `headers`, `error`, `sync` and `synced`.
 
+[`headers`]:   #headers
 [`connected`]: #connected
 [`connect`]:   #connect
 [`synced`]:    #synced
@@ -72,6 +74,22 @@ Right now there are 7 possible errors:
 * `timeout`: a timeout was reached. Errors options will contain timeout duration in milliseconds.
 * `wrong-subprotocol`: client application subprotocol version is not supported by server. Error options object will contain `supported` key with requirements and `used` with used version.
 
+## `headers`
+
+`headers` message contains custom data about the node. For instance, a user’s locale or server’s environment.
+
+```ts
+[
+  "headers",
+  (object data)
+]
+```
+
+The second position is data object. This object could contain any keys and values.
+After receiving this command receiver doesn’t send any messages back.
+
+The sender could send this command multiple times but data will be saved only from the last command.
+If next `headers` misses some keys from previous command, node should delete these missed keys.
 
 ## `connect`
 
