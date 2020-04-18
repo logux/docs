@@ -76,7 +76,7 @@ Right now there are 7 possible errors:
 
 ## `headers`
 
-`headers` message contains some user related data.
+`headers` message contains custom data about the node. For instance, a user’s locale or server’s environment.
 
 ```ts
 [
