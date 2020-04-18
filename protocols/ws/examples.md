@@ -63,9 +63,9 @@ Clients may receive headers from the server:
 
 ```ts
 CONNECTED
+SERVER < ["headers", { env: "development" }]
 CLIENT > ["connect", 0, "client1", 130, { token: "token" }]
 SERVER < ["connected", 0, "server", [1475316168379, 1475316169987]]
-SERVER < ["headers", { env: "development" }]
 
 CLIENT > ["ping", 0]
 SERVER < ["pong", 0]
