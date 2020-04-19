@@ -104,6 +104,28 @@ let store = createStore<CounterState, IncAction>(reducer)
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```ts
+type State = number
+
+interface IncrementMutation extends VuexAction {
+  type: 'increment'
+}
+
+let store = new Logux.Store<State>({
+  state: 0,
+  mutations: {
+    increment (state) {
+      state = state + 1
+    }
+  }
+})
+
+store.commit.sync<IncrementMutation>({ type: 'increment' })
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 You need to define user defined type guards for action types:
