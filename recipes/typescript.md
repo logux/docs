@@ -86,21 +86,72 @@ For `ctx.params` in subscriptions:
 Use [Redux guide](https://redux.js.org/recipes/usage-with-typescript) for state and action types.
 
 ```ts
-type CounterState = number
+// actions/users.ts
 
-interface IncAction {
-  type: 'INC'
+import { Action } from '@logux/core'
+
+export type UserRenameAction = Action & {
+  type: 'user/rename',
+  userId: string,
+  name: string
 }
 
-function reducer (state: CounterState = 0, action: IncAction): CounterState {
+export function isUserRename (action: Action): action is UserRenameAction {
+  return action.type === 'user/rename'
+}
+```
+
+```ts
+// reducers/user.ts
+
+import { isUserRename, UsersState } from '../actions/users'
+
+type User = {
+  id: string,
+  name: string
+}
+
+export type UsersState = User[]
+
+function reducer (state: UsersState = [], action: Action): UsersState {
+  if (isUserRename(action)) {
+    return state.map(user => {
+      if (user.id === action.userId) {
+        return { ...user, name: action.name }
+      } else {
+        return user
+      }
+    })
+  } else {
+    return state
+  }
   if (action.type === 'INC') {
     return state + 1
   } else {
     return state
   }
 }
+```
 
-let store = createStore<CounterState, IncAction>(reducer)
+```ts
+// store.ts
+
+import { UserRenameAction } from '../actions/users'
+import { PostAddAction } from '../actions/users'
+import { UsersState } from '../reducers/users'
+import { PostsState } from '../reducers/users'
+
+export type State = {
+  posts: PostsState,
+  user: UsersState
+}
+
+export type Actions = UserRenameAction ||
+                      PostAddAction
+
+let createStore = createLoguxCreator({ … })
+
+let store = createStore<State, Actions>(reducer)
 ```
 
 </details>
@@ -146,7 +197,7 @@ store.commit.sync({
 </details>
 <details><summary>Pure JS client</summary>
 
-You need to define user defined type guards for action types:
+You need to define user-defined type guards for action types:
 
 ```ts
 import { Action } from '@logux/core'
