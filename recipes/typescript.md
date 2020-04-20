@@ -78,12 +78,16 @@ For `ctx.params` in subscriptions:
   })
 ```
 
+You can also reuse actions or action creators from the client-side:
+
+```ts
+import { userRenameAction } from '../../../frontend/src/users/actions'
+```
+
 
 ## Client
 
 <details open><summary>Redux client</summary>
-
-Use [Redux guide](https://redux.js.org/recipes/usage-with-typescript) for state and action types.
 
 ```ts
 // actions/users.ts
@@ -153,6 +157,8 @@ let createStore = createLoguxCreator({ … })
 
 let store = createStore<State, Actions>(reducer)
 ```
+
+We recommend to use [typescript-fsa](https://github.com/aikoven/typescript-fsa) or similar library for typed action creators.
 
 </details>
 <details><summary>Vuex client</summary>
