@@ -92,7 +92,7 @@ You can change actions limit by `reasonlessHistory` option in `createLoguxCreato
 If Logux Redux needs cleaned action from time travel, it will call `onMissedHistory` callback. You can ask a user to reload the page or load the latest data state from the server because time travel can’t guarantee the result in this case.
 
 ```js
-let store = createLoguxCreator({
+let createStore = createLoguxCreator({
   …,
   onMissedHistory (action) {
     if (CRITICAL_ACTIONS.includes(action.type)) {
