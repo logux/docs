@@ -160,6 +160,69 @@ server.type('INC', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+[`django`](https://github.com/logux/django/) Back-end Logux Protocol support for Django
+
+Actions:
+```python
+# logux_actions.py
+from typing import Optional, Dict
+
+from django.contrib.auth.models import User
+
+from logux.core import ActionCommand, Meta, Action
+from logux.dispatchers import logux
+
+
+class RenameUserAction(ActionCommand):
+    """ Action Handler for example from https://logux.io/protocols/backend/examples/ """
+
+    action_type = 'user/rename'
+
+        def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
+            return {'channels': [f'users/{action["user"]}']}
+
+        def access(self, action: Action, meta: Meta) -> bool:
+            return action['user'] == int(meta.user_id)
+
+        def process(self, action: Action, meta: Optional[Meta]) -> None:
+            user = User.objects.get(pk=action['user'])
+            user.first_name = action['name']
+            user.save()
+
+
+logux.actions.register(RenameUserAction)
+
+```
+
+Subscriptions:
+```python
+# logux_subsriptions.py
+from django.contrib.auth.models import User
+
+from logux.core import ChannelCommand, Action, Meta
+from logux.dispatchers import logux
+
+
+class UserChannel(ChannelCommand):
+    channel_pattern = r'^user/(?P<user_id>\w+)$'
+
+    def access(self, action: Action, meta: Meta) -> bool:
+        return self.params['user_id'] == meta.user_id
+
+    def load(self, action: Action, meta: Meta) -> None:
+        user = User.objects.get(pk=self.params['user_id'])
+        self.send_back(
+            {'type': 'user/name', 'user': 38, 'name': user.first_name}
+        )
+
+
+logux.channels.register(UserChannel)
+
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 [`logux_rails`](https://github.com/logux/logux_rails/) gem with the Logux WebSocket proxy server.
