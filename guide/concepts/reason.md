@@ -56,7 +56,7 @@ However, most of Logux implementation has built-in strategies on top of these re
 
 ## `keepLast`
 
-`meta.keepLast` is a shortcut to set a passed string as a reason and remove these reasons from all previous actions. Note that this shortcut will keep reason on the latest action according to `meta.id` and `meta.time`. Latest action could not be the action which you are adding.
+`meta.keepLast` is a shortcut to set a passed string as a reason and remove these reasons from all previous actions. Note that this shortcut will keep reason on the latest action according to `meta.id` and `meta.time`. The latest action could not be the action which you are adding.
 
 ```js
 // Keep action with latest name
