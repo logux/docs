@@ -158,7 +158,7 @@ let createStore = createLoguxCreator({ … })
 let store = createStore<State, Actions>(reducer)
 ```
 
-We recommend to use [typescript-fsa](https://github.com/aikoven/typescript-fsa) or similar library for typed action creators.
+We recommend to use [`typescript-fsa`](https://github.com/aikoven/typescript-fsa) or similar library for typed action creators.
 
 </details>
 <details><summary>Vuex client</summary>
