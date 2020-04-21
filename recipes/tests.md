@@ -45,7 +45,7 @@ Now we can write unit test for server’s module:
 ```js
 // modules/posts/index.test.js
 
-const { TestServer, TestClient } = require('@logux/server')
+const { TestServer } = require('@logux/server')
 
 const postsModule = require('.')
 
@@ -60,10 +60,40 @@ function createServer () {
   return destroyable
 }
 
+it('checks token', () => {
+  const server = createServer()
+  await server.connect('1', { token: 'good' })
+  expect(() => {
+    await server.connect('2', { token: 'bad' })
+  }).rejects.toEqual({
+    error: 'Wrong credentials'
+  })
+})
+```
+
+There are special API to test authenticator:
+
+```js
+// modules/auth/index.test.js
+
+const { TestServer, TestClient } = require('@logux/server')
+
+const authModule = require('.')
+
+let destroyable
+afterEach(() => {
+  if (destroyable) destroyable.destroy()
+})
+
+function createServer () {
+  destroyable = new TestServer()
+  authModule(destroyable)
+  return destroyable
+}
+
 it('creates and loads posts', () => {
   const server = createServer()
   const client1 = await server.connect('1')
-  const client2 = await server.connect('2')
 
   const post = { … }
   // Check that action will not return error
