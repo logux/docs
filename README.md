@@ -167,59 +167,37 @@ server.type('INC', {
 Actions:
 ```python
 # logux_actions.py
-from typing import Optional, Dict
+class IncAction(ActionCommand):
+    action_type = 'INC'
 
-from django.contrib.auth.models import User
+    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
+        return {'channel': 'counter'}
 
-from logux.core import ActionCommand, Meta, Action
-from logux.dispatchers import logux
+    def access(self, action: Action, meta: Meta) -> bool:
+        return True
 
-
-class RenameUserAction(ActionCommand):
-    """ Action Handler for example from https://logux.io/protocols/backend/examples/ """
-
-    action_type = 'user/rename'
-
-        def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
-            return {'channels': [f'users/{action["user"]}']}
-
-        def access(self, action: Action, meta: Meta) -> bool:
-            return action['user'] == int(meta.user_id)
-
-        def process(self, action: Action, meta: Optional[Meta]) -> None:
-            user = User.objects.get(pk=action['user'])
-            user.first_name = action['name']
-            user.save()
+    def process(self, action: Action, meta: Meta) -> None:
+        Counter.objects.first().inc()
 
 
-logux.actions.register(RenameUserAction)
-
+logux.actions.register(IncAction)
 ```
 
 Subscriptions:
 ```python
 # logux_subsriptions.py
-from django.contrib.auth.models import User
-
-from logux.core import ChannelCommand, Action, Meta
-from logux.dispatchers import logux
-
-
-class UserChannel(ChannelCommand):
-    channel_pattern = r'^user/(?P<user_id>\w+)$'
+class CounterChannel(ChannelCommand):
+    channel_pattern = r'^counter$'
 
     def access(self, action: Action, meta: Meta) -> bool:
-        return self.params['user_id'] == meta.user_id
+        return True
 
     def load(self, action: Action, meta: Meta) -> None:
-        user = User.objects.get(pk=self.params['user_id'])
-        self.send_back(
-            {'type': 'user/name', 'user': 38, 'name': user.first_name}
-        )
+        counter_value = Counter.objects.first().val
+        self.send_back({'type': 'INC', 'value': counter_value})
 
 
-logux.channels.register(UserChannel)
-
+logux.channels.register(CounterChannel)
 ```
 
 </details>
