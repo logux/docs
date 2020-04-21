@@ -5,32 +5,40 @@ Logux has built-in TypeScript support. It exports type definitions. We even uses
 
 ## Server
 
-You can specify type for action:
+We recommend to use [`typescript-fsa`](https://github.com/aikoven/typescript-fsa) and share actions between client and server.
 
-```js
+```ts
+// client/actions/users.ts
+
+import { actionCreatorFactory } from 'typescript-fsa'
+
+let createAction = actionCreatorFactory()
+
+export const renameUser = createAction<{
+  userId: string,
+  name: string
+}>('user/rename')
+```
+
+```ts
 // modules/users/index.ts
 
 import type { BaseServer } from '@logux/server'
-import { Action } from '@logux/core'
 
-type UserRenameAction = Action & {
-  type: 'user/rename',
-  userId: string,
-  name: string
-}
+import { renameUser } from '../../client/actions/users'
 
 export default (server: BaseServer) => {
-  server.type<UserRenameAction>('user/rename', {
+  server.type(renameUser, {
     access (ctx, action, meta) {
       // TypeScript will know that action must have `userId` key
-      return action.userId === ctx.userId
+      return action.payload.userId === ctx.userId
     },
     …
   })
 }
 ```
 
-For `ctx.params` in subscriptions:
+You can define types for `ctx.params` in subscriptions:
 
 ```js
   type UserParams = {
@@ -44,71 +52,28 @@ For `ctx.params` in subscriptions:
   })
 ```
 
-`server.type` and `server.channel` are also receiving types for `ctx.data`. And you can specify subscription action:
-
-```js
-  import { LoguxSubscribeAction } from '@logux/server'
-
-  type UserSubscribeAction = LoguxSubscribeAction & {
-    fields: ('name' | 'email')[]
-  }
-
-  type UserData = {
-    user: User
-  }
-
-  type UserParams = {
-    id: string
-  }
-
-  server.channel<UserParams, UserData, UserSubscribeAction>('user/:id', {
-    access (ctx, action, meta) {
-      ctx.data.user = new User(ctx.params.id)
-      return ctx.data.user.group.includes(ctx.userId)
-    },
-    async load (ctx) {
-      if (action.fields.includes('name')) {
-        await ctx.sendBack({
-          type: 'user/rename',
-          userId: ctx.params.id,
-          name: ctx.data.user.name
-        })
-      }
-    }
-  })
-```
-
-You can also reuse actions or action creators from the client-side:
-
-```ts
-import { userRenameAction } from '../../../frontend/src/users/actions'
-```
-
 
 ## Client
 
 <details open><summary>Redux client</summary>
 
+We recommend to use [`typescript-fsa`](https://github.com/aikoven/typescript-fsa) or similar library for typed action creators.
+
 ```ts
 // actions/users.ts
 
-import { Action } from '@logux/core'
+import { actionCreatorFactory } from 'typescript-fsa'
 
-export type UserRenameAction = Action & {
-  type: 'user/rename',
+export const renameUser = createAction<{
   userId: string,
   name: string
-}
-
-export function isUserRename (action: Action): action is UserRenameAction {
-  return action.type === 'user/rename'
-}
+}>('user/rename')
 ```
 
 ```ts
 // reducers/user.ts
 
-import { isUserRename, UsersState } from '../actions/users'
+import { renameUser } from '../actions/users'
 
 type User = {
   id: string,
@@ -118,22 +83,17 @@ type User = {
 export type UsersState = User[]
 
 function reducer (state: UsersState = [], action: Action): UsersState {
-  if (isUserRename(action)) {
+  if (renameUser.match(action)) {
     return state.map(user => {
-      if (user.id === action.userId) {
-        return { ...user, name: action.name }
+      if (user.id === action.payload.userId) {
+        return { ...user, name: action.payload.name }
       } else {
         return user
       }
     })
-  } else {
-    return state
   }
-  if (action.type === 'INC') {
-    return state + 1
-  } else {
-    return state
-  }
+
+  return state
 }
 ```
 
@@ -157,8 +117,6 @@ let createStore = createLoguxCreator({ … })
 
 let store = createStore<State, Actions>(reducer)
 ```
-
-We recommend to use [`typescript-fsa`](https://github.com/aikoven/typescript-fsa) or similar library for typed action creators.
 
 </details>
 <details><summary>Vuex client</summary>
