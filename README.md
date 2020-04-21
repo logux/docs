@@ -162,7 +162,7 @@ server.type('INC', {
 </details>
 <details><summary>Django</summary>
 
-[`django`](https://github.com/logux/django/) Back-end Logux Protocol support for Django
+[`logux-django`](https://github.com/logux/django/) Back-end Logux Protocol support for Django
 
 Actions:
 ```python
