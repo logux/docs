@@ -82,7 +82,7 @@ Now we need to prepare back-end to receive requests from Logux proxy server.
 
 <details><summary>Django server</summary>
 
-[`django`] package adds Back-end Protocol support to Django.
+[`logux-django`] package adds Back-end Protocol support to Django.
 
 Install from PyPI
 
