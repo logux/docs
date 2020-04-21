@@ -60,14 +60,25 @@ function createServer () {
   return destroyable
 }
 
-it('checks token', () => {
+it('creates and loads posts', () => {
   const server = createServer()
-  await server.connect('1', { token: 'good' })
-  expect(() => {
-    await server.connect('2', { token: 'bad' })
-  }).rejects.toEqual({
-    error: 'Wrong credentials'
-  })
+  const client1 = await server.connect('1')
+
+  const post = { … }
+  // Check that action will not return error
+  await client1.process({ type: 'posts/add', post })
+  // Check that other client will load new user
+  expect(await client2.subscribe('posts')).toEqual([
+    { type: 'posts/add', post }
+  ])
+
+  const action = { type: 'posts/rename', … }
+  // Check that server will re-send action to subscribed clients
+  expect(await client2.collect(async () => {
+    await client1.process(action)
+  })).toEqual([
+    action
+  ])
 })
 ```
 
@@ -91,25 +102,14 @@ function createServer () {
   return destroyable
 }
 
-it('creates and loads posts', () => {
+it('checks token', () => {
   const server = createServer()
-  const client1 = await server.connect('1')
-
-  const post = { … }
-  // Check that action will not return error
-  await client1.process({ type: 'posts/add', post })
-  // Check that other client will load new user
-  expect(await client2.subscribe('posts')).toEqual([
-    { type: 'posts/add', post }
-  ])
-
-  const action = { type: 'posts/rename', … }
-  // Check that server will re-send action to subscribed clients
-  expect(await client2.collect(async () => {
-    await client1.process(action)
-  })).toEqual([
-    action
-  ])
+  await server.connect('1', { token: 'good' })
+  expect(() => {
+    await server.connect('2', { token: 'bad' })
+  }).rejects.toEqual({
+    error: 'Wrong credentials'
+  })
 })
 ```
 
