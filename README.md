@@ -160,6 +160,47 @@ server.type('INC', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+[`logux-django`](https://github.com/logux/django/) Back-end Logux Protocol support for Django
+
+Actions:
+```python
+# logux_actions.py
+class IncAction(ActionCommand):
+    action_type = 'INC'
+
+    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
+        return {'channel': 'counter'}
+
+    def access(self, action: Action, meta: Meta) -> bool:
+        return True
+
+    def process(self, action: Action, meta: Meta) -> None:
+        Counter.objects.first().inc()
+
+
+logux.actions.register(IncAction)
+```
+
+Subscriptions:
+```python
+# logux_subsriptions.py
+class CounterChannel(ChannelCommand):
+    channel_pattern = r'^counter$'
+
+    def access(self, action: Action, meta: Meta) -> bool:
+        return True
+
+    def load(self, action: Action, meta: Meta) -> None:
+        counter_value = Counter.objects.first().val
+        self.send_back({'type': 'INC', 'value': counter_value})
+
+
+logux.channels.register(CounterChannel)
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 [`logux_rails`](https://github.com/logux/logux_rails/) gem with the Logux WebSocket proxy server.

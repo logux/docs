@@ -80,6 +80,28 @@ The proxy will send the user’s authentication request, Logux subscriptions, an
 
 Now we need to prepare back-end to receive requests from Logux proxy server.
 
+<details><summary>Django server</summary>
+
+[`logux-django`] package adds Back-end Protocol support to Django.
+
+Install from PyPI
+
+```shell script
+pip install logux-django
+```
+
+Add `path(r'logux/', include('logux.urls')),` into your `urls.py`
+
+Sets Logux settings in your `settings.py`:
+```python
+# Logux settings: https://logux.io/guide/starting/proxy-server/
+LOGUX_CONTROL_SECRET = "secret"
+LOGUX_URL = "http://localhost:31338"
+LOGUX_AUTH_FUNC = (lambda user_id, token: True) if DEBUG is True else None
+```
+
+</details>
+
 <details><summary>Ruby on Rails server</summary>
 
 [`logux_rails`] gem adds Back-end Protocol support to Ruby on Rails.
@@ -144,5 +166,6 @@ Add Logux to `config/routes.rb`:
 
 [Logux Back-end Protocol]: ../../protocols/backend/spec.md
 [`logux_rails`]: https://github.com/logux/logux_rails
+[`logux-django`]: https://github.com/logux/django
 
 [Next chapter](./replace-redux.md)
