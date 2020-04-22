@@ -162,9 +162,8 @@ server.type('INC', {
 </details>
 <details><summary>Django</summary>
 
-[`logux-django`](https://github.com/logux/django/) Back-end Logux Protocol support for Django
+[`logux-django`](https://github.com/logux/django/) with the Logux WebSocket proxy server.
 
-Actions:
 ```python
 # logux_actions.py
 class IncAction(ActionCommand):
@@ -183,7 +182,6 @@ class IncAction(ActionCommand):
 logux.actions.register(IncAction)
 ```
 
-Subscriptions:
 ```python
 # logux_subsriptions.py
 class CounterChannel(ChannelCommand):
