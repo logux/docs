@@ -84,7 +84,13 @@ Now we need to prepare back-end to receive requests from Logux proxy server.
 
 [`logux-django`] package adds Back-end Protocol support to Django.
 
-Install from PyPI
+Go to your Ruby on Rails application folder:
+
+```sh
+cd ../django-server
+```
+
+Install `logux-django`:
 
 ```shell script
 pip install logux-django
