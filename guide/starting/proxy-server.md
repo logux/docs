@@ -102,7 +102,7 @@ Sets Logux settings in your `settings.py`:
 # Logux settings: https://logux.io/guide/starting/proxy-server/
 LOGUX_CONTROL_SECRET = "secret"
 LOGUX_URL = "http://localhost:31338"
-LOGUX_AUTH_FUNC = lambda user_id, token: True
+LOGUX_AUTH_FUNC = (lambda user_id, token: True) if DEBUG is True else None
 ```
 
 For `action` handling add `logux_actions.py` file in your app, add `ActionCommand` inheritors and implement all his
