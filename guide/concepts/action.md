@@ -362,6 +362,9 @@ server.type('likes/add', {
 
 ```python
 class AddLikesAction(ActionCommand):
+
+    action_type = 'likes/add'
+
     def access(self, action: Action, meta: Meta) -> bool:
         user = User.objects.get(pk=meta.user_id)
         return not user.is_troll and user.can_read(action['postId'])
@@ -410,6 +413,17 @@ server.type('likes/add', {
   },
   …
 })
+```
+
+</details>
+<details><summary>Django</summary>
+
+```python
+class AddLikesAction(ActionCommand):
+    action_type = 'likes/add'
+
+    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
+        return {'channels': [f'posts/{action["postId"]}']}
 ```
 
 </details>
