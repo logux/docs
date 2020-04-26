@@ -452,6 +452,19 @@ server.type('likes/add', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+class AddLikesAction(ActionCommand):
+    action_type = 'likes/add'
+
+    def process(self, action: Action, meta: Optional[Meta]) -> None:
+        post = Post.objects.get(pk=action['postId'])
+        post.likes += 1
+        post.save()
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 *Under construction. Until `resend` will be implemented in the gem.*
