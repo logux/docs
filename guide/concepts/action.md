@@ -349,6 +349,16 @@ server.type('likes/add', {
 ```
 
 </details>
+<details open><summary>Django</summary>
+
+```python
+class AddLikesAction(ActionCommand):
+    def access(self, action: Action, meta: Meta) -> bool:
+        user = User.objects.get(pk=meta.user_id)
+        return not user.is_troll and user.can_read(action['postId'])
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 ```ruby
