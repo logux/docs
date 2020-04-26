@@ -504,6 +504,28 @@ server.channel('user/:id', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+`logux_add` function adds Action to Logux and available at any part of code.
+
+```python
+# logux_add(action: Action, raw_meta: Optional[Dict] = None) -> None
+logux_add({ type: 'someService/error' }, { 'channels': ['admins'] })
+```
+
+`send_back` is method of `ActionCommand`'s inheritors.
+```python
+   class UserChannel(ChannelCommand):
+       channel_pattern = r'^user/(?P<user_id>\w+)$'
+
+       def load(self, action: Action, meta: Meta):
+           user = User.objects.get(pk=self.params['user_id'])
+           self.send_back(
+               {'type': 'user/add', 'user': user}
+           )
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 ```ruby
