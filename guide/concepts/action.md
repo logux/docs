@@ -66,6 +66,15 @@ server.undo(meta, 'too late')
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+class Action(ActionCommand):
+    def foo(self):
+        self.undo('too late')
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 ```ruby
@@ -349,7 +358,7 @@ server.type('likes/add', {
 ```
 
 </details>
-<details open><summary>Django</summary>
+<details><summary>Django</summary>
 
 ```python
 class AddLikesAction(ActionCommand):
