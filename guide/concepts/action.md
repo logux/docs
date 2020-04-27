@@ -69,9 +69,7 @@ server.undo(meta, 'too late')
 <details><summary>Django</summary>
 
 ```python
-class Action(ActionCommand):
-    def foo(self):
-        self.undo('too late')
+self.undo('too late')
 ```
 
 </details>
@@ -459,9 +457,7 @@ class AddLikesAction(ActionCommand):
     action_type = 'likes/add'
 
     def process(self, action: Action, meta: Optional[Meta]) -> None:
-        post = Post.objects.get(pk=action['postId'])
-        post.likes += 1
-        post.save()
+        Post.objects.filter(id=action['postId']).update(count=F('likes')+1)
 ```
 
 </details>
@@ -509,7 +505,9 @@ server.channel('user/:id', {
 `logux_add` function adds Action to Logux and available at any part of code.
 
 ```python
-# logux_add(action: Action, raw_meta: Optional[Dict] = None) -> None
+from logux.core import logux_add
+
+
 logux_add({ type: 'someService/error' }, { 'channels': ['admins'] })
 ```
 
