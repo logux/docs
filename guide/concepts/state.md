@@ -109,6 +109,20 @@ server.channel('users/:id', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+class UserChannel(ChannelCommand):
+    channel_pattern = r'^user/(?P<user_id>\w+)$'
+
+    def load(self, action: Action, meta: Meta):
+        user = User.objects.get(pk=self.params['user_id'])
+        self.send_back(
+            {'type': 'user/name', 'user': user.json()}
+        )
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 ```ruby
@@ -140,6 +154,17 @@ server.type('users/add', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+class AddUserAction(ActionCommand):
+    action_type = 'users/add'
+
+    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
+        return {'channels': [f'users/{action["userId"]}']}
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 *Under construction. Until `resend` will be implemented in the gem.*
@@ -157,6 +182,17 @@ server.type('users/add', {
     await db.insertUser(action.user)
   }
 })
+```
+
+</details>
+<details><summary>Django</summary>
+
+```python
+class AddUserAction(ActionCommand):
+    action_type = 'users/add'
+
+    def process(self, action: Action, meta: Optional[Meta]) -> None:
+        User.objects.create(**action['user'])
 ```
 
 </details>
@@ -244,6 +280,18 @@ server.type('users/rename', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+class AddUserAction(ActionCommand):
+    action_type = 'users/rename'
+
+    def process(self, action: Action, meta: Optional[Meta]) -> None:
+        user = User.objects.get(pk=action['user'])
+        # TODO: what should be here? Why do you compare time with meta but not meta with meta?
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 ```ruby
@@ -288,6 +336,13 @@ Logux servers send `logux/undo` in 3 cases:
 
 ```js
 server.undo(meta, 'too late')
+```
+
+</details>
+<details><summary>Django</summary>
+
+```python
+self.undo('too late')
 ```
 
 </details>
