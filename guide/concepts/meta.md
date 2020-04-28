@@ -33,12 +33,24 @@ Most of methods to add action accept meta as second arguments:
 
 ```js
 store.dispatch.sync(action, meta)
+store.commit.sync(action, meta)
 client.log.add(action, meta)
 server.log.add(action, meta)
 ctx.sendBack(action, meta)
 ```
 
-Logux Redux has the only method without meta argument: `store.dispatch(action)`. Use `store.dispatch.local(action, meta)` to set meta for local-tab actions.
+The only methods without meta argument:
+
+<details open><summary>Redux client</summary>
+
+`store.dispatch(action)`. Use `store.dispatch.local(action, meta)` to set meta for local-tab actions.
+
+</details>
+<details><summary>Vuex client</summary>
+
+`store.commit(action)`. Use `store.commit.local(action, meta)` to set meta for local-tab actions.
+
+</details>
 
 
 ## Changing Meta
@@ -48,6 +60,15 @@ In Logux architecture, you can change application state only by adding new actio
 Since meta doesn’t contain anything related to application state, you can change meta if it will not affect action’s order.
 
 <details open><summary>Redux client</summary>
+
+```js
+store.log.changeMeta(actionId, {
+  reasons: []
+})
+```
+
+</details>
+<details><summary>Vuex client</summary>
 
 ```js
 store.log.changeMeta(actionId, {
