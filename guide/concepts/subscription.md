@@ -16,6 +16,14 @@ store.dispatch.sync({ type: 'logux/unsubscribe', channel: 'users/14' })
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+store.commit.sync({ type: 'logux/subscribe', channel: 'users/14' })
+store.commit.sync({ type: 'logux/unsubscribe', channel: 'users/14' })
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -102,9 +110,13 @@ server.type('users/add', {
 </details>
 
 
-## `useSubscription`
+## The best way to use subscriptions
 
-The best way to use subscriptions is `useSubscription` React hook. This hook automatically subscribes during component render and unsubscribe when a component is unmounted. For instance, when you will render some page, this page will automatically request that data from the server.
+<details open><summary>Redux client</summary>
+
+### React hook
+
+`useSubscription` hook automatically subscribes during component render and unsubscribe when a component is unmounted. For instance, when you will render some page, this page will automatically request that data from the server.
 
 `useSubscription` returns `true` during the downloading current state. You should show some loader at that moment.
 
@@ -152,7 +164,7 @@ In component, you should use Redux’s `useSelector` hook to select that data fr
 ```
 
 
-## `connect`
+### Decorator
 
 For legacy React components with the class syntax, you can use `connect` decorator.
 
@@ -164,6 +176,81 @@ class UserPage extends React.Component {
 }
 export default subscribe(({ userId }) => `users/${ userId }`)(UserPage)
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+`subscriptionMixin` extends your component:
+* automatically subscribes and unsubscribes during component life cycle, tracks all subscriptions and doesn’t subscribe to channel if another component already subscribed to the same channel
+* watches for `channels` changes
+* adds `isSubscribing` flag
+
+For instance, when you will render some page, this page will automatically request that data from the server.
+
+`isSubscribing` returns `true` during the downloading current state. You should show some loader at that moment.
+
+```html
+<template>
+  <div v-if="isSubscribing">
+    <h1>Loading</h1>
+  </div>
+  <div v-else>
+    <!-- Render user page -->
+  </div>
+</template>
+
+<script>
+import { subscriptionMixin } from '@logux/vuex'
+
+export default {
+  name: 'UserPage',
+  mixins: [subscriptionMixin],
+  props: ['userId']
+  computed: {
+    channels () {
+      return [`user/${ this.userId }`]
+    }
+  }
+}
+</script>
+```
+
+`subscriptionMixin` doesn’t recieve the data from the server. It just sends `logux/subscribe`/`logux/unsubscribe` actions and track loading. Subscription asks the server to send you actions. You should process these actions with Vuex mutation and put state from actions to the store (see Vuex docs).
+
+In component, you should just return the state within a computed property as usual.
+
+```diff
+  <template>
+    <div v-if="isSubscribing">
+      <h1>Loading</h1>
+    </div>
+    <div v-else>
+-     <!-- Render user page -->
++     <h1>{{ user.name }}</h1>
+    </div>
+  </template>
+
+  <script>
+  import { subscriptionMixin } from '@logux/vuex'
+
+  export default {
+    name: 'UserPage',
+    mixins: [subscriptionMixin],
+    props: ['userId']
+    computed: {
+      channels () {
+        return [`user/${ this.userId }`]
+-     }
++     },
++     user () {
++       return this.$store.state.user[this.userId]
++     }
+    }
+  }
+  </script>
+```
+
+</details>
 
 
 ## Re-subscription
@@ -225,6 +312,8 @@ Only Node.js server support channel filters API.
 
 We can add additional keys to `logux/subscribe` action to define what fields do we need.
 
+<details open><summary>Redux client</summary>
+
 ```diff
   const UserPage = ({ userId }) => {
 -   const isSubscribing = useSubscription([`user/${ userId }`])
@@ -239,6 +328,43 @@ We can add additional keys to `logux/subscribe` action to define what fields do 
     }
   }
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+```diff
+  <template>
+    <div v-if="isSubscribing">
+      <h1>Loading</h1>
+    </div>
+    <div v-else>
+      <h1>{{ user.name }}</h1>
+    </div>
+  </template>
+
+  <script>
+  import { subscriptionMixin } from '@logux/vuex'
+
+  export default {
+    name: 'UserPage',
+    mixins: [subscriptionMixin],
+    props: ['userId']
+    computed: {
+      channels () {
+-       return [`user/${ this.userId }`]
++       return [
++         { channel: `user/${ this.userId }`, fields: ['name'] }
++       ]
+      },
+      user () {
+        return this.$store.state.user[this.userId]
+      }
+    }
+  }
+  </script>
+```
+
+</details>
 
 On the server we can define filter in `filter` callback:
 
