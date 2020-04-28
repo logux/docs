@@ -205,7 +205,7 @@ import { subscriptionMixin } from '@logux/vuex'
 export default {
   name: 'UserPage',
   mixins: [subscriptionMixin],
-  props: ['userId']
+  props: ['userId'],
   computed: {
     channels () {
       return [`user/${ this.userId }`]
@@ -236,7 +236,7 @@ In component, you should just return the state within a computed property as usu
   export default {
     name: 'UserPage',
     mixins: [subscriptionMixin],
-    props: ['userId']
+    props: ['userId'],
     computed: {
       channels () {
         return [`user/${ this.userId }`]
@@ -348,7 +348,7 @@ We can add additional keys to `logux/subscribe` action to define what fields do 
   export default {
     name: 'UserPage',
     mixins: [subscriptionMixin],
-    props: ['userId']
+    props: ['userId'],
     computed: {
       channels () {
 -       return [`user/${ this.userId }`]
