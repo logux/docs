@@ -86,6 +86,13 @@ server.type('user/add', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+    # TODO: https://github.com/logux/django/issues/28
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 ```ruby
