@@ -181,7 +181,7 @@ export default subscribe(({ userId }) => `users/${ userId }`)(UserPage)
 <details><summary>Vuex client</summary>
 
 `subscriptionMixin` extends your component:
-* automatically subscribes and unsubscribes during component life cycle, tracks all subscriptions and doesn’t subscribe to channel if another component already subscribed to the same channel
+* automatically subscribes and unsubscribes during the component life cycle, tracks all subscriptions and doesn’t subscribe to channel if another component already subscribed to the same channel
 * watches for `channels` changes
 * adds `isSubscribing` flag
 
@@ -215,7 +215,7 @@ export default {
 </script>
 ```
 
-`subscriptionMixin` doesn’t recieve the data from the server. It just sends `logux/subscribe`/`logux/unsubscribe` actions and track loading. Subscription asks the server to send you actions. You should process these actions with Vuex mutation and put state from actions to the store (see Vuex docs).
+`subscriptionMixin` doesn’t receive the data from the server. It just sends `logux/subscribe`/`logux/unsubscribe` actions and track loading. Subscription asks the server to send you actions. You should process these actions with Vuex mutation and put state from actions to the store (see Vuex docs).
 
 In component, you should just return the state within a computed property as usual.
 

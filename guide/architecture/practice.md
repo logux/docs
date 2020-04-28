@@ -170,7 +170,7 @@ function usersReducers (state = { }, action) {
 </details>
 <details><summary>Vuex client</summary>
 
-Logux Vuex client use [Vuex's mutations] to **reduce list of action to the state**. Mutation is the only way to change state.
+Logux Vuex client use [Vuex mutations] to **reduce list of action to the state**. Mutation is the only way to change state.
 
 ```js
 const store = new Logux.Store({
@@ -183,7 +183,7 @@ const store = new Logux.Store({
 })
 ```
 
-[Vuex's mutations]: https://vuex.vuejs.org/guide/mutations.html
+[Vuex mutations]: https://vuex.vuejs.org/guide/mutations.html
 
 </details>
 
