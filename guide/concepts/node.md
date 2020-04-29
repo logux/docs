@@ -416,7 +416,7 @@ The client should use some token to prove it’s user ID. The best way is to use
 
 ```js
 const createStore = createLoguxCreator({
-  userId: localStorage.getItem('userId') || '',
+  userId: localStorage.getItem('userId') || 'anonymous',
   token: localStorage.getItem('userToken') || '',
   …
 })
@@ -427,7 +427,7 @@ const createStore = createLoguxCreator({
 
 ```js
 const Logux = createLogux({
-  userId: localStorage.getItem('userId') || '',
+  userId: localStorage.getItem('userId') || 'anonymous',
   token: localStorage.getItem('userToken') || '',
   …
 })
@@ -438,7 +438,7 @@ const Logux = createLogux({
 
 ```js
 const client = new CrossTabClient({
-  userId: localStorage.getItem('userId') || '',
+  userId: localStorage.getItem('userId') || 'anonymous',
   token: localStorage.getItem('userToken') || '',
   …
 })
