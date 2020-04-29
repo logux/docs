@@ -71,7 +71,7 @@ export default {
     }).catch(error => {
       console.log(error)
       this.state = 'error'
-    }).finally(() => this.state = 'ok)
+    }).finally(() => this.state = 'ok')
   }
 }
 </script>
@@ -113,14 +113,13 @@ export default () => {
 ```html
 <!-- views/UsersView.vue -->
 <template>
-  <ApolloQuery
-    :query="gql => gql`
-      query {
-        users: {
-          id,
-          name
-        }
+  <ApolloQuery :query="gql => gql`
+    query {
+      users: {
+        id,
+        name
       }
+    }
   `">
     <template slot-scope="{ result: { loading, error, users } }">
       <loader v-if="loading"/>
@@ -317,8 +316,7 @@ export default ({ userId }) => {
 ```html
 <!-- views/UserFormView.vue -->
 <template>
-  <ApolloMutation
-    :mutation="$options.fragments.changeName">
+  <ApolloMutation :mutation="$options.fragments.changeName">
     <template slot-scope="{ result: { mutate, loading, error } }">
       <loader v-if="loading"/>
       <user-form v-else @onSubmit="name => mutate({ variables: { name, id: userId } })"/>
@@ -328,17 +326,6 @@ export default ({ userId }) => {
 
 <script>
 import gql from 'graphql-tag'
-
-const fragments = {
-  changeName: gql`
-    mutation ChangeName($name: String!, $id: ID!) {
-      changeName(name: $name, id: $id) {
-        id
-        name
-      }
-    }
-  `
-}
 
 export default {
   name: 'UserFormView',
