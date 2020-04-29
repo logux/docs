@@ -121,7 +121,7 @@ export default () => {
       }
     }
   `">
-    <template slot-scope="{ result: { loading, error, users } }">
+    <template v-slot="{ result: { loading, error, users } }">
       <loader v-if="loading"/>
       <error v-else-if="error"/>
       <users v-else-if="users" :users='users'/>
@@ -317,7 +317,7 @@ export default ({ userId }) => {
 <!-- views/UserFormView.vue -->
 <template>
   <ApolloMutation :mutation="$options.fragments.changeName">
-    <template slot-scope="{ result: { mutate, loading, error } }">
+    <template v-slot="{ result: { mutate, loading, error } }">
       <loader v-if="loading"/>
       <user-form v-else @onSubmit="name => mutate({ variables: { name, id: userId } })"/>
     </template>
