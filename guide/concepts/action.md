@@ -415,7 +415,7 @@ confirm(store.client)
 ```
 
 </details>
-<details open><summary>Vuex client</summary>
+<details><summary>Vuex client</summary>
 
 ```js
 import { confirm } from '@logux/client'
