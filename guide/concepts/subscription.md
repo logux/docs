@@ -110,13 +110,11 @@ server.type('users/add', {
 </details>
 
 
-## The best way to use subscriptions
+## Subscription
 
 <details open><summary>Redux client</summary>
 
-### React hook
-
-`useSubscription` hook automatically subscribes during component render and unsubscribe when a component is unmounted. For instance, when you will render some page, this page will automatically request that data from the server.
+`useSubscription` React hook automatically subscribes during component render and unsubscribe when a component is unmounted. For instance, when you will render some page, this page will automatically request that data from the server.
 
 `useSubscription` returns `true` during the downloading current state. You should show some loader at that moment.
 
@@ -162,9 +160,6 @@ In component, you should use Redux’s `useSelector` hook to select that data fr
     }
   }
 ```
-
-
-### Decorator
 
 For legacy React components with the class syntax, you can use `connect` decorator.
 
