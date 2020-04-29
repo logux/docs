@@ -10,6 +10,8 @@ All three technologies (Logux, AJAX, GraphQL) was created for communication betw
 
 In **AJAX** you send GET request to some URL and wait for response.
 
+<details open><summary>Redux client</summary>
+
 ```js
 // containers/users.js
 export default () => {
@@ -37,8 +39,49 @@ export default () => {
 }
 ```
 
-In **GraphQL** (Apollo) you wrap your component in `<Query>` to make request
-to single entry point.
+</details>
+<details><summary>Vuex client</summary>
+
+```html
+<!-- views/UsersView.vue -->
+<template>
+  <div>
+    <loader v-if="state === 'loading'"/>
+    <error v-else-if="state === 'error'"/>
+    <users v-else :users='users'/>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'UsersView',
+  data: () => ({
+    state: 'loading',
+    users: []
+  }),
+  mounted () {
+    fetch('/users', { credentials: 'include' }).then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error('HTTP error ' + response.code)
+      }
+    }).then(users => {
+      this.users = users
+    }).catch(error => {
+      console.log(error)
+      this.state = 'error'
+    }).finally(() => this.state = 'ok)
+  }
+}
+</script>
+```
+
+</details>
+
+In **GraphQL** (Apollo) you wrap your component to make request to single entry point.
+
+<details open><summary>Redux client</summary>
 
 ```js
 // containers/users.js
@@ -64,7 +107,36 @@ export default () => {
 }
 ```
 
-**Logux** is focusing on live-updates. You are subscribing to the channel instead of requesting the data. Logux Server sends current users list in `users/add` Redux actions. Logux has global UI to show server errors and much more reliable for network problems. As result, you do not need to care about errors in this case.
+</details>
+<details><summary>Vuex client</summary>
+
+```html
+<!-- views/UsersView.vue -->
+<template>
+  <ApolloQuery
+    :query="gql => gql`
+      query {
+        users: {
+          id,
+          name
+        }
+      }
+  `">
+    <template slot-scope="{ result: { loading, error, users } }">
+      <loader v-if="loading"/>
+      <error v-else-if="error"/>
+      <users v-else-if="users" :users='users'/>
+      <div v-else>No users</div>
+    </template>
+  </ApolloQuery>
+</template>
+```
+
+</details>
+
+**Logux** is focusing on live-updates. You are subscribing to the channel instead of requesting the data. Logux Server sends current users list in `users/add` actions. Logux has global UI to show server errors and much more reliable for network problems. As result, you do not need to care about errors in this case.
+
+<details open><summary>Redux client</summary>
 
 ```js
 // reducers/users.js
@@ -86,10 +158,54 @@ export default () => {
 }
 ```
 
+</details>
+<details><summary>Vuex client</summary>
+
+```js
+// store/users/mutations.js
+export default {
+  …
+  'user/add': (state, action) => {
+    state.users = { ...state.users, [action.user.id]: action.user }
+  }
+}
+```
+
+```html
+<!-- views/UsersView.vue -->
+<template>
+  <div>
+    <loader v-if="isSubscribing"/>
+    <users v-else :users='users'/>
+  </div>
+</template>
+
+<script>
+import { subscriptionMixin } from '@logux/vuex'
+
+export default {
+  name: 'UsersView',
+  mixins: [subscriptionMixin],
+  computed: {
+    channels () {
+      return ['users']
+    },
+    users () {
+      return this.$store.state.users
+    }
+  }
+}
+</script>
+```
+
+</details>
+
 
 ### Change the Data on the Client
 
 In **AJAX** you send POST request with the new data:
+
+<details open><summary>Redux client</summary>
 
 ```js
 // containers/user-form.js
@@ -118,7 +234,55 @@ export default ({ userId }) => {
 }
 ```
 
+</details>
+<details><summary>Vuex client</summary>
+
+```html
+<!-- views/UserFormView.vue -->
+<template>
+  <div>
+    <loader v-if="state === 'loading'"/>
+    <user-form
+      v-else
+      :error="state === 'error'"
+      @onSubmit='onNameChanged'
+    />
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'UserFormView',
+  props: ['userId'],
+  data: () => ({
+    state: 'ok'
+  }),
+  methods: {
+    onNameChanged () {
+      fetch(`users/${ this.userId }`, {
+        method: 'PUT',
+        credentials: 'include'
+      }).then(response => {
+        if (response.ok) {
+          this.state = 'saved'
+        } else {
+          throw new Error('HTTP error ' + response.code)
+        }
+      }).catch(error => {
+        console.log(error)
+        this.state = 'error'
+      })
+    }
+  }
+}
+</script>
+```
+
+</details>
+
 In **GraphQL** you call a mutation:
+
+<details open><summary>Redux client</summary>
 
 ```js
 // containers/user-form.js
@@ -147,7 +311,57 @@ export default ({ userId }) => {
 }
 ```
 
+</details>
+<details><summary>Vuex client</summary>
+
+```html
+<!-- views/UserFormView.vue -->
+<template>
+  <ApolloMutation
+    :mutation="$options.fragments.changeName">
+    <template slot-scope="{ result: { mutate, loading, error } }">
+      <loader v-if="loading"/>
+      <user-form v-else @onSubmit="name => mutate({ variables: { name, id: userId } })"/>
+    </template>
+  </ApolloMutation>
+</template>
+
+<script>
+import gql from 'graphql-tag'
+
+const fragments = {
+  changeName: gql`
+    mutation ChangeName($name: String!, $id: ID!) {
+      changeName(name: $name, id: $id) {
+        id
+        name
+      }
+    }
+  `
+}
+
+export default {
+  name: 'UserFormView',
+  fragments: {
+    changeName: gql`
+      mutation ChangeName($name: String!, $id: ID!) {
+        changeName(name: $name, id: $id) {
+          id
+          name
+        }
+      }
+    `
+  },
+  props: ['userId']
+}
+</script>
+```
+
+</details>
+
 In **Logux** you create the Redux action by `dispatch.sync`. Logux uses Optimistic UI by default, so you do not need a loader in this case.
+
+<details open><summary>Redux client</summary>
 
 ```js
 // reducers/users.js
@@ -167,5 +381,40 @@ export default ({ userId }) => {
   return <UserForm onSubmit={onNameChanged} />
 }
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+```js
+// store/users/mutations.js
+export default {
+  …
+  'user/rename': (state, action) => {
+    let id = action.userId
+    state.users = { ...state.users, [id]: { ...state.users[id], name: action.name } }
+  }
+}
+```
+
+```html
+<!-- views/UserFormView.vue -->
+<template>
+  <user-form @onSubmit="onNameChange">
+</template>
+
+<script>
+export default {
+  name: 'UserFormView',
+  props: ['userId'],
+  methods: {
+    onNameChange (name) {
+      this.$store.commit.sync({ type: 'users/rename', userId, name })
+    }
+  }
+}
+</script>
+```
+
+</details>
 
 [Next chapter](./parts.md)
