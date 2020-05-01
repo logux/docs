@@ -107,22 +107,40 @@ let store = createStore<CounterState, IncAction>(reducer)
 <details><summary>Vuex client</summary>
 
 ```ts
-type State = number
-
-interface IncrementMutation extends VuexAction {
-  type: 'increment'
+type User = {
+  id: string,
+  name: string
 }
 
+type State = {
+  users: User[]
+}
+
+let Logux = createLogux({ … })
+
 let store = new Logux.Store<State>({
-  state: 0,
+  state: {
+    users: []
+  },
   mutations: {
-    increment (state) {
-      state = state + 1
+    …
+    'user/rename': (state, action) => {
+      state.users = state.users.map(user => {
+        if (user.id === action.userId) {
+          return { ...user, name: action.name }
+        } else {
+          return user
+        }
+      })
     }
   }
 })
 
-store.commit.sync<IncrementMutation>({ type: 'increment' })
+store.commit.sync({
+  type: 'user/rename',
+  userId: '10',
+  name: 'Tom'
+})
 ```
 
 </details>
