@@ -287,8 +287,10 @@ class AddUserAction(ActionCommand):
     action_type = 'users/rename'
 
     def process(self, action: Action, meta: Optional[Meta]) -> None:
-        user = User.objects.get(pk=action['user'])
-        # TODO: what should be here? Why do you compare time with meta but not meta with meta?
+        user = User.objects.get(pk=action['userId'])
+        if user.meta < meta:
+            user.name = action['name']
+            user.save()
 ```
 
 </details>
