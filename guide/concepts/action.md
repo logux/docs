@@ -440,7 +440,6 @@ In last callback server changes database according to the new action.
 
 ```js
 server.type('likes/add', {
-  …
   async process (ctx, action, meta) {
     await db.query(
       'UPDATE posts SET like = like + 1 WHERE post.id = ?', action.postId
