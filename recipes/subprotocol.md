@@ -85,7 +85,8 @@ server.type('user/add', {
 })
 ```
 
-</details><details><summary>Ruby on Rails</summary>
+</details>
+<details><summary>Ruby on Rails</summary>
 
 ```ruby
 # app/logux/actions/users.rb
