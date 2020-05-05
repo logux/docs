@@ -366,6 +366,8 @@ class AddLikesAction(ActionCommand):
     def access(self, action: Action, meta: Meta) -> bool:
         user = User.objects.get(pk=meta.user_id)
         return not user.is_troll and user.can_read(action['postId'])
+
+    …
 ```
 
 </details>
@@ -420,8 +422,12 @@ server.type('likes/add', {
 class AddLikesAction(ActionCommand):
     action_type = 'likes/add'
 
+    …
+
     def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
         return {'channels': [f'posts/{action["postId"]}']}
+
+    …
 ```
 
 </details>
@@ -440,6 +446,7 @@ In last callback server changes database according to the new action.
 
 ```js
 server.type('likes/add', {
+  …
   async process (ctx, action, meta) {
     await db.query(
       'UPDATE posts SET like = like + 1 WHERE post.id = ?', action.postId
@@ -454,6 +461,8 @@ server.type('likes/add', {
 ```python
 class AddLikesAction(ActionCommand):
     action_type = 'likes/add'
+
+    …
 
     def process(self, action: Action, meta: Optional[Meta]) -> None:
         Post.objects.filter(id=action['postId']).update(count=F('likes')+1)
@@ -512,14 +521,16 @@ logux_add({ type: 'someService/error' }, { 'channels': ['admins'] })
 
 `send_back` is method of `ActionCommand`'s inheritors.
 ```python
-   class UserChannel(ChannelCommand):
-       channel_pattern = r'^user/(?P<user_id>\w+)$'
+  class UserChannel(ChannelCommand):
+      channel_pattern = r'^user/(?P<user_id>\w+)$'
 
-       def load(self, action: Action, meta: Meta):
-           user = User.objects.get(pk=self.params['user_id'])
-           self.send_back(
-               {'type': 'user/add', 'user': user}
-           )
+      …
+
+      def load(self, action: Action, meta: Meta):
+          user = User.objects.get(pk=self.params['user_id'])
+          self.send_back(
+              {'type': 'user/add', 'user': user}
+          )
 ```
 
 </details>
