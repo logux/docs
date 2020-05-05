@@ -109,7 +109,7 @@ server.channel('counter', {
 <details><summary>Django</summary>
 
 ```python
-lass IncAction(ActionCommand):
+class IncAction(ActionCommand):
     action_type = 'INC'
 
     def access(self, action: Action, meta: Meta) -> bool:
