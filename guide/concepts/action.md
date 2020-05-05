@@ -66,6 +66,13 @@ server.undo(meta, 'too late')
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+self.undo('too late')
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 ```ruby
@@ -349,6 +356,21 @@ server.type('likes/add', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+class AddLikesAction(ActionCommand):
+
+    action_type = 'likes/add'
+
+    def access(self, action: Action, meta: Meta) -> bool:
+        user = User.objects.get(pk=meta.user_id)
+        return not user.is_troll and user.can_read(action['postId'])
+
+    …
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 ```ruby
@@ -394,6 +416,21 @@ server.type('likes/add', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+class AddLikesAction(ActionCommand):
+    action_type = 'likes/add'
+
+    …
+
+    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
+        return {'channels': [f'posts/{action["postId"]}']}
+
+    …
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 *Under construction. Until `resend` will be implemented in the gem.*
@@ -416,6 +453,19 @@ server.type('likes/add', {
     )
   }
 })
+```
+
+</details>
+<details><summary>Django</summary>
+
+```python
+class AddLikesAction(ActionCommand):
+    action_type = 'likes/add'
+
+    …
+
+    def process(self, action: Action, meta: Optional[Meta]) -> None:
+        Post.objects.filter(id=action['postId']).update(count=F('likes')+1)
 ```
 
 </details>
@@ -455,6 +505,32 @@ server.channel('user/:id', {
     ctx.sendBack({ type: 'users/add', user })
   }
 })
+```
+
+</details>
+<details><summary>Django</summary>
+
+`logux_add` function adds Action to Logux and available at any part of code.
+
+```python
+from logux.core import logux_add
+
+
+logux_add({ type: 'someService/error' }, { 'channels': ['admins'] })
+```
+
+`send_back` is method of `ActionCommand`'s inheritors.
+```python
+  class UserChannel(ChannelCommand):
+      channel_pattern = r'^user/(?P<user_id>\w+)$'
+
+      …
+
+      def load(self, action: Action, meta: Meta):
+          user = User.objects.get(pk=self.params['user_id'])
+          self.send_back(
+              {'type': 'user/add', 'user': user}
+          )
 ```
 
 </details>

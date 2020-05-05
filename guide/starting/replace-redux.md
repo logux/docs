@@ -64,7 +64,7 @@ Use helpers where you create the store.
 
 ```diff
   import { createLoguxCreator } from '@logux/redux'
-+ import { createLoguxCreator, badge, badgeEn, log } from '@logux/client'
++ import { badge, badgeEn, log } from '@logux/client'
 + import { badgeStyles } from '@logux/client/badge/styles'
 ```
 
