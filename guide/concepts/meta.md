@@ -83,6 +83,17 @@ server.type('users/rename', {
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+class RenameUserAction(ActionCommand):
+    action_type = 'user/rename'
+
+    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
+        return {'channels': [f'users/{action["user"]}']}
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 *Under construction. Until `resend` will be implemented in the gem.*
