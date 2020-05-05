@@ -57,6 +57,13 @@ server.nodeId //=> "server:iSiqWU5J"
 ```
 
 </details>
+<details><summary>Django</summary>
+
+```python
+meta.node_id # => "server:iSiqWU5J"
+```
+
+</details>
 <details><summary>Ruby on Rails</summary>
 
 ```ruby
@@ -96,6 +103,21 @@ server.channel('counter', {
     ctx.clientId //=> "580:Uf_pPwE4"
   }
 })
+```
+
+</details>
+<details><summary>Django</summary>
+
+```python
+class AddLikesAction(ActionCommand):
+
+    action_type = 'likes/add'
+
+    def access(self, action: Action, meta: Meta) -> bool:
+        meta.user_id    # => "580"
+        meta.client_id  # => "580:Uf_pPwE4"
+        …
+    …
 ```
 
 </details>
@@ -361,6 +383,14 @@ server.auth((userId, token) => {
   const data = await jwt.verify(token, process.env.JWT_SECRET)
   return data.sub === userId
 })
+```
+
+</details>
+<details><summary>Django</summary>
+
+```python
+# settings.py
+LOGUX_AUTH_FUNC = (lambda user_id, token: True) if DEBUG else None
 ```
 
 </details>
