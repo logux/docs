@@ -109,9 +109,8 @@ server.channel('counter', {
 <details><summary>Django</summary>
 
 ```python
-class AddLikesAction(ActionCommand):
-
-    action_type = 'likes/add'
+lass IncAction(ActionCommand):
+    action_type = 'INC'
 
     def access(self, action: Action, meta: Meta) -> bool:
         meta.user_id    # => "580"
