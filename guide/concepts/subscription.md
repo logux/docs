@@ -119,6 +119,8 @@ server.type('users/add', {
 class AddUserAction(ActionCommand):
     action_type = 'users/add'
 
+    …
+
     def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
         return {'channels': [f'users/{action["userId"]}']}
 ```
@@ -230,6 +232,8 @@ For simple cases, you can use `action.since.time` with a timestamp. For more com
 ```python
 class UserChannel(ChannelCommand):
     channel_pattern = r'^user/(?P<user_id>\w+)$'
+
+    …
 
     def load(self, action: Action, meta: Meta):
         user = User.objects.get(pk=self.params['user_id'])

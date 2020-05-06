@@ -115,6 +115,8 @@ server.channel('users/:id', {
 class UserChannel(ChannelCommand):
     channel_pattern = r'^user/(?P<user_id>\w+)$'
 
+    …
+
     def load(self, action: Action, meta: Meta):
         user = User.objects.get(pk=self.params['user_id'])
         self.send_back(
@@ -160,6 +162,8 @@ server.type('users/add', {
 class AddUserAction(ActionCommand):
     action_type = 'users/add'
 
+    …
+
     def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
         return {'channels': [f'users/{action["userId"]}']}
 ```
@@ -190,6 +194,8 @@ server.type('users/add', {
 ```python
 class AddUserAction(ActionCommand):
     action_type = 'users/add'
+
+    …
 
     def process(self, action: Action, meta: Optional[Meta]) -> None:
         User.objects.create(**action['user'])
@@ -285,6 +291,8 @@ server.type('users/rename', {
 ```python
 class AddUserAction(ActionCommand):
     action_type = 'users/rename'
+
+    …
 
     def process(self, action: Action, meta: Optional[Meta]) -> None:
         user = User.objects.get(pk=action['userId'])

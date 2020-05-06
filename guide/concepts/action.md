@@ -426,8 +426,6 @@ class AddLikesAction(ActionCommand):
 
     def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
         return {'channels': [f'posts/{action["postId"]}']}
-
-    …
 ```
 
 </details>
