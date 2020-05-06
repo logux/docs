@@ -193,7 +193,7 @@ store.subscribe((mutation, state) => {
 })
 ```
 
-Or simple watcher, similar to Vue’s `watch`:
+Or simple watcher, similar to Vue’s `vm.$watch`:
 
 ```js
 store.watch(state => state.errors, (oldValue, newValue) => {
@@ -307,7 +307,7 @@ end
 
 ## Time Travel
 
-Logux Client wrapper such as Logux Redux and Loguc Vuex keeps old actions and old state values.
+Logux Client wrapper such as Logux Redux and Logux Vuex keeps old actions and old state values.
 
 This history allows them to do “time travel” recalculate state with
 different action order or without some action from the past. This feature is critical for conflict resolution (important for collaborative editing) and changes reverting (important for Optimistic UI).
