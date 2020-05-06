@@ -131,7 +131,7 @@ By default, Logux keeps last 1000 action (you can change it, see [reasons chapte
 
 <details open><summary>Redux client</summary>
 
-Logux Redux generates big JS object as application state. We recommend to use some reactive UI library (React, Vue.js, Svelte, etc.) to render and change UI according to state changes:
+Logux Redux generates big JS object as application state. We recommend to use some reactive UI library (React, Vue, Svelte, etc.) to render and change UI according to state changes:
 
 ```js
 import { useSelector } from 'react-redux'
@@ -159,7 +159,7 @@ store.subscribe(() => {
 </details>
 <details><summary>Vuex client</summary>
 
-Simply return some store state from within a computed property:
+To render and change UI according to state changes simply return some store state from within a computed property:
 
 ```js
 export default {
@@ -179,7 +179,6 @@ export default {
   `
 }
 ```
-
 
 Often we need non-pure logic, and we can’t put it to a mutation. For instance, we need to change `document.title` on new error. For these cases, you can set a listener for state changes:
 
