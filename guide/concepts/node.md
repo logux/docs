@@ -116,7 +116,6 @@ class IncAction(ActionCommand):
         meta.user_id    # => "580"
         meta.client_id  # => "580:Uf_pPwE4"
         …
-    …
 ```
 
 </details>

@@ -86,7 +86,7 @@ server.type('user/add', {
 ```
 
 </details>
-<details><summary>Ruby on Rails</summary>
+<details><summary>Django</summary>
 
 ```python
 class AddLikesAction(ActionCommand):
