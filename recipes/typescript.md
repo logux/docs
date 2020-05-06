@@ -104,6 +104,46 @@ let store = createStore<CounterState, IncAction>(reducer)
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```ts
+type User = {
+  id: string,
+  name: string
+}
+
+type State = {
+  users: User[]
+}
+
+let Logux = createLogux({ … })
+
+let store = new Logux.Store<State>({
+  state: {
+    users: []
+  },
+  mutations: {
+    …
+    'user/rename': (state, action) => {
+      state.users = state.users.map(user => {
+        if (user.id === action.userId) {
+          return { ...user, name: action.name }
+        } else {
+          return user
+        }
+      })
+    }
+  }
+})
+
+store.commit.sync({
+  type: 'user/rename',
+  userId: '10',
+  name: 'Tom'
+})
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 You need to define user defined type guards for action types:
