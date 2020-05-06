@@ -69,6 +69,22 @@ server.type('user/add', {
 </details>
 <details><summary>Ruby on Rails</summary>
 
+```python
+class AddLikesAction(ActionCommand):
+    action_type = 'user/add'
+
+    …
+
+    def process(self, action: Action, meta: Optional[Meta]) -> None:
+        if meta.subprotocol == '1.1.0':
+            User.objects.create(id=action['id'], name=action['name'])
+        else:
+            User.objects.create(id=action['user']['id'], name=action['user']['name'])
+```
+
+</details>
+<details><summary>Ruby on Rails</summary>
+
 ```ruby
 # app/logux/actions/users.rb
 module Channels
