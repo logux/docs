@@ -9,9 +9,20 @@ Sending data to the server is a basic feature of any web application. AJAX is ea
 
 In Logux we try to simplify the system. You have actions. You use these actions to change UI. And you use the same actions to communicate with servers. Back-end code works with the same action. And server response is actions as well.
 
+<details open><summary>Redux client</summary>
+
 ```js
 store.dispatch.sync({ type: 'user/rename', userId: 380, name: 'New name' })
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+```js
+store.commit.sync({ type: 'user/rename', userId: 380, name: 'New name' })
+```
+
+</details>
 
 A lot of complicated systems like real-time, Optimistic UI and conflict resolution works in Logux out of box.
 
@@ -54,7 +65,18 @@ There are many small problems in working with a real network.
 
 ## Cross-Tab Communications in the Browser
 
-Logux has built-in cross-tab communication. Calling `dispatch.crossTab()` or `dispatch.sync()` will dispatch action in all browser tabs.
+Logux has built-in cross-tab communication.
+
+<details open><summary>Redux client</summary>
+
+Calling `dispatch.crossTab()` or `dispatch.sync()` will dispatch action in all browser tabs.
+
+</details>
+<details><summary>Vuex client</summary>
+
+Calling `commit.crossTab()` or `commit.sync()` will dispatch action in all browser tabs.
+
+</details>
 
 Also in Logux, only one browser tab keeps WebSocket connection. All other tabs reuse the same connection. It guarantees the same state in all tabs and saves server resources.
 

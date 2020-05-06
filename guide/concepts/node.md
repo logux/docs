@@ -15,6 +15,15 @@ store.client.node //=> ClientNode instance
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+const Logux = createLogux({ … })
+const store = new Logux.Store({ … })
+store.client.node //=> ClientNode instance
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -34,6 +43,13 @@ Each node has a unique node ID — a string like `380:Uf_pPwE4:6K7iYdJH` or `ser
 Current node ID of client:
 
 <details open><summary>Redux client</summary>
+
+```js
+store.client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
+```
+
+</details>
+<details><summary>Vuex client</summary>
 
 ```js
 store.client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
@@ -137,6 +153,18 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+import { IndexedStore } from '@logux/client'
+
+const Logux = createLogux({
+  store: new IndexedStore(),
+  …
+})
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -167,6 +195,16 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+const Logux = createLogux({
+  server: 'wss://example.com',
+  …
+})
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -182,15 +220,30 @@ By default, Logux forces you to use WebSocket over TLS (`wss:`) in production. I
 
 You can use WebSocket without encryption in development or with `allowDangerousProtocol` option.
 
-If you do not want to use WebSocket, you can implementation own [`Connection`](https://logux.io/redux-api/#connection) class and pass it to `server` option. For instance, you can use [`TestPair`](https://logux.io/redux-api/#testpair) in tests:
-
 <details open><summary>Redux client</summary>
 
-```js
-import { testPair } from 'logux-core'
+If you do not want to use WebSocket, you can implementation own [`Connection`](https://logux.io/redux-api/#connection) class and pass it to `server` option. For instance, you can use [`TestPair`](https://logux.io/redux-api/#testpair) in tests:
 
-const pair = new testPair()
+```js
+import { TestPair } from '@logux/core'
+
+const pair = new TestPair()
 const createStore = createLoguxCreator({
+  server: pair.left,
+  …
+})
+```
+
+</details>
+<details><summary>Vuex client</summary>
+
+If you do not want to use WebSocket, you can implementation own [`Connection`](https://logux.io/vuex-api/#connection) class and pass it to `server` option. For instance, you can use [`TestPair`](https://logux.io/vuex-api/#testpair) in tests:
+
+```js
+import { TestPair } from '@logux/core'
+
+const pair = new TestPair()
+const Logux = createLogux({
   server: pair.left,
   …
 })
@@ -200,9 +253,9 @@ const createStore = createLoguxCreator({
 <details><summary>Pure JS client</summary>
 
 ```js
-import { testPair } from 'logux-core'
+import { TestPair } from '@logux/core'
 
-const pair = new testPair()
+const pair = new TestPair()
 const client = new CrossTabClient({
   server: pair.left,
   …
@@ -217,6 +270,17 @@ const client = new CrossTabClient({
 Node has current synchronization state. Possible values are `disconnected`, `connecting`, `sending`, and `synchronized`. You can get current state by:
 
 <details open><summary>Redux client</summary>
+
+```js
+store.client.state //=> "synchronized"
+
+store.client.on('state', () => {
+  console.log(store.client.state) // Track state changes
+})
+```
+
+</details>
+<details><summary>Vuex client</summary>
 
 ```js
 store.client.state //=> "synchronized"
@@ -289,6 +353,17 @@ store.client.on('role', () => {
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+store.client.role //=> "leader"
+
+store.client.on('role', () => {
+  console.log(store.client.role) // Track role changes
+})
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -306,6 +381,14 @@ Each browser tab will have unique node ID, but they all have the same client ID.
 In `380:Uf_pPwE4:6K7iYdJH` node ID, `380:Uf_pPwE4` is client ID and `6K7iYdJH` is tab ID.
 
 <details open><summary>Redux client</summary>
+
+```js
+store.client.clientId //=> "380:Uf_pPwE4"
+store.client.tabId //=> "6K7iYdJH"
+```
+
+</details>
+<details><summary>Vuex client</summary>
 
 ```js
 store.client.clientId //=> "380:Uf_pPwE4"
@@ -333,8 +416,19 @@ The client should use some token to prove it’s user ID. The best way is to use
 
 ```js
 const createStore = createLoguxCreator({
-  userId: localStorage.getItem('userId'),
-  token: localStorage.getItem('userToken'),
+  userId: localStorage.getItem('userId') || 'anonymous',
+  token: localStorage.getItem('userToken') || '',
+  …
+})
+```
+
+</details>
+<details><summary>Vuex client</summary>
+
+```js
+const Logux = createLogux({
+  userId: localStorage.getItem('userId') || 'anonymous',
+  token: localStorage.getItem('userToken') || '',
   …
 })
 ```
@@ -344,8 +438,8 @@ const createStore = createLoguxCreator({
 
 ```js
 const client = new CrossTabClient({
-  userId: localStorage.getItem('userId'),
-  token: localStorage.getItem('userToken'),
+  userId: localStorage.getItem('userId') || 'anonymous',
+  token: localStorage.getItem('userToken') || '',
   …
 })
 ```

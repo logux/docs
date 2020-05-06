@@ -33,6 +33,19 @@ You can change the subprotocol version at `src/index.js` file (or another file w
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+You can change the subprotocol version at `src/store/index.js` file (or another file where you create store):
+
+```diff
+  const Logux = createLogux({
+-   subprotocol: '1.1.0',
++   subprotocol: '2.0.0',
+    …
+  })
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 You can change the subprotocol version in the file where you create the client.
@@ -126,6 +139,26 @@ export default function reduceUsers(state = { }, action) {
       return { ...state, [action.id]: { name: action.name } }
     } else {
       return { ...state, [action.user.id]: action.user }
+    }
+  }
+}
+```
+
+</details>
+<details><summary>Vuex client</summary>
+
+Unfortunately, there is no API to pass `meta.subprotocol` to Vuex mutations. We will make a solution for old action in our future Vuex API extension.
+
+Right now you need to be read and look into action structure:
+
+```js
+export default {
+  …
+  'users/add': (state, action) => {
+    if (action.id) {
+      return { ...state.users, [action.id]: { name: action.name } }
+    } else {
+      return { ...state.users, [action.user.id]: action.user }
     }
   }
 }

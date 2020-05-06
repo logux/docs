@@ -5,6 +5,8 @@ The state describes all data of your application. On the client-side state descr
 
 ## Client State
 
+<details open><summary>Redux client</summary>
+
 Logux Redux uses *event sourcing* pattern on client-side. Actions describe the current state. State object is just an cache.
 
 The developer provides reducer. The reducer has an initial state (`[]` in this example) and describes how to change the current state on this action:
@@ -51,6 +53,73 @@ Each reducer must be a pure function (always return the same result on the same 
 1. It should create a new state object, not changing the old one.
 2. It should be state-less. It should work only with old state and action. You can not use `localStorage` or AJAX in the reducer.
 
+</details>
+<details><summary>Vuex client</summary>
+
+Logux Vuex uses *event sourcing* pattern on client-side. Actions describe the current state. State object is just an cache.
+
+The developer provides initial state and mutations. Each Vuex mutation has a string type and a handler. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
+
+```js
+const store = new Logux.Store({
+  state: { users: [] },
+  mutations: {
+    'users/add': (state, action) => {
+      state.users = state.users.concat([action.user])
+    },
+    'users/remove': (state, action) => {
+      state.users = state.users.filter(user => user.id !== action.userId)
+    }
+  }
+})
+```
+
+Mutations can be either part of the root state or part of a sub module:
+
+```js
+const usersModule = {
+  state: { users: [] },
+  mutations: {
+    'users/add': (state, action) => {
+      state.users = state.users.concat([action.user])
+    },
+    'users/remove': (state, action) => {
+      state.users = state.users.filter(user => user.id !== action.userId)
+    }
+  }
+}
+
+const store = new Logux.Store({
+  state: { value: 0 },
+  mutations: {
+    'increment': (state) => {
+      state.value = state.value + 1
+    }
+  },
+  modules: {
+    users: usersModule
+  }
+})
+```
+
+Then each action will commit mutations to change the state.
+
+```js
+const action = {
+  type: 'user/add',
+  user: { id: '7tEL8t', name: 'First' }
+}
+store.commit.sync(action)
+console.log(store.state) //=> { users: [{ id: '7tEL8t', name: 'First' }] }
+```
+
+Each mutation must be a pure function (always return the same result on the same argument):
+
+1. It should create a new state object, not changing the old one.
+2. It should be state-less. It should work only with old state and action. You can not use `localStorage` or AJAX in the mutation.
+
+</details>
+
 As a result, with a history of actions, you can always re-generate the same state. If you remove an action from the history, you can generate a different state. Logux uses it for reverting changes and edits conflict resolution.
 
 By default, Logux keeps last 1000 action (you can change it, see [reasons chapter]) and cache state every 50 actions to make time-travel faster.
@@ -60,7 +129,9 @@ By default, Logux keeps last 1000 action (you can change it, see [reasons chapte
 
 ## Client State and UI
 
-Logux Redux generates big JS object as application state. We recommend to use some reactive UI library (React, Vue.js, Svelte, etc.) to render and change UI according to state changes:
+<details open><summary>Redux client</summary>
+
+Logux Redux generates big JS object as application state. We recommend to use some reactive UI library (React, Vue, Svelte, etc.) to render and change UI according to state changes:
 
 ```js
 import { useSelector } from 'react-redux'
@@ -84,6 +155,56 @@ store.subscribe(() => {
   }
 })
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+To render and change UI according to state changes simply return some store state from within a computed property:
+
+```js
+export default {
+  name: 'Users',
+  props: ['id'],
+  computed: {
+    users () {
+      return this.$store.state.users
+    }
+  },
+  template: `
+    <ul>
+      <li v-for="user in users" :key='user.id'>
+        {{ user.name }}
+      </li>
+    </ul>
+  `
+}
+```
+
+Often we need non-pure logic, and we can’t put it to a mutation. For instance, we need to change `document.title` on new error. For these cases, you can set a listener for state changes:
+
+```js
+store.subscribe((mutation, state) => {
+  if (state.errors.length) {
+    document.title = '* Error'
+  } else {
+    document.title = 'OK'
+  }
+})
+```
+
+Or simple watcher, similar to Vue’s `vm.$watch`:
+
+```js
+store.watch(state => state.errors, (oldValue, newValue) => {
+  if (newValue.length) {
+    document.title = '* Error'
+  } else {
+    document.title = 'OK'
+  }
+})
+```
+
+</details>
 
 
 ## Server State
@@ -221,16 +342,27 @@ end
 
 ## Time Travel
 
-Logux Redux keeps old actions and old state values.
+Logux Client wrapper such as Logux Redux and Logux Vuex keeps old actions and old state values.
 
-This history allows Logux Redux to do “time travel” recalculate state with
+This history allows them to do “time travel” recalculate state with
 different action order or without some action from the past. This feature is critical for conflict resolution (important for collaborative editing) and changes reverting (important for Optimistic UI).
 
-Be default, Logux Redux keeps last 1000 actions. You can change it or implemented more complex logic. See [reasons chapter] for details.
+Be default, they keep last 1000 actions. You can change it or implemented more complex logic. See [reasons chapter] for details.
+
+<details open><summary>Redux client</summary>
 
 Logux Redux saves state every 50 actions. You can change it by `saveStateEvery` option in `createLoguxCreator` function.
 
+</details>
+<details><summary>Vuex client</summary>
+
+Logux Vuex saves state every 50 actions. You can change it by `saveStateEvery` option in `createLogux` function.
+
+</details>
+
 In some cases 1000 action could be not enough for time travel. For instance, some client was offline for a few hours and only now send their actions to the server. In this case, client will receive very old actions and will not be able to revert history at that moment to put that client’s actions into the right moment of the history.
+
+<details open><summary>Redux client</summary>
 
 In this case, Logux Redux will time travel to latest possible moment. In most cases, it will be enough. If your application is critical for this changes, you have 2 options:
 
@@ -248,6 +380,27 @@ In this case, Logux Redux will time travel to latest possible moment. In most ca
    })
    ```
 
+</details>
+<details><summary>Vuex client</summary>
+
+In this case, Logux Vuex will time travel to latest possible moment. In most cases, it will be enough. If your application is critical for this changes, you have 2 options:
+
+1. Use [`reasons`] to make custom algorithm to keep actual action in the memory.
+2. Set `onMissedHistory` callback to process this cases:
+
+   ```js
+   let Logux = createLogux({
+     …,
+     onMissedHistory (action) {
+       if (CRITICAL_ACTIONS.includes(action.type)) {
+         store.commit.sync({ type: 'reload/state' }) // Ask server for latest state
+       }
+     }
+   })
+   ```
+
+</details>
+
 [`reasons`]: ./reason.md
 
 
@@ -257,7 +410,7 @@ If several users can work on the same document in your application, you need to 
 
 There is no single solution for conflict resolution. It always depends on data type and business processes. Logux gives you few basements to not care about conflict resolutions in simple cases and write custom logic in complicated situations.
 
-**Logux Redux** uses time travel to keep the same order of actions on all machines. It uses [ID and time] from meta to detect order and time travel to insert action in the right moment of history. Time travel is a technique when Logux Redux reverts recent actions, apply new action, and then re-apply recent actions.
+**Logux Redux** and **Logux Vuex** uses time travel to keep the same order of actions on all machines. It uses [ID and time] from meta to detect order and time travel to insert action in the right moment of history. Time travel is a technique when Logux Redux reverts recent actions, apply new action, and then re-apply recent actions.
 
 As a result, if the developer used [atomic actions], conflict actions will override each other (“the last write wins” model). In complicated cases, you can define merge logic in reducers.
 

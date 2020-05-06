@@ -90,14 +90,18 @@ Add this token and user ID to HTML templates used for authenticated user:
 
 Use these `<meta>` values in the store:
 
+<details open><summary>Redux client</summary>
+
 ```diff
-+ userId = document.querySelector('meta[name=userId]')
-+ token = document.querySelector('meta[name=token]')
++ let userId = document.querySelector('meta[name=userId]')
++ let token = document.querySelector('meta[name=token]')
+
 + if (!userId) {
 +   location.href = process.env.NODE_ENV === 'development'
 +     ? 'http://localhost:3000/login'
 +     : 'https://example.com/login'
 + }
+
   const createStore = createLoguxCreator({
     subprotocol: '1.0.0',
     server: process.env.NODE_ENV === 'development'
@@ -109,6 +113,33 @@ Use these `<meta>` values in the store:
 +   token: token.content,
   })
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+```diff
++ let userId = document.querySelector('meta[name=userId]')
++ let token = document.querySelector('meta[name=token]')
+
++ if (!userId) {
++   location.href = process.env.NODE_ENV === 'development'
++     ? 'http://localhost:3000/login'
++     : 'https://example.com/login'
++ }
+
+  const Logux = createLogux({
+    subprotocol: '1.0.0',
+    server: process.env.NODE_ENV === 'development'
+      ? 'ws://localhost:31337'
+      : 'wss://logux.example.com',
+-   userId: 'todo',  // TODO: We will fill it in next chapter
+-   token: '' // TODO: We will fill it in next chapter
++   userId: userId.content,
++   token: token.content,
+  })
+```
+
+</details>
 
 
 ### Method 1: Check the Result
@@ -181,9 +212,10 @@ server.type('login', {
 
 ### Method 2: Client
 
-Open your Logux Redux client and add sign-up form according to your design.
+In this example, we will implement sign-in outside of the application’s store, because guests don't need it.
+You can implement it the way you want, according to your design.
 
-Then add code to login user:
+Sign-in user with simple Logux Client, save `userId` and `token` to `localStorage` and redirect to application:
 
 ```js
 import { Client } from '@logux/client'
@@ -214,12 +246,15 @@ function login (email, password) {
 
 Use these `localStorage` values in the store:
 
+<details open><summary>Redux client</summary>
+
 ```diff
 + if (!localStorage.getItem('userId')) {
 +   location.href = process.env.NODE_ENV === 'development'
 +     ? 'http://localhost:3000/login'
 +     : 'https://example.com/login'
 + };
+
   const createStore = createLoguxCreator({
     subprotocol: '1.0.0',
     server: process.env.NODE_ENV === 'development'
@@ -231,6 +266,30 @@ Use these `localStorage` values in the store:
 +   token: localStorage.getItem('token'),
   });
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+```diff
++ if (!localStorage.getItem('userId')) {
++   location.href = process.env.NODE_ENV === 'development'
++     ? 'http://localhost:3000/login'
++     : 'https://example.com/login'
++ };
+
+  const Logux = createLogux({
+    subprotocol: '1.0.0',
+    server: process.env.NODE_ENV === 'development'
+      ? 'ws://localhost:31337'
+      : 'wss://logux.example.com',
+-   userId: 'todo',  // TODO: We will fill it in next chapter
+-   token: '' // TODO: We will fill it in next chapter
++   userId: localStorage.getItem('userId'),
++   token: localStorage.getItem('token'),
+  });
+```
+
+</details>
 
 
 ### Method 2: Check the Result

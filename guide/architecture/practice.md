@@ -29,7 +29,9 @@ After authenticating user server will calculate **time different** between clien
 
 Because real-time are important parts of Logux idea, in Logux *subscriptions* is a way to request data from the server.
 
-On the client, you use `useSubscription` hook or wrap a component into `subscribe` decorator. Every time, when component added to UI, Logux will subscribe for the channel with the data. Every time, when the component will be removed, Logux will unsubscribe from the channel.
+<details open><summary>Redux client</summary>
+
+Use `useSubscription` hook or wrap a component into `subscribe` decorator.
 
 ```js
 export const User = (userId) => {
@@ -37,6 +39,28 @@ export const User = (userId) => {
   …
 }
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+Extend your component with `subscriptionMixin`.
+
+```js
+export default {
+  name: 'User',
+  mixins: [subscriptionMixin],
+  props: ['userId']
+  computed: {
+    channels () {
+      return [`user/${userId}`]
+    }
+  }
+}
+```
+
+</details>
+
+Every time, when component added to UI, Logux will subscribe for the channel with the data. Every time, when the component will be removed, Logux will unsubscribe from the channel.
 
 Logux client sends `logux/subscribe` action to the server:
 
@@ -66,6 +90,8 @@ server.channel('user/:id', {
 
 Logux client shows loader while the server loads data. When the client will receive initial data, the client will apply data to the state and hide loader.
 
+<details open><summary>Redux client</summary>
+
 ```js
 export const User = ({ userId }) => {
   const isSubscribing = useSubscription([`user/${ userId }`])
@@ -79,6 +105,40 @@ export const User = ({ userId }) => {
 }
 ```
 
+</details>
+<details><summary>Vuex client</summary>
+
+```html
+<template>
+  <div v-if="isSubscribing">
+    <h1>Loading</h1>
+  </div>
+  <div v-else>
+    <h1>{{ user.name }}</h1>
+  </div>
+</template>
+
+<script>
+import { subscriptionMixin } from '@logux/vuex'
+
+export default {
+  name: 'User',
+  mixins: [subscriptionMixin],
+  props: ['userId']
+  computed: {
+    channels () {
+      return [`user/${userId}`]
+    },
+    user () {
+      return this.$store.state.users[userId]
+    }
+  }
+}
+</script>
+```
+
+</details>
+
 
 ## Changing Data
 
@@ -90,6 +150,8 @@ log.add(
   { sync: true }                                       // Meta
 )
 ```
+
+<details open><summary>Redux client</summary>
 
 In the most popular case, Logux client use [Redux-style reducers] to **reduce list of action to the state**. Reducer is a pure function, which immutable change the state according to this new action:
 
@@ -104,6 +166,26 @@ function usersReducers (state = { }, action) {
 ```
 
 [Redux-style reducers]: https://redux.js.org/basics/reducers
+
+</details>
+<details><summary>Vuex client</summary>
+
+Logux Vuex client use [Vuex mutations] to **reduce list of action to the state**. Mutation is the only way to change state.
+
+```js
+const store = new Logux.Store({
+  …
+  mutations: {
+    'user/rename': (state, action) => {
+      return { ...state, name: action.name }
+    }
+  }
+})
+```
+
+[Vuex mutations]: https://vuex.vuejs.org/guide/mutations.html
+
+</details>
 
 If the user changed their name in the form, the client does not need to show loader on the Save button. The client creates action and applies this action to the state **immediately**.
 
