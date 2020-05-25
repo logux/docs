@@ -451,7 +451,7 @@ User ID and token will be checked on the server:
 <details open><summary>Node.js</summary>
 
 ```js
-server.auth((userId, token) => {
+server.auth(({ userId, token }) => {
   const data = await jwt.verify(token, process.env.JWT_SECRET)
   return data.sub === userId
 })

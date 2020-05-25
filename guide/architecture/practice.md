@@ -14,7 +14,7 @@ Logux server is written in JS. There are two ways to use it:
 1. Use Logux server as a framework and write an application on top of **Logux JS API**. You can use any database to store data.
 
     ```js
-    server.auth(async (userId, token) => {
+    server.auth(async ({ userId, token }) => {
       return verifyJWT(token).userId === userId
     })
     ```

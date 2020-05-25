@@ -178,7 +178,7 @@ Add JWT secret key to local `.env` config file:
 Go back to `index.js` and replace `server.auth(…)` with this code:
 
 ```js
-server.auth((userId, token) => {
+server.auth(({ userId, token }) => {
   if (userId === 'anonymous') {
     return true
   } else {
