@@ -94,6 +94,8 @@ In `380:Uf_pPwE4:6K7iYdJH`:
 2. `380:Uf_pPwE4` is **client ID**. Each browser tab has a unique node ID, but every browser tab in this browser will have the same client ID.
 3. `6K7iYdJH` is **tab ID**. Each browser tab will have unique value.
 
+You can use [`parseId`](https://logux.io/redux-api/#globals-parseid) helper to get user ID and client ID from action ID or node ID.
+
 On the server you can get user ID and client ID of the client by:
 
 <details open><summary>Node.js</summary>
