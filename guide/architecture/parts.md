@@ -22,6 +22,6 @@ We split Logux into many projects.
 [Logux Rack]: https://github.com/logux/logux-rack
 [Logux Vuex]: https://github.com/logux/vuex
 [Logux Core]: https://github.com/logux/core
-[Logux Docs]: https://github.com/logux/logux
+[Logux Docs]: https://github.com/logux/docs
 
 [Next chapter](../concepts/node.md)
