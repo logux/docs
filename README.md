@@ -263,29 +263,30 @@ You can use any HTTP server with Logux WebSocket proxy server. Here is a PHP-lik
 $req = json_decode(file_get_contents('php://input'), true);
 if ($req['password'] == LOGUX_PASSWORD) {
   foreach ($req['commands'] as $command) {
-    if ($command[0] == 'action') {
-      $action = $command[1];
-      $meta = $command[2];
+    if ($command['command'] == 'action') {
+      $action = $command['action'];
+      $meta = $command['meta'];
 
       if ($action['type'] == 'logux/subscribe') {
-        echo '[["approved"],';
+        echo '[{ "answer": "approved", "id": "' + $meta['id'] + '" },';
         $value = $db->getCounter();
         send_json_http_post(LOGUX_HOST, [
           'password' => LOGUX_PASSWORD,
-          'version' => 1,
+          'version' => 4,
           'commands' => [
             [
-              'action',
-              ['type' => 'INC', 'value' => $value],
-              ['clients' => get_client_id($meta['id'])]
+              'command' => 'action',
+              'action' => ['type' => 'INC', 'value' => $value],
+              'meta' => ['clients' => get_client_id($meta['id'])]
             ]
           ]
         ]);
-        echo '["processed"]]';
+        echo '{ "answer": "processed", "id": "' + $meta['id'] + '" }]';
 
       } elseif ($action['type'] == 'inc') {
         $db->updateCounter('value += 1');
-        echo '[["approved"],["processed"]]';
+        echo '[{ "answer": "approved", "id": "' + $meta['id'] + '" },' +
+              '{ "answer": "processed", "id": "' + $meta['id'] + '" }]';
       }
     }
   }
