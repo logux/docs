@@ -72,6 +72,16 @@ On wrong credentials or unknown user ID:
 }
 ```
 
+On any error during the authentication:
+
+```ts
+{
+  answer: "error",
+  authId: string,
+  stack: string
+}
+```
+
 See [authentication example](./examples.md#authentication).
 
 
