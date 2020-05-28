@@ -24,7 +24,8 @@
     "typescript",
     "tests",
     "cross-tab",
-    "subprotocol"
+    "subprotocol",
+    "headers"
   ],
   "protocols": [
     "ws/spec",
