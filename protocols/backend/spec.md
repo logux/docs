@@ -43,10 +43,10 @@ Answer[]
   authId: string,
   userId: string,
   token?: string,
-  cookie?: {
+  cookie: {
     [name]: string
   },
-  headers?: {
+  headers: {
     [name]: string
   }
 }
@@ -92,7 +92,7 @@ See [authentication example](./examples.md#authentication).
   command: "action",
   action: Action,
   meta: Meta,
-  headers?: {
+  headers: {
     [name]: string
   }
 }
