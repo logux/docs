@@ -224,7 +224,7 @@ server.channel('users/:id', {
   …,
   async load (ctx, action, meta) {
     let user = await db.loadUser(ctx.params.id))
-    ctx.sendBack({ type: 'user/add', user })
+    return { type: 'user/add', user }
   }
 })
 ```

@@ -141,7 +141,7 @@ server.channel('counter', {
     // Load initial state when client subscribing to the channel.
     // You can use any database.
     let value = await db.get('counter')
-    ctx.sendBack({ type: 'INC', value })
+    return { type: 'INC', value }
   }
 })
 

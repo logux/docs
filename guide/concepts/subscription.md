@@ -51,7 +51,7 @@ server.channel('users/:id', {
   },
   async load (ctx, action, meta) {
     let user = await db.loadUser(ctx.params.id)
-    ctx.sendBack({ type: 'user/add', user })
+    return { type: 'user/add', user }
   }
 })
 ```
@@ -298,9 +298,9 @@ For simple cases, you can use `action.since.time` with a timestamp. For more com
     …,
     async load (ctx, action, meta) {
       let user = await db.loadUser(ctx.params.id)
--     ctx.sendBack({ type: 'user/add', user })
+-     return { type: 'user/add', user }
 +     if (!action.since || user.changesAt > action.since.time) {
-+       ctx.sendBack({ type: 'user/add', user })
++       return { type: 'user/add', user }
 +     }
     }
   })

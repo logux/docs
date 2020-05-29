@@ -596,14 +596,14 @@ someService.on('error', () => {
 })
 ```
 
-But, in most of the cases, you will use `ctx.sendBack` shortcut. It sets `meta.client` to `ctx.clientId`.
+But, in most of the cases, you will return actions in channel `load` callback. You can return `action`, `[action1, action2]` or `[[action1, meta1], [action2, meta2]]`.
 
 ```js
 server.channel('user/:id', {
   …
   async load (ctx, action, meta) {
     ler user = await db.first('users', { id: ctx.params.id })
-    ctx.sendBack({ type: 'users/add', user })
+    return { type: 'users/add', user }
   }
 })
 ```
