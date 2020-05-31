@@ -620,7 +620,7 @@ from logux.core import logux_add
 logux_add({ type: 'someService/error' }, { 'channels': ['admins'] })
 ```
 
-Ypu can return actions (`action`, `[action1, action2]` or `[[action1, meta1]]`) in channel’s `load` method.
+You can return actions (`action`, `[action1, action2]` or `[[action1, meta1]]`) in channel’s `load` method.
 ```python
   class UserChannel(ChannelCommand):
       channel_pattern = r'^user/(?P<user_id>\w+)$'
