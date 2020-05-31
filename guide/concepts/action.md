@@ -620,7 +620,7 @@ from logux.core import logux_add
 logux_add({ type: 'someService/error' }, { 'channels': ['admins'] })
 ```
 
-`send_back` is method of `ActionCommand`'s inheritors.
+Ypu can return actions (`action`, `[action1, action2]` or `[[action1, meta1]]`) in channel’s `load` method.
 ```python
   class UserChannel(ChannelCommand):
       channel_pattern = r'^user/(?P<user_id>\w+)$'
@@ -629,9 +629,7 @@ logux_add({ type: 'someService/error' }, { 'channels': ['admins'] })
 
       def load(self, action: Action, meta: Meta):
           user = User.objects.get(pk=self.params['user_id'])
-          self.send_back(
-              {'type': 'user/add', 'user': user}
-          )
+          return {'type': 'user/add', 'user': user}
 ```
 
 </details>

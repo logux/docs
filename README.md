@@ -192,7 +192,7 @@ class CounterChannel(ChannelCommand):
 
     def load(self, action: Action, meta: Meta) -> None:
         counter_value = Counter.objects.first().val
-        self.send_back({'type': 'INC', 'value': counter_value})
+        return {'type': 'INC', 'value': counter_value}
 
 
 logux.channels.register(CounterChannel)

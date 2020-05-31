@@ -1,5 +1,12 @@
 # Logux Back-end Protocol Changes
 
+## 4
+
+* Use objects for commands and answers.
+* Add `cookie` and `headers` keys to `auth` command.
+* Add `headers` key to `action` command.
+
+
 ## 3
 
 * Rename `password` to `secret`.

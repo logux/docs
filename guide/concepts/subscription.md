@@ -69,9 +69,7 @@ class UserChannel(ChannelCommand):
 
     def load(self, action: Action, meta: Meta):
         user = User.objects.get(pk=self.params['user_id'])
-        self.send_back(
-            {'type': 'user/add', 'user': user.json()}
-        )
+        return {'type': 'user/add', 'user': user.json()}
 ```
 
 </details>
@@ -317,9 +315,7 @@ class UserChannel(ChannelCommand):
         user = User.objects.get(pk=self.params['user_id'])
         since = action.get('since', None)
         if since is None or (user.changes_at > since['time']):
-            self.send_back(
-                {'type': 'user/name', 'user': user.json()}
-            )
+            return {'type': 'user/name', 'user': user.json()}
 ```
 
 </details>
