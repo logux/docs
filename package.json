@@ -9,7 +9,7 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.2",
     "chalk": "^4.0.0",
-    "globby": "^11.0.0",
+    "globby": "^11.0.1",
     "remark-cli": "^8.0.0",
     "remark-lint-no-dead-urls": "^1.0.2",
     "remark-lint-no-empty-sections": "^4.0.0",
