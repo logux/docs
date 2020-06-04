@@ -226,7 +226,7 @@ Back-end server response on an internal error:
   {
     "answer": "error",
     "id": "1560954012838 38:Y7bysd:O0ETfc 0",
-    "stack": "PostgreSQLError: No connection to database\n    at DB.connnect"
+    "details": "PostgreSQLError: No connection to database\n    at DB.connnect"
   }
 ]
 ```

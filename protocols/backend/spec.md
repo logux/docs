@@ -72,13 +72,13 @@ On wrong credentials or unknown user ID:
 }
 ```
 
-On any error during the authentication:
+On any error during the authentication (`details` can be used for stack-trace):
 
 ```ts
 {
   answer: "error",
   authId: string,
-  stack: string
+  details: string
 }
 ```
 
@@ -196,13 +196,13 @@ If back-end server doesn’t have code to validate action it must write `unknown
 }
 ```
 
-If back-end server had any errors during action validating and processing it should write `["error", meta.id, string stacktrace]` answer.
+If back-end server had any errors during action validating and processing it should write `error` answer (`details` can be used for stack-trace).
 
 ```ts
 {
   answer: "error",
   id: string,
-  stack: string
+  details: string
 }
 ```
 
