@@ -43,6 +43,7 @@ Answer[]
   authId: string,
   userId: string,
   token?: string,
+  subprotocol: string,
   cookie: {
     [name]: string
   },
@@ -69,6 +70,15 @@ On wrong credentials or unknown user ID:
 {
   answer: "denied",
   authId: string
+}
+```
+
+If back-end do not support client’s subprotocol, with the [npm range](https://docs.npmjs.com/misc/semver) of supported subprotocols.
+
+```ts
+{
+  answer: "wrong-subprotocol",
+  supported: string
 }
 ```
 

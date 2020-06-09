@@ -3,7 +3,7 @@
 ## 4
 
 * Use objects for commands and answers.
-* Add `cookie` and `headers` keys to `auth` command.
+* Add `subpotocol`, `cookie` and `headers` keys to `auth` command.
 * Add `headers` key to `action` command.
 
 

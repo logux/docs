@@ -16,9 +16,11 @@ Content-Type: application/json
       "command": "auth",
       "authId": "gf4Ygi6grYZYDH5Z2BsoR",
       "userId": "38",
+      "subprotocol": "1.1.0",
       "cookie": {
         "token:": "good-token"
-      }
+      },
+      "headers": {}
     }
   ]
 }
