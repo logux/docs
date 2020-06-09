@@ -77,7 +77,7 @@ If back-end do not support client’s subprotocol, with the [npm range](https://
 
 ```ts
 {
-  answer: "wrong-subprotocol",
+  answer: "wrongSubprotocol",
   supported: string
 }
 ```
