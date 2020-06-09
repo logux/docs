@@ -32,6 +32,7 @@ Response:
 [
   {
     "answer": "authenticated",
+    "subprotocol": "1.2.0",
     "authId": "gf4Ygi6grYZYDH5Z2BsoR"
   }
 ]

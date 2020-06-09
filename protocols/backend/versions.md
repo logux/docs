@@ -5,6 +5,8 @@
 * Use objects for commands and answers.
 * Add `subpotocol`, `cookie` and `headers` keys to `auth` command.
 * Add `headers` key to `action` command.
+* Add `wrongSubprotocol` answer.
+* Add `subporotocol` to `authenticated` answer.
 
 
 ## 3
