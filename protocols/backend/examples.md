@@ -146,9 +146,22 @@ Back-end server writes:
     "answer": "approved",
     "id": "1560954012858 38:Y7bysd:O0ETfc 0"
   },
+  {
+    "answer": "action",
+    "id": "1560954012858 38:Y7bysd:O0ETfc 0",
+    "action": { "type": "user/name", "user": 38, "name": "The User" },
+    "meta": { "client": "38:Y7bysd" }
+  },
+  {
+    "answer": "processed",
+    "id": "1560954012858 38:Y7bysd:O0ETfc 0"
+  }
+]
 ```
 
-Then back-end server sends HTTP request to Logux server:
+## Sending Action from Server
+
+Then back-end server can send HTTP request to Logux server:
 
 ```js
 POST /
@@ -165,16 +178,6 @@ Content-Type: application/json
     }
   ]
 }
-```
-
-After the answer from Logux server, back-end writes the last part of an HTTP response:
-
-```js
-  {
-    "answer": "processed",
-    "id": "1560954012858 38:Y7bysd:O0ETfc 0"
-  }
-]
 ```
 
 
