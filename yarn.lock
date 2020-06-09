@@ -209,10 +209,10 @@ chalk@^3.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chalk@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
-  integrity sha512-N9oWFcegS0sFr9oh1oz2d7Npos6vNoWW9HvtCg5N1KRFpUhaAhvTv5Y58g880fZaEYSNm3qDz8SU1UrGvp+n7A==
+chalk@^4.0.0, chalk@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.0.tgz#4e14870a618d9e2edd97dd8345fd9d9dc315646a"
+  integrity sha512-qwx12AxXe2Q5xQ43Ac//I6v5aXTipYrSESdOgzrN+9XjgEpyjpKuvSGaN4qE93f7TQTlerQQ8S+EQ0EyDoVL1A==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
@@ -1422,9 +1422,9 @@ remark-preset-lint-recommended@^4.0.0:
     remark-lint-ordered-list-marker-style "^2.0.0"
 
 remark-stringify@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/remark-stringify/-/remark-stringify-8.0.0.tgz#33423ab8bf3076fb197f4cf582aaaf866b531625"
-  integrity sha512-cABVYVloFH+2ZI5bdqzoOmemcz/ZuhQSH6W6ZNYnLojAUUn3xtX7u+6BpnYp35qHoGr2NFBsERV14t4vCIeW8w==
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/remark-stringify/-/remark-stringify-8.1.0.tgz#1e555f4402e445c364fb23d12fc5f5e0337ec8b7"
+  integrity sha512-FSPZv1ds76oAZjurhhuV5qXSUSoz6QRPuwYK38S41sLHwg4oB7ejnmZshj7qwjgYLf93kdz6BOX9j5aidNE7rA==
   dependencies:
     ccount "^1.0.0"
     is-alphanumeric "^1.0.0"
@@ -1655,9 +1655,9 @@ unherit@^1.0.4:
     xtend "^4.0.0"
 
 unified-args@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/unified-args/-/unified-args-8.0.0.tgz#c74d92a2b2ab43ed95c22c61d0ef81b4eed1bd80"
-  integrity sha512-224jfXOL0Xu0e52fJTfxmAaNTuW1zopPmnXh/5GDAxx4Z6NbcZpjgQPBmo1xoLAhGih0rWVG2+a2kodzrEHfHw==
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/unified-args/-/unified-args-8.1.0.tgz#a27dbe996a49fbbf3d9f5c6a98008ab9b0ee6ae5"
+  integrity sha512-t1HPS1cQPsVvt/6EtyWIbQGurza5684WGRigNghZRvzIdHm3LPgMdXPyGx0npORKzdiy5+urkF0rF5SXM8lBuQ==
   dependencies:
     camelcase "^5.0.0"
     chalk "^3.0.0"
