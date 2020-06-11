@@ -4,8 +4,8 @@ Logux uses Back-end Protocol to make a proxy between WebSocket and HTTP. Logux S
 
 * [Communication examples](./examples.md)
 * [Protocol versions](./versions.md)
-* Ruby implementation: [`logux_rails`](https://github.com/logux/logux_rails)
-* Node.js implementation: [`tchak/logux-processor`](https://github.com/tchak/logux-processor)
+* [Compatability test tool](https://github.com/logux/backend-test)
+* Django implementation: [`logux-django`](https://github.com/logux/django/)
 
 
 ## Requests
