@@ -7,9 +7,10 @@
     "test": "./scripts/check-order.js && yarn lint && yarn spell"
   },
   "devDependencies": {
-    "@arkweid/lefthook": "^0.7.2",
     "chalk": "^4.1.0",
     "globby": "^11.0.1",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.9",
     "remark-cli": "^8.0.0",
     "remark-lint-no-dead-urls": "^1.0.2",
     "remark-lint-no-empty-sections": "^4.0.0",
@@ -23,6 +24,19 @@
   "type": "module",
   "engines": {
     "node": ">=13.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "order.json": "./scripts/check-order.js",
+    "*.md": [
+      "yaspeller",
+      "remark --no-stdout --frail --quiet",
+      "./scripts/check-order.js"
+    ]
   },
   "remarkConfig": {
     "plugins": [
