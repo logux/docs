@@ -4,7 +4,7 @@ Logux uses Back-end Protocol to make a proxy between WebSocket and HTTP. Logux S
 
 * [Communication examples](./examples.md)
 * [Protocol versions](./versions.md)
-* [Compatability test tool](https://github.com/logux/backend-test)
+* [Compatibility test tool](https://github.com/logux/backend-test)
 * Django implementation: [`logux-django`](https://github.com/logux/django/)
 
 
