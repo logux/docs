@@ -31,7 +31,7 @@ npm i @logux/vuex
 Find store definition in your project. Look for creating an instance of `Vuex.Store`. Often you can find it at `src/store/index.js`.
 
 ```diff
-  import Vue from 'Vue'
+  import Vue from 'vue'
   import Vuex from 'vuex'
 + import { createLogux } from '@logux/vuex'
 
