@@ -517,9 +517,9 @@ eyo-kernel@^2.5.6:
   integrity sha512-lAcX7HdPLlNB8Ia6Uvq2hFMx9S5VQSfAXkjBZJi9OXzFC1exDvX9lzk2YeQVB9EKufhlHlgeiD26mzg5q42Rgg==
 
 fast-glob@^3.1.1:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.2.tgz#ade1a9d91148965d4bf7c51f72e1ca662d32e63d"
-  integrity sha512-UDV82o4uQyljznxwMxyVRJgZZt3O5wENYojjzbaGEGZgeOxkLFf+V4cnUD+krzb2F72E18RhamkMZ7AdeggF7A==
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.4.tgz#d20aefbf99579383e7f3cc66529158c9b98554d3"
+  integrity sha512-kr/Oo6PX51265qeuCYsyGypiO5uJFgBS0jksyG7FUeCyQzNwYnzrNIMR1NXfkZXsMYXYLRAHgISHBz8gQcxKHQ==
   dependencies:
     "@nodelib/fs.stat" "^2.0.2"
     "@nodelib/fs.walk" "^1.2.3"
@@ -970,10 +970,10 @@ linkify-it@^2.0.0:
   dependencies:
     uc.micro "^1.0.1"
 
-lint-staged@^10.2.9:
-  version "10.2.9"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.2.9.tgz#6013ecfa80829cd422446b545fd30a96bca3098c"
-  integrity sha512-ziRAuXEqvJLSXg43ezBpHxRW8FOJCXISaXU//BWrxRrp5cBdRkIx7g5IsB3OI45xYGE0S6cOacfekSjDyDKF2g==
+lint-staged@^10.2.11:
+  version "10.2.11"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.2.11.tgz#713c80877f2dc8b609b05bc59020234e766c9720"
+  integrity sha512-LRRrSogzbixYaZItE2APaS4l2eJMjjf5MbclRZpLJtcQJShcvUzKXsNeZgsLIZ0H0+fg2tL4B59fU9wHIHtFIA==
   dependencies:
     chalk "^4.0.0"
     cli-truncate "2.1.0"
@@ -992,9 +992,9 @@ lint-staged@^10.2.9:
     stringify-object "^3.3.0"
 
 listr2@^2.1.0:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/listr2/-/listr2-2.1.3.tgz#f527e197de12ad8c488c566921fa2da34cbc67f6"
-  integrity sha512-6oy3QhrZAlJGrG8oPcRp1hix1zUpb5AvyvZ5je979HCyf48tIj3Hn1TG5+rfyhz30t7HfySH/OIaVbwrI2kruA==
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/listr2/-/listr2-2.1.8.tgz#8af7ebc70cdbe866ddbb6c80909142bd45758f1f"
+  integrity sha512-Op+hheiChfAphkJ5qUxZtHgyjlX9iNnAeFS/S134xw7mVSg0YVrQo1IY4/K+ElY6XgOPg2Ij4z07urUXR+YEew==
   dependencies:
     chalk "^4.0.0"
     cli-truncate "^2.1.0"
@@ -1706,10 +1706,10 @@ remark-stringify@^8.0.0:
     unherit "^1.0.4"
     xtend "^4.0.1"
 
-remark-validate-links@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/remark-validate-links/-/remark-validate-links-10.0.0.tgz#a76f14dc9150d9af061115adbfe3efc6e54c1424"
-  integrity sha512-BLVKPCoF8BLZCgJyDNw8rEL9++ohx+lpc6eZl7GNmHxJi3SR5tA7JYNcEVmcDj7M6Kl04wmc6BaeJ1FYNQDaIQ==
+remark-validate-links@^10.0.2:
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/remark-validate-links/-/remark-validate-links-10.0.2.tgz#95e79194663cb5b0cb1ccfb86df1176a1759c65e"
+  integrity sha512-rcg/FFgowCbR7fC5aNhpJu8ltXuSGZZunwIwReXtdZ704XHsHR3Xsy4N8uso43ih5cY9maIydfn1FNLHW0016w==
   dependencies:
     github-slugger "^1.0.0"
     hosted-git-info "^3.0.0"
