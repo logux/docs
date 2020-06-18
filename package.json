@@ -7,9 +7,9 @@
     "test": "./scripts/check-order.js && yarn lint && yarn spell"
   },
   "devDependencies": {
-    "chalk": "^4.1.0",
     "globby": "^11.0.1",
     "husky": "^4.2.5",
+    "kleur": "^4.0.0",
     "lint-staged": "^10.2.9",
     "remark-cli": "^8.0.0",
     "remark-lint-no-dead-urls": "^1.0.2",
