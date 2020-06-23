@@ -939,11 +939,6 @@ keyv@^3.0.0:
   dependencies:
     json-buffer "3.0.0"
 
-kleur@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/kleur/-/kleur-4.0.1.tgz#3d4948534b666e2578f93b6fafb62108e64f05ef"
-  integrity sha512-Qs6SqCLm63rd0kNVh+wO4XsWLU6kgfwwaPYsLiClWf0Tewkzsa6MvB21bespb8cz+ANS+2t3So1ge3gintzhlw==
-
 levenshtein-edit-distance@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/levenshtein-edit-distance/-/levenshtein-edit-distance-1.0.0.tgz#895baf478cce8b5c1a0d27e45d7c1d978a661e49"
