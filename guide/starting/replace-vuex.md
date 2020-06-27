@@ -36,7 +36,7 @@ Find store definition in your project. Look for creating an instance of `Vuex.St
 + import { LoguxVuex, createLogux } from '@logux/vuex'
 
 - Vue.use(Vuex)
-+ Vue.use(Vuex)
++ Vue.use(LoguxVuex)
 
 + const Logux = createLogux({
 +   subprotocol: '1.0.0',
