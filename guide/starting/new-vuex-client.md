@@ -43,7 +43,7 @@ You can install it via Vue CLI:
 npx @vue/cli add vuex
 ```
 
-Or manually, as described in [Vuex's documentation](https://vuex.vuejs.org/installation.html).
+Or manually, as described in [Vuex documentation](https://vuex.vuejs.org/installation.html).
 
 
 ## Adding Logux Vuex
