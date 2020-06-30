@@ -127,10 +127,10 @@ export default {
   props: ['userId']
   computed: {
     channels () {
-      return [`user/${userId}`]
+      return [`user/${this.userId}`]
     },
     user () {
-      return this.$store.state.users[userId]
+      return this.$store.state.users[this.userId]
     }
   }
 }
