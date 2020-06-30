@@ -4,6 +4,7 @@
     "starting/node-server",
     "starting/proxy-server",
     "starting/new-client",
+    "starting/new-vuex-client",
     "starting/replace-redux",
     "starting/replace-vuex",
     "architecture/core",
