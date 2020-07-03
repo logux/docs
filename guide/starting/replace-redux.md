@@ -4,7 +4,7 @@ If you already have Redux application, this guide will help you to add [Logux Re
 
 If you are starting new project use [special guide].
 
-[special guide]: ./new-client.md
+[special guide]: ./new-redux-client.md
 [Logux Redux]: https://github.com/logux/redux
 
 

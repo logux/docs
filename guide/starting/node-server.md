@@ -3,13 +3,14 @@
 In this guide, we will create the Logux server for the simplest case:
 
 * You have simple HTTP server to serve static HTML, CSS, and JS files.
-* You use [Logux Redux] on the client side.
+* You use [Logux Redux] or [Logux Vuex] on the client side.
 * Logux server do most of back-end business logic.
 * You write Logux server on Node.js.
 
 If you want to use another language for the server read [Logux Proxy] page.
 
-[Logux Redux]: ./new-client.md
+[Logux Redux]: ./new-redux-client.md
+[Logux Vuex]: ./new-vuex-client.md
 [Logux Proxy]: ./proxy-server.md
 
 
@@ -148,4 +149,4 @@ Connect to the database in `index.js`:
 
 Look at [Node.js API](https://logux.io/node-api/#server) to see what you can do next.
 
-[Next chapter](./new-client.md)
+[Next chapter](./new-redux-client.md)
