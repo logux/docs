@@ -201,6 +201,7 @@ export default subscribe(({ userId }) => `users/${ userId }`)(UserPage)
 
 </details>
 <details><summary>Vuex client</summary>
+Use `loguxMixin` or wrap a component into `loguxComponent`.
 
 `loguxMixin` extends your component:
 * automatically subscribes and unsubscribes during the component life cycle, tracks all subscriptions and doesn’t subscribe to channel if another component already subscribed to the same channel
@@ -272,6 +273,49 @@ In component, you should just return the state within a computed property as usu
   </script>
 ```
 
+`loguxComponent` is a component with scoped slots.
+It takes a `channels` in its props and passes down the `isSubscribing`.
+
+```html
+<template>
+  <logux-component :channels="[`user/${ userId }`]" v-slot="{ isSubscribing }">
+    <div v-if="isSubscribing">
+      <h1>Loading</h1>
+    </div>
+    <div v-else>
+      <h1>{{ user.name }}</h1>
+    </div>
+  </logux-component>
+</template>
+
+<script>
+import { loguxComponent } from '@logux/vuex'
+
+export default {
+  name: 'UserPage',
+  components: { loguxComponent },
+  props: ['userId'],
+  computed: {
+    // Retrieve counter state from store
+    user () {
+      return this.$store.state.user
+    }
+  }
+}
+</script>
+```
+
+`loguxComponent` automatically wraps multiple root elements in one `div` tag.
+You can change this with the `tag` property of the component.
+
+```html
+<template>
+  <logux-component :channels="[`user/${ userId }`]" :tag="span" v-slot="{ isSubscribing }">
+    <h1>User Profile</h1>
+    <h2 v-if="isSubscribing">{{ user.name }}</h2>
+  </logux-component>
+</template>
+```
 </details>
 
 
