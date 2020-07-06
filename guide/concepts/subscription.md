@@ -312,7 +312,8 @@ You can change this with the `tag` property of the component.
 <template>
   <logux-component :channels="[`user/${ userId }`]" :tag="span" v-slot="{ isSubscribing }">
     <h1>User Profile</h1>
-    <h2 v-if="isSubscribing">{{ user.name }}</h2>
+    <h2 v-if="isSubscribing">Loading</h2>
+    <h2 v-else>{{ user.name }}</h2>
   </logux-component>
 </template>
 ```
