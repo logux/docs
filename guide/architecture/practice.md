@@ -43,12 +43,12 @@ export const User = (userId) => {
 </details>
 <details><summary>Vuex client</summary>
 
-Extend your component with `subscriptionMixin`.
+Extend your component with `loguxMixin`.
 
 ```js
 export default {
   name: 'User',
-  mixins: [subscriptionMixin],
+  mixins: [loguxMixin],
   props: ['userId']
   computed: {
     channels () {
@@ -119,18 +119,18 @@ export const User = ({ userId }) => {
 </template>
 
 <script>
-import { subscriptionMixin } from '@logux/vuex'
+import { loguxMixin } from '@logux/vuex'
 
 export default {
   name: 'User',
-  mixins: [subscriptionMixin],
+  mixins: [loguxMixin],
   props: ['userId']
   computed: {
     channels () {
-      return [`user/${userId}`]
+      return [`user/${this.userId}`]
     },
     user () {
-      return this.$store.state.users[userId]
+      return this.$store.state.users[this.userId]
     }
   }
 }

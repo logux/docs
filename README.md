@@ -68,11 +68,11 @@ Using [Logux Vuex](https://github.com/logux/vuex/):
 </template>
 
 <script>
-import { subscriptionMixin } from '@logux/vuex'
+import { loguxMixin } from '@logux/vuex'
 
 export default {
   name: 'Counter',
-  mixins: [subscriptionMixin],
+  mixins: [loguxMixin],
   computed: {
     // Retrieve counter state from store
     counter () {

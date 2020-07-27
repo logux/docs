@@ -65,7 +65,8 @@ Benefits:
 
 Next step:
 
-* If you are starting new React project, read **[Starting Logux Redux Project](../starting/new-client.md)**.
+* If you are starting new React project, read **[Starting Logux Redux Project](../starting/new-redux-client.md)**.
+* If you are starting new Vue project, read **[Starting Logux Vuex Project](../starting/new-vuex-client.md)**.
 * If you have old Redux project, read **[Replacing Redux to Logux Redux](../starting/replace-redux.md)**.
 * If you have old Vuex project, read **[Replacing Vuex to Logux Vuex](../starting/replace-vuex.md)**.
 

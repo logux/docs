@@ -180,11 +180,11 @@ export default {
 </template>
 
 <script>
-import { subscriptionMixin } from '@logux/vuex'
+import { loguxMixin } from '@logux/vuex'
 
 export default {
   name: 'UsersView',
-  mixins: [subscriptionMixin],
+  mixins: [loguxMixin],
   computed: {
     channels () {
       return ['users']

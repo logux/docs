@@ -1,10 +1,9 @@
-# Replacing Vuex to Logux Vuex
+# Starting Logux Vuex Project
 
-Logux has [Vuex] support, an official flux-like state management library for Vue.js. This guide will help you to integrate [Logux Vuex] with your Vuex store.
+In this section, we will create a UI client for Logux with [Logux Vuex].
 
-[Vuex]: https://vuex.vuejs.org
+
 [Logux Vuex]: https://github.com/logux/vuex
-
 
 
 ## Server
@@ -18,6 +17,35 @@ Before starting the client, you need to create Logux Server:
 [How to create a proxy]: ./proxy-server.md
 
 
+## Creating the Project
+
+[Install Node.js].
+
+You will need a bundler to compile npm packages into JS bundle. Webpack or Parcel is excellent for it.
+Since Vuex is a official flux-like state management library for Vue.js, we will use Vue as core framework of application.
+To create a project with a single command, we will use [Vue CLI].
+
+```sh
+npx @vue/cli create client-logux
+cd client-logux
+```
+
+[Vue CLI]: https://cli.vuejs.org
+[Install Node.js]: https://nodejs.org/en/download/package-manager/
+
+
+## Adding Vuex
+
+If you have chosen the default Vue CLI preset, then you have not yet installed Vuex.
+You can install it via Vue CLI:
+
+```sh
+npx @vue/cli add vuex
+```
+
+Or manually, as described in [Vuex documentation](https://vuex.vuejs.org/installation.html).
+
+
 ## Adding Logux Vuex
 
 Install Logux Vuex:
@@ -26,9 +54,7 @@ Install Logux Vuex:
 npm i @logux/vuex
 ```
 
-</details>
-
-Find store definition in your project. Look for creating an instance of `Vuex.Store`. Often you can find it at `src/store/index.js`.
+Edit `src/store/index.js`:
 
 ```diff
   import Vue from 'vue'
@@ -45,9 +71,9 @@ Find store definition in your project. Look for creating an instance of `Vuex.St
 +     : 'wss://logux.example.com',
 +   userId: 'todo',  // TODO: We will fill it in next chapter
 +   token: '' // TODO: We will fill it in next chapter
-+ })
++ });
 
-- const store = new Vuex.Store({
+- export default new Vuex.Store({
 + const store = new Logux.Store({
     state: {},
     mutations: {},
@@ -56,6 +82,8 @@ Find store definition in your project. Look for creating an instance of `Vuex.St
   })
 
 + store.client.start()
+
++ export default store
 ```
 
 
@@ -69,36 +97,25 @@ Install Logux Client:
 npm i @logux/client
 ```
 
-Use helpers where you create the store.
+Change `src/index.js`:
 
 ```diff
-  import { createLogux } from '@logux/vuex'
-+ import { createLoguxCreator, badge, badgeEn, log } from '@logux/client'
+  import { LoguxVuex, createLogux } from '@logux/vuex'
++ import { badge, badgeEn, log } from '@logux/client'
 + import { badgeStyles } from '@logux/client/badge/styles'
 ```
 
 ```diff
-  const store = new Logux.Store({
-    state: {},
-    mutations: {},
-    actions: {},
-    modules: {}
-  })
-
 + badge(store.client, { messages: badgeEn, styles: badgeStyles })
 + log(store.client)
-
   store.client.start()
 ```
 
 
 ## Check the Result
 
-1. Open three terminals.
+1. Open two terminals.
 2. Start your Logux server in one terminal by `npm start` in server directory.
-3. Start your back-end server in the second terminal.
-4. Start your client in the third terminal by `npm start` in client directory.
-
-If badge style doesn’t fit your website style, you can always tweak it or replace with your component. See [`badge()`](https://logux.io/vuex-api/#globals-badge) and [`status()`](https://logux.io/vuex-api/#globals-status) API.
+3. Start your client in the second terminal by `npm start` in client directory.
 
 [Next chapter](../architecture/core.md)

@@ -103,7 +103,7 @@ Edit `src/index.js`:
 
 To see the state of the synchronization process, we will add some helpers. They are all optional, but they are great for a start.
 
-Install Logux Redux:
+Install Logux Client:
 
 ```sh
 npm i @logux/client
