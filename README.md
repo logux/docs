@@ -58,35 +58,35 @@ Using [Logux Vuex](https://github.com/logux/vuex/):
 
 ```html
 <template>
-  <div v-if="isSubscribing">
-    <h1>Loading</h1>
-  </div>
+  <h1 v-if="isSubscribing">Loading</h1>
   <div v-else>
     <h1>{{ counter }}</h1>
-    <button @click="increment" />
+    <button @click="increment"></button>
   </div>
 </template>
 
 <script>
-import { loguxMixin } from '@logux/vuex'
+import { computed } from 'vue'
+import { useStore, useSubscription } from '@logux/vuex'
 
 export default {
-  name: 'Counter',
-  mixins: [loguxMixin],
-  computed: {
+  setup () {
+    // Inject store into the component
+    let store = useStore()
     // Retrieve counter state from store
-    counter () {
-      return this.$store.state.counter
-    },
+    let counter = computed(() => store.state.counter)
     // Load current counter from server and subscribe to counter changes
-    channels () {
-      return ['counter']
-    }
-  },
-  methods: {
-    increment () {
+    let isSubscribing = useSubscription(['counter'])
+
+    function increment () {
       // Send action to the server and all tabs in this browser
-      this.$store.commit.sync({ type: 'INC' })
+      store.commit.sync({ type: 'INC' })
+    }
+
+    return {
+      counter,
+      increment,
+      isSubscribing
     }
   }
 }
