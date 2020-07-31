@@ -28,27 +28,25 @@ npm i @logux/vuex
 
 </details>
 
-Find store definition in your project. Look for creating an instance of `Vuex.Store`. Often you can find it at `src/store/index.js`.
+Find store definition in your project. Look for `createStore` function call. Often you can find it at `src/store/index.js`.
 
 ```diff
-  import Vue from 'vue'
-- import Vuex from 'vuex'
-+ import { LoguxVuex, createLogux } from '@logux/vuex'
-
-- Vue.use(Vuex)
-+ Vue.use(LoguxVuex)
-
-+ const Logux = createLogux({
-+   subprotocol: '1.0.0',
+- import { createStore } from 'vuex'
++ import { CrossTabClient, createStoreCreator } from '@logux/vuex'
++
++ const client = new CrossTabClient({
 +   server: process.env.NODE_ENV === 'development'
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
-+   userId: 'todo',  // TODO: We will fill it in next chapter
-+   token: '' // TODO: We will fill it in next chapter
++   subprotocol: '1.0.0',
++   userId: 'anonymous',
++   token: ''
 + })
++
++ const createStore = createStoreCreator(client)
 
-- const store = new Vuex.Store({
-+ const store = new Logux.Store({
+- export default createStore({
++ const store = createStore({
     state: {},
     mutations: {},
     actions: {},
@@ -72,22 +70,15 @@ npm i @logux/client
 Use helpers where you create the store.
 
 ```diff
-  import { createLogux } from '@logux/vuex'
-+ import { createLoguxCreator, badge, badgeEn, log } from '@logux/client'
+  import { CrossTabClient, createStoreCreator } from '@logux/vuex'
++ import { badge, badgeEn, log } from '@logux/client'
 + import { badgeStyles } from '@logux/client/badge/styles'
 ```
 
 ```diff
-  const store = new Logux.Store({
-    state: {},
-    mutations: {},
-    actions: {},
-    modules: {}
-  })
-
 + badge(store.client, { messages: badgeEn, styles: badgeStyles })
 + log(store.client)
-
++
   store.client.start()
 ```
 
