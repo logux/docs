@@ -43,17 +43,22 @@ export const User = (userId) => {
 </details>
 <details><summary>Vuex client</summary>
 
-Extend your component with `loguxMixin`.
+Use `useSubscription` composable function or wrap content in `loguxComponent` component.
 
 ```js
+import { computed, toRefs } from 'vue'
+import { useSubscription } from '@logux/vuex'
+
 export default {
   name: 'User',
-  mixins: [loguxMixin],
-  props: ['userId']
-  computed: {
-    channels () {
-      return [`user/${userId}`]
-    }
+  props: {
+    userId: String
+  },
+  setup (props) {
+    let { userId } = toRefs(props)
+    let channels = computed(() => [`user/${userId}`])
+    let isSubscribing = useSubscription(channels)
+    …
   }
 }
 ```
@@ -110,30 +115,33 @@ export const User = ({ userId }) => {
 
 ```html
 <template>
-  <div v-if="isSubscribing">
-    <h1>Loading</h1>
-  </div>
-  <div v-else>
-    <h1>{{ user.name }}</h1>
-  </div>
+  <h1 v-if="isSubscribing">Loading</h1>
+  <h1 v-else>{{ user.name }}</h1>
 </template>
 
 <script>
-import { loguxMixin } from '@logux/vuex'
+import { toRefs, computed } from 'vue'
+import { useStore, useSubscription } from '@logux/vuex'
 
 export default {
-  name: 'User',
-  mixins: [loguxMixin],
-  props: ['userId']
-  computed: {
-    channels () {
-      return [`user/${this.userId}`]
-    },
-    user () {
-      return this.$store.state.users[this.userId]
+  props: {
+    userId: String
+  },
+  setup (props) {
+    let store = useStore()
+    let { userId } = toRefs(props)
+
+    let channels = computed(() => [`user/${userId}`])
+    let isSubscribing = useSubscription(channels)
+
+    let user = computed(() => store.state.users[userId])
+
+    return {
+      user,
+      isSubscribing
     }
   }
-}
+})
 </script>
 ```
 
@@ -173,7 +181,7 @@ function usersReducers (state = { }, action) {
 Logux Vuex client use [Vuex mutations] to **reduce list of action to the state**. Mutation is the only way to change state.
 
 ```js
-const store = new Logux.Store({
+const store = createStore({
   …
   mutations: {
     'user/rename': (state, action) => {
