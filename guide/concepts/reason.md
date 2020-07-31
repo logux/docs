@@ -126,13 +126,13 @@ store.commit.crossTab(action)
 store.commit.crossTab(action, { reasons: [] })
 ```
 
-You can change actions limit by `reasonlessHistory` option in `createLogux`.
+You can change actions limit by `reasonlessHistory` option in `createStoreCreator`.
 
 If Logux Vuex needs cleaned action from time travel, it will call `onMissedHistory` callback. You can ask a user to reload the page or load the latest data state from the server because time travel can’t guarantee the result in this case.
 
 ```js
-let Logux = createLogux({
-  …,
+let client = new CrossTabClient({ … })
+let createStore = createStoreCreator(client, {
   onMissedHistory (action) {
     if (CRITICAL_ACTIONS.includes(action.type)) {
       store.commit.sync({ type: 'reload/state' }) // Ask server for latest state
