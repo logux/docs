@@ -57,24 +57,22 @@ npm i @logux/vuex
 Edit `src/store/index.js`:
 
 ```diff
-  import Vue from 'vue'
-- import Vuex from 'vuex'
-+ import { LoguxVuex, createLogux } from '@logux/vuex'
-
-- Vue.use(Vuex)
-+ Vue.use(LoguxVuex)
-
-+ const Logux = createLogux({
-+   subprotocol: '1.0.0',
+- import { createStore } from 'vuex'
++ import { CrossTabClient, createStoreCreator } from '@logux/vuex'
++
++ const client = new CrossTabClient({
 +   server: process.env.NODE_ENV === 'development'
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
-+   userId: 'todo',  // TODO: We will fill it in next chapter
-+   token: '' // TODO: We will fill it in next chapter
-+ });
++   subprotocol: '1.0.0',
++   userId: 'anonymous',
++   token: ''
++ })
++
++ const createStore = createStoreCreator(client)
 
-- export default new Vuex.Store({
-+ const store = new Logux.Store({
+- export default createStore({
++ const store = createStore({
     state: {},
     mutations: {},
     actions: {},
@@ -82,7 +80,7 @@ Edit `src/store/index.js`:
   })
 
 + store.client.start()
-
++
 + export default store
 ```
 
@@ -97,10 +95,10 @@ Install Logux Client:
 npm i @logux/client
 ```
 
-Change `src/index.js`:
+Change `src/store/index.js`:
 
 ```diff
-  import { LoguxVuex, createLogux } from '@logux/vuex'
+  import { CrossTabClient, createStoreCreator } from '@logux/vuex'
 + import { badge, badgeEn, log } from '@logux/client'
 + import { badgeStyles } from '@logux/client/badge/styles'
 ```
@@ -108,6 +106,7 @@ Change `src/index.js`:
 ```diff
 + badge(store.client, { messages: badgeEn, styles: badgeStyles })
 + log(store.client)
++
   store.client.start()
 ```
 
