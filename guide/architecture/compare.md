@@ -45,33 +45,32 @@ export default () => {
 ```html
 <!-- views/UsersView.vue -->
 <template>
-  <div>
-    <loader v-if="state === 'loading'"/>
-    <error v-else-if="state === 'error'"/>
-    <users v-else :users='users'/>
-  </div>
+  <Loader v-if="state === 'loading'" />
+  <Error v-else-if="state === 'error'" />
+  <Users v-else :users="users" />
 </template>
 
 <script>
+import { ref, watch } from 'vue'
+
 export default {
   name: 'UsersView',
-  data: () => ({
-    state: 'loading',
-    users: []
-  }),
-  mounted () {
-    fetch('/users', { credentials: 'include' }).then(response => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        throw new Error('HTTP error ' + response.code)
-      }
-    }).then(users => {
-      this.users = users
-    }).catch(error => {
-      console.log(error)
-      this.state = 'error'
-    }).finally(() => this.state = 'ok')
+  setup () {
+    let state = ref('loading)
+    watch(() => {
+      fetch('/users', { credentials: 'include' }).then(response => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw new Error('HTTP error ' + response.code)
+        }
+      }).then(users => {
+        state.value = users
+      }).catch(error => {
+        state.value = 'error'
+      })
+    })
+    return { state }
   }
 }
 </script>
@@ -113,22 +112,31 @@ export default () => {
 ```html
 <!-- views/UsersView.vue -->
 <template>
-  <ApolloQuery :query="gql => gql`
-    query {
-      users: {
-        id,
-        name
-      }
-    }
-  `">
-    <template v-slot="{ result: { loading, error, users } }">
-      <loader v-if="loading"/>
-      <error v-else-if="error"/>
-      <users v-else-if="users" :users='users'/>
-      <div v-else>No users</div>
-    </template>
-  </ApolloQuery>
+  <Loader v-if="loading" />
+  <Error v-else-if="error" />
+  <Users v-else-if="users" :users="users" />
 </template>
+
+<script>
+import { useQuery, useResult } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
+
+export default {
+  name: 'UsersView',
+  setup () {
+    let { result, loading, error } = useQuery(gql`
+      query getUsers {
+        users: {
+          id,
+          name
+        }
+      }
+    `)
+    let users = useResult(result, null, data => data.users)
+    return { users, loading, error }
+  }
+}
+</script>
 ```
 
 </details>
@@ -173,25 +181,24 @@ export default {
 ```html
 <!-- views/UsersView.vue -->
 <template>
-  <div>
-    <loader v-if="isSubscribing"/>
-    <users v-else :users='users'/>
-  </div>
+  <Loader v-if="isSubscribing" />
+  <Users v-else :users="users" />
 </template>
 
 <script>
-import { loguxMixin } from '@logux/vuex'
+import {
+  computed,
+  useStore,
+  useSubscription
+} from '@logux/vuex'
 
 export default {
   name: 'UsersView',
-  mixins: [loguxMixin],
-  computed: {
-    channels () {
-      return ['users']
-    },
-    users () {
-      return this.$store.state.users
-    }
+  setup () {
+    let store = useStore()
+    let isSubscribing = useSubscription(['users'])
+    let users = computed(() => store.state.users)
+    return { isSubscribing, users }
   }
 }
 </script>
@@ -239,38 +246,40 @@ export default ({ userId }) => {
 ```html
 <!-- views/UserFormView.vue -->
 <template>
-  <div>
-    <loader v-if="state === 'loading'"/>
-    <user-form
-      v-else
-      :error="state === 'error'"
-      @onSubmit='onNameChanged'
-    />
-  </div>
+  <Loader v-if="state === 'loading'"/>
+  <UserForm
+    v-else
+    :error="state === 'error'"
+    @submit="onNameChanged"
+  />
 </template>
 
 <script>
+import { ref, toRefs } from 'vue'
+
 export default {
   name: 'UserFormView',
-  props: ['userId'],
-  data: () => ({
-    state: 'ok'
-  }),
-  methods: {
-    onNameChanged () {
-      fetch(`users/${ this.userId }`, {
+  props: {
+    userId: String
+  },
+  setup (props) {
+    let { userId } = toRefs(props)
+    let state = ref('ok')
+    function onNameChanged () {
+      state.value = 'loading'
+      fetch(`/users/${ userId }`, {
         method: 'PUT',
         credentials: 'include'
       }).then(response => {
         if (response.ok) {
-          this.state = 'saved'
+          state.value = 'saved'
         } else {
           throw new Error('HTTP error ' + response.code)
         }
       }).catch(error => {
-        console.log(error)
-        this.state = 'error'
+        state.value = 'error'
       })
+      return { state, onNameChanged }
     }
   }
 }
@@ -316,30 +325,30 @@ export default ({ userId }) => {
 ```html
 <!-- views/UserFormView.vue -->
 <template>
-  <ApolloMutation :mutation="$options.fragments.changeName">
-    <template v-slot="{ result: { mutate, loading, error } }">
-      <loader v-if="loading"/>
-      <user-form v-else @onSubmit="name => mutate({ variables: { name, id: userId } })"/>
-    </template>
-  </ApolloMutation>
+  <Loader v-if="loading" />
+  <UserForm v-else @submit="name => mutate({ variables: { name, id: userId } })" />
 </template>
 
 <script>
+import { useMutation } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 
 export default {
   name: 'UserFormView',
-  fragments: {
-    changeName: gql`
+  props: {
+    userId: String
+  },
+  setup (props) {
+    let { mutate: changeName } = useMutation(gql`
       mutation ChangeName($name: String!, $id: ID!) {
         changeName(name: $name, id: $id) {
           id
           name
         }
       }
-    `
-  },
-  props: ['userId']
+    `)
+    return { changeName, userId: props.userId }
+  }
 }
 </script>
 ```
@@ -386,16 +395,25 @@ export default {
 ```html
 <!-- views/UserFormView.vue -->
 <template>
-  <user-form @onSubmit="onNameChange">
+  <user-form @submit="onNameChange">
 </template>
 
 <script>
+import { toRefs } from 'vue'
+import { useStore } from '@logux/vuex'
+
 export default {
   name: 'UserFormView',
-  props: ['userId'],
-  methods: {
-    onNameChange (name) {
-      this.$store.commit.sync({ type: 'users/rename', userId, name })
+  props: {
+    userId: String
+  },
+  setup (props) {
+    let store = useStore()
+    let { userId } = toRefs(props)
+    return {
+      onNameChange (name) {
+        store.commit.sync({ type: 'users/rename', userId, name })
+      }
     }
   }
 }
