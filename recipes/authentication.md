@@ -127,15 +127,15 @@ Use these `<meta>` values in the store:
 +     : 'https://example.com/login'
 + }
 
-  const Logux = createLogux({
+  const client = new CrossTabClient({
     subprotocol: '1.0.0',
     server: process.env.NODE_ENV === 'development'
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
--   userId: 'todo',  // TODO: We will fill it in next chapter
--   token: '' // TODO: We will fill it in next chapter
+-   userId: 'anonymous',
+-   token: ''
 +   userId: userId.content,
-+   token: token.content,
++   token: token.content
   })
 ```
 
@@ -277,15 +277,15 @@ Use these `localStorage` values in the store:
 +     : 'https://example.com/login'
 + };
 
-  const Logux = createLogux({
+  const client = new CrossTabClient({
     subprotocol: '1.0.0',
     server: process.env.NODE_ENV === 'development'
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
--   userId: 'todo',  // TODO: We will fill it in next chapter
--   token: '' // TODO: We will fill it in next chapter
+-   userId: 'anonymous',
+-   token: ''
 +   userId: localStorage.getItem('userId'),
-+   token: localStorage.getItem('token'),
++   token: localStorage.getItem('token')
   });
 ```
 
