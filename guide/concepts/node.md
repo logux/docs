@@ -19,7 +19,7 @@ store.client.node //=> ClientNode instance
 
 ```js
 const client = new CrossTabClient({ … })
-const createStore = createStoreCreator({ … })
+const createStore = createStoreCreator(client, { … })
 const store = createStore({ … })
 store.client.node //=> ClientNode instance
 ```
