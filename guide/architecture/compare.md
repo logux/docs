@@ -259,9 +259,7 @@ import { ref, toRefs } from 'vue'
 
 export default {
   name: 'UserFormView',
-  props: {
-    userId: String
-  },
+  props: ['userId'],
   setup (props) {
     let { userId } = toRefs(props)
     let state = ref('ok')
@@ -335,9 +333,7 @@ import gql from 'graphql-tag'
 
 export default {
   name: 'UserFormView',
-  props: {
-    userId: String
-  },
+  props: ['userId'],
   setup (props) {
     let { mutate: changeName } = useMutation(gql`
       mutation ChangeName($name: String!, $id: ID!) {
@@ -404,9 +400,7 @@ import { useStore } from '@logux/vuex'
 
 export default {
   name: 'UserFormView',
-  props: {
-    userId: String
-  },
+  props: ['userId'],
   setup (props) {
     let store = useStore()
     let { userId } = toRefs(props)

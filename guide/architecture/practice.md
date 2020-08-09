@@ -51,9 +51,7 @@ import { useSubscription } from '@logux/vuex'
 
 export default {
   name: 'User',
-  props: {
-    userId: String
-  },
+  props: ['userId'],
   setup (props) {
     let { userId } = toRefs(props)
     let channels = computed(() => [`user/${userId}`])
@@ -124,9 +122,7 @@ import { toRefs, computed } from 'vue'
 import { useStore, useSubscription } from '@logux/vuex'
 
 export default {
-  props: {
-    userId: String
-  },
+  props: ['userId'],
   setup (props) {
     let store = useStore()
     let { userId } = toRefs(props)

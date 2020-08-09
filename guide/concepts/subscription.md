@@ -219,9 +219,7 @@ import { toRefs, computed } from 'vue'
 import { useSubscription } from '@logux/vuex'
 
 export default {
-  props: {
-    userId: String
-  },
+  props: ['userId'],
   setup (props) {
     let { userId } = toRefs(props)
     let channels = computed(() => [`users/${userId}`])
@@ -251,9 +249,7 @@ In component, you should just return the state within a computed property as usu
 + import { useStore, useSubscription } from '@logux/vuex'
 
   export default {
-    props: {
-      userId: String
-    },
+    props: ['userId'],
     setup (props) {
       let { userId } = toRefs(props)
       let channels = computed(() => [`users/${userId}`])
@@ -285,9 +281,7 @@ import { Subscribe } from '@logux/vuex'
 
 export default {
   components: { Subscribe },
-  props: {
-    userId: String
-  },
+  props: ['userId'],
   setup (props) {
     let { userId } = toRefs(props)
     return { userId }
@@ -396,9 +390,7 @@ We can add additional keys to `logux/subscribe` action to define what fields do 
   import { useStore, useSubscription } from '@logux/vuex'
 
   export default {
-    props: {
-      userId: String
-    },
+    props: ['userId'],
     setup (props) {
       let { userId } = toRefs(props)
 -     let channels = computed(() => [`users/${userId}`])
