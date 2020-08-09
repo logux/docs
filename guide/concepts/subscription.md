@@ -222,8 +222,7 @@ export default {
   props: ['userId'],
   setup (props) {
     let { userId } = toRefs(props)
-    let channels = computed(() => [`users/${userId.value}`])
-    let isSubscribing = useSubscription(channels)
+    let isSubscribing = useSubscription(() => [`users/${userId.value}`])
     return { isSubscribing }
   }
 }
@@ -252,8 +251,7 @@ In component, you should just return the state within a computed property as usu
     props: ['userId'],
     setup (props) {
       let { userId } = toRefs(props)
-      let channels = computed(() => [`users/${userId.value}`])
-      let isSubscribing = useSubscription(channels)
+      let isSubscribing = useSubscription(() => [`users/${userId.value}`])
 +
 +     let store = useStore()
 +     let user = computed(() => store.state.user[userId.value])
@@ -397,11 +395,10 @@ We can add additional keys to `logux/subscribe` action to define what fields do 
     props: ['userId'],
     setup (props) {
       let { userId } = toRefs(props)
--     let channels = computed(() => [`users/${userId.value}`])
-+     let channels = computed(() => [
+-     let isSubscribing = useSubscription(() => [`users/${userId.value}`])
++     let isSubscribing = useSubscription(() => [
 +       { channel: `users/${userId.value}`, fields: ['name'] }
 +     ])
-      let isSubscribing = useSubscription(channels)
 
       let store = useStore()
       let user = computed(() => store.state.user[userId.value])
