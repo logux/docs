@@ -222,7 +222,7 @@ export default {
   props: ['userId'],
   setup (props) {
     let { userId } = toRefs(props)
-    let channels = computed(() => [`users/${userId}`])
+    let channels = computed(() => [`users/${userId.value}`])
     let isSubscribing = useSubscription(channels)
     return { isSubscribing }
   }
@@ -252,11 +252,11 @@ In component, you should just return the state within a computed property as usu
     props: ['userId'],
     setup (props) {
       let { userId } = toRefs(props)
-      let channels = computed(() => [`users/${userId}`])
+      let channels = computed(() => [`users/${userId.value}`])
       let isSubscribing = useSubscription(channels)
 +
 +     let store = useStore()
-+     let user = computed(() => store.state.user[userId])
++     let user = computed(() => store.state.user[userId.value])
 +
 -     return { isSubscribing }
 +     return { isSubscribing, user }
@@ -277,14 +277,18 @@ In component, you should just return the state within a computed property as usu
 
 <script>
 import { toRefs, computed } from 'vue'
-import { Subscribe } from '@logux/vuex'
+import { Subscribe, useStore } from '@logux/vuex'
 
 export default {
   components: { Subscribe },
   props: ['userId'],
   setup (props) {
     let { userId } = toRefs(props)
-    return { userId }
+
+    let store = useStore()
+    let user = computed(() => store.state.user[userId.value])
+
+    return { userId, user }
   }
 }
 </script>
@@ -393,14 +397,14 @@ We can add additional keys to `logux/subscribe` action to define what fields do 
     props: ['userId'],
     setup (props) {
       let { userId } = toRefs(props)
--     let channels = computed(() => [`users/${userId}`])
+-     let channels = computed(() => [`users/${userId.value}`])
 +     let channels = computed(() => [
-+       { channel: `users/${userId}`, fields: ['name'] }
++       { channel: `users/${userId.value}`, fields: ['name'] }
 +     ])
       let isSubscribing = useSubscription(channels)
 
       let store = useStore()
-      let user = computed(() => store.state.user[userId])
+      let user = computed(() => store.state.user[userId.value])
 
       return { isSubscribing, user }
     }

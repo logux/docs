@@ -56,7 +56,7 @@ import { ref, watch } from 'vue'
 export default {
   name: 'UsersView',
   setup () {
-    let state = ref('loading)
+    let state = ref('loading')
     watch(() => {
       fetch('/users', { credentials: 'include' }).then(response => {
         if (response.ok) {
@@ -265,7 +265,7 @@ export default {
     let state = ref('ok')
     function onNameChanged () {
       state.value = 'loading'
-      fetch(`/users/${ userId }`, {
+      fetch(`/users/${userId.value}`, {
         method: 'PUT',
         credentials: 'include'
       }).then(response => {
@@ -406,7 +406,11 @@ export default {
     let { userId } = toRefs(props)
     return {
       onNameChange (name) {
-        store.commit.sync({ type: 'users/rename', userId, name })
+        store.commit.sync({
+          type: 'users/rename',
+          userId: userId.value,
+          name
+        })
       }
     }
   }
