@@ -38,7 +38,7 @@ You can change the subprotocol version at `src/index.js` file (or another file w
 You can change the subprotocol version at `src/store/index.js` file (or another file where you create store):
 
 ```diff
-  const Logux = createLogux({
+  const client = new CrossTabClient({
 -   subprotocol: '1.1.0',
 +   subprotocol: '2.0.0',
     …

@@ -203,121 +203,95 @@ export default subscribe(({ userId }) => `users/${ userId }`)(UserPage)
 
 </details>
 <details><summary>Vuex client</summary>
-Use `loguxMixin` or wrap a component into `loguxComponent`.
 
-`loguxMixin` extends your component:
-* automatically subscribes and unsubscribes during the component life cycle, tracks all subscriptions and doesn’t subscribe to channel if another component already subscribed to the same channel
-* watches for `channels` changes
-* adds `isSubscribing` flag
+Use `useSubscription` composable function or wrap template into `Subscribe` component.
 
-For instance, when you will render some page, this page will automatically request that data from the server.
+`useSubscription` automatically subscribes for channels during component initialization and unsubscribe on unmounted. For instance, when you will render some page, that page will automatically request data from the server.
 
-`isSubscribing` returns `true` during the downloading current state. You should show some loader at that moment.
+`useSubscription` returns `true` during loading the current state. You can use this to show the loading status.
 
 ```html
 <template>
-  <div v-if="isSubscribing">
-    <h1>Loading</h1>
-  </div>
-  <div v-else>
-    <!-- Render user page -->
-  </div>
+  <h1 v-if="isSubscribing">Loading</h1>
+  <!-- Render user page -->
 </template>
 
 <script>
-import { loguxMixin } from '@logux/vuex'
+import { toRefs, computed } from 'vue'
+import { useSubscription } from '@logux/vuex'
 
 export default {
-  name: 'UserPage',
-  mixins: [loguxMixin],
   props: ['userId'],
-  computed: {
-    channels () {
-      return [`user/${ this.userId }`]
-    }
+  setup (props) {
+    let { userId } = toRefs(props)
+    let isSubscribing = useSubscription(() => [`users/${userId.value}`])
+    return { isSubscribing }
   }
 }
 </script>
 ```
 
-`loguxMixin` doesn’t receive the data from the server. It just sends `logux/subscribe`/`logux/unsubscribe` actions and track loading. Subscription asks the server to send you actions. You should process these actions with Vuex mutation and put state from actions to the store (see Vuex docs).
+This function automatically tracks all subscriptions and doesn’t subscribe to channel if another component already subscribed to the same channel.
+
+`useSubscription` doesn’t receive the data from the server. It just sends `logux/subscribe` and `logux/unsubscribe` actions and tracks loading status. Subscription asks the server to send you actions. You should process these actions with Vuex mutation and put state from actions to the store (see Vuex docs).
 
 In component, you should just return the state within a computed property as usual.
 
 ```diff
   <template>
-    <div v-if="isSubscribing">
-      <h1>Loading</h1>
-    </div>
-    <div v-else>
--     <!-- Render user page -->
-+     <h1>{{ user.name }}</h1>
-    </div>
+    <h1 v-if="isSubscribing">Loading</h1>
+-   <!-- Render user page -->
++   <h1 v-else>{{ user.name }}</h1>
   </template>
 
   <script>
-  import { loguxMixin } from '@logux/vuex'
+  import { toRefs, computed } from 'vue'
+- import { useSubscription } from '@logux/vuex'
++ import { useStore, useSubscription } from '@logux/vuex'
 
   export default {
-    name: 'UserPage',
-    mixins: [loguxMixin],
     props: ['userId'],
-    computed: {
-      channels () {
-        return [`user/${ this.userId }`]
--     }
-+     },
-+     user () {
-+       return this.$store.state.user[this.userId]
-+     }
+    setup (props) {
+      let { userId } = toRefs(props)
+      let isSubscribing = useSubscription(() => [`users/${userId.value}`])
++
++     let store = useStore()
++     let user = computed(() => store.state.user[userId.value])
++
+-     return { isSubscribing }
++     return { isSubscribing, user }
     }
   }
   </script>
 ```
 
-`loguxComponent` is a component with scoped slots.
-It takes a `channels` in its props and passes down the `isSubscribing`.
+`Subscribe` is a component with scoped slots. It takes a `channels` in its props and passes down the `isSubscribing`.
 
 ```html
 <template>
-  <logux-component :channels="[`user/${ userId }`]" v-slot="{ isSubscribing }">
-    <div v-if="isSubscribing">
-      <h1>Loading</h1>
-    </div>
-    <div v-else>
-      <h1>{{ user.name }}</h1>
-    </div>
-  </logux-component>
+  <subscribe :channels="[`user/${userId}`]" v-slot="{ isSubscribing }">
+    <h1 v-if="isSubscribing">Loading</h1>
+    <h1 v-else>{{ user.name }}</h1>
+  </subscribe>
 </template>
 
 <script>
-import { loguxComponent } from '@logux/vuex'
+import { toRefs, computed } from 'vue'
+import { Subscribe, useStore } from '@logux/vuex'
 
 export default {
-  name: 'UserPage',
-  components: { loguxComponent },
+  components: { Subscribe },
   props: ['userId'],
-  computed: {
-    // Retrieve counter state from store
-    user () {
-      return this.$store.state.user
-    }
+  setup (props) {
+    let { userId } = toRefs(props)
+
+    let store = useStore()
+    let user = computed(() => store.state.user[userId.value])
+
+    return { userId, user }
   }
 }
 </script>
-```
-
-`loguxComponent` automatically wraps multiple root elements in one `div` tag.
-You can change this with the `tag` property of the component.
-
-```html
-<template>
-  <logux-component :channels="[`user/${ userId }`]" :tag="span" v-slot="{ isSubscribing }">
-    <h1>User Profile</h1>
-    <h2 v-if="isSubscribing">Loading</h2>
-    <h2 v-else>{{ user.name }}</h2>
-  </logux-component>
-</template>
 ```
 </details>
 
@@ -416,35 +390,24 @@ We can add additional keys to `logux/subscribe` action to define what fields do 
 <details><summary>Vuex client</summary>
 
 ```diff
-  <template>
-    <div v-if="isSubscribing">
-      <h1>Loading</h1>
-    </div>
-    <div v-else>
-      <h1>{{ user.name }}</h1>
-    </div>
-  </template>
-
-  <script>
-  import { loguxMixin } from '@logux/vuex'
+  import { toRefs, computed } from 'vue'
+  import { useStore, useSubscription } from '@logux/vuex'
 
   export default {
-    name: 'UserPage',
-    mixins: [loguxMixin],
     props: ['userId'],
-    computed: {
-      channels () {
--       return [`user/${ this.userId }`]
-+       return [
-+         { channel: `user/${ this.userId }`, fields: ['name'] }
-+       ]
-      },
-      user () {
-        return this.$store.state.user[this.userId]
-      }
+    setup (props) {
+      let { userId } = toRefs(props)
+-     let isSubscribing = useSubscription(() => [`users/${userId.value}`])
++     let isSubscribing = useSubscription(() => [
++       { channel: `users/${userId.value}`, fields: ['name'] }
++     ])
+
+      let store = useStore()
+      let user = computed(() => store.state.user[userId.value])
+
+      return { isSubscribing, user }
     }
   }
-  </script>
 ```
 
 </details>

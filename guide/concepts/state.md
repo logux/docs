@@ -61,7 +61,7 @@ Logux Vuex uses *event sourcing* pattern on client-side. Actions describe the cu
 The developer provides initial state and mutations. Each Vuex mutation has a string type and a handler. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
 
 ```js
-const store = new Logux.Store({
+const store = createStore({
   state: { users: [] },
   mutations: {
     'users/add': (state, action) => {
@@ -89,7 +89,7 @@ const usersModule = {
   }
 }
 
-const store = new Logux.Store({
+const store = createStore({
   state: { value: 0 },
   mutations: {
     'increment': (state) => {
@@ -162,13 +162,14 @@ store.subscribe(() => {
 To render and change UI according to state changes simply return some store state from within a computed property:
 
 ```js
+import { computed } from 'vue'
+import { useStore } from '@logux/vuex'
+
 export default {
-  name: 'Users',
-  props: ['id'],
-  computed: {
-    users () {
-      return this.$store.state.users
-    }
+  setup () {
+    let store = useStore()
+    let users = computed(() => store.state.users)
+    return { users }
   },
   template: `
     <ul>
@@ -192,7 +193,7 @@ store.subscribe((mutation, state) => {
 })
 ```
 
-Or simple watcher, similar to Vue’s `vm.$watch`:
+Or simple watcher, similar to Vue’s `$watch`:
 
 ```js
 store.watch(state => state.errors, (oldValue, newValue) => {
@@ -354,7 +355,7 @@ Logux Redux saves state every 50 actions. You can change it by `saveStateEvery` 
 </details>
 <details><summary>Vuex client</summary>
 
-Logux Vuex saves state every 50 actions. You can change it by `saveStateEvery` option in `createLogux` function.
+Logux Vuex saves state every 50 actions. You can change it by `saveStateEvery` option in `createStoreCreator` function.
 
 </details>
 
@@ -387,8 +388,7 @@ In this case, Logux Vuex will time travel to latest possible moment. In most cas
 2. Set `onMissedHistory` callback to process this cases:
 
    ```js
-   let Logux = createLogux({
-     …,
+   let createStore = createStoreCreator(client, {
      onMissedHistory (action) {
        if (CRITICAL_ACTIONS.includes(action.type)) {
          store.commit.sync({ type: 'reload/state' }) // Ask server for latest state

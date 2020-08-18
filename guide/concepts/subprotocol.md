@@ -27,7 +27,7 @@ const createStore = createLoguxCreator({
 <details><summary>Vuex client</summary>
 
 ```js
-const Logux = createLogux({
+const client = new CrossTabClient({
   subprotocol: '1.1.0',
   …
 })

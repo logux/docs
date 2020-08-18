@@ -18,8 +18,9 @@ store.client.node //=> ClientNode instance
 <details><summary>Vuex client</summary>
 
 ```js
-const Logux = createLogux({ … })
-const store = new Logux.Store({ … })
+const client = new CrossTabClient({ … })
+const createStore = createStoreCreator(client, { … })
+const store = createStore({ … })
 store.client.node //=> ClientNode instance
 ```
 
@@ -160,7 +161,7 @@ const createStore = createLoguxCreator({
 ```js
 import { IndexedStore } from '@logux/client'
 
-const Logux = createLogux({
+const client = new CrossTabClient({
   store: new IndexedStore(),
   …
 })
@@ -200,7 +201,7 @@ const createStore = createLoguxCreator({
 <details><summary>Vuex client</summary>
 
 ```js
-const Logux = createLogux({
+const client = new CrossTabClient({
   server: 'wss://example.com',
   …
 })
@@ -222,9 +223,9 @@ By default, Logux forces you to use WebSocket over TLS (`wss:`) in production. I
 
 You can use WebSocket without encryption in development or with `allowDangerousProtocol` option.
 
-<details open><summary>Redux client</summary>
-
 If you do not want to use WebSocket, you can implementation own [`Connection`](https://logux.io/redux-api/#connection) class and pass it to `server` option. For instance, you can use [`TestPair`](https://logux.io/redux-api/#testpair) in tests:
+
+<details open><summary>Redux client</summary>
 
 ```js
 import { TestPair } from '@logux/core'
@@ -239,13 +240,11 @@ const createStore = createLoguxCreator({
 </details>
 <details><summary>Vuex client</summary>
 
-If you do not want to use WebSocket, you can implementation own [`Connection`](https://logux.io/vuex-api/#connection) class and pass it to `server` option. For instance, you can use [`TestPair`](https://logux.io/vuex-api/#testpair) in tests:
-
 ```js
 import { TestPair } from '@logux/core'
 
 const pair = new TestPair()
-const Logux = createLogux({
+const client = new CrossTabClient({
   server: pair.left,
   …
 })
@@ -428,7 +427,7 @@ const createStore = createLoguxCreator({
 <details><summary>Vuex client</summary>
 
 ```js
-const Logux = createLogux({
+const client = new CrossTabClient({
   userId: localStorage.getItem('userId') || 'anonymous',
   token: localStorage.getItem('userToken') || '',
   …

@@ -122,18 +122,22 @@ let store = createStore<State, Actions>(reducer)
 <details><summary>Vuex client</summary>
 
 ```ts
+// src/store/index.ts
+
 type User = {
   id: string,
   name: string
 }
 
-type State = {
+export type State = {
   users: User[]
 }
 
-let Logux = createLogux({ … })
+let client = new CrossTabClient({ … })
 
-let store = new Logux.Store<State>({
+let createStore = createStoreCreator(client, { … })
+
+let store = createStore<State>({
   state: {
     users: []
   },
@@ -156,6 +160,34 @@ store.commit.sync({
   userId: '10',
   name: 'Tom'
 })
+```
+
+For `useStore` composable function you can provide `State` as a generic:
+
+```ts
+import { useStore } from '@logux/vuex'
+import { State } from '../store/index.js'
+
+export default {
+  setup () {
+    let store = useStore<State>()
+  }
+}
+```
+
+Place the following code in your project to allow this.$store to be typed correctly:
+
+```ts
+// src/shims-vuex.d.ts
+
+import { LoguxVuexStore } from '@logux/vuex'
+import { State } from './store/index.js'
+
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
+    $store: LoguxVuexStore<State>
+  }
+}
 ```
 
 </details>
