@@ -39,8 +39,8 @@ Find store definition in your project. Look for `createStore` function call. Oft
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
 +   subprotocol: '1.0.0',
-+   userId: 'anonymous',
-+   token: ''
++   userId: 'anonymous',  // TODO: We will fill it in Authentication recipe
++   token: ''  // TODO: We will fill it in Authentication recipe
 + })
 +
 + const createStore = createStoreCreator(client)
