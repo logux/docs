@@ -45,7 +45,7 @@ export const Counter = () => {
     // dispatch.sync() will send Redux action to all clients
     return <div>
       <h1>{ counter }</h1>
-      <button onClick={ dispatch.sync({ type: 'INC' }) }>
+      <button onClick={ dispatch.sync({ type: 'INC' }) }></button>
     </div>
   }
 }

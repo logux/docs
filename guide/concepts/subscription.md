@@ -136,6 +136,8 @@ class AddUserAction(ActionCommand):
 
 </details>
 
+You can mark action with several channels. If client was subscribed to several of action’s channel, it will received action only once.
+
 
 ## Subscription
 
