@@ -54,6 +54,8 @@ Find store definition in your project. Look for `createStore` function call. Oft
   })
 
 + store.client.start()
++
++ export default store
 ```
 
 
