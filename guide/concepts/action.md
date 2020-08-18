@@ -367,11 +367,12 @@ But, of course, you can use “pessimistic” UI for critical actions like payme
 
 ```js
 showLoader()
-dispatch.sync({ type: 'likes/add', postId }).then(() => {
-  hideLoader()
-}).catch(() => {
+try {
+  await dispatch.sync({ type: 'likes/add', postId })
+} catch {
   showError()
-})
+}
+hideLoader()
 ```
 
 </details>
@@ -379,11 +380,12 @@ dispatch.sync({ type: 'likes/add', postId }).then(() => {
 
 ```js
 showLoader()
-commit.sync({ type: 'likes/add', postId }).then(() => {
-  hideLoader()
-}).catch(() => {
+try {
+  await commit.sync({ type: 'likes/add', postId })
+} catch {
   showError()
-})
+}
+hideLoader()
 ```
 
 </details>
@@ -402,12 +404,11 @@ client.on('add', action => {
 })
 
 showLoader()
-client.log.add({ type: 'likes/add', postId }, { sync: true }).then(meta => {
-  waiting[meta.id] = {
-    resolve: hideLoader,
-    reject: showError
-  }
-})
+const meta = await client.log.add({ type: 'likes/add', postId }, { sync: true })
+waiting[meta.id] = {
+  resolve: hideLoader,
+  reject: showError
+}
 ```
 
 </details>

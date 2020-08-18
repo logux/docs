@@ -16,18 +16,18 @@ In **AJAX** you send GET request to some URL and wait for response.
 // containers/users.js
 export default () => {
   const [state, setState] = useState('loading')
-  useEffect(() => {
-    fetch('/users', { credentials: 'include' }).then(response => {
+  useEffect(async () => {
+    try {
+      const response = await fetch('/users', { credentials: 'include' })
       if (response.ok) {
-        return response.json()
+        const users = response.json()
+        setState(users)
       } else {
         throw new Error('HTTP error ' + response.code)
       }
-    }).then(users => {
-      setState(users)
-    }).catch(error => {
+    } catch {
       setState('error')
-    })
+    }
   })
   if (state === 'loading') {
     return <Loader />
@@ -57,18 +57,18 @@ export default {
   name: 'UsersView',
   setup () {
     let state = ref('loading')
-    watch(() => {
-      fetch('/users', { credentials: 'include' }).then(response => {
+    watch(async () => {
+      try {
+        const response = await fetch('/users', { credentials: 'include' })
         if (response.ok) {
-          return response.json()
+          const users = await response.json()
+          state.value = users
         } else {
           throw new Error('HTTP error ' + response.code)
         }
-      }).then(users => {
-        state.value = users
-      }).catch(error => {
+      } catch {
         state.value = 'error'
-      })
+      }
     })
     return { state }
   }
@@ -217,20 +217,21 @@ In **AJAX** you send POST request with the new data:
 // containers/user-form.js
 export default ({ userId }) => {
   const [state, setState] = useState()
-  const onNameChanged = useCallback(name => {
+  const onNameChanged = useCallback(async name => {
     setState('loading')
-    fetch(`/users/${ userId }`, {
-      method: 'PUT',
-      credentials: 'include'
-    }).then(response => {
+    try {
+      const response = await fetch(`/users/${ userId }`, {
+        method: 'PUT',
+        credentials: 'include'
+      })
       if (response.ok) {
         setState('saved')
       } else {
         throw new Error('HTTP error ' + response.code)
       }
-    }).catch(error => {
+    } catch {
       setState('error')
-    })
+    }
   })
   if (state === 'loading') {
     return <Loader />
@@ -263,20 +264,21 @@ export default {
   setup (props) {
     let { userId } = toRefs(props)
     let state = ref('ok')
-    function onNameChanged () {
+    async function onNameChanged () {
       state.value = 'loading'
-      fetch(`/users/${userId.value}`, {
-        method: 'PUT',
-        credentials: 'include'
-      }).then(response => {
+      try {
+        const response = await fetch(`/users/${userId.value}`, {
+          method: 'PUT',
+          credentials: 'include'
+        })
         if (response.ok) {
           state.value = 'saved'
         } else {
           throw new Error('HTTP error ' + response.code)
         }
-      }).catch(error => {
+      } catch  {
         state.value = 'error'
-      })
+      }
       return { state, onNameChanged }
     }
   }
