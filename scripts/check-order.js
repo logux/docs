@@ -3,7 +3,6 @@
 import { dirname, join, sep } from 'path'
 import { promises as fs } from 'fs'
 import globby from 'globby'
-import chalk from 'chalk'
 
 let root = dirname(dirname(new URL(import.meta.url).pathname))
 
@@ -33,9 +32,9 @@ async function check () {
 
 check().catch(e => {
   if (e.message.includes('order.json')) {
-    process.stderr.write(chalk.red(e.message) + '\n')
+    process.stderr.write(e.message + '\n')
   } else {
-    process.stderr.write(chalk.red(e.stack) + '\n')
+    process.stderr.write(e.stack + '\n')
   }
   process.exit(1)
 })

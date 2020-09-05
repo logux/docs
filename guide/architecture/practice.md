@@ -14,7 +14,7 @@ Logux server is written in JS. There are two ways to use it:
 1. Use Logux server as a framework and write an application on top of **Logux JS API**. You can use any database to store data.
 
     ```js
-    server.auth(async (userId, token) => {
+    server.auth(async ({ userId, token }) => {
       return verifyJWT(token).userId === userId
     })
     ```
@@ -29,7 +29,9 @@ After authenticating user server will calculate **time different** between clien
 
 Because real-time are important parts of Logux idea, in Logux *subscriptions* is a way to request data from the server.
 
-On the client, you use `useSubscription` hook or wrap a component into `subscribe` decorator. Every time, when component added to UI, Logux will subscribe for the channel with the data. Every time, when the component will be removed, Logux will unsubscribe from the channel.
+<details open><summary>Redux client</summary>
+
+Use `useSubscription` hook or wrap a component into `subscribe` decorator.
 
 ```js
 export const User = (userId) => {
@@ -37,6 +39,30 @@ export const User = (userId) => {
   …
 }
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+Use `useSubscription` composable function or wrap content in `loguxComponent` component.
+
+```js
+import { computed, toRefs } from 'vue'
+import { useSubscription } from '@logux/vuex'
+
+export default {
+  name: 'User',
+  props: ['userId'],
+  setup (props) {
+    let { userId } = toRefs(props)
+    let isSubscribing = useSubscription(() => [`user/${userId.value}`])
+    …
+  }
+}
+```
+
+</details>
+
+Every time, when component added to UI, Logux will subscribe for the channel with the data. Every time, when the component will be removed, Logux will unsubscribe from the channel.
 
 Logux client sends `logux/subscribe` action to the server:
 
@@ -59,12 +85,14 @@ server.channel('user/:id', {
   async load (ctx) {
     let name = await db.loadUserName(ctx.params.id)
     // Creating action to set user name and sending it to subscriber
-    ctx.sendBack({ type: 'user/name', name })
+    return { type: 'user/name', name }
   }
 })
 ```
 
 Logux client shows loader while the server loads data. When the client will receive initial data, the client will apply data to the state and hide loader.
+
+<details open><summary>Redux client</summary>
 
 ```js
 export const User = ({ userId }) => {
@@ -79,6 +107,40 @@ export const User = ({ userId }) => {
 }
 ```
 
+</details>
+<details><summary>Vuex client</summary>
+
+```html
+<template>
+  <h1 v-if="isSubscribing">Loading</h1>
+  <h1 v-else>{{ user.name }}</h1>
+</template>
+
+<script>
+import { toRefs, computed } from 'vue'
+import { useStore, useSubscription } from '@logux/vuex'
+
+export default {
+  props: ['userId'],
+  setup (props) {
+    let store = useStore()
+    let { userId } = toRefs(props)
+
+    let isSubscribing = useSubscription(() => [`user/${userId.value}`])
+
+    let user = computed(() => store.state.users[userId])
+
+    return {
+      user,
+      isSubscribing
+    }
+  }
+})
+</script>
+```
+
+</details>
+
 
 ## Changing Data
 
@@ -90,6 +152,8 @@ log.add(
   { sync: true }                                       // Meta
 )
 ```
+
+<details open><summary>Redux client</summary>
 
 In the most popular case, Logux client use [Redux-style reducers] to **reduce list of action to the state**. Reducer is a pure function, which immutable change the state according to this new action:
 
@@ -104,6 +168,26 @@ function usersReducers (state = { }, action) {
 ```
 
 [Redux-style reducers]: https://redux.js.org/basics/reducers
+
+</details>
+<details><summary>Vuex client</summary>
+
+Logux Vuex client use [Vuex mutations] to **reduce list of action to the state**. Mutation is the only way to change state.
+
+```js
+const store = createStore({
+  …
+  mutations: {
+    'user/rename': (state, action) => {
+      return { ...state, name: action.name }
+    }
+  }
+})
+```
+
+[Vuex mutations]: https://vuex.vuejs.org/guide/mutations.html
+
+</details>
 
 If the user changed their name in the form, the client does not need to show loader on the Save button. The client creates action and applies this action to the state **immediately**.
 

@@ -91,8 +91,8 @@ Edit `src/index.js`:
 +   server: process.env.NODE_ENV === 'development'
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
-+   userId: 'todo',  // TODO: We will fill it in next chapter
-+   token: '' // TODO: We will fill it in next chapter
++   userId: 'todo',  // TODO: We will fill it in Authentication recipe
++   token: '' // TODO: We will fill it in Authentication recipe
 + });
   const store = createStore(reducer);
 + store.client.start()
@@ -103,7 +103,7 @@ Edit `src/index.js`:
 
 To see the state of the synchronization process, we will add some helpers. They are all optional, but they are great for a start.
 
-Install Logux Redux:
+Install Logux Client:
 
 ```sh
 npm i @logux/client

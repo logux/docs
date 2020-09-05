@@ -3,7 +3,8 @@
     "starting/choosing-architecture",
     "starting/node-server",
     "starting/proxy-server",
-    "starting/new-client",
+    "starting/new-redux-client",
+    "starting/new-vuex-client",
     "starting/replace-redux",
     "starting/replace-vuex",
     "architecture/core",
@@ -24,7 +25,8 @@
     "typescript",
     "tests",
     "cross-tab",
-    "subprotocol"
+    "subprotocol",
+    "headers"
   ],
   "protocols": [
     "ws/spec",

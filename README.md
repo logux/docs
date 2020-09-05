@@ -18,7 +18,7 @@ Ask your questions at [community chat] or [commercial support].
 
 [commercial support]: mailto:logux@evilmartians.com
 [community chat]: https://gitter.im/logux/logux
-[**9 kB**]: https://github.com/logux/client/blob/master/package.json#L87-L90
+[**9 kB**]: https://github.com/logux/client/blob/master/package.json#L108-L113
 [CRDT]: https://slides.com/ai/crdt
 
 <a href="https://evilmartians.com/?utm_source=logux-docs">
@@ -45,7 +45,7 @@ export const Counter = () => {
     // dispatch.sync() will send Redux action to all clients
     return <div>
       <h1>{ counter }</h1>
-      <button onClick={ dispatch.sync({ type: 'INC' }) }>
+      <button onClick={ dispatch.sync({ type: 'INC' }) }></button>
     </div>
   }
 }
@@ -58,35 +58,35 @@ Using [Logux Vuex](https://github.com/logux/vuex/):
 
 ```html
 <template>
-  <div v-if="isSubscribing">
-    <h1>Loading</h1>
-  </div>
+  <h1 v-if="isSubscribing">Loading</h1>
   <div v-else>
     <h1>{{ counter }}</h1>
-    <button @click="increment" />
+    <button @click="increment"></button>
   </div>
 </template>
 
 <script>
-import { subscriptionMixin } from '@logux/vuex'
+import { computed } from 'vue'
+import { useStore, useSubscription } from '@logux/vuex'
 
 export default {
-  name: 'Counter',
-  mixins: [subscriptionMixin],
-  computed: {
+  setup () {
+    // Inject store into the component
+    let store = useStore()
     // Retrieve counter state from store
-    counter () {
-      return this.$store.state.counter
-    },
+    let counter = computed(() => store.state.counter)
     // Load current counter from server and subscribe to counter changes
-    channels () {
-      return ['counter']
-    }
-  },
-  methods: {
-    increment () {
+    let isSubscribing = useSubscription(['counter'])
+
+    function increment () {
       // Send action to the server and all tabs in this browser
-      this.$store.commit.sync({ type: 'INC' })
+      store.commit.sync({ type: 'INC' })
+    }
+
+    return {
+      counter,
+      increment,
+      isSubscribing
     }
   }
 }
@@ -110,16 +110,15 @@ increase.addEventListener('click', () => {
 })
 
 loading.classList.add('is-show')
-log
-  .add({ type: 'logux/subscribe' channel: 'counter' }, { sync: true })
-  .then(meta => {
-    const unbind = log.on('add', action => {
-      if (action.type === 'logux/processed' && action.id === meta.id) {
-        loading.classList.remove('is-show')
-        unbind()
-      }
-    })
-  })
+const meta = await log.add(
+  { type: 'logux/subscribe' channel: 'counter' }, { sync: true }
+)
+const unbind = log.on('add', action => {
+  if (action.type === 'logux/processed' && action.id === meta.id) {
+    loading.classList.remove('is-show')
+    unbind()
+  }
+})
 ```
 
 </details>
@@ -141,7 +140,7 @@ server.channel('counter', {
     // Load initial state when client subscribing to the channel.
     // You can use any database.
     let value = await db.get('counter')
-    ctx.sendBack({ type: 'INC', value })
+    return { type: 'INC', value }
   }
 })
 
@@ -192,7 +191,7 @@ class CounterChannel(ChannelCommand):
 
     def load(self, action: Action, meta: Meta) -> None:
         counter_value = Counter.objects.first().val
-        self.send_back({'type': 'INC', 'value': counter_value})
+        return {'type': 'INC', 'value': counter_value}
 
 
 logux.channels.register(CounterChannel)
@@ -263,29 +262,30 @@ You can use any HTTP server with Logux WebSocket proxy server. Here is a PHP-lik
 $req = json_decode(file_get_contents('php://input'), true);
 if ($req['password'] == LOGUX_PASSWORD) {
   foreach ($req['commands'] as $command) {
-    if ($command[0] == 'action') {
-      $action = $command[1];
-      $meta = $command[2];
+    if ($command['command'] == 'action') {
+      $action = $command['action'];
+      $meta = $command['meta'];
 
       if ($action['type'] == 'logux/subscribe') {
-        echo '[["approved"],';
+        echo '[{ "answer": "approved", "id": "' + $meta['id'] + '" },';
         $value = $db->getCounter();
         send_json_http_post(LOGUX_HOST, [
           'password' => LOGUX_PASSWORD,
-          'version' => 1,
+          'version' => 4,
           'commands' => [
             [
-              'action',
-              ['type' => 'INC', 'value' => $value],
-              ['clients' => get_client_id($meta['id'])]
+              'command' => 'action',
+              'action' => ['type' => 'INC', 'value' => $value],
+              'meta' => ['clients' => get_client_id($meta['id'])]
             ]
           ]
         ]);
-        echo '["processed"]]';
+        echo '{ "answer": "processed", "id": "' + $meta['id'] + '" }]';
 
       } elseif ($action['type'] == 'inc') {
         $db->updateCounter('value += 1');
-        echo '[["approved"],["processed"]]';
+        echo '[{ "answer": "approved", "id": "' + $meta['id'] + '" },' +
+              '{ "answer": "processed", "id": "' + $meta['id'] + '" }]';
       }
     }
   }

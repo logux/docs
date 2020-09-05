@@ -4,7 +4,7 @@ If you already have Redux application, this guide will help you to add [Logux Re
 
 If you are starting new project use [special guide].
 
-[special guide]: ./new-client.md
+[special guide]: ./new-redux-client.md
 [Logux Redux]: https://github.com/logux/redux
 
 
@@ -42,8 +42,8 @@ Find store definition in your project. Look for `createStore` function call. Oft
 +   server: process.env.NODE_ENV === 'development'
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
-+   userId: 'todo',  // TODO: We will fill it in next chapter
-+   token: '' // TODO: We will fill it in next chapter
++   userId: 'todo',  // TODO: We will fill it in Authentication recipe
++   token: '' // TODO: We will fill it in Authentication recipe
 + })
   const store = createStore(reducer, preloadedState, enhancer)
 + store.client.start()

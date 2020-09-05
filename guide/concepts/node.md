@@ -15,6 +15,16 @@ store.client.node //=> ClientNode instance
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+const client = new CrossTabClient({ … })
+const createStore = createStoreCreator(client, { … })
+const store = createStore({ … })
+store.client.node //=> ClientNode instance
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -34,6 +44,13 @@ Each node has a unique node ID — a string like `380:Uf_pPwE4:6K7iYdJH` or `ser
 Current node ID of client:
 
 <details open><summary>Redux client</summary>
+
+```js
+store.client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
+```
+
+</details>
+<details><summary>Vuex client</summary>
 
 ```js
 store.client.nodeId //=> "380:Uf_pPwE4:6K7iYdJH"
@@ -77,6 +94,8 @@ In `380:Uf_pPwE4:6K7iYdJH`:
 1. `380` is the **user ID**.
 2. `380:Uf_pPwE4` is **client ID**. Each browser tab has a unique node ID, but every browser tab in this browser will have the same client ID.
 3. `6K7iYdJH` is **tab ID**. Each browser tab will have unique value.
+
+You can use [`parseId`](https://logux.io/redux-api/#globals-parseid) helper to get user ID and client ID from action ID or node ID.
 
 On the server you can get user ID and client ID of the client by:
 
@@ -137,6 +156,18 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+import { IndexedStore } from '@logux/client'
+
+const client = new CrossTabClient({
+  store: new IndexedStore(),
+  …
+})
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -167,6 +198,16 @@ const createStore = createLoguxCreator({
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+const client = new CrossTabClient({
+  server: 'wss://example.com',
+  …
+})
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -187,10 +228,23 @@ If you do not want to use WebSocket, you can implementation own [`Connection`](h
 <details open><summary>Redux client</summary>
 
 ```js
-import { testPair } from 'logux-core'
+import { TestPair } from '@logux/core'
 
-const pair = new testPair()
+const pair = new TestPair()
 const createStore = createLoguxCreator({
+  server: pair.left,
+  …
+})
+```
+
+</details>
+<details><summary>Vuex client</summary>
+
+```js
+import { TestPair } from '@logux/core'
+
+const pair = new TestPair()
+const client = new CrossTabClient({
   server: pair.left,
   …
 })
@@ -200,9 +254,9 @@ const createStore = createLoguxCreator({
 <details><summary>Pure JS client</summary>
 
 ```js
-import { testPair } from 'logux-core'
+import { TestPair } from '@logux/core'
 
-const pair = new testPair()
+const pair = new TestPair()
 const client = new CrossTabClient({
   server: pair.left,
   …
@@ -217,6 +271,17 @@ const client = new CrossTabClient({
 Node has current synchronization state. Possible values are `disconnected`, `connecting`, `sending`, and `synchronized`. You can get current state by:
 
 <details open><summary>Redux client</summary>
+
+```js
+store.client.state //=> "synchronized"
+
+store.client.on('state', () => {
+  console.log(store.client.state) // Track state changes
+})
+```
+
+</details>
+<details><summary>Vuex client</summary>
 
 ```js
 store.client.state //=> "synchronized"
@@ -289,6 +354,17 @@ store.client.on('role', () => {
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+store.client.role //=> "leader"
+
+store.client.on('role', () => {
+  console.log(store.client.role) // Track role changes
+})
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -306,6 +382,14 @@ Each browser tab will have unique node ID, but they all have the same client ID.
 In `380:Uf_pPwE4:6K7iYdJH` node ID, `380:Uf_pPwE4` is client ID and `6K7iYdJH` is tab ID.
 
 <details open><summary>Redux client</summary>
+
+```js
+store.client.clientId //=> "380:Uf_pPwE4"
+store.client.tabId //=> "6K7iYdJH"
+```
+
+</details>
+<details><summary>Vuex client</summary>
 
 ```js
 store.client.clientId //=> "380:Uf_pPwE4"
@@ -333,8 +417,19 @@ The client should use some token to prove it’s user ID. The best way is to use
 
 ```js
 const createStore = createLoguxCreator({
-  userId: localStorage.getItem('userId'),
-  token: localStorage.getItem('userToken'),
+  userId: localStorage.getItem('userId') || 'anonymous',
+  token: localStorage.getItem('userToken') || '',
+  …
+})
+```
+
+</details>
+<details><summary>Vuex client</summary>
+
+```js
+const client = new CrossTabClient({
+  userId: localStorage.getItem('userId') || 'anonymous',
+  token: localStorage.getItem('userToken') || '',
   …
 })
 ```
@@ -344,8 +439,8 @@ const createStore = createLoguxCreator({
 
 ```js
 const client = new CrossTabClient({
-  userId: localStorage.getItem('userId'),
-  token: localStorage.getItem('userToken'),
+  userId: localStorage.getItem('userId') || 'anonymous',
+  token: localStorage.getItem('userToken') || '',
   …
 })
 ```
@@ -357,7 +452,7 @@ User ID and token will be checked on the server:
 <details open><summary>Node.js</summary>
 
 ```js
-server.auth((userId, token) => {
+server.auth(({ userId, token }) => {
   const data = await jwt.verify(token, process.env.JWT_SECRET)
   return data.sub === userId
 })

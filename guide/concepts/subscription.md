@@ -16,6 +16,14 @@ store.dispatch.sync({ type: 'logux/unsubscribe', channel: 'users/14' })
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+store.commit.sync({ type: 'logux/subscribe', channel: 'users/14' })
+store.commit.sync({ type: 'logux/unsubscribe', channel: 'users/14' })
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -43,7 +51,7 @@ server.channel('users/:id', {
   },
   async load (ctx, action, meta) {
     let user = await db.loadUser(ctx.params.id)
-    ctx.sendBack({ type: 'user/add', user })
+    return { type: 'user/add', user }
   }
 })
 ```
@@ -61,9 +69,7 @@ class UserChannel(ChannelCommand):
 
     def load(self, action: Action, meta: Meta):
         user = User.objects.get(pk=self.params['user_id'])
-        self.send_back(
-            {'type': 'user/add', 'user': user.json()}
-        )
+        return {'type': 'user/add', 'user': user.json()}
 ```
 
 </details>
@@ -130,10 +136,14 @@ class AddUserAction(ActionCommand):
 
 </details>
 
+You can mark action with several channels. If client was subscribed to several of action’s channel, it will received action only once.
 
-## `useSubscription`
 
-The best way to use subscriptions is `useSubscription` React hook. This hook automatically subscribes during component render and unsubscribe when a component is unmounted. For instance, when you will render some page, this page will automatically request that data from the server.
+## Subscription
+
+<details open><summary>Redux client</summary>
+
+`useSubscription` React hook automatically subscribes during component render and unsubscribe when a component is unmounted. For instance, when you will render some page, this page will automatically request that data from the server.
 
 `useSubscription` returns `true` during the downloading current state. You should show some loader at that moment.
 
@@ -180,9 +190,6 @@ In component, you should use Redux’s `useSelector` hook to select that data fr
   }
 ```
 
-
-## `connect`
-
 For legacy React components with the class syntax, you can use `connect` decorator.
 
 ```js
@@ -193,6 +200,100 @@ class UserPage extends React.Component {
 }
 export default subscribe(({ userId }) => `users/${ userId }`)(UserPage)
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+Use `useSubscription` composable function or wrap template into `Subscribe` component.
+
+`useSubscription` automatically subscribes for channels during component initialization and unsubscribe on unmounted. For instance, when you will render some page, that page will automatically request data from the server.
+
+`useSubscription` returns `true` during loading the current state. You can use this to show the loading status.
+
+```html
+<template>
+  <h1 v-if="isSubscribing">Loading</h1>
+  <!-- Render user page -->
+</template>
+
+<script>
+import { toRefs, computed } from 'vue'
+import { useSubscription } from '@logux/vuex'
+
+export default {
+  props: ['userId'],
+  setup (props) {
+    let { userId } = toRefs(props)
+    let isSubscribing = useSubscription(() => [`users/${userId.value}`])
+    return { isSubscribing }
+  }
+}
+</script>
+```
+
+This function automatically tracks all subscriptions and doesn’t subscribe to channel if another component already subscribed to the same channel.
+
+`useSubscription` doesn’t receive the data from the server. It just sends `logux/subscribe` and `logux/unsubscribe` actions and tracks loading status. Subscription asks the server to send you actions. You should process these actions with Vuex mutation and put state from actions to the store (see Vuex docs).
+
+In component, you should just return the state within a computed property as usual.
+
+```diff
+  <template>
+    <h1 v-if="isSubscribing">Loading</h1>
+-   <!-- Render user page -->
++   <h1 v-else>{{ user.name }}</h1>
+  </template>
+
+  <script>
+  import { toRefs, computed } from 'vue'
+- import { useSubscription } from '@logux/vuex'
++ import { useStore, useSubscription } from '@logux/vuex'
+
+  export default {
+    props: ['userId'],
+    setup (props) {
+      let { userId } = toRefs(props)
+      let isSubscribing = useSubscription(() => [`users/${userId.value}`])
++
++     let store = useStore()
++     let user = computed(() => store.state.user[userId.value])
++
+-     return { isSubscribing }
++     return { isSubscribing, user }
+    }
+  }
+  </script>
+```
+
+`Subscribe` is a component with scoped slots. It takes a `channels` in its props and passes down the `isSubscribing`.
+
+```html
+<template>
+  <subscribe :channels="[`user/${userId}`]" v-slot="{ isSubscribing }">
+    <h1 v-if="isSubscribing">Loading</h1>
+    <h1 v-else>{{ user.name }}</h1>
+  </subscribe>
+</template>
+
+<script>
+import { toRefs, computed } from 'vue'
+import { Subscribe, useStore } from '@logux/vuex'
+
+export default {
+  components: { Subscribe },
+  props: ['userId'],
+  setup (props) {
+    let { userId } = toRefs(props)
+
+    let store = useStore()
+    let user = computed(() => store.state.user[userId.value])
+
+    return { userId, user }
+  }
+}
+</script>
+```
+</details>
 
 
 ## Re-subscription
@@ -216,9 +317,9 @@ For simple cases, you can use `action.since.time` with a timestamp. For more com
     …,
     async load (ctx, action, meta) {
       let user = await db.loadUser(ctx.params.id)
--     ctx.sendBack({ type: 'user/add', user })
+-     return { type: 'user/add', user }
 +     if (!action.since || user.changesAt > action.since.time) {
-+       ctx.sendBack({ type: 'user/add', user })
++       return { type: 'user/add', user }
 +     }
     }
   })
@@ -235,9 +336,7 @@ class UserChannel(ChannelCommand):
         user = User.objects.get(pk=self.params['user_id'])
         since = action.get('since', None)
         if since is None or (user.changes_at > since['time']):
-            self.send_back(
-                {'type': 'user/name', 'user': user.json()}
-            )
+            return {'type': 'user/name', 'user': user.json()}
 ```
 
 </details>
@@ -270,6 +369,8 @@ Only Node.js server support channel filters API.
 
 We can add additional keys to `logux/subscribe` action to define what fields do we need.
 
+<details open><summary>Redux client</summary>
+
 ```diff
   const UserPage = ({ userId }) => {
 -   const isSubscribing = useSubscription([`user/${ userId }`])
@@ -284,6 +385,32 @@ We can add additional keys to `logux/subscribe` action to define what fields do 
     }
   }
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+```diff
+  import { toRefs, computed } from 'vue'
+  import { useStore, useSubscription } from '@logux/vuex'
+
+  export default {
+    props: ['userId'],
+    setup (props) {
+      let { userId } = toRefs(props)
+-     let isSubscribing = useSubscription(() => [`users/${userId.value}`])
++     let isSubscribing = useSubscription(() => [
++       { channel: `users/${userId.value}`, fields: ['name'] }
++     ])
+
+      let store = useStore()
+      let user = computed(() => store.state.user[userId.value])
+
+      return { isSubscribing, user }
+    }
+  }
+```
+
+</details>
 
 On the server we can define filter in `filter` callback:
 

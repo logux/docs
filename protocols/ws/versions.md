@@ -1,5 +1,10 @@
 # Logux Protocol Changes
 
+## 4 “Blissymbols”
+
+* Add `headers` message (by Ivan Menshykov).
+
+
 ## 3 “Iţkuîl”
 
 * Rename `credentials` to `token`.

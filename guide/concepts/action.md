@@ -90,6 +90,13 @@ store.dispatch.sync({ type: 'logux/undo', id: meta.id, reason: 'too late' })
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+store.commit.sync({ type: 'logux/undo', id: meta.id, reason: 'too late' })
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -173,6 +180,44 @@ There are four ways to add action to Logux Redux.
    This method is the best for models. For instance, when the user adds a new comment or changed the post.
 
 </details>
+<details><summary>Vuex client</summary>
+
+There are four ways to add action to Logux Vuex.
+
+1. The **standard Vuex** way to commit mutations. Action will *not* be sent to the server or another browser tab. There is no way to set action’s meta in this method.
+
+   ```js
+   store.commit(action)
+   store.commit(type, payload)
+   ```
+
+   This way is the best for small UI states, like to open/close menu.
+
+2. **Local action with metadata**. Action will *not* be sent to the server or another browser tab. Compare to standard Vuex way, `commit.local` can set action’s meta.
+
+   ```js
+   store.commit.local(action, meta)
+   ```
+
+3. **Cross-tab action.** It sends action to all tabs in this browser.
+
+   ```js
+   store.commit.crossTab(action)
+   store.commit.crossTab(action, meta)
+   ```
+
+   This method is the best for local data like client settings, which you will save to `localStorage`.
+
+4. **Server actions.** It sends action to the server *and* all tabs in this browser.
+
+   ```js
+   store.commit.sync(action)
+   store.commit.sync(action, meta)
+   ```
+
+   This method is the best for models. For instance, when the user adds a new comment or changed the post.
+
+</details>
 <details><summary>Pure JS client</summary>
 
 1. **Local action.** Action will *not* be sent to the server or another browser tab.
@@ -221,6 +266,23 @@ store.dispatch.local(action)
 `store.client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `store.client.on('add', fn)`. Reducers will see cross-tab actions, you do not need to do anything.
 
 </details>
+<details><summary>Vuex client</summary>
+
+Actions added by `commit.sync()` and `commit.crossTab()` will be visible to all browser tabs.
+
+```js
+// All browser tabs will receive these actions
+store.commit.crossTab(action)
+store.commit.sync(action)
+
+// Only current browser tab will receive these actions
+store.commit(action)
+store.commit.local(action)
+```
+
+`store.client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `store.client.on('add', fn)`. Mutations will see cross-tab actions, you do not need to do anything.
+
+</details>
 <details><summary>Pure JS client</summary>
 
 Any action without explicit `meta.tab` will be sent to all browser tabs.
@@ -251,6 +313,13 @@ store.dispatch.sync({ type: 'likes/add', postId })
 ```
 
 </details>
+<details><summary>Vuex client</summary>
+
+```js
+store.commit.sync({ type: 'likes/add', postId })
+```
+
+</details>
 <details><summary>Pure JS client</summary>
 
 ```js
@@ -262,6 +331,16 @@ client.log.add({ type: 'likes/add', postId }, { sync: true })
 You could use [`badge()`](https://logux.io/redux-api/#globals-badge) or [`status()`](https://logux.io/redux-api/#globals-status) to show small notice if Logux is waiting for an Internet to save changes.
 
 <details open><summary>Redux client</summary>
+
+```js
+import { badge, badgeEn } from '@logux/client'
+import { badgeStyles } from '@logux/client/badge/styles'
+
+badge(store.client, { messages: badgeMessages, styles: badgeStyles })
+```
+
+</details>
+<details><summary>Vuex client</summary>
 
 ```js
 import { badge, badgeEn } from '@logux/client'
@@ -288,11 +367,25 @@ But, of course, you can use “pessimistic” UI for critical actions like payme
 
 ```js
 showLoader()
-dispatch.sync({ type: 'likes/add', postId }).then(() => {
-  hideLoader()
-}).catch(() => {
+try {
+  await dispatch.sync({ type: 'likes/add', postId })
+} catch {
   showError()
-})
+}
+hideLoader()
+```
+
+</details>
+<details><summary>Vuex client</summary>
+
+```js
+showLoader()
+try {
+  await commit.sync({ type: 'likes/add', postId })
+} catch {
+  showError()
+}
+hideLoader()
 ```
 
 </details>
@@ -311,17 +404,26 @@ client.on('add', action => {
 })
 
 showLoader()
-client.log.add({ type: 'likes/add', postId }, { sync: true }).then(meta => {
-  waiting[meta.id] = {
-    resolve: hideLoader,
-    reject: showError
-  }
-})
+const meta = await client.log.add({ type: 'likes/add', postId }, { sync: true })
+waiting[meta.id] = {
+  resolve: hideLoader,
+  reject: showError
+}
 ```
 
 </details>
 
 By default, Logux will forget all unsaved actions if the user will close the browser before getting the Internet. You can change the log store to [`IndexedStore`](https://logux.io/redux-api/#indexedstore) or you can show a warning to prevent closing browser:
+
+<details open><summary>Redux client</summary>
+
+```js
+import { confirm } from '@logux/client'
+confirm(store.client)
+```
+
+</details>
+<details><summary>Vuex client</summary>
 
 ```js
 import { confirm } from '@logux/client'
@@ -495,14 +597,14 @@ someService.on('error', () => {
 })
 ```
 
-But, in most of the cases, you will use `ctx.sendBack` shortcut. It sets `meta.client` to `ctx.clientId`.
+But, in most of the cases, you will return actions in channel `load` callback. You can return `action`, `[action1, action2]` or `[[action1, meta1], [action2, meta2]]`.
 
 ```js
 server.channel('user/:id', {
   …
   async load (ctx, action, meta) {
     ler user = await db.first('users', { id: ctx.params.id })
-    ctx.sendBack({ type: 'users/add', user })
+    return { type: 'users/add', user }
   }
 })
 ```
@@ -519,7 +621,7 @@ from logux.core import logux_add
 logux_add({ type: 'someService/error' }, { 'channels': ['admins'] })
 ```
 
-`send_back` is method of `ActionCommand`'s inheritors.
+You can return actions (`action`, `[action1, action2]` or `[[action1, meta1]]`) in channel’s `load` method.
 ```python
   class UserChannel(ChannelCommand):
       channel_pattern = r'^user/(?P<user_id>\w+)$'
@@ -528,9 +630,7 @@ logux_add({ type: 'someService/error' }, { 'channels': ['admins'] })
 
       def load(self, action: Action, meta: Meta):
           user = User.objects.get(pk=self.params['user_id'])
-          self.send_back(
-              {'type': 'user/add', 'user': user}
-          )
+          return {'type': 'user/add', 'user': user}
 ```
 
 </details>
@@ -565,6 +665,15 @@ We recommend to use subscription rather than working with `reasons`. Every time 
 Logux uses [Nano Events] API to add and remove event listener.
 
 <details open><summary>Redux client</summary>
+
+```js
+store.client.on(event, (action, meta) => {
+  …
+})
+```
+
+</details>
+<details open><summary>Vuex client</summary>
 
 ```js
 store.client.on(event, (action, meta) => {

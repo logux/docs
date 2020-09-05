@@ -56,7 +56,7 @@ However, most of Logux implementation has built-in strategies on top of these re
 
 ## `keepLast`
 
-`meta.keepLast` is a shortcut to set a passed string as a reason and remove these reasons from all previous actions. Note that this shortcut will keep reason on the latest action according to `meta.id` and `meta.time`. Latest action could not be the action which you are adding.
+`meta.keepLast` is a shortcut to set a passed string as a reason and remove these reasons from all previous actions. Note that this shortcut will keep reason on the latest action according to `meta.id` and `meta.time`. The latest action could not be the action which you are adding.
 
 ```js
 // Keep action with latest name
@@ -73,14 +73,9 @@ By default, Logux Server doesn’t keep any actions in the memory. This is why y
 
 If you want a complete event-sourcing system, you can implement a log store in persistent database and define actions cleaning strategy with reasons API and `preadd` event.
 
-## Logux Client
+## Client
 
-By default, Logux Client keeps actions with `meta.sync`, which was not synchronized yet.
-
-Logux Client is low-level API. If you do not want to have a deal with complicated reasons API, Logux Redux is a better option.
-
-
-## Logux Redux
+<details open><summary>Redux client</summary>
 
 By default, Logux Redux will keep last 1000 actions without explicit `meta.reasons`.
 
@@ -97,7 +92,7 @@ You can change actions limit by `reasonlessHistory` option in `createLoguxCreato
 If Logux Redux needs cleaned action from time travel, it will call `onMissedHistory` callback. You can ask a user to reload the page or load the latest data state from the server because time travel can’t guarantee the result in this case.
 
 ```js
-let store = createLoguxCreator({
+let createStore = createLoguxCreator({
   …,
   onMissedHistory (action) {
     if (CRITICAL_ACTIONS.includes(action.type)) {
@@ -117,5 +112,53 @@ store.log.on('preadd', (action, meta) => {
   }
 })
 ```
+
+</details>
+<details><summary>Vuex client</summary>
+
+By default, Logux Vuex will keep last 1000 actions without explicit `meta.reasons`.
+
+```js
+// Logux Vuex will keep 1000 actions without defined reasons
+store.commit.crossTab(action)
+
+// Logux Vuex will not keep this action since we define reasons manually
+store.commit.crossTab(action, { reasons: [] })
+```
+
+You can change actions limit by `reasonlessHistory` option in `createStoreCreator`.
+
+If Logux Vuex needs cleaned action from time travel, it will call `onMissedHistory` callback. You can ask a user to reload the page or load the latest data state from the server because time travel can’t guarantee the result in this case.
+
+```js
+let client = new CrossTabClient({ … })
+let createStore = createStoreCreator(client, {
+  onMissedHistory (action) {
+    if (CRITICAL_ACTIONS.includes(action.type)) {
+      store.commit.sync({ type: 'reload/state' }) // Ask server for latest state
+    }
+  }
+})
+```
+
+Logux Vuex keeps last 1000 action by setting `timeTravel` and `timeTravelTab…` reasons for new actions. If you want to specify reasons manually, you should set reasons in `preadd` event and set `noAutoReason` meta key:
+
+```js
+store.log.on('preadd', (action, meta) => {
+  if (action.type === 'user/rename') {
+    meta.noAutoReason = true
+    meta.keepLast = `user/${ action.userId }/name`
+  }
+})
+```
+
+</details>
+<details><summary>Pure JS client</summary>
+
+By default, Logux Client keeps actions with `meta.sync`, which was not synchronized yet.
+
+Logux Client is low-level API. If you do not want to have a deal with complicated reasons API, Logux Redux or Logux Vuex is a better option.
+
+</details>
 
 [Next chapter](./subprotocol.md)

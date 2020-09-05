@@ -13,11 +13,15 @@ Correct synchronization:
 
 ```ts
 CONNECTED
+CLIENT > ["headers", { language: "pl" }]
 CLIENT > ["connect", 0, "client1", 0, { token: "token" }]
+SERVER < ["headers", { env: "development" }]
 SERVER < ["connected", 0, "server", [1475316481050, 1475316482879]]
 
 CLIENT > ["ping", 0]
 SERVER < ["pong", 0]
+
+CLIENT > ["headers", { language: "en" }]
 
 SERVER < ["sync", 1, { type: 'a' }, { id: [59637, "client2", 0] }]
 CLIENT > ["synced", 1]
