@@ -466,9 +466,9 @@ class AddLikesAction(ActionCommand):
     action_type = 'likes/add'
 
     def access(self, action: Action, meta: Meta) -> bool:
-        user = User.objects.get(pk=meta.user_id)
-        return not user.is_troll and user.can_read(action['postId'])
-
+        if 'error' in self.headers:
+            raise LoguxProxyException(self.headers['error'])
+        return action['payload']['userId'] == meta.user_id
     …
 ```
 
@@ -522,13 +522,12 @@ server.type('likes/add', {
 
 ```python
 class AddLikesAction(ActionCommand):
+
     action_type = 'likes/add'
 
     …
-
-    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
-        return {'channels': [f'posts/{action["postId"]}']}
-
+    def resend(self, action: Action, meta: Optional[Meta]) -> List[str]:
+        return [f"users/{action['payload']['userId']}"]
     …
 ```
 
@@ -562,12 +561,12 @@ server.type('likes/add', {
 
 ```python
 class AddLikesAction(ActionCommand):
+
     action_type = 'likes/add'
 
     …
-
-    def process(self, action: Action, meta: Optional[Meta]) -> None:
-        Post.objects.filter(id=action['postId']).update(count=F('likes')+1)
+    def process(self, action: Action, meta: Meta) -> None:
+        Post.objects.filter(id=action['postId']).update(count=F('likes') + 1)
 ```
 
 </details>
@@ -624,13 +623,13 @@ logux_add({ type: 'someService/error' }, { 'channels': ['admins'] })
 You can return actions (`action`, `[action1, action2]` or `[[action1, meta1]]`) in channel’s `load` method.
 ```python
   class UserChannel(ChannelCommand):
+
       channel_pattern = r'^user/(?P<user_id>\w+)$'
 
       …
-
-      def load(self, action: Action, meta: Meta):
+      def load(self, action: Action, meta: Meta) -> Action:
           user = User.objects.get(pk=self.params['user_id'])
-          return {'type': 'user/add', 'user': user}
+          return {'type': 'user/add', 'payload': {'user': user} }
 ```
 
 </details>
