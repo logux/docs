@@ -466,8 +466,6 @@ class AddLikesAction(ActionCommand):
     action_type = 'likes/add'
 
     def access(self, action: Action, meta: Meta) -> bool:
-        if 'error' in self.headers:
-            raise LoguxProxyException(self.headers['error'])
         return action['payload']['userId'] == meta.user_id
     …
 ```

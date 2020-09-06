@@ -35,6 +35,8 @@ Note, that you should manually synchronize headers changes between browser tabs.
 
 On the server, you can get the client’s headers during the authentication, action, or channel processing.
 
+<details open><summary>Node.js</summary>
+
 ```js
   process (ctx, action, meta) {
     ctx.sendBack({
@@ -43,3 +45,21 @@ On the server, you can get the client’s headers during the authentication, act
     })
   }
 ```
+
+</details>
+
+<details><summary>Django</summary>
+
+```python
+class AddLikesAction(ActionCommand):
+
+    action_type = 'likes/add'
+
+    def access(self, action: Action, meta: Meta) -> bool:
+        if 'error' in self.headers:
+            raise LoguxProxyException(self.headers['error'])
+        return action['payload']['userId'] == meta.user_id
+…
+```
+
+</details>
