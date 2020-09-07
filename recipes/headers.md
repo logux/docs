@@ -39,7 +39,7 @@ On the server, you can get the client’s headers during the authentication, act
   process (ctx, action, meta) {
     ctx.sendBack({
       type: 'notification',
-      message: I18N[ctx.locale || 'en-US'].success
+      message: I18N[ctx.headers.locale || 'en-US'].success
     })
   }
 ```
