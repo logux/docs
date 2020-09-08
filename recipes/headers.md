@@ -51,14 +51,12 @@ On the server, you can get the client’s headers during the authentication, act
 <details><summary>Django</summary>
 
 ```python
-class AddLikesAction(ActionCommand):
-
-    action_type = 'likes/add'
-
-    def access(self, action: Action, meta: Meta) -> bool:
-        if 'error' in self.headers:
-            raise LoguxProxyException(self.headers['error'])
-        return action['payload']['userId'] == meta.user_id
+…
+def process(self, action: Action, meta: Meta) -> None:
+    self.send_back({
+        'type': 'notification',
+        'message': i18n[self.headers['locale'] or 'en-US'].success
+    })
 …
 ```
 

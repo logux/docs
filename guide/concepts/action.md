@@ -466,7 +466,8 @@ class AddLikesAction(ActionCommand):
     action_type = 'likes/add'
 
     def access(self, action: Action, meta: Meta) -> bool:
-        return action['payload']['userId'] == meta.user_id
+        user = User.objects.get(id=meta.user_id)
+        return not user.is_troll and user.can_read(action['payload']['postId'])
     …
 ```
 
