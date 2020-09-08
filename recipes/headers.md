@@ -35,6 +35,8 @@ Note, that you should manually synchronize headers changes between browser tabs.
 
 On the server, you can get the client’s headers during the authentication, action, or channel processing.
 
+<details open><summary>Node.js</summary>
+
 ```js
   process (ctx, action, meta) {
     ctx.sendBack({
@@ -43,3 +45,19 @@ On the server, you can get the client’s headers during the authentication, act
     })
   }
 ```
+
+</details>
+
+<details><summary>Django</summary>
+
+```python
+…
+def process(self, action: Action, meta: Meta) -> None:
+    self.send_back({
+        'type': 'notification',
+        'message': i18n[self.headers['locale'] or 'en-US'].success
+    })
+…
+```
+
+</details>

@@ -108,10 +108,11 @@ server.type('users/rename', {
 
 ```python
 class RenameUserAction(ActionCommand):
+
     action_type = 'user/rename'
 
-    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
-        return {'channels': [f'users/{action["user"]}']}
+    def resend(self, action: Action, meta: Optional[Meta]) -> List[str]:
+        return [f"users/{action['payload']['userId']}"]
 ```
 
 </details>

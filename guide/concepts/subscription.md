@@ -61,15 +61,16 @@ server.channel('users/:id', {
 
 ```python
 class UserChannel(ChannelCommand):
+
     channel_pattern = r'^users/(?P<user_id>\w+)$'
 
-    def access(self, action: Action, meta: Meta) -> bool:
+    def access(self, action: Action, meta: Optional[Meta]) -> bool:
         client = User.objects.get(pk=meta.user_id)
         return client.has_access_to_user(self.params['user_id'])
 
-    def load(self, action: Action, meta: Meta):
+    def load(self, action: Action, meta: Meta) -> Action:
         user = User.objects.get(pk=self.params['user_id'])
-        return {'type': 'user/add', 'user': user.json()}
+        return {'type': 'user/add', 'payload': {'user': user.json()} }
 ```
 
 </details>
@@ -125,8 +126,8 @@ server.type('users/add', {
 class AddUserAction(ActionCommand):
     action_type = 'users/add'
 
-    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
-        return {'channels': [f'users/{action["userId"]}']}
+    def resend(self, action: Action, meta: Optional[Meta]) -> List[str]:
+        return [f'users/{action["userId"]}']
 ```
 
 </details>
@@ -330,13 +331,14 @@ For simple cases, you can use `action.since.time` with a timestamp. For more com
 
 ```python
 class UserChannel(ChannelCommand):
+
     channel_pattern = r'^user/(?P<user_id>\w+)$'
 
-    def load(self, action: Action, meta: Meta):
+    def load(self, action: Action, meta: Meta) -> Action:
         user = User.objects.get(pk=self.params['user_id'])
         since = action.get('since', None)
         if since is None or (user.changes_at > since['time']):
-            return {'type': 'user/name', 'user': user.json()}
+            return {'type': 'user/name', 'payload': {'user': user.json()} }
 ```
 
 </details>

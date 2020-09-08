@@ -235,11 +235,12 @@ server.channel('users/:id', {
 
 ```python
 class UserChannel(ChannelCommand):
+
     channel_pattern = r'^user/(?P<user_id>\w+)$'
 
-    def load(self, action: Action, meta: Meta):
+    def load(self, action: Action, meta: Meta) -> Action:
         user = User.objects.get(pk=self.params['user_id'])
-        return {'type': 'user/name', 'user': user.json()}
+        return {'type': 'user/name', 'payload': {'user': user.json()} }
 ```
 
 </details>
@@ -280,8 +281,8 @@ server.type('users/add', {
 class AddUserAction(ActionCommand):
     action_type = 'users/add'
 
-    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
-        return {'channels': [f'users/{action["userId"]}']}
+    def resend(self, action: Action, meta: Optional[Meta]) -> List[str]:
+        return [f'users/{action["userId"]}']
 ```
 
 </details>
@@ -311,7 +312,7 @@ server.type('users/add', {
 class AddUserAction(ActionCommand):
     action_type = 'users/add'
 
-    def process(self, action: Action, meta: Optional[Meta]) -> None:
+    def process(self, action: Action, meta: Meta) -> None:
         User.objects.create(**action['user'])
 ```
 
@@ -437,7 +438,7 @@ server.type('users/rename', {
 class AddUserAction(ActionCommand):
     action_type = 'users/rename'
 
-    def process(self, action: Action, meta: Optional[Meta]) -> None:
+    def process(self, action: Action, meta: Meta) -> None:
         user = User.objects.get(pk=action['userId'])
         if user.meta < meta:
             user.name = action['name']
