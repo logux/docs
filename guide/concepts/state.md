@@ -349,16 +349,7 @@ different action order or without some action from the past. This feature is cri
 
 Be default, they keep last 1000 actions. You can change it or implemented more complex logic. See [reasons chapter] for details.
 
-<details open><summary>Redux client</summary>
-
-Logux Redux saves state every 50 actions. You can change it by `saveStateEvery` option in `createLoguxCreator` function.
-
-</details>
-<details><summary>Vuex client</summary>
-
-Logux Vuex saves state every 50 actions. You can change it by `saveStateEvery` option in `createStoreCreator` function.
-
-</details>
+Logux wrapper saves state every 50 actions. You can change it by `saveStateEvery` option in `createStoreCreator` function.
 
 In some cases 1000 action could be not enough for time travel. For instance, some client was offline for a few hours and only now send their actions to the server. In this case, client will receive very old actions and will not be able to revert history at that moment to put that client’s actions into the right moment of the history.
 
@@ -370,7 +361,7 @@ In this case, Logux Redux will time travel to latest possible moment. In most ca
 2. Set `onMissedHistory` callback to process this cases:
 
    ```js
-   let store = createLoguxCreator({
+   let store = createStoreCreator(client, {
      …,
      onMissedHistory (action) {
        if (CRITICAL_ACTIONS.includes(action.type)) {
