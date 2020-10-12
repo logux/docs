@@ -489,7 +489,7 @@ Logux servers send `logux/undo` in 3 cases:
 <details open><summary>Node.js</summary>
 
 ```js
-server.undo(meta, 'too late')
+server.undo(action, meta, 'too late')
 ```
 
 </details>

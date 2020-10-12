@@ -233,12 +233,12 @@ After saving action to the database, the server will send `logux/processed` acti
 On any error with action processing, the server will send back to the client `logux/undo` action.
 
 ```js
-{ type: 'logux/undo', id: meta.id, reason: 'error' }
+{ type: 'logux/undo', id: undoneMeta.id, action: undoneAction reason: 'error' }
 ```
 
 Logux client uses pure reducers for **time traveling**. When the client received `logux/undo`, it rollbacks the state to the latest saved point and call reducers for all next action, except the action from `logux/undo`.
 
-An application can catch `logux/undo` action and show some error warning.
+An application can catch `logux/undo` action and show some error warning. To help make error warnings more exact, Logux adds the original reverted action to the `logux/undo` action.
 
 
 ## Loader During Action Processing
