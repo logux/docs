@@ -9,7 +9,8 @@ Logux Core provides `BaseNode` class, which will synchronize actions between two
 <details open><summary>Redux client</summary>
 
 ```js
-const createStore = createLoguxCreator({ … })
+const client = new CrossTabClient({ … })
+const createStore = createStoreCreator(client, { … })
 const store = createStore(reducer)
 store.client.node //=> ClientNode instance
 ```
@@ -144,20 +145,6 @@ Nodes need a store for these actions and action meta. By default client and serv
 
 You can change action store. For instance, you can use `indexedDB` store for better offline support.
 
-<details open><summary>Redux client</summary>
-
-```js
-import { IndexedStore } from '@logux/client'
-
-const createStore = createLoguxCreator({
-  store: new IndexedStore(),
-  …
-})
-```
-
-</details>
-<details><summary>Vuex client</summary>
-
 ```js
 import { IndexedStore } from '@logux/client'
 
@@ -166,20 +153,6 @@ const client = new CrossTabClient({
   …
 })
 ```
-
-</details>
-<details><summary>Pure JS client</summary>
-
-```js
-import { IndexedStore } from '@logux/client'
-
-const client = new CrossTabClient({
-  store: new IndexedStore(),
-  …
-})
-```
-
-</details>
 
 [next chapter]: ./action.md
 
@@ -188,36 +161,12 @@ const client = new CrossTabClient({
 
 By default, nodes use WebSocket to connect to each other. You just pass URL to the server:
 
-<details open><summary>Redux client</summary>
-
-```js
-const createStore = createLoguxCreator({
-  server: 'wss://example.com',
-  …
-})
-```
-
-</details>
-<details><summary>Vuex client</summary>
-
 ```js
 const client = new CrossTabClient({
   server: 'wss://example.com',
   …
 })
 ```
-
-</details>
-<details><summary>Pure JS client</summary>
-
-```js
-const client = new CrossTabClient({
-  server: 'wss://example.com',
-  …
-})
-```
-
-</details>
 
 By default, Logux forces you to use WebSocket over TLS (`wss:`) in production. It is important to fix the problem between WebSocket and old firewalls and routers. Encryption makes traffic looks like any keep-alive HTTPS connection.
 
@@ -225,21 +174,6 @@ You can use WebSocket without encryption in development or with `allowDangerousP
 
 If you do not want to use WebSocket, you can implementation own [`Connection`](https://logux.io/redux-api/#connection) class and pass it to `server` option. For instance, you can use [`TestPair`](https://logux.io/redux-api/#testpair) in tests:
 
-<details open><summary>Redux client</summary>
-
-```js
-import { TestPair } from '@logux/core'
-
-const pair = new TestPair()
-const createStore = createLoguxCreator({
-  server: pair.left,
-  …
-})
-```
-
-</details>
-<details><summary>Vuex client</summary>
-
 ```js
 import { TestPair } from '@logux/core'
 
@@ -249,21 +183,6 @@ const client = new CrossTabClient({
   …
 })
 ```
-
-</details>
-<details><summary>Pure JS client</summary>
-
-```js
-import { TestPair } from '@logux/core'
-
-const pair = new TestPair()
-const client = new CrossTabClient({
-  server: pair.left,
-  …
-})
-```
-
-</details>
 
 
 ## State
@@ -413,19 +332,6 @@ Browser tabs can synchronize actions between each other. Actions from server and
 
 The client should use some token to prove it’s user ID. The best way is to use [JWT] token generated on the server.
 
-<details open><summary>Redux client</summary>
-
-```js
-const createStore = createLoguxCreator({
-  userId: localStorage.getItem('userId') || 'anonymous',
-  token: localStorage.getItem('userToken') || '',
-  …
-})
-```
-
-</details>
-<details><summary>Vuex client</summary>
-
 ```js
 const client = new CrossTabClient({
   userId: localStorage.getItem('userId') || 'anonymous',
@@ -433,19 +339,6 @@ const client = new CrossTabClient({
   …
 })
 ```
-
-</details>
-<details><summary>Pure JS client</summary>
-
-```js
-const client = new CrossTabClient({
-  userId: localStorage.getItem('userId') || 'anonymous',
-  token: localStorage.getItem('userToken') || '',
-  …
-})
-```
-
-</details>
 
 User ID and token will be checked on the server:
 

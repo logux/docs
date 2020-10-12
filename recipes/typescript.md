@@ -113,7 +113,9 @@ export type State = {
 export type Actions = UserRenameAction ||
                       PostAddAction
 
-let createStore = createLoguxCreator({ … })
+let client = new CrossTabClient({ … })
+
+let createStore = createStoreCreator(client, { … })
 
 let store = createStore<State, Actions>(reducer)
 ```

@@ -87,12 +87,12 @@ store.dispatch.crossTab(action)
 store.dispatch.crossTab(action, { reasons: [] })
 ```
 
-You can change actions limit by `reasonlessHistory` option in `createLoguxCreator`.
+You can change actions limit by `reasonlessHistory` option in `createStoreCreator`.
 
 If Logux Redux needs cleaned action from time travel, it will call `onMissedHistory` callback. You can ask a user to reload the page or load the latest data state from the server because time travel can’t guarantee the result in this case.
 
 ```js
-let createStore = createLoguxCreator({
+let createStore = createStoreCreator(client, {
   …,
   onMissedHistory (action) {
     if (CRITICAL_ACTIONS.includes(action.type)) {

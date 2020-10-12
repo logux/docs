@@ -33,19 +33,23 @@ Find store definition in your project. Look for `createStore` function call. Oft
 
 ```diff
 - import { createStore } from 'redux'
-+ import { createLoguxCreator } from '@logux/redux'
++ import { CrossTabClient, createStoreCreator } from '@logux/redux'
 ```
 
 ```diff
-+ const createStore = createLoguxCreator({
-+   subprotocol: '1.0.0',
++ const client = new CrossTabClient({
 +   server: process.env.NODE_ENV === 'development'
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
-+   userId: 'todo',  // TODO: We will fill it in Authentication recipe
-+   token: '' // TODO: We will fill it in Authentication recipe
++   subprotocol: '1.0.0',
++   userId: 'anonymous',  // TODO: We will fill it in Authentication recipe
++   token: ''  // TODO: We will fill it in Authentication recipe
 + })
++
++ const createStore = createStoreCreator(client)
+
   const store = createStore(reducer, preloadedState, enhancer)
+
 + store.client.start()
 ```
 
@@ -63,15 +67,16 @@ npm i @logux/client
 Use helpers where you create the store.
 
 ```diff
-  import { createLoguxCreator } from '@logux/redux'
+  import { CrossTabClient, createStoreCreator } from '@logux/redux'
 + import { badge, badgeEn, log } from '@logux/client'
 + import { badgeStyles } from '@logux/client/badge/styles'
 ```
 
 ```diff
-  const store = createStore(reducer)
 + badge(store.client, { messages: badgeEn, styles: badgeStyles })
 + log(store.client)
++
+  store.client.start()
 ```
 
 
