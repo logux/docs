@@ -107,8 +107,8 @@ Use these `<meta>` values in the store:
     server: process.env.NODE_ENV === 'development'
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
--   userId: 'anonymous',
--   token: ''
+-   userId: 'anonymous', // TODO: We will fill it in next chapter
+-   token: '' // TODO: We will fill it in next chapter
 +   userId: userId.content,
 +   token: token.content
   })
@@ -260,8 +260,8 @@ Use these `localStorage` values in the store:
     server: process.env.NODE_ENV === 'development'
       ? 'ws://localhost:31337'
       : 'wss://logux.example.com',
--   userId: 'anonymous',
--   token: ''
+-   userId: 'anonymous', // TODO: We will fill it in next chapter
+-   token: '' // TODO: We will fill it in next chapter
 +   userId: localStorage.getItem('userId'),
 +   token: localStorage.getItem('token')
   });
