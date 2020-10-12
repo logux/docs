@@ -45,10 +45,10 @@ Logux Server response with `logux/processed` when it received and processed the 
 ### `logux/undo`
 
 ```js
-{ type: 'logux/undo', id: '1560954012838 380:Y7bysd:O0ETfc 0', reason: 'error' }
+{ type: 'logux/undo', id: '1560954012838 380:Y7bysd:O0ETfc 0', action: { type: 'likes/add' } reason: 'error' }
 ```
 
-This action asks clients to revert action. `action.id` will be equal to `meta.id` of reverted action. Logux Server sends this action on any error during action processing. In this case, `logux/processed` will not be sent.
+This action asks clients to revert action. `action.id` is equal to `meta.id` of reverted action and `action.action` is the original reverted action. Logux Server sends this action on any error during action processing. In this case, `logux/processed` will not be sent.
 
 There are 4 standard `reason` values in the action:
 
@@ -62,7 +62,7 @@ A developer can create `logux/undo` at any moment on the server even after `logu
 <details open><summary>Node.js</summary>
 
 ```js
-server.undo(meta, 'too late')
+server.undo(action, meta, 'too late')
 ```
 
 </details>
@@ -86,21 +86,21 @@ Clients can also create `logux/undo` to revert action and ask other clients to r
 <details open><summary>Redux client</summary>
 
 ```js
-store.dispatch.sync({ type: 'logux/undo', id: meta.id, reason: 'too late' })
+store.dispatch.sync({ type: 'logux/undo', id: meta.id, action: action, reason: 'too late' })
 ```
 
 </details>
 <details><summary>Vuex client</summary>
 
 ```js
-store.commit.sync({ type: 'logux/undo', id: meta.id, reason: 'too late' })
+store.commit.sync({ type: 'logux/undo', id: meta.id, action: action, reason: 'too late' })
 ```
 
 </details>
 <details><summary>Pure JS client</summary>
 
 ```js
-client.log.add({ type: 'logux/undo', id: meta.id, reason: 'too late' }, { sync: true })
+client.log.add({ type: 'logux/undo', id: meta.id, action: action, reason: 'too late' }, { sync: true })
 ```
 
 </details>

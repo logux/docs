@@ -198,12 +198,12 @@ server.type('login', {
   async process (ctx, action, meta) {
     const user = await db.oneOrNone('SELECT * FROM users WHERE email = $1', action.email);
     if (!user) {
-      server.undo(meta, 'Unknown email')
+      server.undo(action, meta, 'Unknown email')
     } else if (await bcrypt.compare(action.password, hash)) {
       let token = jwt.encode({ sub: user.id }, process.env.JWT_SECRET)
       ctx.sendBack({ type: 'login/done', userId: user.id, token })
     } else {
-      server.undo(meta, 'Wrong password')
+      server.undo(action, meta, 'Wrong password')
     }
   }
 })
