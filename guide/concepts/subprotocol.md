@@ -14,36 +14,12 @@ Subprotocol version is a [Semantic Versioning] string with 3 numbers: `0.3.4`, `
 
 On the client you define what subprotocol version does it use:
 
-<details open><summary>Redux client</summary>
-
-```js
-const createStore = createLoguxCreator({
-  subprotocol: '1.1.0',
-  …
-})
-```
-
-</details>
-<details><summary>Vuex client</summary>
-
 ```js
 const client = new CrossTabClient({
   subprotocol: '1.1.0',
   …
 })
 ```
-
-</details>
-<details><summary>Pure JS client</summary>
-
-```js
-const client = new Client({
-  subprotocol: '1.1.0',
-  …
-})
-```
-
-</details>
 
 In Logux Node.js server or Logux proxy, you define what subprotocol does server use and what clients does it support (by [SemVer range syntax]).
 

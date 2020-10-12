@@ -84,16 +84,19 @@ Edit `src/index.js`:
 ```diff
   import reducer from './reducers';
 - import { createStore } from 'redux';
-+ import { createLoguxCreator } from '@logux/redux';
-
-+ const createStore = createLoguxCreator({
-+   subprotocol: '1.0.0',
++ import { CrossTabClient, createStoreCreator } from '@logux/redux';
++
++ const client = new CrossTabClient({
 +   server: process.env.NODE_ENV === 'development'
 +     ? 'ws://localhost:31337'
 +     : 'wss://logux.example.com',
-+   userId: 'todo',  // TODO: We will fill it in Authentication recipe
-+   token: '' // TODO: We will fill it in Authentication recipe
-+ });
++   subprotocol: '1.0.0',
++   userId: 'anonymous',  // TODO: We will fill it in Authentication recipe
++   token: ''  // TODO: We will fill it in Authentication recipe
++ })
++
++ const createStore = createStoreCreator(client)
+
   const store = createStore(reducer);
 + store.client.start()
 ```
@@ -112,15 +115,16 @@ npm i @logux/client
 Change `src/index.js`:
 
 ```diff
-  import { createLoguxCreator } from '@logux/redux';
+  import { CrossTabClient, createStoreCreator } from '@logux/redux';
 + import { badge, badgeEn, log } from '@logux/client';
 + import { badgeStyles } from '@logux/client/badge/styles';
 ```
 
 ```diff
-  const store = createStore(reducer);
 + badge(store.client, { messages: badgeEn, styles: badgeStyles });
 + log(store.client);
++
+  store.client.start()
 ```
 
 

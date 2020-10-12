@@ -20,21 +20,6 @@ We suggest to change major subprotocol version (first number `X.x.x`) on client/
 
 You can optionally update minor (`x.X.x`) or patch (`x.x.X`) versions of subprotocol on new actions and features or bug fixes. It can be useful for statistics.
 
-<details open><summary>Redux client</summary>
-
-You can change the subprotocol version at `src/index.js` file (or another file where you create store):
-
-```diff
-  const createStore = createLoguxCreator({
--   subprotocol: '1.1.0',
-+   subprotocol: '2.0.0',
-    …
-  })
-```
-
-</details>
-<details><summary>Vuex client</summary>
-
 You can change the subprotocol version at `src/store/index.js` file (or another file where you create store):
 
 ```diff
@@ -44,21 +29,6 @@ You can change the subprotocol version at `src/store/index.js` file (or another 
     …
   })
 ```
-
-</details>
-<details><summary>Pure JS client</summary>
-
-You can change the subprotocol version in the file where you create the client.
-
-```diff
-  const client = new Client({
--   subprotocol: '1.1.0',
-+   subprotocol: '2.0.0',
-    …
-  })
-```
-
-</details>
 
 In Logux Node.js server or Logux proxy you need to change `index.js`:
 
