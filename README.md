@@ -113,7 +113,7 @@ loading.classList.add('is-show')
 const meta = await log.add(
   { type: 'logux/subscribe' channel: 'counter' }, { sync: true }
 )
-const unbind = log.on('add', action => {
+const unbind = log.on('add', (action, meta) => {
   if (action.type === 'logux/processed' && action.id === meta.id) {
     loading.classList.remove('is-show')
     unbind()
@@ -182,7 +182,7 @@ logux.actions.register(IncAction)
 ```
 
 ```python
-# logux_subsriptions.py
+# logux_subscriptions.py
 class CounterChannel(ChannelCommand):
     channel_pattern = r'^counter$'
 
