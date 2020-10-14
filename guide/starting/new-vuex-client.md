@@ -101,8 +101,8 @@ Change `src/store/index.js`:
 ```diff
 - import { CrossTabClient } from '@logux/client'
 + import { CrossTabClient, badge, badgeEn, log } from '@logux/client'
-  import { createStoreCreator } from '@logux/vuex'
 + import { badgeStyles } from '@logux/client/badge/styles'
+  import { createStoreCreator } from '@logux/vuex'
 ```
 
 ```diff
