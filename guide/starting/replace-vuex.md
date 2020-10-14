@@ -23,7 +23,7 @@ Before starting the client, you need to create Logux Server:
 Install Logux Vuex:
 
 ```sh
-npm i @logux/vuex
+npm i @logux/core @logux/client @logux/vuex
 ```
 
 </details>

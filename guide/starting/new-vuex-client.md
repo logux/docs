@@ -51,7 +51,7 @@ Or manually, as described in [Vuex documentation](https://vuex.vuejs.org/install
 Install Logux Vuex:
 
 ```sh
-npm i @logux/vuex
+npm i @logux/core @logux/client @logux/vuex
 ```
 
 Edit `src/store/index.js`:
