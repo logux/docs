@@ -76,7 +76,7 @@ Read [how to use Redux](http://redux.js.org).
 Install Logux Redux:
 
 ```sh
-npm i @logux/redux
+npm i @logux/core @logux/client @logux/redux
 ```
 
 Edit `src/index.js`:
@@ -84,7 +84,7 @@ Edit `src/index.js`:
 ```diff
   import reducer from './reducers';
 - import { createStore } from 'redux';
-+ import { CrossTabClient } from '@logux/client';
++ import { CrossTabClient } from '@logux/client'
 + import { createStoreCreator } from '@logux/redux';
 +
 + const client = new CrossTabClient({
@@ -116,9 +116,8 @@ npm i @logux/client
 Change `src/index.js`:
 
 ```diff
-- import { CrossTabClient } from '@logux/client';
-+ import { CrossTabClient, badge, badgeEn, log } from '@logux/client';
   import { createStoreCreator } from '@logux/redux';
++ import { badge, badgeEn, log } from '@logux/client';
 + import { badgeStyles } from '@logux/client/badge/styles';
 ```
 

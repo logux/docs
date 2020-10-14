@@ -24,7 +24,7 @@ Before starting the client, you need to create Logux Server:
 Install Logux Redux:
 
 ```sh
-npm i @logux/redux
+npm i @logux/core @logux/client @logux/redux
 ```
 
 </details>
@@ -68,9 +68,8 @@ npm i @logux/client
 Use helpers where you create the store.
 
 ```diff
-- import { CrossTabClient } from '@logux/client'
-+ import { CrossTabClient, badge, badgeEn, log } from '@logux/client'
   import { createStoreCreator } from '@logux/redux'
++ import { badge, badgeEn, log } from '@logux/client'
 + import { badgeStyles } from '@logux/client/badge/styles'
 ```
 
