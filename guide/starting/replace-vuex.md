@@ -23,7 +23,7 @@ Before starting the client, you need to create Logux Server:
 Install Logux Vuex:
 
 ```sh
-npm i @logux/vuex
+npm i @logux/core @logux/client @logux/vuex
 ```
 
 </details>
@@ -32,7 +32,8 @@ Find store definition in your project. Look for `createStore` function call. Oft
 
 ```diff
 - import { createStore } from 'vuex'
-+ import { CrossTabClient, createStoreCreator } from '@logux/vuex'
++ import { CrossTabClient } from '@logux/client'
++ import { createStoreCreator } from '@logux/vuex'
 +
 + const client = new CrossTabClient({
 +   server: process.env.NODE_ENV === 'development'
@@ -72,8 +73,9 @@ npm i @logux/client
 Use helpers where you create the store.
 
 ```diff
-  import { CrossTabClient, createStoreCreator } from '@logux/vuex'
-+ import { badge, badgeEn, log } from '@logux/client'
+- import { CrossTabClient } from '@logux/client'
++ import { CrossTabClient, badge, badgeEn, log } from '@logux/client'
+  import { createStoreCreator } from '@logux/vuex'
 + import { badgeStyles } from '@logux/client/badge/styles'
 ```
 

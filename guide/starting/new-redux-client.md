@@ -43,24 +43,24 @@ npm i react-redux redux
 Open `src/index.js`:
 
 ```diff
-  import * as serviceWorker from './serviceWorker';
-+ import { Provider } from 'react-redux';
-+ import reducer from './reducers';
-+ import { createStore } from 'redux';
+  import * as serviceWorker from './serviceWorker'
++ import { Provider } from 'react-redux'
++ import reducer from './reducers'
++ import { createStore } from 'redux'
 
-+ const store = createStore(reducer);
++ const store = createStore(reducer)
 
-- ReactDOM.render(<App />, document.getElementById('root'));
+- ReactDOM.render(<App />, document.getElementById('root'))
 + ReactDOM.render(
 +   <Provider store={store}><App /></Provider>,
 +   document.getElementById('root')
-+ );
++ )
 ```
 
 Create `src/reducers/index.js`
 
 ```js
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
 export default combineReducers({
   // TODO: Add reducers depends on application purposes
@@ -82,10 +82,10 @@ npm i @logux/core @logux/client @logux/redux
 Edit `src/index.js`:
 
 ```diff
-  import reducer from './reducers';
-- import { createStore } from 'redux';
+  import reducer from './reducers'
+- import { createStore } from 'redux'
 + import { CrossTabClient } from '@logux/client'
-+ import { createStoreCreator } from '@logux/redux';
++ import { createStoreCreator } from '@logux/redux'
 +
 + const client = new CrossTabClient({
 +   server: process.env.NODE_ENV === 'development'
@@ -98,7 +98,7 @@ Edit `src/index.js`:
 +
 + const createStore = createStoreCreator(client)
 
-  const store = createStore(reducer);
+  const store = createStore(reducer)
 + store.client.start()
 ```
 
@@ -116,14 +116,15 @@ npm i @logux/client
 Change `src/index.js`:
 
 ```diff
-  import { createStoreCreator } from '@logux/redux';
-+ import { badge, badgeEn, log } from '@logux/client';
-+ import { badgeStyles } from '@logux/client/badge/styles';
+- import { CrossTabClient } from '@logux/client'
++ import { CrossTabClient, badge, badgeEn, log } from '@logux/client'
++ import { badgeStyles } from '@logux/client/badge/styles'
+  import { createStoreCreator } from '@logux/redux'
 ```
 
 ```diff
-+ badge(store.client, { messages: badgeEn, styles: badgeStyles });
-+ log(store.client);
++ badge(store.client, { messages: badgeEn, styles: badgeStyles })
++ log(store.client)
 +
   store.client.start()
 ```

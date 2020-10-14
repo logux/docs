@@ -51,14 +51,15 @@ Or manually, as described in [Vuex documentation](https://vuex.vuejs.org/install
 Install Logux Vuex:
 
 ```sh
-npm i @logux/vuex
+npm i @logux/core @logux/client @logux/vuex
 ```
 
 Edit `src/store/index.js`:
 
 ```diff
 - import { createStore } from 'vuex'
-+ import { CrossTabClient, createStoreCreator } from '@logux/vuex'
++ import { CrossTabClient } from '@logux/client'
++ import { createStoreCreator } from '@logux/vuex'
 +
 + const client = new CrossTabClient({
 +   server: process.env.NODE_ENV === 'development'
@@ -98,9 +99,10 @@ npm i @logux/client
 Change `src/store/index.js`:
 
 ```diff
-  import { CrossTabClient, createStoreCreator } from '@logux/vuex'
-+ import { badge, badgeEn, log } from '@logux/client'
+- import { CrossTabClient } from '@logux/client'
++ import { CrossTabClient, badge, badgeEn, log } from '@logux/client'
 + import { badgeStyles } from '@logux/client/badge/styles'
+  import { createStoreCreator } from '@logux/vuex'
 ```
 
 ```diff
