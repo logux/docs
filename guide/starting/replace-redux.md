@@ -33,7 +33,8 @@ Find store definition in your project. Look for `createStore` function call. Oft
 
 ```diff
 - import { createStore } from 'redux'
-+ import { CrossTabClient, createStoreCreator } from '@logux/redux'
++ import { CrossTabClient } from '@logux/client'
++ import { createStoreCreator } from '@logux/redux'
 ```
 
 ```diff
@@ -67,8 +68,9 @@ npm i @logux/client
 Use helpers where you create the store.
 
 ```diff
-  import { CrossTabClient, createStoreCreator } from '@logux/redux'
-+ import { badge, badgeEn, log } from '@logux/client'
+- import { CrossTabClient } from '@logux/client'
++ import { CrossTabClient, badge, badgeEn, log } from '@logux/client'
+  import { createStoreCreator } from '@logux/redux'
 + import { badgeStyles } from '@logux/client/badge/styles'
 ```
 
