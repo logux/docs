@@ -54,13 +54,13 @@ Open `src/index.js`:
 + ReactDOM.render(
 +   <Provider store={store}><App /></Provider>,
 +   document.getElementById('root')
-+ );
++ )
 ```
 
 Create `src/reducers/index.js`
 
 ```js
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
 export default combineReducers({
   // TODO: Add reducers depends on application purposes
