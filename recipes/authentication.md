@@ -196,7 +196,7 @@ server.type('login', {
     return ctx.userId === 'anonymous'
   },
   async process (ctx, action, meta) {
-    const user = await db.oneOrNone('SELECT * FROM users WHERE email = $1', action.email);
+    const user = await db.oneOrNone('SELECT * FROM users WHERE email = $1', action.email)
     if (!user) {
       server.undo(action, meta, 'Unknown email')
     } else if (await bcrypt.compare(action.password, hash)) {
@@ -253,7 +253,7 @@ Use these `localStorage` values in the store:
 +   location.href = process.env.NODE_ENV === 'development'
 +     ? 'http://localhost:3000/login'
 +     : 'https://example.com/login'
-+ };
++ }
 
   const client = new CrossTabClient({
     subprotocol: '1.0.0',
@@ -264,7 +264,7 @@ Use these `localStorage` values in the store:
 -   token: '' // TODO: We will fill it in next chapter
 +   userId: localStorage.getItem('userId'),
 +   token: localStorage.getItem('token')
-  });
+  })
 ```
 
 </details>
@@ -275,7 +275,7 @@ Use these `localStorage` values in the store:
 +   location.href = process.env.NODE_ENV === 'development'
 +     ? 'http://localhost:3000/login'
 +     : 'https://example.com/login'
-+ };
++ }
 
   const client = new CrossTabClient({
     subprotocol: '1.0.0',
@@ -286,7 +286,7 @@ Use these `localStorage` values in the store:
 -   token: ''
 +   userId: localStorage.getItem('userId'),
 +   token: localStorage.getItem('token')
-  });
+  })
 ```
 
 </details>
