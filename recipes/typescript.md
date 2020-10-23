@@ -206,14 +206,8 @@ type UserRenameAction = Action & {
   name: string
 }
 
-function isUserRename (action): action is UserRenameAction {
-  return action.type === 'user/rename'
-}
-
-app.log.on('add', action => {
-  if (isUserRename(action)) {
-    document.title = action.name
-  }
+app.log.type<UserRenameAction>('user/rename', action => {
+  document.title = action.name
 })
 ```
 

@@ -138,7 +138,7 @@ export default {
 <details><summary>Pure JS client</summary>
 
 ```js
-client.on('add', (action, meta) => {
+client.type('users/add', (action, meta) => {
   if (meta.subprotocol.startsWith('1.1.')) {
     users.add({ id: action.id, name: action.name })
   } else {

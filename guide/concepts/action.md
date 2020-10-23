@@ -263,7 +263,9 @@ store.dispatch(action)
 store.dispatch.local(action)
 ```
 
-`store.client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `store.client.on('add', fn)`. Reducers will see cross-tab actions, you do not need to do anything.
+`client.log.type(type, fn)` and `client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `client.on(type, fn)` and `client.on('add', fn)`.
+
+Reducers will see cross-tab actions, you do not need to do anything.
 
 </details>
 <details><summary>Vuex client</summary>
@@ -280,7 +282,9 @@ store.commit(action)
 store.commit.local(action)
 ```
 
-`store.client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `store.client.on('add', fn)`. Mutations will see cross-tab actions, you do not need to do anything.
+`client.log.type(type, fn)` and `client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `client.on(type, fn)` and `client.on('add', fn)`.
+
+Mutations will see cross-tab actions, you do not need to do anything.
 
 </details>
 <details><summary>Pure JS client</summary>
@@ -295,7 +299,7 @@ client.log.add(action)
 client.log.add(action, { tab: client.tabId })
 ```
 
-`client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `client.on('add', fn)`.
+`client.log.type(type, fn)` and `client.log.on('add', fn)` will not see cross-tab actions. You must set listeners by `client.on(type, fn)` and `client.on('add', fn)`.
 
 </details>
 
@@ -393,11 +397,14 @@ hideLoader()
 
 ```js
 const waiting = { }
-client.on('add', action => {
-  if (action.type === 'logux/processed' && waiting[action.id]) {
+client.type('logux/processed', action => {
+  if (waiting[action.id]) {
     waiting[action.id].resolve()
     delete waiting[action.id]
-  } else if (action.type === 'logux/undo' && waiting[action.id]) {
+  }
+})
+client.type('logux/undo', action => {
+  if (waiting[action.id]) {
     waiting[action.id].reject()
     delete waiting[action.id]
   }
@@ -662,25 +669,16 @@ We recommend to use subscription rather than working with `reasons`. Every time 
 
 Logux uses [Nano Events] API to add and remove event listener.
 
-<details open><summary>Redux client</summary>
+If you need an action with specific `action.type` use faster `client.type`
+method:
 
 ```js
-store.client.on(event, (action, meta) => {
+client.on(type, (action, meta) => {
   …
-})
+}, event)
 ```
 
-</details>
-<details open><summary>Vuex client</summary>
-
-```js
-store.client.on(event, (action, meta) => {
-  …
-})
-```
-
-</details>
-<details><summary>Pure JS client</summary>
+If you need all action, you can use `client.on`:
 
 ```js
 client.on(event, (action, meta) => {
@@ -688,15 +686,13 @@ client.on(event, (action, meta) => {
 })
 ```
 
-</details>
-
 Events:
 
 * `preadd`: action is going to be added to the log. It is the only way to set [`meta.reasons`]. This event will not be called for cross-tab actions added in a different browser tab.
-* `add`: action was added to the log. Do not use `client.log.on('add', fn)`. Use only `client.on('add', fn)` to get cross-tab actions.
+* `add`: action was added to the log. Do not use `client.log.type()` or `client.log.on()`. Use only `client.type()` and `client.on()` to get cross-tab actions.
 * `clean`: action was removed from the log. It will happen if nobody will set [`meta.reasons`] for new action or you remove all reasons for old action.
 
-See [`Server#on`](https://logux.io/node-api/#server-on) API docs for server events.
+See [`Server#type`](https://logux.io/node-api/#server-type) and [`Server#on`](https://logux.io/node-api/#server-on) API docs for server events.
 
 [`meta.reasons`]: ./reason.md
 [Nano Events]: https://github.com/ai/nanoevents/

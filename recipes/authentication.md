@@ -228,16 +228,15 @@ function login (email, password) {
       : 'wss://logux.example.com',
     userId: 'anonymous'
   })
-  client.on('add', action => {
-    if (action.type === 'login/done') {
-      localStorage.setItem('userId', action.userId)
-      localStorage.setItem('token', action.token)
-      location.href = process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3000/dashboard'
-        : 'https://app.example.com/dashboard'
-    } else if (action.type === 'logux/undo') {
-      alert(action.reason)
-    }
+  client.type('login/done', action => {
+    localStorage.setItem('userId', action.userId)
+    localStorage.setItem('token', action.token)
+    location.href = process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000/dashboard'
+      : 'https://app.example.com/dashboard'
+  })
+  client.type('logux/undo', action => {
+    alert(action.reason)
   })
   client.start()
   client.log.add({ type: 'login', email, password }, { sync: true })

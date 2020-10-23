@@ -105,12 +105,10 @@ let createStore = createStoreCreator(client, {
 Logux Redux keeps last 1000 action by setting `timeTravel` and `timeTravelTab…` reasons for new actions. If you want to specify reasons manually, you should set reasons in `preadd` event and set `noAutoReason` meta key:
 
 ```js
-store.log.on('preadd', (action, meta) => {
-  if (action.type === 'user/rename') {
-    meta.noAutoReason = true
-    meta.keepLast = `user/${ action.userId }/name`
-  }
-})
+store.log.type('user/rename', (action, meta) => {
+  meta.noAutoReason = true
+  meta.keepLast = `user/${ action.userId }/name`
+}, 'preadd')
 ```
 
 </details>
@@ -144,12 +142,10 @@ let createStore = createStoreCreator(client, {
 Logux Vuex keeps last 1000 action by setting `timeTravel` and `timeTravelTab…` reasons for new actions. If you want to specify reasons manually, you should set reasons in `preadd` event and set `noAutoReason` meta key:
 
 ```js
-store.log.on('preadd', (action, meta) => {
-  if (action.type === 'user/rename') {
-    meta.noAutoReason = true
-    meta.keepLast = `user/${ action.userId }/name`
-  }
-})
+store.log.type('user/rename', (action, meta) => {
+  meta.noAutoReason = true
+  meta.keepLast = `user/${ action.userId }/name`
+}, 'preadd')
 ```
 
 </details>
