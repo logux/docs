@@ -26,7 +26,8 @@
     "tests",
     "cross-tab",
     "subprotocol",
-    "headers"
+    "headers",
+    "zero-knowledge"
   ],
   "protocols": [
     "ws/spec",
