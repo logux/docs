@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@master
         with:
-          node-version: ">=13.12.0"
+          node-version: ">=14.0.0"
       - name: Get Yarn cache
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
