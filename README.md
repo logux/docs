@@ -99,24 +99,17 @@ export default {
 You can use [Logux Client](https://github.com/logux/client/) API with any framework:
 
 ```js
-log.type('INC', (action, meta) => {
+client.type('INC', (action, meta) => {
   counter.innerHTML = parseInt(counter.innerHTML) + 1
 })
 
 increase.addEventListener('click', () => {
-  log.add({ type: 'INC' }, { sync: true })
+  client.sync({ type: 'INC' })
 })
 
 loading.classList.add('is-show')
-const meta = await log.add(
-  { type: 'logux/subscribe' channel: 'counter' }, { sync: true }
-)
-const unbind = log.type('logux/processed', action => {
-  if (action.id === meta.id) {
-    loading.classList.remove('is-show')
-    unbind()
-  }
-})
+await client.sync({ type: 'logux/subscribe' channel: 'counter' })
+loading.classList.remove('is-show')
 ```
 
 </details>
