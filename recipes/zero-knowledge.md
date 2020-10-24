@@ -18,4 +18,38 @@ encryptActions(client, clientPassword, {
 })
 ```
 
-Server will receive `{ type: '0', d, iv }` actions, which should be saved to the persistent log.
+Clients will convert all actions to:
+
+```ts
+{ type: '0', d: string, iv: string }
+```
+
+Server need to save client’s actions. For instance by using persistent log (you may need to write `LogStore` implementation to keep log in some database).
+
+On the server you will need to set `reasons` for `0` actions to keep them in log:
+
+```js
+import { parseId } from '@logux/core'
+
+server.log.type('0', (action, meta) => {
+  meta.reasons.push('user:' + parseId(meta.id).userId)
+}, 'preadd')
+```
+
+When client will remove some action, it will send:
+
+```ts
+{ type: '0/clean', id: string }
+```
+
+Server need to remove `reasons` for that actions:
+
+```js
+import { parseId } from '@logux/core'
+
+server.log.type('0/clean', (action) => {
+  server.log.removeReason('user:' + parseId(action.id).userId, {
+    id: action.id
+  })
+})
+```
