@@ -396,25 +396,12 @@ hideLoader()
 <details><summary>Pure JS client</summary>
 
 ```js
-const waiting = { }
-client.type('logux/processed', action => {
-  if (waiting[action.id]) {
-    waiting[action.id].resolve()
-    delete waiting[action.id]
-  }
-})
-client.type('logux/undo', action => {
-  if (waiting[action.id]) {
-    waiting[action.id].reject()
-    delete waiting[action.id]
-  }
-})
-
 showLoader()
-const meta = await client.log.add({ type: 'likes/add', postId }, { sync: true })
-waiting[meta.id] = {
-  resolve: hideLoader,
-  reject: showError
+try {
+  await client.sync({ type: 'likes/add', postId })
+  hideLoader()
+} catch {
+  showError()
 }
 ```
 
