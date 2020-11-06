@@ -1,12 +1,9 @@
 name: Test
-
 on:
   push:
   pull_request:
-
 env:
   FORCE_COLOR: 2
-
 jobs:
   build:
     name: Test
