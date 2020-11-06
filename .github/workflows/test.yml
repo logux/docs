@@ -1,34 +1,23 @@
 name: Test
 
 on:
-  - push
-  - pull_request
+  push:
+  pull_request:
+
+env:
+  FORCE_COLOR: 2
 
 jobs:
   build:
     name: Test
     runs-on: ubuntu-latest
-    env:
-      FORCE_COLOR: 2
     steps:
       - name: Checkout the repository
         uses: actions/checkout@master
-        with:
-          fetch-depth: 1
       - name: Install Node.js
         uses: actions/setup-node@master
         with:
-          node-version: ">=14.0.0"
-      - name: Get Yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache Yarn
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: yarn-all-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-all-
+          node-version: 14
       - name: Install all dependencies
         run: yarn install
       - name: Build and test
