@@ -6,7 +6,6 @@ env:
   FORCE_COLOR: 2
 jobs:
   test:
-    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
