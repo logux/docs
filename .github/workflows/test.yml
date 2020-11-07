@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Install Node.js
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v2-beta
         with:
           node-version: 14
-      - name: Install all dependencies
-        run: yarn install
-      - name: Build and test
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Run tests
         run: yarn test
