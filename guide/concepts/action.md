@@ -493,6 +493,7 @@ Then the server send actions to all channels and clients from next `resend` step
 
 In special callback, server marks who will receive the actions. For instance, if Alice wrote a message to the chat, server will mark her actions to be send to call users in subscribed to this chat room.
 
+* Array of strings or string: clients subscribed to any of the listed channels.
 * `channels` or `channel`: clients subscribed to any of the listed channels.
 * `clients` or `client`: clients with listed client IDs.
 * `users` or `users`: clients with listed user IDs.
@@ -504,7 +505,7 @@ In special callback, server marks who will receive the actions. For instance, if
 server.type('likes/add', {
   …
   resend (ctx, action, meta) {
-    return { channel: `posts/${ action.postId }` }
+    return `posts/${ action.postId }`
   },
   …
 })

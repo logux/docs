@@ -268,7 +268,7 @@ After initial subscribing, server will re-send changes to other clients:
 server.type('users/add', {
   …
   resend (ctx, action, meta) {
-    return { channel: `users/${ action.userId }` }
+    return `users/${ action.userId }`
   },
   …
 })

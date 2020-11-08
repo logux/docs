@@ -209,7 +209,7 @@ server.type('user/name', {
   },
   resend (ctx, action, meta) {
     // Resend this action to everyone who subscribed to this user
-    return { channel: `user/${ action.userId }` }
+    return `user/${ action.userId }`
   },
   async process (ctx, action, meta) {
     let lastChanged = await db.getChangeTimeForUserName(action.userId)

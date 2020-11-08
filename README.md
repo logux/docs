@@ -140,7 +140,7 @@ server.type('INC', {
     return true
   },
   resend () {
-    return { channel: 'counter' }
+    return 'counter'
   },
   async process () {
     // Don’t forget to keep action atomic

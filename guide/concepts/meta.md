@@ -89,7 +89,7 @@ client.log.changeMeta(actionId, {
 
 You can not change meta’s keys related to action’s order: `id`, `time`, `added`.
 
-On the server you can set `channels`, `users`, `clients` and `nodes` keys (and singular versions) for new action from the client by `resend` callback:
+On the server you can set `channels`, `users`, `clients` and `nodes` keys (and singular versions) for new action from the client by `resend` callback. If you will return a string or an array of strings, server will set it as `channels`.
 
 <details open><summary>Node.js</summary>
 
@@ -97,7 +97,7 @@ On the server you can set `channels`, `users`, `clients` and `nodes` keys (and s
 server.type('users/rename', {
   …
   resend (ctx, action, meta) {
-    return { channel: `users/${ action.userId }` }
+    return `users/${ action.userId }`
   },
   …
 })
