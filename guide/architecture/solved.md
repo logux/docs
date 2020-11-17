@@ -59,7 +59,7 @@ The same works between browser tabs even in offline. They synchronize new action
 There are many small problems in working with a real network.
 
 * **Request order.** HTTP doesn’t guarantee that the server will receive a request in the same order they were sent. Often this problem appears in wrong results during keyword input. Logux doesn’t have this problem by design because every action has a time mark.
-* **Missed response.** We often see infinite loader if the network went down for a second before AJAX response was received. In contrast, Logux will send data request again when the network will be back
+* **Missed response.** We often see infinite loader if the network went down for a second before AJAX response was received. In contrast, Logux will send data request again when the network will be back.
 * **Server error.** It is easy to forget server error processing. Logux will undo action during server error and use global UI to show an error message.
 
 
