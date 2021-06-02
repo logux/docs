@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
 import { dirname, join, sep } from 'path'
-import { promises as fs } from 'fs'
+import { readFile } from "fs/promises"
 import globby from 'globby'
 
 let root = dirname(dirname(new URL(import.meta.url).pathname))
 
 async function check () {
   let [orderJSON, files] = await Promise.all([
-    fs.readFile(join(root, 'order.json')),
-    globby('*/**/*.md', { cwd: root, ignore: ['node_modules'] })
+    readFile(join(root, "order.json")),
+    globby("*/**/*.md", { cwd: root, ignore: ["node_modules"] }),
   ])
   let order = JSON.parse(orderJSON)
   for (let file of files) {
