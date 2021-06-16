@@ -11,9 +11,11 @@ We split Logux into many projects.
 * **[Logux Django]:** syntax sugar to connect Django application with Logux Server in proxy mode.
 * **[Logux Rails]:** syntax sugar to connect Ruby on Rails application with Logux Server in proxy mode.
 * **[Logux Rack]:** low-level library for creating syntax sugar to connect Ruby applications with Logux Server in proxy mode.
+* **[Logux Vue Devtools]:** Vue devtools plugin for debugging Logux applications. It adds a timeline with all Logux events and Logux Client to the component inspector.
 * **Logux Server Pro:** closed source additional features for Logux Server for monitoring and scaling. Write to [`logux@evilmartians.com`] for access.
 
 [`logux@evilmartians.com`]: mailto:logux@evilmartians.com
+[Logux Vue Devtools]: https://github.com/logux/vue-devtools
 [Logux Client]: https://github.com/logux/client
 [Logux Server]: https://github.com/logux/server
 [Logux Django]: https://github.com/logux/django/
