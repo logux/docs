@@ -120,7 +120,8 @@
       "CLI",
       "composable",
       "P2P",
-      "IPFS"
+      "IPFS",
+      "devtools"
     ]
   }
 }
