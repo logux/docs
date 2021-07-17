@@ -18,7 +18,7 @@ Ask your questions at [community chat] or [commercial support].
 
 [commercial support]: mailto:logux@evilmartians.com
 [community chat]: https://gitter.im/logux/logux
-[**9 kB**]: https://github.com/logux/client/blob/main/package.json#L108-L113
+[**9 kB**]: https://github.com/logux/client/blob/main/package.json#L57-L63
 [CRDT]: https://slides.com/ai/crdt
 
 <a href="https://evilmartians.com/?utm_source=logux-docs">
