@@ -76,7 +76,7 @@ Read [how to use Redux](http://redux.js.org).
 Install Logux Redux:
 
 ```sh
-npm i @logux/core @logux/client @logux/redux
+npm i @logux/core @logux/client @logux/redux nanostores
 ```
 
 Edit `src/index.js`:
