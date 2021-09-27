@@ -13,7 +13,7 @@ If you like Node.js and want the best performance, you can try to [move business
 
 ## Creating the Project
 
-[Install Node.js] (version 10.0 or later).
+[Install Node.js] (version 12.0 or later).
 
 Create a directory for a project. We will use `server-logux` name.
 
