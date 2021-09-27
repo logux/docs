@@ -16,7 +16,7 @@ If you want to use another language for the server read [Logux Proxy] page.
 
 ## Creating the Project
 
-[Install Node.js] (version 10.0 or later).
+[Install Node.js] (version 12.0 or later).
 
 Create a directory for a project. We will use `server-logux` name.
 
