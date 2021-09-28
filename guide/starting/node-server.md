@@ -31,6 +31,7 @@ Create `package.json` with:
 {
   "name": "server-logux",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "node index.js"
   }
@@ -46,13 +47,13 @@ npm i @logux/server
 Create `index.js` with:
 
 ```js
-const { Server } = require('@logux/server')
+import { Server } from '@logux/server'
 
 const server = new Server(
   Server.loadOptions(process, {
     subprotocol: '1.0.0',
     supports: '1.x',
-    root: __dirname
+    fileUrl: import.meta.url
   })
 )
 
