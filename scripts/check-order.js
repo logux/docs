@@ -2,29 +2,29 @@
 
 import { dirname, join, sep } from 'path'
 import { readFile } from "fs/promises"
-import globby from 'globby'
+import glob from "fast-glob";
 
-let root = dirname(dirname(new URL(import.meta.url).pathname))
+let root = dirname(dirname(new URL(import.meta.url).pathname));
 
-async function check () {
+async function check() {
   let [orderJSON, files] = await Promise.all([
     readFile(join(root, "order.json")),
-    globby("*/**/*.md", { cwd: root, ignore: ["node_modules"] }),
-  ])
-  let order = JSON.parse(orderJSON)
+    glob("*/**/*.md", { cwd: root, ignore: ["node_modules"] }),
+  ]);
+  let order = JSON.parse(orderJSON);
   for (let file of files) {
-    let category = file.split(sep, 1)[0]
-    let rest = file.slice(category.length + 1, -3).replace(/\\/g, '/')
+    let category = file.split(sep, 1)[0];
+    let rest = file.slice(category.length + 1, -3).replace(/\\/g, "/");
     if (!order[category].includes(rest)) {
-      throw new Error(`Add ${ file } to order.json`)
+      throw new Error(`Add ${file} to order.json`);
     }
   }
   for (let category in order) {
     for (let i of order[category]) {
-      let rest = i.replace(/\//g, sep)
-      let file = join(category, `${rest}.md`)
+      let rest = i.replace(/\//g, sep);
+      let file = join(category, `${rest}.md`);
       if (!files.includes(file)) {
-        throw new Error(`Remove ${ file } from order.json`)
+        throw new Error(`Remove ${file} from order.json`);
       }
     }
   }
