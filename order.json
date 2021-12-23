@@ -27,7 +27,8 @@
     "cross-tab",
     "subprotocol",
     "headers",
-    "zero-knowledge"
+    "zero-knowledge",
+    "deployment"
   ],
   "protocols": [
     "ws/spec",

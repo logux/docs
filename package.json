@@ -121,7 +121,10 @@
       "composable",
       "P2P",
       "IPFS",
-      "devtools"
+      "devtools",
+      "Kubernetes",
+      "endpoint",
+      "schemas"
     ]
   }
 }
