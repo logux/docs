@@ -44,7 +44,7 @@ FROM node:lts-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --production
+RUN yarn install --frozen-lockfile --ignore-scripts --production
 
 # Production image, copy all the files and run Logux
 FROM node:lts-alpine AS runner
