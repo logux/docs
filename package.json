@@ -8,11 +8,11 @@
   },
   "devDependencies": {
     "fast-glob": "^3.2.7",
-    "nano-staged": "^0.1.5",
+    "nano-staged": "^0.5.0",
     "remark-cli": "^10.0.1",
     "remark-lint-no-dead-urls": "^1.1.0",
     "remark-lint-no-empty-sections": "^4.0.0",
-    "remark-preset-lint-recommended": "^6.1.1",
+    "remark-preset-lint-recommended": "^6.1.2",
     "remark-validate-links": "^11.0.2",
     "simple-git-hooks": "^2.7.0",
     "yaspeller": "^8.0.0"
@@ -25,7 +25,7 @@
     "node": ">=14.0.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "./node_modules/.bin/nano-staged"
+    "pre-commit": "./node_modules/.bin/nano-staged --config package.json"
   },
   "nano-staged": {
     "order.json": "./scripts/check-order.js",
