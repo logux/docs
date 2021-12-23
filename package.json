@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "remark --no-stdout --frail --quiet *.md */*.md guide/*/*.md",
     "spell": "yaspeller *.md */*.md guide/*/*.md",
-    "test": "./scripts/check-order.js && yarn lint && yarn spell"
+    "test": "./scripts/check-order.js && pnpm lint && pnpm spell"
   },
   "devDependencies": {
     "fast-glob": "^3.2.7",
