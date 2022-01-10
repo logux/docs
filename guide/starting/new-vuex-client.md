@@ -21,7 +21,7 @@ Before starting the client, you need to create Logux Server:
 
 [Install Node.js].
 
-You will need a bundler to compile npm packages into JS bundle. Webpack or Parcel is excellent for it.
+You will need a bundler to compile npm packages into JS bundle. Webpack or Vite is excellent for it.
 Since Vuex is a official flux-like state management library for Vue.js, we will use Vue as core framework of application.
 To create a project with a single command, we will use [Vue CLI].
 

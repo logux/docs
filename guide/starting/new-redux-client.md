@@ -20,7 +20,7 @@ Before starting the client, you need to create Logux Server:
 
 [Install Node.js].
 
-You will need a bundler to compile npm packages into JS bundle. Webpack or Parcel is excellent for it. Also, we recommend using some library to bind Redux state with DOM. React or Preact is good options. However, for simple UI, you can write code to change DOM according to state changes.
+You will need a bundler to compile npm packages into JS bundle. Webpack or Vite is excellent for it. Also, we recommend using some library to bind Redux state with DOM. React or Preact is good options. However, for simple UI, you can write code to change DOM according to state changes.
 
 To create a project with a single command, we will use Create React App.
 
