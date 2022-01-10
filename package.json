@@ -7,7 +7,7 @@
     "test": "./scripts/check-order.js && pnpm lint && pnpm spell"
   },
   "devDependencies": {
-    "fast-glob": "^3.2.7",
+    "fast-glob": "^3.2.10",
     "nano-staged": "^0.5.0",
     "remark-cli": "^10.0.1",
     "remark-lint-list-item-indent": "^3.1.1",
