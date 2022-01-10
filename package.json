@@ -126,7 +126,8 @@
       "devtools",
       "Kubernetes",
       "endpoint",
-      "schemas"
+      "schemas",
+      "Vite"
     ]
   }
 }
