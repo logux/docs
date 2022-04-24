@@ -34,7 +34,7 @@
     "*.md": [
       "yaspeller",
       "remark --no-stdout --frail --quiet",
-      "./scripts/check-order.js"
+      "node ./scripts/check-order.js"
     ]
   },
   "remarkConfig": {
