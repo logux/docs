@@ -167,7 +167,7 @@ function usersReducers (state = { }, action) {
 }
 ```
 
-[Redux-style reducers]: https://redux.js.org/basics/reducers
+[Redux-style reducers]: https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#reducers
 
 </details>
 <details><summary>Vuex client</summary>

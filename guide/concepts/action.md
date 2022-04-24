@@ -16,7 +16,7 @@ There are only two mandatory requirements for actions:
 2. You can use only string, number, boolean, `null`, array, and object as values. All values should be serializable to JSON. This is why functions, class instances, `Symbol`, `BigInt` is prohibited.
 
 [application state]: ./state.md
-[Redux actions]: https://redux.js.org/basics/actions
+[Redux actions]: https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#actions
 
 
 ## Atomic Actions

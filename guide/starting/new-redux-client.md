@@ -68,7 +68,7 @@ export default combineReducers({
 })
 ```
 
-Read [how to use Redux](http://redux.js.org).
+Read [how to use Redux](https://redux.js.org).
 
 
 ## Adding Logux Redux

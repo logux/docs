@@ -3,13 +3,13 @@
 <img align="right" width="95" height="148" title="Logux logotype"
      src="https://logux.io/branding/logotype.svg">
 
-Logux and WebSocket client/server framework to make:
+Logux is an WebSocket client/server framework to make:
 
 * **Collaborative apps** when multiple users work with the same document. Logux has features inspired by **[CRDT]** to resolve edit conflicts between users. Real-time updates to prevent conflicts. Time travel to keep actions order the same on every client. A distributed timer to detect the latest changes.
 * **Real-time** to see changes by another user immediately. Logux combines WebSocket with modern reactive client architecture. It synchronizes Redux actions between clients and servers, and **keeps the same order** of actions.
 * **Optimistic UI** to improve UI performance by updating UI without waiting for an answer from the server. **Time travel** will revert changes later if the server refuses them.
 * **Offline-first** for the next billion users or New York City Subway. Logux saves Redux actions to **IndexedDB** and has a lot of features to **merge changes** from different users.
-* Compatible with modern stack: **Redux**, **Vuex** and pure JS API, works with **any back-end language** and **any database**.
+* **Without vendor lock-in**: works in any cloud with **any database**.
 * Just extra [**9 KB**] in client-side JS bundle.
 
 Ask your questions at [community chat] or [commercial support].
@@ -29,30 +29,56 @@ Ask your questions at [community chat] or [commercial support].
 
 ## Client Example
 
-<details open><summary>React/Redux client</summary>
+Using [Logux Client](https://github.com/logux/client/):
 
-Using [Logux Redux](https://github.com/logux/redux/):
+<details open><summary>React client</summary>
 
-```js
-export const Counter = () => {
-  const counter = useSelector(state => state.counter)
-  const dispatch = useDispatch()
-  // Load current counter from server and subscribe to counter changes
-  const isSubscribing = useSubscription(['counter'])
-  if (isSubscribing) {
-    return <Loader></Loader>
+```ts
+import { syncMapTemplate } from '@logux/client'
+
+export type TaskValue {
+  finished: boolean
+  text: string
+  authorId: string
+}
+
+export const Task = syncMapTemplate<TaskValue>('tasks')
+```
+
+```ts
+export const ToDo = ({ userId }) => {
+  const tasks = useFilter(Task, { authorId: userId })
+  if (tasks.isLoading) {
+    return <Loader />
   } else {
-    // dispatch.sync() will send Redux action to all clients
-    return <div>
-      <h1>{ counter }</h1>
-      <button onClick={ dispatch.sync({ type: 'INC' }) }></button>
-    </div>
+    return <ul>
+      {tasks.map(task => <li>{task.text}</li>)}
+    </ul>
+  }
+}
+```
+
+```ts
+export const TaskPage = ({ id }) => {
+  const client = useClient()
+  const task = useSync(Task, id)
+  if (task.isLoading) {
+    return <Loader />
+  } else {
+    return <form>
+      <input type="checkbox" checked={task.finished} onChange={e => {
+        changeSyncMapById(client, Task, id, { finished: e.target.checked })
+      }}>
+      <input type="text" value={post.title} onChange={e => {
+        changeSyncMapById(client, Task, id, { text: e.target.value })
+      }} />
+    </form>
   }
 }
 ```
 
 </details>
-<details><summary>Vue/Vuex client</summary>
+<details><summary>Vue client</summary>
 
 Using [Logux Vuex](https://github.com/logux/vuex/):
 
@@ -117,173 +143,76 @@ loading.classList.remove('is-show')
 
 ## Server Example
 
-<details open><summary>Node.js</summary>
-
 Using [Logux Server](https://github.com/logux/server/):
 
 ```js
-server.channel('counter', {
-  access () {
-    // Access control is mandatory
-    return true
+addSyncMap(server, 'tasks', {
+  async access (ctx, id) {
+    const task = await Task.find(id)
+    return ctx.userId === task.authorId
   },
-  async load (ctx) {
-    // Load initial state when client subscribing to the channel.
-    // You can use any database.
-    let value = await db.get('counter')
-    return { type: 'INC', value }
-  }
-})
-
-server.type('INC', {
-  access () {
-    return true
+  async load (ctx, id, since) {
+    const task = await Task.find(id)
+    if (!task) throw new LoguxNotFoundError()
+    return {
+      id: task.id,
+      text: ChangedAt(task.text, task.textChanged),
+      finished: ChangedAt(task.finished, task.finishedChanged),
+    }
   },
-  resend () {
-    return 'counter'
+  async create (ctx, id, fields, time) {
+    await Task.create({
+      id,
+      authorId: ctx.userId,
+      text: fields.text,
+      textChanged: time,
+      finished: fields.finished,
+      finishedChanged: time
+    })
   },
-  async process () {
-    // Don’t forget to keep action atomic
-    await db.set('counter', 'value += 1')
-  }
-})
-```
-
-</details>
-<details><summary>Django</summary>
-
-[`logux-django`](https://github.com/logux/django/) with the Logux WebSocket proxy server.
-
-```python
-# logux_actions.py
-class IncAction(ActionCommand):
-    action_type = 'INC'
-
-    def resend(self, action: Action, meta: Optional[Meta]) -> Dict:
-        return {'channel': 'counter'}
-
-    def access(self, action: Action, meta: Meta) -> bool:
-        return True
-
-    def process(self, action: Action, meta: Meta) -> None:
-        Counter.objects.first().inc()
-
-
-logux.actions.register(IncAction)
-```
-
-```python
-# logux_subsriptions.py
-class CounterChannel(ChannelCommand):
-    channel_pattern = r'^counter$'
-
-    def access(self, action: Action, meta: Meta) -> bool:
-        return True
-
-    def load(self, action: Action, meta: Meta) -> None:
-        counter_value = Counter.objects.first().val
-        return {'type': 'INC', 'value': counter_value}
-
-
-logux.channels.register(CounterChannel)
-```
-
-</details>
-<details><summary>Ruby on Rails</summary>
-
-[`logux_rails`](https://github.com/logux/logux_rails/) gem with the Logux WebSocket proxy server.
-
-```ruby
-# app/logux/channels/counter.rb
-module Channels
-  class Counter < Logux::ChannelController
-    def initial_data
-      [{ type: 'INC', value: db.counter }]
-    end
-  end
-end
-```
-
-```ruby
-# app/logux/actions/inc.rb
-module Actions
-  class Inc < Logux::ActionController
-    def inc
-      # Don’t forget to keep action atomic
-      db.update_counter! 'value += 1'
-    end
-  end
-end
-```
-
-```ruby
-# app/logux/policies/channels/counter.rb
-module Policies
-  module Channels
-    class Counter < Policies::Base
-      # Access control is mandatory. API was designed to make it harder to write dangerous code.
-      def subscribe?
-        true
-      end
-    end
-  end
-end
-```
-
-```ruby
-# app/logux/policies/actions/inc.rb
-module Policies
-  module Actions
-    class inc < Policies::Base
-      def inc?
-        true
-      end
-    end
-  end
-end
-```
-
-</details>
-<details><summary>Any other HTTP server</summary>
-
-You can use any HTTP server with Logux WebSocket proxy server. Here is a PHP-like pseudocode example:
-
-```php
-<?php
-$req = json_decode(file_get_contents('php://input'), true);
-if ($req['password'] == LOGUX_PASSWORD) {
-  foreach ($req['commands'] as $command) {
-    if ($command['command'] == 'action') {
-      $action = $command['action'];
-      $meta = $command['meta'];
-
-      if ($action['type'] == 'logux/subscribe') {
-        echo '[{ "answer": "approved", "id": "' + $meta['id'] + '" },';
-        $value = $db->getCounter();
-        send_json_http_post(LOGUX_HOST, [
-          'password' => LOGUX_PASSWORD,
-          'version' => 4,
-          'commands' => [
-            [
-              'command' => 'action',
-              'action' => ['type' => 'INC', 'value' => $value],
-              'meta' => ['clients' => get_client_id($meta['id'])]
-            ]
-          ]
-        ]);
-        echo '{ "answer": "processed", "id": "' + $meta['id'] + '" }]';
-
-      } elseif ($action['type'] == 'inc') {
-        $db->updateCounter('value += 1');
-        echo '[{ "answer": "approved", "id": "' + $meta['id'] + '" },' +
-              '{ "answer": "processed", "id": "' + $meta['id'] + '" }]';
+  async change (ctx, id, fields, time) {
+    const task = await Task.find(id)
+    if ('text' in fields) {
+      if (task.textChanged < time) {
+        await task.update({
+          text: fields.text,
+          textChanged: time
+        })
+      }
+    }
+    if ('finished' in fields) {
+      if (task.finishedChanged < time) {
+        await task.update({
+          finished: fields.finished,
+          finishedChanged: time
+        })
       }
     }
   }
-}
-```
+  async delete (ctx, id) {
+    await Task.delete(id)
+  }
+})
 
-</details>
+addSyncMapFilter(server, 'tasks', {
+  access (ctx, filter) {
+    return true
+  },
+  initial (ctx, filter, since) {
+    let tasks = await Tasks.where({ ...filter, authorId: ctx.userId })
+    return tasks.map(task => ({
+      id: task.id,
+      text: ChangedAt(task.text, task.textChanged),
+      finished: ChangedAt(task.finished, task.finishedChanged),
+    }))
+  },
+  actions (filterCtx, filter) {
+    return (actionCtx, action, meta) => {
+      return actionCtx.userId === filterCtx.userId
+    }
+  }
+})
+```
 
 
 ## Talks

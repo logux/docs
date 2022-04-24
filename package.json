@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "fast-glob": "^3.2.11",
-    "nano-staged": "^0.6.0",
+    "nano-staged": "^0.8.0",
     "remark-cli": "^10.0.1",
     "remark-lint-list-item-indent": "^3.1.1",
     "remark-lint-no-dead-urls": "^1.1.0",
@@ -30,7 +30,7 @@
     "pre-commit": "./node_modules/.bin/nano-staged --config package.json"
   },
   "nano-staged": {
-    "order.json": "./scripts/check-order.js",
+    "order.json": "node ./scripts/check-order.js",
     "*.md": [
       "yaspeller",
       "remark --no-stdout --frail --quiet",
