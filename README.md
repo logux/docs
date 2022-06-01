@@ -69,7 +69,7 @@ export const TaskPage = ({ id }) => {
       <input type="checkbox" checked={task.finished} onChange={e => {
         changeSyncMapById(client, Task, id, { finished: e.target.checked })
       }}>
-      <input type="text" value={post.title} onChange={e => {
+      <input type="text" value={task.text} onChange={e => {
         changeSyncMapById(client, Task, id, { text: e.target.value })
       }} />
     </form>
