@@ -36,7 +36,7 @@ Using [Logux Client](https://github.com/logux/client/):
 ```ts
 import { syncMapTemplate } from '@logux/client'
 
-export type TaskValue {
+export type TaskValue = {
   finished: boolean
   text: string
   authorId: string
