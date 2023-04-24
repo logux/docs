@@ -7,7 +7,7 @@
     "test": "./scripts/check-order.js && pnpm lint && pnpm spell"
   },
   "devDependencies": {
-    "fast-glob": "^3.2.11",
+    "fast-glob": "^3.2.12",
     "nano-staged": "^0.8.0",
     "remark-cli": "^11.0.0",
     "remark-lint-list-item-indent": "^3.1.1",
@@ -16,7 +16,7 @@
     "remark-lint-no-shortcut-reference-link": "^3.1.1",
     "remark-preset-lint-recommended": "^6.1.2",
     "remark-validate-links": "^12.1.0",
-    "simple-git-hooks": "^2.8.0",
+    "simple-git-hooks": "^2.8.1",
     "yaspeller": "^8.0.1"
   },
   "repository": "logux/docs",
