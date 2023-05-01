@@ -22,7 +22,7 @@ Logux server is written in JS. There are two ways to use it:
 
 We will show examples in JS API, but you can use Logux proxy with any back-end language for all our examples.
 
-After authenticating user server will calculate **time different** between client and server. It is useful when the client has the wrong time settings.
+After authenticating user server will calculate **time difference** between client and server. It is useful when the client has the wrong time settings.
 
 
 ## Subscriptions
