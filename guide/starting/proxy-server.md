@@ -167,8 +167,6 @@ Add Logux to `config/routes.rb`:
    LOGUX_URL=http://localhost:31338/
    ```
 
-[Logux support chat]: https://gitter.im/logux/logux
-
 </details>
 
 [Logux Back-end Protocol]: ../../protocols/backend/spec.md

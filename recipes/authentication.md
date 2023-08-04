@@ -7,9 +7,7 @@ We will show two of the most popular cases:
 1. You already have Ruby/PHP/Python back-end server and HTML page with email and password fields. When user passed authentication back-end server redirects them and insert user ID and token as `<meta>` tags.
 2. You keep all your business logic in Logux Server and use HTTP just to send static HTML. In this case, Logux client connects as a guest and sends authentication action. Logux server sends action with a user ID and token back to the client. The client will save them to `localStorage`.
 
-If you need another way, you can combine methods or ask for advice in [Logux support chat].
-
-[Logux support chat]: https://gitter.im/logux/logux
+If you need another way, you can combine methods.
 
 
 ## Method 1: HTML Form and Meta Tags
@@ -144,9 +142,7 @@ Use these `<meta>` values in the store:
 
 ### Method 1: Check the Result
 
-Start back-end server, Logux proxy, and Logux client. Try to sign-in into application. If you will have any problems feel free to ask a question at our [support chat].
-
-[support chat]: https://gitter.im/logux/logux
+Start back-end server, Logux proxy, and Logux client. Try to sign-in into application.
 
 
 ## Method 2: Everything in Logux

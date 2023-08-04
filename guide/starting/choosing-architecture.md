@@ -94,5 +94,4 @@ When you should choose it:
 
 Next step:
 
-1. Read Logux Core API.
-2. You can ask for advice in [Logux support chat](https://gitter.im/logux/logux).
+* Read Logux Core API.
