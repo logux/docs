@@ -159,8 +159,7 @@ Add Logux to `config/routes.rb`:
 
 1. Read about **[Logux Back-end Protocol]**.
 2. Implement protocol on your HTTP server.
-3. Feel free to ask for help in [Logux support chat].
-4. You will need proper storage to keep Logux proxy URL and secret. We recommend using `.env` with the library to support this file in your environment.
+3. You will need proper storage to keep Logux proxy URL and secret. We recommend using `.env` with the library to support this file in your environment.
 
    ```ini
    LOGUX_CONTROL_SECRET=secret
