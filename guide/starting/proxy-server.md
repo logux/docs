@@ -101,7 +101,7 @@ Add `path(r'logux/', include('logux.urls')),` into your `urls.py`
 
 Sets Logux settings in your `settings.py`:
 ```python
-# Logux settings: https://logux.io/guide/starting/proxy-server/
+# Logux settings: https://logux.org/guide/starting/proxy-server/
 LOGUX_CONTROL_SECRET = "secret"
 LOGUX_URL = "http://localhost:31338"
 LOGUX_AUTH_FUNC = (lambda user_id, token: True) if DEBUG is True else None

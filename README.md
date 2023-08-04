@@ -1,7 +1,7 @@
 # Logux
 
 <img align="right" width="95" height="148" title="Logux logotype"
-     src="https://logux.io/branding/logotype.svg">
+     src="https://logux.org/branding/logotype.svg">
 
 Logux is an WebSocket client/server framework to make:
 
@@ -12,12 +12,12 @@ Logux is an WebSocket client/server framework to make:
 * **Without vendor lock-in**: works in any cloud with **any database**.
 * Just extra [**9 KB**] in client-side JS bundle.
 
-Ask your questions at [community chat] or [commercial support].
+Ask your questions at [community] or [commercial support].
 
 [Next chapter](./guide/starting/choosing-architecture.md)
 
 [commercial support]: mailto:logux@evilmartians.com
-[community chat]: https://gitter.im/logux/logux
+[community]: https://github.com/orgs/logux/discussions
 [**9 kB**]: https://github.com/logux/client/blob/main/package.json#L57-L63
 [CRDT]: https://slides.com/ai/crdt
 

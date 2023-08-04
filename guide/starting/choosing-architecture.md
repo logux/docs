@@ -83,7 +83,7 @@ Benefits:
 
 Next step:
 
-* Read [`CrossTabClient`](https://logux.io/web-api/#crosstabclient) API.
+* Read [`CrossTabClient`](https://logux.org/web-api/#crosstabclient) API.
 
 
 ## Peer-to-peer

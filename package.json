@@ -20,7 +20,7 @@
     "yaspeller": "^8.0.1"
   },
   "repository": "logux/docs",
-  "homepage": "https://logux.io/",
+  "homepage": "https://logux.org/",
   "license": "MIT",
   "type": "module",
   "engines": {

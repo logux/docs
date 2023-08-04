@@ -119,7 +119,7 @@ Now you can run tests by:
 npx jest
 ```
 
-See [`TestServer`](https://logux.io/node-api/#testserver) and [`TestClient`](https://logux.io/node-api/#testclient) APIs for available methods.
+See [`TestServer`](https://logux.org/node-api/#testserver) and [`TestClient`](https://logux.org/node-api/#testclient) APIs for available methods.
 
 You can enable server log during the test debugging.
 

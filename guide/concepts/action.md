@@ -332,7 +332,7 @@ client.log.add({ type: 'likes/add', postId }, { sync: true })
 
 </details>
 
-You could use [`badge()`](https://logux.io/web-api/#globals-badge) or [`status()`](https://logux.io/web-api/#globals-status) to show small notice if Logux is waiting for an Internet to save changes.
+You could use [`badge()`](https://logux.org/web-api/#globals-badge) or [`status()`](https://logux.org/web-api/#globals-status) to show small notice if Logux is waiting for an Internet to save changes.
 
 <details open><summary>Redux client</summary>
 
@@ -407,7 +407,7 @@ try {
 
 </details>
 
-By default, Logux will forget all unsaved actions if the user will close the browser before getting the Internet. You can change the log store to [`IndexedStore`](https://logux.io/web-api/#indexedstore) or you can show a warning to prevent closing browser:
+By default, Logux will forget all unsaved actions if the user will close the browser before getting the Internet. You can change the log store to [`IndexedStore`](https://logux.org/web-api/#indexedstore) or you can show a warning to prevent closing browser:
 
 <details open><summary>Redux client</summary>
 
@@ -680,7 +680,7 @@ Events:
 * `add`: action was added to the log. Do not use `client.log.type()` or `client.log.on()`. Use only `client.type()` and `client.on()` to get cross-tab actions.
 * `clean`: action was removed from the log. It will happen if nobody will set [`meta.reasons`] for new action or you remove all reasons for old action.
 
-See [`Server#type`](https://logux.io/node-api/#server-type) and [`Server#on`](https://logux.io/node-api/#server-on) API docs for server events.
+See [`Server#type`](https://logux.org/node-api/#server-type) and [`Server#on`](https://logux.org/node-api/#server-on) API docs for server events.
 
 [`meta.reasons`]: ./reason.md
 [Nano Events]: https://github.com/ai/nanoevents/

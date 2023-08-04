@@ -35,7 +35,7 @@ client.node //=> ClientNode instance
 
 </details>
 
-See also [`BaseNode`](https://logux.io/node-api/#basenode) for node’s API.
+See also [`BaseNode`](https://logux.org/node-api/#basenode) for node’s API.
 
 
 ## Node ID
@@ -96,7 +96,7 @@ In `380:Uf_pPwE4:6K7iYdJH`:
 2. `380:Uf_pPwE4` is **client ID**. Each browser tab has a unique node ID, but every browser tab in this browser will have the same client ID.
 3. `6K7iYdJH` is **tab ID**. Each browser tab will have unique value.
 
-You can use [`parseId`](https://logux.io/web-api/#globals-parseid) helper to get user ID and client ID from action ID or node ID.
+You can use [`parseId`](https://logux.org/web-api/#globals-parseid) helper to get user ID and client ID from action ID or node ID.
 
 On the server you can get user ID and client ID of the client by:
 
@@ -172,7 +172,7 @@ By default, Logux forces you to use WebSocket over TLS (`wss:`) in production. I
 
 You can use WebSocket without encryption in development or with `allowDangerousProtocol` option.
 
-If you do not want to use WebSocket, you can implementation own [`Connection`](https://logux.io/web-api/#connection) class and pass it to `server` option. For instance, you can use [`TestPair`](https://logux.io/web-api/#testpair) in tests:
+If you do not want to use WebSocket, you can implementation own [`Connection`](https://logux.org/web-api/#connection) class and pass it to `server` option. For instance, you can use [`TestPair`](https://logux.org/web-api/#testpair) in tests:
 
 ```js
 import { TestPair } from '@logux/core'

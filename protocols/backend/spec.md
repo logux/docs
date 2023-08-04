@@ -55,7 +55,7 @@ Answer[]
 
 `auth` command asks back-end server to authenticate the user by ID, token, cookie and Logux’s headers. `authId` is used to specify the command, when the HTTP request contains multiple `auth` commands.
 
-On correct user ID and credentials back-end server must answer `authenticated` with server’s [subprotocol](https://logux.io/guide/concepts/subprotocol/).
+On correct user ID and credentials back-end server must answer `authenticated` with server’s [subprotocol](https://logux.org/guide/concepts/subprotocol/).
 
 ```ts
 {
