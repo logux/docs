@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "test:lint": "remark --no-stdout --frail --quiet *.md */*.md guide/*/*.md",
-    "test:spell": "yaspeller *.md */*.md guide/*/*.md",
     "test:order": "./scripts/check-order.js",
     "test": "pnpm run /^test:/"
   },
@@ -17,8 +16,7 @@
     "remark-lint-no-shortcut-reference-link": "^3.1.2",
     "remark-preset-lint-recommended": "^6.1.3",
     "remark-validate-links": "^13.0.0",
-    "simple-git-hooks": "^2.9.0",
-    "yaspeller": "^10.0.1"
+    "simple-git-hooks": "^2.9.0"
   },
   "repository": "logux/docs",
   "homepage": "https://logux.org/",
@@ -33,7 +31,6 @@
   "nano-staged": {
     "order.json": "node ./scripts/check-order.js",
     "*.md": [
-      "yaspeller",
       "remark --no-stdout --frail --quiet",
       "node ./scripts/check-order.js"
     ]
@@ -57,79 +54,6 @@
       ],
       "remark-validate-links",
       "remark-lint-no-empty-sections"
-    ]
-  },
-  "yaspeller": {
-    "lang": "en",
-    "ignoreCapitalization": true,
-    "ignoreText": [
-      "\\d+ “[^”]+”",
-      "\\d+kB"
-    ],
-    "dictionary": [
-      "Logux",
-      "webapp",
-      "GraphQL",
-      "WebSocket",
-      "UI",
-      "UX",
-      "Redux",
-      "JS",
-      "js",
-      "CRDT",
-      "unsubscribe",
-      "unsubscribes",
-      "unsent",
-      "A’s",
-      "B’s",
-      "io",
-      "logux",
-      "Preact",
-      "redux",
-      "Redux’s",
-      "favicon",
-      "subprotocol",
-      "subprotocols",
-      "npm",
-      "UUID",
-      "SemVer",
-      "JWT",
-      "subscribe’s",
-      "Webpack",
-      "OAuth or",
-      "WebAuthn",
-      "bundler",
-      "LTE",
-      "TLS",
-      "opens WebSocket",
-      "serializable",
-      "meta’s",
-      "timestamp",
-      "Vue",
-      "Vue’s",
-      "Vuex",
-      "instance",
-      "sourcing",
-      "Versioning",
-      "unsynchronized",
-      "IndexedDB",
-      "KB",
-      "generics",
-      "Django",
-      "authenticator",
-      "Logux’s",
-      "Menshykov",
-      "CLI",
-      "composable",
-      "P2P",
-      "IPFS",
-      "devtools",
-      "Kubernetes",
-      "endpoint",
-      "schemas",
-      "Vite",
-      "Since",
-      "use"
     ]
   }
 }
