@@ -107,7 +107,7 @@ end
 
 After sending initial state, the server needs to know what actions are connected with this channel. You can set channels for action in `resend` callback. Logux will resend these actions to all clients subscribed to this channel.
 
-For instance, we are marking all `users/add` actions as actions inside `users/:id` channel to send them too all users subscribed to that channel.
+For instance, here we are saying that all `users/add` actions should be broadcast to all clients subscribed to the `users/:id` channel, where `:id` comes from the action data.
 
 <details open><summary>Node.js</summary>
 
