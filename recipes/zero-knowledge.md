@@ -33,7 +33,7 @@ import { parseId } from '@logux/core'
 
 server.log.type('0', (action, meta) => {
   meta.reasons.push('user:' + parseId(meta.id).userId)
-}, 'preadd')
+}, { event: 'preadd' })
 ```
 
 When client will remove some action, it will send:
