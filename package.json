@@ -49,7 +49,8 @@
       [
         "remark-lint-no-dead-urls",
         {
-          "skipOffline": true
+          "skipOffline": true,
+          "skipUrlPatterns": "stackoverflow.com"
         }
       ],
       "remark-validate-links",
