@@ -30,6 +30,9 @@
     "zero-knowledge",
     "deployment"
   ],
+  "examples": [
+    "pagination"
+  ],
   "protocols": [
     "ws/spec",
     "ws/examples",
