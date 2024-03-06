@@ -8,9 +8,9 @@ This table supports all **CRUD** operations.
 
 ## Description
 
-### Using type-safe actions
+### Using typesafe actions
 
-As recommended in the [TypeScript recipe], we use [`typescript-fsa`] to share actions between client and server:
+As recommended in the [logux TypeScript recipe], we use [`typescript-fsa`] to share actions between client and server:
 
 ```ts
 import { actionCreatorFactory } from 'typescript-fsa'
@@ -46,13 +46,13 @@ export const playerDeletedAction = createAction<{
 
 To get data by pages from the server, we use **2 actions**: `loadPlayersPageAction` and `playersPageLoadedAction`.
 
-The first one (`loadPlayersPageAction`) is sent from the client:
+The first one is sent from the client:
 
 ```ts
 client.sync(loadPlayersPageAction({ page }))
 ```
 
-Server handles it and **sends back** the `playersPageLoadedAction`:
+The server handles it and sends back the `playersPageLoadedAction`:
 
 ```ts
 server.type(loadPlayersPageAction, {
@@ -68,7 +68,7 @@ server.type(loadPlayersPageAction, {
 
 Note that the action `playersPageLoadedAction` is sent [back to the same client], and other clients don't receive it.
 
-The client handles `playersPageLoadedAction` by updating the respective states:
+The client handles the `playersPageLoadedAction` by updating the respective states:
 
 ```ts
 client.type(playersPageLoadedAction, action => {
@@ -79,7 +79,7 @@ client.type(playersPageLoadedAction, action => {
   /* 
     This could happen if we, for example, 
     had 2 pages and tried to get page 2,
-    but during that time the page 2 got deleted
+    but during that time the page 2 was deleted
     and the server returned: page = 2, totalPages = 1.
     
     In this case, instead of showing an empty page 
@@ -99,7 +99,7 @@ client.type(playersPageLoadedAction, action => {
 
 ### Creating a new item
 
-From client, we send a `createPlayerAction` to the server.
+From the client, we send `createPlayerAction` to the server.
 
 The server handles the action and sends `playerCreatedAction` to **all clients** that are subscribed to the `players` channel:
 
@@ -130,7 +130,7 @@ server.type(playerCreatedAction, {
 })
 ```
 
-On client, if we can add the new item to the **current page** (for example, the current page has 4 elements and we display 5 element per page), then we update the table using **Optimistic UI**:
+On the client, if we can add the new item to the **current page** (for example, the current page has 4 elements and we display 5 element per page), then we update the table using **Optimistic UI**:
 
 ```ts
 setIsUpdating(true)
@@ -143,17 +143,17 @@ if (players.length < PER_PAGE) {
 }
 ```
 
-However, if we **can't add** a new item to the current page (for example, the current page has 5 elements out of 5 and we have 2 pages in total), then we need to **request the current page again** after the item will be added in order to **properly update the total amount of pages** on the UI:
+However, if we **can't add** a new item to the current page (for example, the current page has 5 elements out of 5 and we have 2 pages in total), then we need to **request the current page again** after adding the item, in order to **properly update the total number of pages** that might have changed after a new item was added:
 
 ```ts
-// Handle `playerCreatedAction` that was sent from server
+// Handle `playerCreatedAction` that was sent from the server
 // by updating the current page
 client.sync(loadPlayersPageAction({ page }))
 ```
 
 ### Deleting an item
 
-Upon deletion, we send `deletePlayerAction` to the server and update the table immediately with **Optimistic UI**:
+Upon deletion, we send `deletePlayerAction` to the server and immediately update the table with **Optimistic UI**:
 
 ```ts
 setPlayers(data => data.filter(x => x.id !== player.id))
@@ -192,7 +192,7 @@ server.type(playerDeletedAction, {
 })
 ```
 
-After the client receives the `playerDeletedAction`, he needs to **update the current page** in order to **get actual page data** that might have changed after deletion:
+After the client receives the `playerDeletedAction`, it needs to **update the current page** in order to **get actual page data** that might have changed after deletion of an element:
 
 ```ts
 // Refresh the current page
@@ -201,7 +201,7 @@ client.sync(loadPlayersPageAction({ page }))
 
 ### Updating an item
 
-To update the data, we just send `updatePlayerAction` to the server and **update UI right away**:
+To update the data, we simply send `updatePlayerAction` to the server and **update UI right away**:
 
 ```ts
 setPlayers(data =>
@@ -231,7 +231,7 @@ server.type(updatePlayerAction, {
 })
 ```
 
-When a client receives this action from the server, he checks to see if this action **was initiated by him**, and if so, it means that **UI was already updated** and the action can be ignored. Otherwise, client updates the UI:
+When a client receives this action from the server, it checks to see if this action **was initiated by it** (by comparing [clientId]), and if so, it means that **UI has already been updated** and the action can be ignored. Otherwise, the client updates the UI:
 
 ```ts
 client.type(updatePlayerAction, (action, meta) => {
@@ -247,5 +247,6 @@ client.type(updatePlayerAction, (action, meta) => {
 
 [source code]: https://github.com/VladBrok/logux-pagination-example
 [back to the same client]: https://logux.org/node-api/#channelcontext-sendback
-[TypeScript recipe]: https://logux.org/recipes/typescript/
+[logux TypeScript recipe]: https://logux.org/recipes/typescript/
 [`typescript-fsa`]: https://github.com/aikoven/typescript-fsa
+[clientId]: https://logux.org/web-api/#client-clientid
