@@ -1,10 +1,10 @@
-# Pagination example with logux
+# Pagination with logux
 
 Example implementation of a **real-time table** with **pagination**.
 
 This table supports all **CRUD** operations.
 
-[source code]
+[view source code]
 
 ## Using typesafe actions
 
@@ -244,7 +244,7 @@ client.type(updatePlayerAction, (action, meta) => {
 })
 ```
 
-[source code]: https://github.com/VladBrok/logux-pagination-example
+[view source code]: https://github.com/VladBrok/logux-pagination-example
 [back to the same client]: https://logux.org/node-api/#channelcontext-sendback
 [logux TypeScript recipe]: https://logux.org/recipes/typescript/
 [`typescript-fsa`]: https://github.com/aikoven/typescript-fsa
