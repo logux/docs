@@ -28,9 +28,7 @@
     "subprotocol",
     "headers",
     "zero-knowledge",
-    "deployment"
-  ],
-  "examples": [
+    "deployment",
     "pagination"
   ],
   "protocols": [
