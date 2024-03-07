@@ -4,16 +4,16 @@ Example implementation of a **real-time table** with **pagination**.
 
 This table supports all **CRUD** operations.
 
-## Links
+[view source code]
 
-* [Source code](https://github.com/VladBrok/logux-pagination-example)
-* [logux TypeScript recipe](https://logux.org/recipes/typescript)
-* [typescript-fsa](https://github.com/aikoven/typescript-fsa)
-* [clientId](https://logux.org/web-api/#client-clientid)
+[view source code]: https://github.com/VladBrok/logux-pagination-example
 
 ## Using typesafe actions
 
 As recommended in the [logux TypeScript recipe], we use [`typescript-fsa`] to share actions between client and server:
+
+[logux TypeScript recipe]: https://logux.org/recipes/typescript/
+[`typescript-fsa`]: https://github.com/aikoven/typescript-fsa
 
 ```ts
 import { actionCreatorFactory } from 'typescript-fsa'
@@ -71,6 +71,8 @@ server.type(loadPlayersPageAction, {
 ```
 
 Note that the action `playersPageLoadedAction` is sent [back to the same client], and other clients don't receive it.
+
+[back to the same client]: https://logux.org/node-api/#channelcontext-sendback
 
 The client handles the `playersPageLoadedAction` by updating the respective states:
 
@@ -237,6 +239,8 @@ server.type(updatePlayerAction, {
 
 When a client receives this action from the server, it checks to see if this action **was initiated by it** (by comparing [clientId]), and if so, it means that **UI has already been updated** and the action can be ignored. Otherwise, the client updates the UI:
 
+[clientId]: https://logux.org/web-api/#client-clientid
+
 ```ts
 client.type(updatePlayerAction, (action, meta) => {
   if (client.clientId === parseId(meta.id).clientId) {
@@ -249,7 +253,3 @@ client.type(updatePlayerAction, (action, meta) => {
 })
 ```
 
-[back to the same client]: https://logux.org/node-api/#channelcontext-sendback
-[logux TypeScript recipe]: https://logux.org/recipes/typescript/
-[`typescript-fsa`]: https://github.com/aikoven/typescript-fsa
-[clientId]: https://logux.org/web-api/#client-clientid
