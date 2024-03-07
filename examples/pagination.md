@@ -6,9 +6,7 @@ Example implementation of a **real-time table** with **pagination**.
 
 This table supports all **CRUD** operations.
 
-## Description
-
-### Using typesafe actions
+## Using typesafe actions
 
 As recommended in the [logux TypeScript recipe], we use [`typescript-fsa`] to share actions between client and server:
 
@@ -42,7 +40,7 @@ export const playerDeletedAction = createAction<{
 
 ```
 
-### Fetching data with pagination
+## Fetching data with pagination
 
 To get data by pages from the server, we use **2 actions**: `loadPlayersPageAction` and `playersPageLoadedAction`.
 
@@ -97,7 +95,7 @@ client.type(playersPageLoadedAction, action => {
 })
 ```
 
-### Creating a new item
+## Creating a new item
 
 From the client, we send `createPlayerAction` to the server.
 
@@ -151,7 +149,7 @@ However, if we **can't add** a new item to the current page (for example, the cu
 client.sync(loadPlayersPageAction({ page }))
 ```
 
-### Deleting an item
+## Deleting an item
 
 Upon deletion, we send `deletePlayerAction` to the server and immediately update the table with **Optimistic UI**:
 
@@ -199,7 +197,7 @@ After the client receives the `playerDeletedAction`, it needs to **update the cu
 client.sync(loadPlayersPageAction({ page }))
 ```
 
-### Updating an item
+## Updating an item
 
 To update the data, we simply send `updatePlayerAction` to the server and **update UI right away**:
 
