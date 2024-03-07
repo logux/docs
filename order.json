@@ -28,7 +28,8 @@
     "subprotocol",
     "headers",
     "zero-knowledge",
-    "deployment"
+    "deployment",
+    "pagination"
   ],
   "protocols": [
     "ws/spec",
