@@ -1,10 +1,10 @@
 # Pagination example with logux
 
-[source code]
-
 Example implementation of a **real-time table** with **pagination**.
 
 This table supports all **CRUD** operations.
+
+[source code]
 
 ## Using typesafe actions
 
@@ -31,7 +31,8 @@ export const playerCreatedAction = createAction<{
 
 export const updatePlayerAction = createAction<Player>('players/update')
 
-export const deletePlayerAction = createAction<{ id: string }>('players/delete')
+export const deletePlayerAction = 
+  createAction<{ id: string }>('players/delete')
 
 export const playerDeletedAction = createAction<{
   id: string
@@ -141,7 +142,7 @@ if (players.length < PER_PAGE) {
 }
 ```
 
-However, if we **can't add** a new item to the current page (for example, the current page has 5 elements out of 5 and we have 2 pages in total), then we need to **request the current page again** after adding the item, in order to **properly update the total number of pages** that might have changed after a new item was added:
+However, if we **can't add** a new item to the current page (for example, the current page has 5 elements out of 5 and we have 2 pages in total), then we need to **request the current page again** after adding the item, in order to properly update the total number of pages that might have changed after a new item was added:
 
 ```ts
 // Handle `playerCreatedAction` that was sent from the server
@@ -199,7 +200,7 @@ client.sync(loadPlayersPageAction({ page }))
 
 ## Updating an item
 
-To update the data, we simply send `updatePlayerAction` to the server and **update UI right away**:
+To update the data, we send `updatePlayerAction` to the server and **update UI right away**:
 
 ```ts
 setPlayers(data =>
