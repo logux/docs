@@ -5,7 +5,7 @@ Zero-Knowledge Server is an answer to modern privacy problems, when server canâ€
 1. Server should not know userâ€™s password, which mean that password recovery will not work.
 2. All data manipulations must happen on client-side. Server will be used only to synchronize data between clients.
 
-P2P-protocols without any servers (like [IPFS](https://js.ipfs.io/)) can be a better solution for some cases.
+P2P-protocols without any servers (like [IPFS](https://ipfs.tech)) can be a better solution for some cases.
 
 ```js
 import { encryptActions } from '@logux/client'
