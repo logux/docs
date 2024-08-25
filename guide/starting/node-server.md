@@ -7,11 +7,8 @@ In this guide, we will create the Logux server for the simplest case:
 * Logux server do most of back-end business logic.
 * You write Logux server on Node.js.
 
-If you want to use another language for the server read [Logux Proxy] page.
-
 [Logux Redux]: ./new-redux-client.md
 [Logux Vuex]: ./new-vuex-client.md
-[Logux Proxy]: ./proxy-server.md
 
 
 ## Creating the Project

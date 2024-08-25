@@ -9,18 +9,13 @@ Logux client keeps only one WebSocket connection even if the user opens an appli
 
 When Logux client opens WebSocket connection, it sends a user ID and user token to the server.
 
-Logux server is written in JS. There are two ways to use it:
+Logux server is written in JS. You can use any database to store data.
 
-1. Use Logux server as a framework and write an application on top of **Logux JS API**. You can use any database to store data.
-
-    ```js
-    server.auth(async ({ userId, token }) => {
-      return verifyJWT(token).userId === userId
-    })
-    ```
-2. Use **Logux server as a proxy**. Logux can convert all WebSocket events to the HTTP request to your web server. You can use your favorite back-end language: for instance, PHP, Ruby on Rails or Go.
-
-We will show examples in JS API, but you can use Logux proxy with any back-end language for all our examples.
+```js
+server.auth(async ({ userId, token }) => {
+  return verifyJWT(token).userId === userId
+})
+```
 
 After authenticating user server will calculate **time difference** between client and server. It is useful when the client has the wrong time settings.
 

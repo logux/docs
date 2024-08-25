@@ -5,49 +5,7 @@ Next chapters depend on your use case. Find the closest client-side and server-s
 
 ## Server
 
-### Node.js Server
-
-When you should choose it:
-
-* You are starting new back-end and like Node.js.
-
-Benefits:
-
-* The best performance.
-* You can still keep some logic in servers written on different languages. See [Mixed Server](#mixed-server).
-
-Next step:
-
 * Read **[Starting Logux Server](../starting/node-server.md)**.
-
-### Proxy Server
-
-When you should choose it:
-
-* You want to use legacy back-end.
-* You do not want to write new back-end on top of Node.js.
-
-Benefits:
-
-* Works with back-end on any language.
-* You can always improve performance in critical parts by moving to [Mixed Server](#mixed-server).
-
-Next step:
-
-* Read **[Creating Logux Proxy](../starting/proxy-server.md)**.
-
-
-### Mixed Server
-
-When you should choose it:
-
-* You want to keep some back-end logic in Logux Server on Node.js and some back-end logic should be sent to other HTTP servers.
-
-Next step:
-
-1. Read **[Starting Logux Server](../starting/node-server.md)**.
-2. Set `LOGUX_BACKEND` or `backend` option.
-3. All actions with `server.type()` and all subscriptions with `server.channel()` will be processed by Logux Server. All actions and subscriptions without these definitions will be sent to HTTP server from `backend` option.
 
 
 ## Client

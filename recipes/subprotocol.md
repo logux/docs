@@ -30,7 +30,7 @@ You can change the subprotocol version at `src/store/index.js` file (or another 
   })
 ```
 
-In Logux Node.js server or Logux proxy you need to change `index.js`:
+In Logux Node.js server you need to change `index.js`:
 
 ```diff
   const server = new Server(
@@ -154,7 +154,7 @@ client.type('users/add', (action, meta) => {
 
 The server will refuse a connection if the client’s subprotocol doesn’t pass `supports` requirements. The client will show “Reload the page” error to the user.
 
-For instance, if you do not want to support `1.x.x` clients and force them to update an app, change this line in server’s or proxy’s `index.js`:
+For instance, if you do not want to support `1.x.x` clients and force them to update an app, change this line in server’s `index.js`:
 
 ```diff
   const server = new Server(

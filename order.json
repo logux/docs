@@ -2,7 +2,6 @@
   "guide": [
     "starting/choosing-architecture",
     "starting/node-server",
-    "starting/proxy-server",
     "starting/new-redux-client",
     "starting/new-vuex-client",
     "starting/replace-redux",
@@ -34,9 +33,6 @@
   "protocols": [
     "ws/spec",
     "ws/examples",
-    "ws/versions",
-    "backend/spec",
-    "backend/examples",
-    "backend/versions"
+    "ws/versions"
   ]
 }

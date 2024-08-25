@@ -142,7 +142,7 @@ Use these `<meta>` values in the store:
 
 ### Method 1: Check the Result
 
-Start back-end server, Logux proxy, and Logux client. Try to sign-in into application.
+Start back-end server and Logux client. Try to sign-in into application.
 
 
 ## Method 2: Everything in Logux

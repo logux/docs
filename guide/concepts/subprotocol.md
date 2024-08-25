@@ -21,7 +21,7 @@ const client = new CrossTabClient({
 })
 ```
 
-In Logux Node.js server or Logux proxy, you define what subprotocol does server use and what clients does it support (by [SemVer range syntax]).
+In Logux Node.js server, you define what subprotocol does server use and what clients does it support (by [SemVer range syntax]).
 
 ```js
 const server = new Server(
