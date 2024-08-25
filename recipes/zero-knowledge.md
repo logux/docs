@@ -24,7 +24,7 @@ Clients will convert all actions to:
 { type: '0', d: string, iv: string }
 ```
 
-Server need to save client’s actions. For instance by using persistent log (you may need to write `LogStore` implementation to keep log in some database).
+Server needs to save client’s actions. For instance by using persistent log (you may need to write `LogStore` implementation to keep log in some database).
 
 On the server you will need to set `reasons` for `0` actions to keep them in log:
 
