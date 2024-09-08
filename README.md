@@ -189,7 +189,7 @@ addSyncMap<TaskValue>(server, 'tasks', {
   }
 })
 
-addSyncMapFilter(server, 'tasks', {
+addSyncMapFilter<TaskValue>(server, 'tasks', {
   access (ctx, filter) {
     return true
   },
