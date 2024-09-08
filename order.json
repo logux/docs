@@ -1,6 +1,5 @@
 {
   "guide": [
-    "starting/choosing-architecture",
     "starting/node-server",
     "starting/new-redux-client",
     "starting/new-vuex-client",
