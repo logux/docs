@@ -5,10 +5,10 @@
 
 Logux is a flexible JS framework to make [local-first](https://www.inkandswitch.com/local-first/) **sync engine** with **real-time updates**, **offline-first**, **CRDT**, an **optimistic UI**.
 
-- Instead of other local-first solutions, it is **not a database, but a framework** to build sync engines with specific needs of your project.
+- Instead of other local-first solutions, it is **not a database, but a framework** to build sync engines with specific needs of your project.
 - **No vendor lock-in**. It works with any database and in any cloud.
 - Great **TypeScript** support with end-to-end type checking from client to server.
-- We thought about many production-ready problems like **monitoring**, **scaling**, **outdated clients**, **rich test API**.
+- We thought about many production-ready problems like **monitoring**, **scaling**, **outdated clients**, authentication, rich test API.
 - Options **end-to-end encryption**.
 - Just extra [**7 KB**](https://github.com/logux/client/blob/main/package.json#L141-L148) in client-side JS bundle.
 
