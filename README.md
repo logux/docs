@@ -14,7 +14,7 @@ Logux is a flexible JS framework to make [local-first](https://www.inkandswitch.
 
 Ask your questions at [community](https://github.com/orgs/logux/discussions) or [commercial support](mailto:logux@evilmartians.com).
 
-[Next chapter](./guide/starting/node-server.md)
+[Next chapter](./guide/starting/project.md)
 
 <a href="https://evilmartians.com/?utm_source=logux-docs">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
