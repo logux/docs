@@ -1,4 +1,4 @@
-# Creating new Logux Project
+# Creating New Logux Project
 
 Logux is a flexible framework. You can build very different systems (even point-to-point).
 
