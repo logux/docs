@@ -3,23 +3,16 @@
 <img align="right" width="95" height="148" title="Logux logotype"
      src="https://logux.org/branding/logotype.svg">
 
-Logux is an WebSocket client/server framework to make:
+Logux is a flexible JS framework to make [local-first](https://www.inkandswitch.com/local-first/) **sync engine** with **real-time updates**, **offline-first**, **CRDT**, an **optimistic UI**.
 
-* **Collaborative apps** when multiple users work with the same document. Logux has features inspired by **[CRDT]** to resolve edit conflicts between users. Real-time updates to prevent conflicts. Time travel to keep actions order the same on every client. A distributed timer to detect the latest changes.
-* **Real-time** to see changes by another user immediately. Logux combines WebSocket with modern reactive client architecture. It synchronizes Redux actions between clients and servers, and **keeps the same order** of actions.
-* **Optimistic UI** to improve UI performance by updating UI without waiting for an answer from the server. **Time travel** will revert changes later if the server refuses them.
-* **Offline-first** for the next billion users or New York City Subway. Logux saves Redux actions to **IndexedDB** and has a lot of features to **merge changes** from different users.
-* **Without vendor lock-in**: works in any cloud with **any database**.
-* Just extra [**9 KB**] in client-side JS bundle.
+- Instead of other local-first solutions, it is **not a database, but a framework** to build sync engines with specific needs of your project.
+- **No vendor lock-in**. It works with any database and in any cloud.
+- Great **TypeScript** support with end-to-end type checking from client to server.
+* Just extra [**7 KB**](https://github.com/logux/client/blob/main/package.json#L141-L148) in client-side JS bundle.
 
-Ask your questions at [community] or [commercial support].
+Ask your questions at [community](https://github.com/orgs/logux/discussions) or [commercial support](mailto:logux@evilmartians.com).
 
 [Next chapter](./guide/starting/choosing-architecture.md)
-
-[commercial support]: mailto:logux@evilmartians.com
-[community]: https://github.com/orgs/logux/discussions
-[**9 kB**]: https://github.com/logux/client/blob/main/package.json#L57-L63
-[CRDT]: https://slides.com/ai/crdt
 
 <a href="https://evilmartians.com/?utm_source=logux-docs">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
@@ -214,14 +207,3 @@ addSyncMapFilter(server, 'tasks', {
 })
 ```
 
-
-## Talks
-
-### CRDT ideas in Logux
-
-`Youtube:c7t_YBNHkeo` CRDT ideas in Logux talk
-
-
-### Using Logux in Production
-
-`Youtube:DvHNOplQ-tY` Using Logux in Production talk
