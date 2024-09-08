@@ -8,7 +8,7 @@ Logux is a flexible JS framework to make [local-first](https://www.inkandswitch.
 - Instead of other local-first solutions, it is **not a database, but a framework** to build sync engines with specific needs of your project.
 - **No vendor lock-in**. It works with any database and in any cloud.
 - Great **TypeScript** support with end-to-end type checking from client to server.
-* Just extra [**7 KB**](https://github.com/logux/client/blob/main/package.json#L141-L148) in client-side JS bundle.
+- Just extra [**7 KB**](https://github.com/logux/client/blob/main/package.json#L141-L148) in client-side JS bundle.
 
 Ask your questions at [community](https://github.com/orgs/logux/discussions) or [commercial support](mailto:logux@evilmartians.com).
 
