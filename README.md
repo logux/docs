@@ -141,7 +141,7 @@ loading.classList.remove('is-show')
 Using [Logux Server](https://github.com/logux/server/):
 
 ```js
-addSyncMap(server, 'tasks', {
+addSyncMap<TaskValue>(server, 'tasks', {
   async access (ctx, id) {
     const task = await Task.find(id)
     return ctx.userId === task.authorId
