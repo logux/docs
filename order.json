@@ -27,6 +27,9 @@
     "deployment",
     "pagination"
   ],
+  "examples": [
+    "list"
+  ],
   "protocols": [
     "ws/spec",
     "ws/examples",
