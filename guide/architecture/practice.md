@@ -5,7 +5,7 @@ Logux architecture was designed to be peer-to-peer and flexible. You can build d
 
 ## Connecting
 
-Logux client keeps only one WebSocket connection even if the user opens an application in multiple browser’s tabs. Logux clients in different **elect one leader** to keep the connection. If the user closes the leader tab, other tabs will re-elect a leader.
+Logux client keeps only one WebSocket connection even if the user opens an application in multiple browser’s tabs. Logux clients in different tabs **elect one leader** to keep the connection. If the user closes the leader tab, other tabs will re-elect a leader.
 
 When Logux client opens WebSocket connection, it sends a user ID and user token to the server.
 
