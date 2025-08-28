@@ -60,5 +60,8 @@
       "remark-validate-links",
       "remark-lint-no-empty-sections"
     ]
+  },
+  "dependencies": {
+    "actions-up": "^1.1.1"
   }
 }
