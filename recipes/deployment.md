@@ -11,19 +11,13 @@ Logux Server can be deployed to any hosting provider where Node.js is available.
 // index.js
 
 import { Server } from '@logux/server'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-
-// Since we are in ESM scope, we don't have __dirname
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const server = new Server(
   Server.loadOptions(process, {
     subprotocol: '1.0.0',
     supports: '1.x',
     host: '0.0.0.0', // Note we must bind to 0.0.0.0
-    root: __dirname,
+    root: import.meta.dirname,
   })
 )
 
