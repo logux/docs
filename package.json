@@ -7,6 +7,7 @@
     "test": "pnpm run /^test:/"
   },
   "devDependencies": {
+    "actions-up": "^1.1.1",
     "fast-glob": "^3.3.3",
     "nano-staged": "^0.8.0",
     "remark-cli": "^12.0.1",
@@ -60,8 +61,5 @@
       "remark-validate-links",
       "remark-lint-no-empty-sections"
     ]
-  },
-  "dependencies": {
-    "actions-up": "^1.1.1"
   }
 }
