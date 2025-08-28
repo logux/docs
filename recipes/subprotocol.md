@@ -41,8 +41,6 @@ In Logux Node.js server you need to change `index.js`:
   )
 ```
 
-[Semantic Versioning]: https://semver.org/
-
 
 ## Checking Client Version on the Server
 
