@@ -67,8 +67,7 @@ client.log.add({ type: 'menu/open' }, { tab: client.id })
 
 Note that if a user opens a new tab, Logux will not load action from another tab. A new tab will load the latest state only in two cases:
 
-1. You use persistent log store on the client-side like
-   [`IndexedStore`](/web-api/#indexedstore).
+1. You use persistent log store on the client-side like `IndexedStore`.
 2. The new tab loads the latest state from the server with [subscriptions].
 
 [subscriptions]: ../guide/concepts/subscription.md

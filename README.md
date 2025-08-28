@@ -10,7 +10,7 @@ Logux is a flexible JS framework to make [local-first](https://www.inkandswitch.
 - Great **TypeScript** support with end-to-end type checking from client to server.
 - We thought about many production-ready problems like **monitoring**, **scaling**, **outdated clients**, authentication, rich test API.
 - Optional **end-to-end encryption**.
-- Just extra [**7 KB**](https://github.com/logux/client/blob/main/package.json#L141-L148) in client-side JS bundle.
+- Just extra **7 KB** in client-side JS bundle.
 
 Ask your questions at [community](https://github.com/orgs/logux/discussions) or [commercial support](mailto:logux@evilmartians.com).
 
@@ -208,4 +208,3 @@ addSyncMapFilter<TaskValue>(server, 'tasks', {
   }
 })
 ```
-
