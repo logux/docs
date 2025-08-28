@@ -113,7 +113,7 @@ Fourth position contains last `added` time used by receiver in previous connecti
 
 Fifth position is optional and contains extra client option in object. Right now protocol supports only `subprotocol` and `token` keys there.
 
-Subprotocol version is a string in [SemVer] format. It describes a application subprotocol, which developer will create on top of Logux protocol. If other node doesn’t support this subprotocol version, it could send `wrong-subprotocol` error.
+Subprotocol version is a number. It describes a application subprotocol, which developer will create on top of Logux protocol. If other node doesn’t support this subprotocol version, it could send `wrong-subprotocol` error.
 
 Token could be a string. On wrong token data receiver may send `wrong-credentials` error and close connection.
 

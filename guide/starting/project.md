@@ -18,7 +18,7 @@ We will use `api/` folder for types and constant shared between client and serve
 Create `api/index.ts` with subprotocol version (client-server API).
 
 ```ts
-export const SUBPROTOCOL = '1.0.0'
+export const SUBPROTOCOL = 1
 ```
 
 Update it every time you change an API to track old clients (and suggest different handler if necessary).

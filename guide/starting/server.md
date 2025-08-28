@@ -28,7 +28,7 @@ import { SUBPROTOCOL } from '../api/index.js'
 const server = new Server(
   Server.loadOptions(process, {
     subprotocol: SUBPROTOCOL,
-    supports: '1.x',
+    minSubprotocol: 1,
     fileUrl: import.meta.url
   })
 )

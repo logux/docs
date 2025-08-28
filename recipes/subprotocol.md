@@ -11,21 +11,19 @@ Logux gives your [`meta.subprotocol`](../guide/concepts/subprotocol.md) API to d
 
 ## Subprotocol Best Practices
 
-The developer must specify the subprotocol version ([Semantic Versioning] string like `1.5.2`) for both client and server.
+The developer must specify the subprotocol version for both client and server.
 
-We suggest to change major subprotocol version (first number `X.x.x`) on client/server API breaking changes:
+We suggest to change subprotocol version on every client/server API breaking changes:
 
 * Renaming action.
 * Big changes in reaction for action.
-
-You can optionally update minor (`x.X.x`) or patch (`x.x.X`) versions of subprotocol on new actions and features or bug fixes. It can be useful for statistics.
 
 You can change the subprotocol version at `src/store/index.js` file (or another file where you create store):
 
 ```diff
   const client = new CrossTabClient({
--   subprotocol: '1.1.0',
-+   subprotocol: '2.0.0',
+-   subprotocol: 9,
++   subprotocol: 10,
     …
   })
 ```
@@ -35,10 +33,9 @@ In Logux Node.js server you need to change `index.js`:
 ```diff
   const server = new Server(
     Server.loadOptions(process, {
--     subprotocol: '1.1.0',
--     supports: '^1.0.0',
-+     subprotocol: '2.0.0',
-+     supports: '^2.0.0, ^1.0.0',
+-     subprotocol: 9,
++     subprotocol: 10,
+      minSubprotocol: 9,
       …
     })
   )
@@ -59,7 +56,7 @@ Note that every action has its subprotocol. With a persistence store like `Index
 server.type('user/add', {
   …,
   async process (ctx, action, meta) {
-    if (ctx.isSubprotocol('~1.1.0')) {
+    if (meta.subprotocol <= 9) {
       await db.createUser({ id: action.id, name: action.name })
     } else {
       await db.createUser({ id: action.user.id, name: action.user.name })
@@ -76,7 +73,7 @@ server.type('user/add', {
 module Channels
   class Users < Logux::ChannelController
     def add
-      user = if meta.subprotocol =~ /^1\.1\./
+      user = if meta.subprotocol <= 9
         User.new(id: action[:id], name: action[:name])
       else
         User.new(id: action[:user][:id], name: action[:user][:name])
@@ -139,7 +136,7 @@ export default {
 
 ```js
 client.type('users/add', (action, meta) => {
-  if (meta.subprotocol.startsWith('1.1.')) {
+  if (meta.subprotocol <= 9) {
     users.add({ id: action.id, name: action.name })
   } else {
     users.add({ action.user })
@@ -152,19 +149,17 @@ client.type('users/add', (action, meta) => {
 
 ## Forcing Clients to Update Client
 
-The server will refuse a connection if the client’s subprotocol doesn’t pass `supports` requirements. The client will show “Reload the page” error to the user.
+The server will refuse a connection if the client’s subprotocol doesn’t pass `minSubprotocol` requirements. The client will show “Reload the page” error to the user.
 
-For instance, if you do not want to support `1.x.x` clients and force them to update an app, change this line in server’s `index.js`:
+For instance, if you do not want to support old clients and force them to update an app, change this line in server’s `index.js`:
 
 ```diff
   const server = new Server(
     Server.loadOptions(process, {
-      subprotocol: '2.0.0',
--     supports: '^2.0.0, ^1.0.0',
-+     supports: '^2.0.0',
+      subprotocol: 10,
+-     minSubprotocol: 9,
++     minSubprotocol: 10,
       …
     })
   )
 ```
-
-You can read more about `subprotocol` syntax in [npm docs](https://github.com/npm/node-semver#advanced-range-syntax).

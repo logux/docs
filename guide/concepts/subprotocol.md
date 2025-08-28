@@ -10,24 +10,24 @@ Subprotocol is your application-level protocol:
 * The schema of action’s objects.
 * The reaction on this actions.
 
-Subprotocol version is a [Semantic Versioning] string with 3 numbers: `0.3.4`, `0.3.5`, `1.0.0`, etc.
+Subprotocol version is a number.
 
 On the client you define what subprotocol version does it use:
 
 ```js
 const client = new CrossTabClient({
-  subprotocol: '1.1.0',
+  subprotocol: 10,
   …
 })
 ```
 
-In Logux Node.js server, you define what subprotocol does server use and what clients does it support (by [SemVer range syntax]).
+In Logux Node.js server, you define what subprotocol does server use and what clients does it support.
 
 ```js
 const server = new Server(
   Server.loadOptions(process, {
-    subprotocol: '1.1.0',
-    supports: '^1.0.0', // equal to >= 1.0.0 < 2.0.0
+    subprotocol: 10,
+    minSubprotocol: 9,
     …
   })
 )
@@ -43,7 +43,7 @@ On the server you can have different logic for different clients:
 server.type('user/add', {
   …,
   async process (ctx, action, meta) {
-    if (ctx.isSubprotocol('~1.1.0')) {
+    if (meta.subprotocol <= 9) {
       await db.createUser({ id: action.id, name: action.name })
     } else {
       await db.createUser({ id: action.user.id, name: action.user.name })
@@ -60,7 +60,7 @@ server.type('user/add', {
 module Channels
   class Users < Logux::ChannelController
     def add
-      user = if meta.subprotocol =~ /1.1.\d+/
+      user = if meta.subprotocol <=9
         User.new(id: action[:id], name: action[:name])
       else
         User.new(id: action[:user][:id], name: action[:user][:name])
@@ -72,8 +72,5 @@ end
 ```
 
 </details>
-
-[Semantic Versioning]: https://semver.org/
-[SemVer range syntax]: https://github.com/npm/node-semver#advanced-range-syntax
 
 [Next chapter](../../recipes/authentication.md)

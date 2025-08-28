@@ -39,7 +39,7 @@ Each action in the log has own **meta** with:
     added: 56,
     reasons: ['user:388:lastName'],
     // Logux Server meta
-    subprotocol: '1.0.1',
+    subprotocol: 10,
     channels: ['users/388']
   }]
   ```

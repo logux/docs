@@ -92,7 +92,7 @@ server.type('user/rename', {
   …
   process (ctx, action, meta) {
     let user
-    if (ctx.isSubprotocol('2.x')) {
+    if (meta.subprotocol <= 9) {
       user = findUser(action.userId)
     } else {
       user = findUser(action.id)

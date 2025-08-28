@@ -14,8 +14,8 @@ import { Server } from '@logux/server'
 
 const server = new Server(
   Server.loadOptions(process, {
-    subprotocol: '1.0.0',
-    supports: '1.x',
+    subprotocol: 10,
+    minSubprotocol: 9,
     host: '0.0.0.0', // Note we must bind to 0.0.0.0
     root: import.meta.dirname,
   })

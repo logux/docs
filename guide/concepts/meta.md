@@ -19,7 +19,7 @@ Meta has unique action’s ID, creating time, processing status and many other t
   added: 5,
   id: "1564508138460 380:R7BNGAP5:px3-J3oc 0",
   reasons: ['amplifr/lastPrices'],  ​
-  subprotocol: '0.6.2',
+  subprotocol: 10,
   time: 1564508138460
 }
 ```
@@ -183,7 +183,7 @@ These meta’s keys are available on client and server:
 * `time` timestamp: when action was created. It uses local node’s time.
 * `added` number: action’s serial number. Logux uses this number to track what actions were already synchronized.
 * `reasons` array of strings: reasons for action to not be cleaned from log. We will cover it in [next chapter].
-* `subprotocol` string: [subprotocol] of application, which generates this action.
+* `subprotocol` number: [subprotocol] of application, which generates this action.
 
 [next chapter]: ./reason.md
 [subprotocol]: ./subprotocol.md
