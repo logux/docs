@@ -1,5 +1,10 @@
 # Logux Protocol Changes
 
+## 5 “Kēlen”
+
+* Change SemVer subprotocol to number.
+
+
 ## 4 “Blissymbols”
 
 * Add `headers` message (by Ivan Menshykov).
