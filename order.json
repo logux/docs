@@ -27,12 +27,6 @@
     "deployment",
     "pagination"
   ],
-  "examples": [
-    "list"
-  ],
-  "protocols": [
-    "ws/spec",
-    "ws/examples",
-    "ws/versions"
-  ]
+  "examples": ["list"],
+  "protocols": ["ws/spec", "ws/binary", "ws/examples", "ws/versions"]
 }
