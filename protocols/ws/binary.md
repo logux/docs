@@ -2,9 +2,11 @@
 
 Logux Protocol has a binary form. It uses the same messages as [text protocol](./spec.md) just in different format.
 
+Text protocols always starts with `[`. If the first byte is not `[` but valid Message Type Byte of binary protocol, we should switch to binary protocol.
+
 ## Integer
 
-A unsigned integer encoded as a Variable-Length Quantity (LEB128). Each byte uses the first bit as a continuation flag.
+An unsigned integer encoded as a Variable-Length Quantity (LEB128). Each byte uses the first bit as a continuation flag.
 
 - 1 byte: `0xxxxxxx` covers 0 to 127.
 - 2 bytes: `1xxxxxxx 0xxxxxxx` covers 128 to 16,383.
@@ -25,82 +27,84 @@ utf8[length] chars
 
 The string starts with a `varint` representing the total byte count. The following bytes are the string body encoded in UTF-8.
 
-`json` is a string with JSON-encoded content.
+`json` is a string with JSON-encoded content. It could be just an empty string if JSON parameter is optional and we are missing it.
 
 
 ## Meta
 
-In contrast with text format, in binary format meta could contains only: `id` (as `shift`, `nodeId`, `orderInMs` parts), `time`, `subprotocol`.
+In contrast with text format, in binary format meta can contains only: `id` (as `shift`, `nodeId`, `orderInMs` parts), `time`, `subprotocol`.
 
 `time` is action’s creation time in milliseconds since second time in `connected` message.
 
-`shift` is a milliseconds since second time in `connected` message. If `nodeId` is equal to sender node ID, it could be missed. `[shift, 0]` could be compressed to just `shift`.
+`shift` is a milliseconds since second time in `connected` message. If `nodeId` is equal to sender node ID, it could be missed. `orderInMs` as `0` could be missed.
 
 If `subprotocol` is equal to the value in `connected` message, it can be missed.
 
-The first byte of meta block encodes how many parts is missing.
+The first byte is a literal value indicating the number of fields that follow.
 
 ```ts
 2
-number time
-number shift
+varint time
+varint shift
 ```
 
 ```ts
 3
-number time
-number shift
-number orderInMs
+varint time
+varint shift
+varint orderInMs
 ```
 
 ```ts
 4
-number time
-number shift
-number orderInMs
-number subprotocol
+varint time
+varint shift
+varint orderInMs
+varint subprotocol
 ```
 
 ```ts
 5
-number time
-number shift
+varint time
+varint shift
 string nodeId
-number orderInMs
-number subprotocol
+varint orderInMs
+varint subprotocol
 ```
 
 ## Action ID
 
-Some actions like `logux/processed` references to other action by ID. To encode actions ID a few formats can be used:
+Some actions like `logux/processed` references to other action by ID. To encode actions ID a few formats can be used.
+
+The first byte is a ID Type Byte.
 
 ```ts
 10
-number shift
+varint shift
 ```
 
 ```ts
 11
-number shift
-number orderInMs
+varint shift
+varint orderInMs
 ```
 
 ```ts
 12
-number shift
+varint shift
 string nodeId
-number orderInMs
+varint orderInMs
 ```
 
 ## Action
 
-Action starts with single Action Type Byte.
+Action starts with a single Action Type Byte. Action type bytes only appear inside `sync` messages, so they never collide with message type bytes.
 
 Any action in JSON format.
 
 ```ts
 "j"
-number length
+varint length
 json[length] data
 meta meta
 ```
@@ -113,22 +117,24 @@ id actionId
 meta meta
 ```
 
-`0` action for end-to-end encryption with compression:
+[`0` action](https://github.com/logux/actions/blob/main/zero-knowledge/index.d.ts) for end-to-end encryption with compression:
 
 ```ts
-"E"
+"Z"
 byte[12] iv
-number length
+varint length
 byte[length] d
+meta meta
 ```
 
-`0` with compression:
+`0` with encryption but without compression:
 
 ```ts
-"e"
+"z"
 byte[12] iv
-number length
+varint length
 byte[length] d
+meta meta
 ```
 
 `0/clean` action:
@@ -143,9 +149,9 @@ meta meta
 
 Each message starts with a single Message Type Byte. These identifiers use ASCII character codes for readability.
 
-See [text protocol](./spec.md) for the meaning for messages options.
+See [text protocol](./spec.md) for the meaning of messages options.
 
-Paired messages (`connect`-`connected`, `sync-synced`, `ping-pong`) uses lower and upper case (`c`-`C`, `s`-`S`, `p`-`P`) as type byte.
+Paired messages (`connect`-`connected`, `sync`-`synced`, `ping`-`pong`) use lower and upper case (`c`-`C`, `s`-`S`, `p`-`P`) as type byte.
 
 ## `error`
 
@@ -168,8 +174,8 @@ json data
 "c"
 varint protocol
 string nodeId
-number synced
-number subprotocol
+varint synced
+varint subprotocol
 json options
 ```
 
@@ -177,11 +183,11 @@ json options
 
 ```ts
 "C"
-number protocol
+varint protocol
 string nodeId
-number start
-number end
-number subprotocol
+varint start
+varint end
+varint subprotocol
 json options
 ```
 
@@ -189,22 +195,22 @@ json options
 
 ```ts
 "p"
-number synced
+varint synced
 ```
 
 ## `pong`
 
 ```ts
 "P"
-number synced
+varint synced
 ```
 
 ## `sync`
 
 ```ts
 "s"
-number synced
-number length
+varint synced
+varint length
 action[length] actions
 ```
 
@@ -212,7 +218,7 @@ action[length] actions
 
 ```ts
 "S"
-number synced
+varint synced
 ```
 
 ## `debug`
