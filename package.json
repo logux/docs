@@ -1,12 +1,18 @@
 {
   "name": "logux-docs",
   "private": true,
+  "homepage": "https://logux.org/",
+  "license": "MIT",
+  "author": "Andrey Sitnik <andrey@sitnik.es>",
+  "repository": "logux/docs",
+  "type": "module",
   "scripts": {
     "test:lint": "remark --no-stdout --frail --quiet *.md */*.md guide/*/*.md",
     "test:order": "./scripts/check-order.js",
     "test": "pnpm run /^test:/"
   },
   "devDependencies": {
+    "@logux/oxc-configs": "^0.3.3",
     "actions-up": "^1.14.0",
     "fast-glob": "^3.3.3",
     "nano-staged": "^1.0.2",
@@ -18,14 +24,6 @@
     "remark-preset-lint-recommended": "^7.0.1",
     "remark-validate-links": "^13.1.0",
     "simple-git-hooks": "^2.13.1"
-  },
-  "repository": "logux/docs",
-  "homepage": "https://logux.org/",
-  "author": "Andrey Sitnik <andrey@sitnik.es>",
-  "license": "MIT",
-  "type": "module",
-  "engines": {
-    "node": ">=14.0.0"
   },
   "simple-git-hooks": {
     "pre-commit": "./node_modules/.bin/nano-staged --config package.json"
@@ -62,5 +60,8 @@
       "remark-validate-links",
       "remark-lint-no-empty-sections"
     ]
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
