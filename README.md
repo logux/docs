@@ -16,11 +16,11 @@ Ask your questions at [community](https://github.com/orgs/logux/discussions) or 
 
 [Next chapter](./guide/starting/project.md)
 
-<a href="https://evilmartians.com/?utm_source=logux-docs">
-  <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
-       alt="Sponsored by Evil Martians" width="236" height="54">
-</a>
+---
 
+<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" />  Logux Docs is built by <b><a href="https://evilmartians.com/">Evil Martians</a></b>, an American design and engineering consultancy for <b>developer tools, AI, and cybersecurity startups</b>.
+
+---
 
 ## Client Example
 
@@ -87,30 +87,30 @@ Using [Logux Vuex](https://github.com/logux/vuex/):
 </template>
 
 <script>
-import { computed } from 'vue'
-import { useStore, useSubscription } from '@logux/vuex'
+  import { computed } from 'vue'
+  import { useStore, useSubscription } from '@logux/vuex'
 
-export default {
-  setup () {
-    // Inject store into the component
-    let store = useStore()
-    // Retrieve counter state from store
-    let counter = computed(() => store.state.counter)
-    // Load current counter from server and subscribe to counter changes
-    let isSubscribing = useSubscription(['counter'])
+  export default {
+    setup() {
+      // Inject store into the component
+      let store = useStore()
+      // Retrieve counter state from store
+      let counter = computed(() => store.state.counter)
+      // Load current counter from server and subscribe to counter changes
+      let isSubscribing = useSubscription(['counter'])
 
-    function increment () {
-      // Send action to the server and all tabs in this browser
-      store.commit.sync({ type: 'INC' })
-    }
+      function increment() {
+        // Send action to the server and all tabs in this browser
+        store.commit.sync({ type: 'INC' })
+      }
 
-    return {
-      counter,
-      increment,
-      isSubscribing
+      return {
+        counter,
+        increment,
+        isSubscribing
+      }
     }
   }
-}
 </script>
 ```
 
@@ -134,7 +134,6 @@ loading.classList.remove('is-show')
 ```
 
 </details>
-
 
 ## Server Example
 
