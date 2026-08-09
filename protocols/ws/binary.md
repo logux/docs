@@ -32,11 +32,11 @@ The string starts with a `varint` representing the total byte count. The followi
 
 ## Meta
 
-In contrast with text format, in binary format meta can contains only: `id` (as `shift`, `nodeId`, `orderInMs` parts), `time`, `subprotocol`.
+In contrast with text format, in binary format meta can contains only: `id` (as `shift` and `nodeId` parts), `time`, `subprotocol`.
 
 `time` is action’s creation time in milliseconds since second time in `connected` message.
 
-`shift` is a milliseconds since second time in `connected` message. If `nodeId` is equal to sender node ID, it could be missed. `orderInMs` as `0` could be missed.
+`shift` is a milliseconds since second time in `connected` message. If `nodeId` is equal to sender node ID, it could be missed.
 
 If `subprotocol` is equal to the value in `connected` message, it can be missed.
 
@@ -52,23 +52,14 @@ varint shift
 3
 varint time
 varint shift
-varint orderInMs
+varint subprotocol
 ```
 
 ```ts
 4
 varint time
 varint shift
-varint orderInMs
-varint subprotocol
-```
-
-```ts
-5
-varint time
-varint shift
 string nodeId
-varint orderInMs
 varint subprotocol
 ```
 
@@ -86,14 +77,7 @@ varint shift
 ```ts
 11
 varint shift
-varint orderInMs
-```
-
-```ts
-12
-varint shift
 string nodeId
-varint orderInMs
 ```
 
 ## Action

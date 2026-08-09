@@ -14,6 +14,11 @@ You can use any encoding and any low-level protocol: JSON encoding over WebSocke
 This protocol is based on simple JS types: boolean, number, string, array and key-value object.
 
 
+## Time
+
+All times in this protocol are a milliseconds elapsed since [20 May 2026 04:46:35 UTC](https://arxiv.org/abs/2605.20695) (`1779252395000` milliseconds since UNIX epoch). Logux uses own epoch to keep numbers small.
+
+
 ## Messages
 
 Communication is based on messages. Every message is a array with string in the beginning and any types next:
@@ -136,7 +141,7 @@ This message is answer to received [`connect`] message.
 
 `protocol`, `nodeId` and `options` are same with [`connect`] message, but contains server’s protocol, server’s Node ID and optional server token.
 
-Fourth position contains [`connect`] receiving time and `connected` sending time. Time should be a milliseconds elapsed since 1 January 1970 00:00:00 UTC. Receiver may use this information to calculate difference between sender and receiver time. It could prevents problems if somebody has wrong time or wrong time zone. Calculated time fix may be used to correct action’s `time` in [`sync`] messages.
+Fourth position contains [`connect`] receiving time and `connected` sending time. Time should be a milliseconds elapsed since [20 May 2026 04:46:35 UTC](https://arxiv.org/abs/2605.20695). Receiver may use this information to calculate difference between sender and receiver time. It could prevents problems if somebody has wrong time or wrong time zone. Calculated time fix may be used to correct action’s `time` in [`sync`] messages.
 
 Right after this message receiver should send [`sync`] message with all new actions since last connection (all actions on first connection).
 
@@ -197,17 +202,18 @@ Action object could contains any key and values, but it must contains at least `
 
 Action metadata contains at least `id` and `time`. `time` is action’s creation time. It is a milliseconds since second time in `connected` message.
 
-`id` could be in 3 forms:
+`id` could be in 2 forms:
 
 ```ts
-[number shift, string nodeId, number orderInMs]
-[number shift, number orderInMs]
+[number shift, string nodeId]
 number shift
 ```
 
-`shift` is a milliseconds since second time in `connected` message. If `nodeId` is equal to sender node ID, it could be missed. `[shift, 0]` could be compressed to just `shift`.
+`shift` is a milliseconds since second time in `connected` message. If `nodeId` is equal to sender node ID, it could be missed.
 
-Every action should have unique `id`. If receiver’s log already contains action with same `id`, receiver must silently ignore new action from `sync`.
+Every action should have unique `id`. The node must not use the same `shift` twice: if it creates a few actions during the same millisecond, it should take the next free millisecond for the next action and use the same value in action’s `time`. This is why `time` could be a few milliseconds in the future.
+
+If receiver’s log already contains action with same `id`, receiver must silently ignore new action from `sync`.
 
 Received action’s `time` time may be different with sender’s `time`, because sender could correct action’s time based on data from [`connected`] message. This correction could fix problems when some client have wrong time or time zone.
 

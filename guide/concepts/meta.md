@@ -139,28 +139,32 @@ All other meta keys are local and both server and client do not send them.
 Each action has unique ID. This ID is unique on all machines.
 
 ```js
-"1564508138460 380:R7BNGAP5:px3-J3oc 0"
+"5Yrxca 380:R7BNGA:1"
 ```
 
-To generate ID unique across all nodes in Logux cluster, Logux combines 3 values:
+To generate ID unique across all nodes in Logux cluster, Logux combines 2 values:
 
-* `1564508138460`: local timestamp on the node, which generate the action.
-* `380:R7BNGAP5:px3-J3oc`: [unique ID] of node, which generate the action.
-* `0` is a counter for the case, when node will generate several actions during the same timestamp.
+* `5Yrxca`: local timestamp on the node, which generate the action.
+* `380:R7BNGA:1`: [unique ID] of node, which generate the action.
+
+The timestamp is a number of milliseconds since [20 May 2026 04:46:35 UTC](https://arxiv.org/abs/2605.20695) encoded to the compact `-0-9A-Z_a-z` alphabet to keep ID short.
+
+The node never repeats the timestamp in own IDs. If the node generates several actions during the same millisecond, the next action will take the next millisecond.
 
 ```js
-log.generateId() //=> "1564508138460 380:R7BNGAP5:px3-J3oc 0"
-log.generateId() //=> "1564508138460 380:R7BNGAP5:px3-J3oc 1"
-log.generateId() //=> "1564508138461 380:R7BNGAP5:px3-J3oc 0"
+log.generateId() //=> "5Yrxca 380:R7BNGA:1"
+log.generateId() //=> "5Yrxcb 380:R7BNGA:1"
 ```
 
 In real world, every node will have own time. For instance, user could set wrong time on own phone. This is why you should not use `meta.id` as a time. Logux has special `meta.time`, which will use time of current node. During the connection client and server will calculate time difference between them and change `meta.time` during synchronization. As result, `meta.time` could be different on different nodes.
 
+`meta.time` is a regular timestamp: milliseconds since UNIX epoch. Only during the burst of actions in the same millisecond Logux could move the action a few milliseconds to the future to keep IDs unique.
+
 ```js
-const time = new Date(meta.time) //=> Date 2019-07-30T17:35:38.460Z
+const time = new Date(meta.time) //=> Date 2026-08-09T17:35:38.460Z
 ```
 
-`meta.time` is a timestamp. Few actions can have the same `meta.time` if these actions was generated very fast in the same millisecond. Logux has `isFirstOlder` helper, which uses both `meta.time` and `meta.id` to always be sure what action was generated later.
+Actions from different nodes can have the same `meta.time`. Logux has `isFirstOlder` helper, which uses both `meta.time` and node ID from `meta.id` to always be sure what action was generated later.
 
 ```js
 import { isFirstOlder } from '@logux/core'
@@ -170,6 +174,15 @@ if (isFirstOlder(meta1, meta2)) {
 } else {
   lastName = action2.name
 }
+```
+
+If you keep actions in a database, `toSorted()` returns a string to sort with the same order as `isFirstOlder()`. You can put it to a column and sort actions by this column.
+
+```js
+import { toSorted } from '@logux/core'
+
+await db.insert({ action, sorted: toSorted(meta) })
+//                        sorted: "--5Yrxca 380:R7BNGA:1"
 ```
 
 [unique ID]: ./node.md#node-id
