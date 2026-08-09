@@ -7,7 +7,7 @@
   "repository": "logux/docs",
   "type": "module",
   "scripts": {
-    "test:lint": "remark --no-stdout --frail --quiet *.md */*.md guide/*/*.md",
+    "test:lint": "remark --no-stdout --frail --quiet *.md */*.md guide/*/*.md protocols/*/*.md",
     "test:order": "./scripts/check-order.js",
     "test": "pnpm run /^test:/"
   },

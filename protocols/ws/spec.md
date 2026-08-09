@@ -119,8 +119,6 @@ Token could be a string. On wrong token data receiver may send `wrong-credential
 
 In most cases client will initiate connection, so client will send `connect`.
 
-[SemVer]: http://semver.org/
-
 
 ## `connected`
 
