@@ -14,7 +14,9 @@ This protocol is based on simple JS types: boolean, number, string, array and ke
 
 ## Time
 
-All times in this protocol are a milliseconds elapsed since [20 May 2026 04:46:35 UTC](https://arxiv.org/abs/2605.20695) (`1779252395000` milliseconds since UNIX epoch). Logux uses own epoch to keep numbers small.
+All times in this protocol are a milliseconds elapsed since 1 January 1970 00:00:00 UTC.
+
+The only exception is the time inside action `id`, which elapsed since [20 May 2026 04:46:35 UTC](https://arxiv.org/abs/2605.20695) to keep the ID short.
 
 ## Messages
 
@@ -136,7 +138,7 @@ This message is answer to received [`connect`] message.
 
 `protocol`, `nodeId` and `options` are same with [`connect`] message, but contains server’s protocol, server’s Node ID and optional server token.
 
-Fourth position contains [`connect`] receiving time and `connected` sending time. Time should be a milliseconds elapsed since [20 May 2026 04:46:35 UTC](https://arxiv.org/abs/2605.20695). Receiver may use this information to calculate difference between sender and receiver time. It could prevents problems if somebody has wrong time or wrong time zone. Calculated time fix may be used to correct action’s `time` in [`sync`] messages.
+Fourth position contains [`connect`] receiving time and `connected` sending time. Time should be a milliseconds elapsed since 1 January 1970 00:00:00 UTC. Receiver may use this information to calculate difference between sender and receiver time. It could prevents problems if somebody has wrong time or wrong time zone. Calculated time fix should be used to correct action’s `time` in [`sync`] messages.
 
 Right after this message receiver should send [`sync`] message with all new actions since last connection (all actions on first connection).
 

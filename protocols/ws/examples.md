@@ -16,7 +16,7 @@ CONNECTED
 CLIENT > ['headers', { language: 'pl' }]
 CLIENT > ['connect', 0, 'client1', 0, { token: 'token' }]
 SERVER < ['headers', { env: 'development' }]
-SERVER < ['connected', 0, 'server', [7059950678, 7059951483]]
+SERVER < ['connected', 0, 'server', [1786312345678, 1786312346483]]
 
 CLIENT > ['ping', 0]
 SERVER < ['pong', 0]
@@ -32,7 +32,7 @@ DISCONNECTED
 
 CONNECTED
 CLIENT > ['connect', 0, 'client1', 1, { token: 'token' }]
-SERVER < ['connected', 0, 'server', [7060128520, 7060129315]]
+SERVER < ['connected', 0, 'server', [1786312523520, 1786312524315]]
 SERVER < ['sync', 2, { type: 'b' }, { id: '5Yrxcb client2', time: -18928 }]
 CLIENT > ['synced', 2]
 ```
@@ -42,7 +42,7 @@ Clients may hide some actions from each other, so `added` time could be differen
 ```ts
 CONNECTED
 CLIENT > ["connect", 0, "client1", 130, { token: "token" }]
-SERVER < ["connected", 0, "server", [7059637007, 7059638615]]
+SERVER < ["connected", 0, "server", [1786312032007, 1786312033615]]
 SERVER < ["sync", 132,
           { type: 'a' }, { id: "5Yrxcc client2", time: -11687 },
           { type: 'b' }, { id: "5Yrxcd client2", time: -22034 }]
