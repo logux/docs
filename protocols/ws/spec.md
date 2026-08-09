@@ -2,10 +2,9 @@
 
 Logux is a client-server communication protocol. It synchronizes actions between clients and server logs.
 
-* [Communication examples](./examples.md)
-* [Protocol versions](./versions.md)
-* Referral JS implementation: [`@logux/core`](https://github.com/logux/core)
-
+- [Communication examples](./examples.md)
+- [Protocol versions](./versions.md)
+- Referral JS implementation: [`@logux/core`](https://github.com/logux/core)
 
 ## Basics
 
@@ -13,11 +12,9 @@ You can use any encoding and any low-level protocol: JSON encoding over WebSocke
 
 This protocol is based on simple JS types: boolean, number, string, array and key-value object.
 
-
 ## Time
 
 All times in this protocol are a milliseconds elapsed since [20 May 2026 04:46:35 UTC](https://arxiv.org/abs/2605.20695) (`1779252395000` milliseconds since UNIX epoch). Logux uses own epoch to keep numbers small.
-
 
 ## Messages
 
@@ -32,30 +29,29 @@ Communication is based on messages. Every message is a array with string in the 
 
 First string in message array is a message type. Possible types:
 
-* [`error`]
-* [`headers`]
-* [`connect`]
-* [`connected`]
-* [`ping`]
-* [`pong`]
-* [`sync`]
-* [`synced`]
-* [`debug`]
+- [`error`]
+- [`headers`]
+- [`connect`]
+- [`connected`]
+- [`ping`]
+- [`pong`]
+- [`sync`]
+- [`synced`]
+- [`debug`]
 
 If client received unknown type, it should send `wrong-format` error and continue communication.
 
 Protocol design has no client and server roles. But in most real cases client will send `connect` and `ping`. Server will send `connected` and `pong`. Both will send `headers`, `error`, `sync` and `synced`.
 
-[`headers`]:   #headers
+[`headers`]: #headers
 [`connected`]: #connected
-[`connect`]:   #connect
-[`synced`]:    #synced
-[`error`]:     #error
-[`ping`]:      #ping
-[`pong`]:      #pong
-[`sync`]:      #sync
-[`debug`]:     #debug
-
+[`connect`]: #connect
+[`synced`]: #synced
+[`error`]: #error
+[`ping`]: #ping
+[`pong`]: #pong
+[`sync`]: #sync
+[`debug`]: #debug
 
 ## `error`
 
@@ -71,13 +67,13 @@ Error message contains error description and error type.
 
 Right now there are 7 possible errors:
 
-* `wrong-protocol`: client Logux protocol version is not supported by server. Error options object will contain `supported` key with minimum supported version and `used` with used version.
-* `wrong-format`: message is not correct JSON, is not a array or have no `type`. Error options will contain bad message string.
-* `unknown-message`: message’s type is not supported. Error options will contain bad message type.
-* `wrong-credentials`: sent token doesn’t pass authentication.
-* `missed-auth`: not `connect`, `connected` or `error` messages was sent before authentication. Error options will contain bad message string.
-* `timeout`: a timeout was reached. Errors options will contain timeout duration in milliseconds.
-* `wrong-subprotocol`: client application subprotocol version is not supported by server. Error options object will contain `supported` key with requirements and `used` with used version.
+- `wrong-protocol`: client Logux protocol version is not supported by server. Error options object will contain `supported` key with minimum supported version and `used` with used version.
+- `wrong-format`: message is not correct JSON, is not a array or have no `type`. Error options will contain bad message string.
+- `unknown-message`: message’s type is not supported. Error options will contain bad message type.
+- `wrong-credentials`: sent token doesn’t pass authentication.
+- `missed-auth`: not `connect`, `connected` or `error` messages was sent before authentication. Error options will contain bad message string.
+- `timeout`: a timeout was reached. Errors options will contain timeout duration in milliseconds.
+- `wrong-subprotocol`: client application subprotocol version is not supported by server. Error options object will contain `supported` key with requirements and `used` with used version.
 
 ## `headers`
 
@@ -124,7 +120,6 @@ Token could be a string. On wrong token data receiver may send `wrong-credential
 
 In most cases client will initiate connection, so client will send `connect`.
 
-
 ## `connected`
 
 This message is answer to received [`connect`] message.
@@ -147,7 +142,6 @@ Right after this message receiver should send [`sync`] message with all new acti
 
 In most cases client will initiate connection, so server will answer `connected`.
 
-
 ## `ping`
 
 Client could send `ping` message to check connection.
@@ -165,7 +159,6 @@ Receiver should send [`pong`] message as soon as possible.
 
 In most cases client will send `ping`.
 
-
 ## `pong`
 
 `pong` message is a answer to [`ping`] message.
@@ -180,7 +173,6 @@ In most cases client will send `ping`.
 Message array contains sender last `added` too.
 
 In most cases server will send `pong`.
-
 
 ## `sync`
 
@@ -217,7 +209,6 @@ If receiver’s log already contains action with same `id`, receiver must silent
 
 Received action’s `time` time may be different with sender’s `time`, because sender could correct action’s time based on data from [`connected`] message. This correction could fix problems when some client have wrong time or time zone.
 
-
 ## `synced`
 
 `synced` message is a answer to [`sync`] message.
@@ -230,7 +221,6 @@ Received action’s `time` time may be different with sender’s `time`, because
 ```
 
 Receiver should mark all actions with lower `added` time as synchronized.
-
 
 ## `debug`
 
@@ -246,4 +236,4 @@ Receiver should mark all actions with lower `added` time as synchronized.
 
 Right now there is only one type:
 
-* `error`: node catch a error. Debug data will contain error stack trace.
+- `error`: node catch a error. Debug data will contain error stack trace.

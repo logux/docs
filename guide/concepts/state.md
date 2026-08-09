@@ -2,17 +2,16 @@
 
 The state describes all data of your application. On the client-side state describe UI state, data load from the server, user’s local changes. On the server-side state is what you have in the database.
 
-
 ## Client State
 
 <details open><summary>Redux client</summary>
 
-Logux Redux uses *event sourcing* pattern on client-side. Actions describe the current state. State object is just an cache.
+Logux Redux uses _event sourcing_ pattern on client-side. Actions describe the current state. State object is just an cache.
 
 The developer provides reducer. The reducer has an initial state (`[]` in this example) and describes how to change the current state on this action:
 
 ```js
-export default function usersReducer (state = [], action) {
+export default function usersReducer(state = [], action) {
   if (action.type === 'user/add') {
     return state.concat([action.user])
   } else if (action.type === 'user/remove') {
@@ -56,7 +55,7 @@ Each reducer must be a pure function (always return the same result on the same 
 </details>
 <details><summary>Vuex client</summary>
 
-Logux Vuex uses *event sourcing* pattern on client-side. Actions describe the current state. State object is just an cache.
+Logux Vuex uses _event sourcing_ pattern on client-side. Actions describe the current state. State object is just an cache.
 
 The developer provides initial state and mutations. Each Vuex mutation has a string type and a handler. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
 
@@ -92,7 +91,7 @@ const usersModule = {
 const store = createStore({
   state: { value: 0 },
   mutations: {
-    'increment': (state) => {
+    increment: state => {
       state.value = state.value + 1
     }
   },
@@ -125,7 +124,6 @@ As a result, with a history of actions, you can always re-generate the same stat
 By default, Logux keeps last 1000 action (you can change it, see [reasons chapter]) and cache state every 50 actions to make time-travel faster.
 
 [reasons chapter]: ./reason.md
-
 
 ## Client State and UI
 
@@ -166,7 +164,7 @@ import { computed } from 'vue'
 import { useStore } from '@logux/vuex'
 
 export default {
-  setup () {
+  setup() {
     let store = useStore()
     let users = computed(() => store.state.users)
     return { users }
@@ -196,17 +194,19 @@ store.subscribe((mutation, state) => {
 Or simple watcher, similar to Vue’s `$watch`:
 
 ```js
-store.watch(state => state.errors, (oldValue, newValue) => {
-  if (newValue.length) {
-    document.title = '* Error'
-  } else {
-    document.title = 'OK'
+store.watch(
+  state => state.errors,
+  (oldValue, newValue) => {
+    if (newValue.length) {
+      document.title = '* Error'
+    } else {
+      document.title = 'OK'
+    }
   }
-})
+)
 ```
 
 </details>
-
 
 ## Server State
 
@@ -288,7 +288,7 @@ class AddUserAction(ActionCommand):
 </details>
 <details><summary>Ruby on Rails</summary>
 
-*Under construction. Until `resend` will be implemented in the gem.*
+_Under construction. Until `resend` will be implemented in the gem._
 
 </details>
 
@@ -339,7 +339,6 @@ end
 
 </details>
 
-
 ## Time Travel
 
 Logux Client wrapper such as Logux Redux and Logux Vuex keeps old actions and old state values.
@@ -381,7 +380,7 @@ In this case, Logux Vuex will time travel to latest possible moment. In most cas
 
    ```js
    let createStore = createStoreCreator(client, {
-     onMissedHistory (action) {
+     onMissedHistory(action) {
        if (CRITICAL_ACTIONS.includes(action.type)) {
          store.commit.sync({ type: 'reload/state' }) // Ask server for latest state
        }
@@ -392,7 +391,6 @@ In this case, Logux Vuex will time travel to latest possible moment. In most cas
 </details>
 
 [`reasons`]: ./reason.md
-
 
 ## Conflict Resolution
 
@@ -459,7 +457,6 @@ end
 
 [atomic actions]: ./action.md#atomic-actions
 [ID and time]: ./meta.md#id-and-time
-
 
 ## Reverting Changes
 

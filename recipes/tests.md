@@ -131,6 +131,6 @@ it.only('creates and loads posts', () => {
 </details>
 <details><summary>Ruby on Rails server</summary>
 
-*Under construction*
+_Under construction_
 
 </details>

@@ -1,4 +1,3 @@
-
 # Channels and Subscriptions
 
 Since Logux is a real-time system, subscriptions and channels are the main way to get data from the server. It asks the server to send current data state and re-send all actions with these data changes.
@@ -28,7 +27,10 @@ store.commit.sync({ type: 'logux/unsubscribe', channel: 'users/14' })
 
 ```js
 client.log.add({ type: 'logux/subscribe', channel: 'users/14' }, { sync: true })
-client.log.add({ type: 'logux/unsubscribe', channel: 'users/14' }, { sync: true })
+client.log.add(
+  { type: 'logux/unsubscribe', channel: 'users/14' },
+  { sync: true }
+)
 ```
 
 </details>
@@ -45,11 +47,11 @@ When the server receives `logux/subscribe` it will:
 
 ```js
 server.channel('users/:id', {
-  async access (ctx, action, meta) {
+  async access(ctx, action, meta) {
     let client = await db.loadUser(ctx.userId)
     return client.hasAccessToUser(ctx.params.id)
   },
-  async load (ctx, action, meta) {
+  async load(ctx, action, meta) {
     let user = await db.loadUser(ctx.params.id)
     return { type: 'user/add', user }
   }
@@ -135,12 +137,11 @@ class AddUserAction(ActionCommand):
 </details>
 <details><summary>Ruby on Rails</summary>
 
-*Under construction. Until `resend` will be implemented in the gem.*
+_Under construction. Until `resend` will be implemented in the gem._
 
 </details>
 
 You can mark action with several channels. If client was subscribed to several of action’s channel, it will received action only once.
-
 
 ## Subscription
 
@@ -154,7 +155,7 @@ You can mark action with several channels. If client was subscribed to several o
 import { useSubscription } from '@logux/redux'
 
 const UserPage = ({ userId }) => {
-  const isSubscribing = useSubscription([`user/${ userId }`])
+  const isSubscribing = useSubscription([`user/${userId}`])
   if (isSubscribing) {
     return <Loader />
   } else {
@@ -168,7 +169,7 @@ This hook automatically tracks all subscriptions and doesn’t subscribe to chan
 `useSubscription` doesn’t return the data from the server. It just dispatches subscribe/unsubscribe actions and track loading. Subscription asks the server to send you Redux actions. You should process these actions with reducers and put data from actions to the store (see Redux docs).
 
 ```js
-export default function usersReducer (state = [], action) {
+export default function usersReducer(state = [], action) {
   if (action.type === 'user/add') {
     return state.concat([action.user])
   }
@@ -220,17 +221,17 @@ Use `useSubscription` composable function or wrap template into `Subscribe` comp
 </template>
 
 <script>
-import { toRefs, computed } from 'vue'
-import { useSubscription } from '@logux/vuex'
+  import { toRefs, computed } from 'vue'
+  import { useSubscription } from '@logux/vuex'
 
-export default {
-  props: ['userId'],
-  setup (props) {
-    let { userId } = toRefs(props)
-    let isSubscribing = useSubscription(() => [`users/${userId.value}`])
-    return { isSubscribing }
+  export default {
+    props: ['userId'],
+    setup(props) {
+      let { userId } = toRefs(props)
+      let isSubscribing = useSubscription(() => [`users/${userId.value}`])
+      return { isSubscribing }
+    }
   }
-}
 </script>
 ```
 
@@ -279,25 +280,25 @@ In component, you should just return the state within a computed property as usu
 </template>
 
 <script>
-import { toRefs, computed } from 'vue'
-import { Subscribe, useStore } from '@logux/vuex'
+  import { toRefs, computed } from 'vue'
+  import { Subscribe, useStore } from '@logux/vuex'
 
-export default {
-  components: { Subscribe },
-  props: ['userId'],
-  setup (props) {
-    let { userId } = toRefs(props)
+  export default {
+    components: { Subscribe },
+    props: ['userId'],
+    setup(props) {
+      let { userId } = toRefs(props)
 
-    let store = useStore()
-    let user = computed(() => store.state.user[userId.value])
+      let store = useStore()
+      let user = computed(() => store.state.user[userId.value])
 
-    return { userId, user }
+      return { userId, user }
+    }
   }
-}
 </script>
 ```
-</details>
 
+</details>
 
 ## Re-subscription
 
@@ -363,7 +364,6 @@ end
 </details>
 
 [Logux distributed time]: ./meta.md#id-and-time
-
 
 ## Channel Filters
 

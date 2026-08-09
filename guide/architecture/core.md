@@ -24,37 +24,40 @@ app.log.add(action, meta)
 
 Each action in the log has own **meta** with:
 
-* `meta.id`: unique action ID.
-* `meta.time`: action creation time. It uses local client’s time and could be different on different clients.
-* `meta.added`: counter independent for each node, to track what actions must be synchronized on next connection.
-* `meta.reasons`: an array of the strings. Each string is a code of some “reason” why action is still actual. When application will remove all reasons, Logux will clean the action from the log.
-* Logux Client and Logux Server add `meta.subprotocol` with version of application-level protocol.
-* Applications could add own data to **meta**.
+- `meta.id`: unique action ID.
+- `meta.time`: action creation time. It uses local client’s time and could be different on different clients.
+- `meta.added`: counter independent for each node, to track what actions must be synchronized on next connection.
+- `meta.reasons`: an array of the strings. Each string is a code of some “reason” why action is still actual. When application will remove all reasons, Logux will clean the action from the log.
+- Logux Client and Logux Server add `meta.subprotocol` with version of application-level protocol.
+- Applications could add own data to **meta**.
 
   ```js
-  [action, {
-    // Core meta
-    id: '1553821137583 388:mgxhClZT:mAKgAtBF 0',
-    time: 1553821137582,
-    added: 56,
-    reasons: ['user:388:lastName'],
-    // Logux Server meta
-    subprotocol: 10,
-    channels: ['users/388']
-  }]
+  ;[
+    action,
+    {
+      // Core meta
+      id: '1553821137583 388:mgxhClZT:mAKgAtBF 0',
+      time: 1553821137582,
+      added: 56,
+      reasons: ['user:388:lastName'],
+      // Logux Server meta
+      subprotocol: 10,
+      channels: ['users/388']
+    }
+  ]
   ```
 
 Differences between action and meta:
 
-* **Actions are immutable.** But you can change meta (except `meta.id`, `meta.added`, and `meta.time`).
-* Logux synchronizes actions, but **only meta.id, meta.time, and meta.subprotocol will be synchronized** by default. Each Logux implementation decides what meta keys it will synchronize.
+- **Actions are immutable.** But you can change meta (except `meta.id`, `meta.added`, and `meta.time`).
+- Logux synchronizes actions, but **only meta.id, meta.time, and meta.subprotocol will be synchronized** by default. Each Logux implementation decides what meta keys it will synchronize.
 
 You can use any method to connect Logux nodes. Logux uses **WebSocket** only as default way. You can replace connection class to own implementation.
 
 During the synchronization Logux **guarantee**:
 
-* Each action will be synchronized **only once**.
-* Actions will have **the same order** on each node.
+- Each action will be synchronized **only once**.
+- Actions will have **the same order** on each node.
 
 Logux is based on the **Optimistic UI** idea. When a node creates action, it applies it immediately to own application state. In the background, Logux will synchronize this new action with other nodes.
 

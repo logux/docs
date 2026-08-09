@@ -36,14 +36,12 @@ export const playerCreatedAction = createAction<{
 
 export const updatePlayerAction = createAction<Player>('players/update')
 
-export const deletePlayerAction = 
-  createAction<{ id: string }>('players/delete')
+export const deletePlayerAction = createAction<{ id: string }>('players/delete')
 
 export const playerDeletedAction = createAction<{
   id: string
   senderClientId: string
 }>('players/deleted')
-
 ```
 
 ## Fetching data with pagination
@@ -96,9 +94,7 @@ client.type(playersPageLoadedAction, action => {
     action.payload.totalPages > 0
   ) {
     setPage(action.payload.totalPages)
-    client.sync(
-      loadPlayersPageAction({ page: action.payload.totalPages })
-    )
+    client.sync(loadPlayersPageAction({ page: action.payload.totalPages }))
   }
 })
 ```
@@ -252,4 +248,3 @@ client.type(updatePlayerAction, (action, meta) => {
   )
 })
 ```
-

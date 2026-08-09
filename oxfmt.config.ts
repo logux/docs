@@ -1,6 +1,3 @@
 import loguxOxfmtConfig from '@logux/oxc-configs/fmt'
 
-export default {
-  ...loguxOxfmtConfig,
-  ignorePatterns: ['**/*.md']
-}
+export default loguxOxfmtConfig

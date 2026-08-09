@@ -9,7 +9,6 @@ We will show two of the most popular cases:
 
 If you need another way, you can combine methods.
 
-
 ## Method 1: HTML Form and Meta Tags
 
 ### Method 1: Server
@@ -83,7 +82,6 @@ Add this token and user ID to HTML templates used for authenticated user:
 
 </details>
 
-
 ### Method 1: Client
 
 Use these `<meta>` values in the store:
@@ -139,11 +137,9 @@ Use these `<meta>` values in the store:
 
 </details>
 
-
 ### Method 1: Check the Result
 
 Start back-end server and Logux client. Try to sign-in into application.
-
 
 ## Method 2: Everything in Logux
 
@@ -188,11 +184,14 @@ server.auth(({ userId, token }) => {
 })
 
 server.type('login', {
-  async access (ctx) {
+  async access(ctx) {
     return ctx.userId === 'anonymous'
   },
-  async process (ctx, action, meta) {
-    const user = await db.oneOrNone('SELECT * FROM users WHERE email = $1', action.email)
+  async process(ctx, action, meta) {
+    const user = await db.oneOrNone(
+      'SELECT * FROM users WHERE email = $1',
+      action.email
+    )
     if (!user) {
       server.undo(action, meta, 'Unknown email')
     } else if (await bcrypt.compare(action.password, hash)) {
@@ -204,7 +203,6 @@ server.type('login', {
   }
 })
 ```
-
 
 ### Method 2: Client
 
@@ -285,7 +283,6 @@ Use these `localStorage` values in the store:
 ```
 
 </details>
-
 
 ### Method 2: Check the Result
 

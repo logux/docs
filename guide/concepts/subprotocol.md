@@ -6,9 +6,9 @@ As a result, the server needs to be able to speak with different versions of cli
 
 Subprotocol is your application-level protocol:
 
-* What actions can be generated on the client and the server.
-* The schema of action’s objects.
-* The reaction on this actions.
+- What actions can be generated on the client and the server.
+- The schema of action’s objects.
+- The reaction on this actions.
 
 Subprotocol version is a number.
 

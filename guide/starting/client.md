@@ -19,12 +19,13 @@ import { SUBPROTOCOL } from '../api'
 
 const client = new CrossTabClient({
   prefix: 'appName',
-  server: process.env.NODE_ENV === 'development'
-    ? 'ws://localhost:31337'
-    : 'wss://logux.example.com',
+  server:
+    process.env.NODE_ENV === 'development'
+      ? 'ws://localhost:31337'
+      : 'wss://logux.example.com',
   subprotocol: SUBPROTOCOL,
-  userId: 'anonymous',  // TODO: We will fill it in Authentication recipe
-  token: ''  // TODO: We will fill it in Authentication recipe
+  userId: 'anonymous', // TODO: We will fill it in Authentication recipe
+  token: '' // TODO: We will fill it in Authentication recipe
 })
 
 badge(client, { messages: badgeEn, styles: badgeStyles })
@@ -32,7 +33,6 @@ log(client)
 
 client.start()
 ```
-
 
 ## Check the Result
 

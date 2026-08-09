@@ -2,7 +2,6 @@
 
 Logux has built-in TypeScript support. It exports type definitions. We even uses type tests with [`check-dts`](https://github.com/ai/check-dts) since we have some tricky types with generics.
 
-
 ## Server
 
 We recommend to use [`typescript-fsa`](https://github.com/aikoven/typescript-fsa) and share actions between client and server.
@@ -15,7 +14,7 @@ import { actionCreatorFactory } from 'typescript-fsa'
 let createAction = actionCreatorFactory()
 
 export const renameUser = createAction<{
-  userId: string,
+  userId: string
   name: string
 }>('user/rename')
 ```
@@ -52,7 +51,6 @@ You can define types for `ctx.params` in subscriptions:
   })
 ```
 
-
 ## Client
 
 <details open><summary>Redux client</summary>
@@ -65,7 +63,7 @@ We recommend to use [`typescript-fsa`](https://github.com/aikoven/typescript-fsa
 import { actionCreatorFactory } from 'typescript-fsa'
 
 export const renameUser = createAction<{
-  userId: string,
+  userId: string
   name: string
 }>('user/rename')
 ```
@@ -76,13 +74,13 @@ export const renameUser = createAction<{
 import { renameUser } from '../actions/users'
 
 type User = {
-  id: string,
+  id: string
   name: string
 }
 
 export type UsersState = User[]
 
-function reducer (state: UsersState = [], action: Action): UsersState {
+function reducer(state: UsersState = [], action: Action): UsersState {
   if (renameUser.match(action)) {
     return state.map(user => {
       if (user.id === action.payload.userId) {
@@ -171,7 +169,7 @@ import { useStore } from '@logux/vuex'
 import { State } from '../store/index.js'
 
 export default {
-  setup () {
+  setup() {
     let store = useStore<State>()
   }
 }
@@ -201,8 +199,8 @@ You need to define user-defined type guards for action types:
 import { Action } from '@logux/core'
 
 type UserRenameAction = Action & {
-  type: 'user/rename',
-  userId: string,
+  type: 'user/rename'
+  userId: string
   name: string
 }
 

@@ -6,7 +6,6 @@ Logux Server can be deployed to any hosting provider where Node.js is available.
 
 [Docker](https://www.docker.com/) is the preferred way to deploy Logux since Docker is supported by various number of cloud providers and can be used in more complex schemas such as deployment to Kubernetes cluster.
 
-
 ```js
 // index.js
 
@@ -17,7 +16,7 @@ const server = new Server(
     subprotocol: 10,
     minSubprotocol: 9,
     host: '0.0.0.0', // Note we must bind to 0.0.0.0
-    root: import.meta.dirname,
+    root: import.meta.dirname
   })
 )
 

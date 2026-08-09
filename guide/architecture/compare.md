@@ -2,9 +2,7 @@
 
 All three technologies (Logux, AJAX, GraphQL) was created for communication between clients and server. AJAX and GraphQL are based on requests and responses. Logux is based on synchronizing state by synchronizing list of actions by WebSocket. However, there are many similar things between these technologies.
 
-
 ## Similarities
-
 
 ### Loading the Data from Client
 
@@ -51,28 +49,28 @@ export default () => {
 </template>
 
 <script>
-import { ref, watch } from 'vue'
+  import { ref, watch } from 'vue'
 
-export default {
-  name: 'UsersView',
-  setup () {
-    let state = ref('loading')
-    watch(async () => {
-      try {
-        const response = await fetch('/users', { credentials: 'include' })
-        if (response.ok) {
-          const users = await response.json()
-          state.value = users
-        } else {
-          throw new Error('HTTP error ' + response.code)
+  export default {
+    name: 'UsersView',
+    setup() {
+      let state = ref('loading')
+      watch(async () => {
+        try {
+          const response = await fetch('/users', { credentials: 'include' })
+          if (response.ok) {
+            const users = await response.json()
+            state.value = users
+          } else {
+            throw new Error('HTTP error ' + response.code)
+          }
+        } catch {
+          state.value = 'error'
         }
-      } catch {
-        state.value = 'error'
-      }
-    })
-    return { state }
+      })
+      return { state }
+    }
   }
-}
 </script>
 ```
 
@@ -85,24 +83,28 @@ In **GraphQL** (Apollo) you wrap your component to make request to single entry 
 ```js
 // containers/users.js
 export default () => {
-  return <Query query={
-    gql`{
-      users {
-        id,
-        name
-      }
-    }`
-  }>
-    {({ loading, error, users }) => {
-      if (loading) {
-        return <Loader />
-      } else if (error) {
-        return <Error />
-      } else {
-        return <Users users={users} />
-      }
-    }}
-  </Query>
+  return (
+    <Query
+      query={gql`
+        {
+          users {
+            id
+            name
+          }
+        }
+      `}
+    >
+      {({ loading, error, users }) => {
+        if (loading) {
+          return <Loader />
+        } else if (error) {
+          return <Error />
+        } else {
+          return <Users users={users} />
+        }
+      }}
+    </Query>
+  )
 }
 ```
 
@@ -118,13 +120,13 @@ export default () => {
 </template>
 
 <script>
-import { useQuery, useResult } from '@vue/apollo-composable'
-import gql from 'graphql-tag'
+  import { useQuery, useResult } from '@vue/apollo-composable'
+  import gql from 'graphql-tag'
 
-export default {
-  name: 'UsersView',
-  setup () {
-    let { result, loading, error } = useQuery(gql`
+  export default {
+    name: 'UsersView',
+    setup() {
+      let { result, loading, error } = useQuery(gql`
       query getUsers {
         users: {
           id,
@@ -132,10 +134,10 @@ export default {
         }
       }
     `)
-    let users = useResult(result, null, data => data.users)
-    return { users, loading, error }
+      let users = useResult(result, null, data => data.users)
+      return { users, loading, error }
+    }
   }
-}
 </script>
 ```
 
@@ -186,26 +188,21 @@ export default {
 </template>
 
 <script>
-import {
-  computed,
-  useStore,
-  useSubscription
-} from '@logux/vuex'
+  import { computed, useStore, useSubscription } from '@logux/vuex'
 
-export default {
-  name: 'UsersView',
-  setup () {
-    let store = useStore()
-    let isSubscribing = useSubscription(['users'])
-    let users = computed(() => store.state.users)
-    return { isSubscribing, users }
+  export default {
+    name: 'UsersView',
+    setup() {
+      let store = useStore()
+      let isSubscribing = useSubscription(['users'])
+      let users = computed(() => store.state.users)
+      return { isSubscribing, users }
+    }
   }
-}
 </script>
 ```
 
 </details>
-
 
 ### Change the Data on the Client
 
@@ -220,7 +217,7 @@ export default ({ userId }) => {
   const onNameChanged = useCallback(async name => {
     setState('loading')
     try {
-      const response = await fetch(`/users/${ userId }`, {
+      const response = await fetch(`/users/${userId}`, {
         method: 'PUT',
         credentials: 'include'
       })
@@ -247,42 +244,38 @@ export default ({ userId }) => {
 ```html
 <!-- views/UserFormView.vue -->
 <template>
-  <Loader v-if="state === 'loading'"/>
-  <UserForm
-    v-else
-    :error="state === 'error'"
-    @submit="onNameChanged"
-  />
+  <Loader v-if="state === 'loading'" />
+  <UserForm v-else :error="state === 'error'" @submit="onNameChanged" />
 </template>
 
 <script>
-import { ref, toRefs } from 'vue'
+  import { ref, toRefs } from 'vue'
 
-export default {
-  name: 'UserFormView',
-  props: ['userId'],
-  setup (props) {
-    let { userId } = toRefs(props)
-    let state = ref('ok')
-    async function onNameChanged () {
-      state.value = 'loading'
-      try {
-        const response = await fetch(`/users/${userId.value}`, {
-          method: 'PUT',
-          credentials: 'include'
-        })
-        if (response.ok) {
-          state.value = 'saved'
-        } else {
-          throw new Error('HTTP error ' + response.code)
+  export default {
+    name: 'UserFormView',
+    props: ['userId'],
+    setup(props) {
+      let { userId } = toRefs(props)
+      let state = ref('ok')
+      async function onNameChanged() {
+        state.value = 'loading'
+        try {
+          const response = await fetch(`/users/${userId.value}`, {
+            method: 'PUT',
+            credentials: 'include'
+          })
+          if (response.ok) {
+            state.value = 'saved'
+          } else {
+            throw new Error('HTTP error ' + response.code)
+          }
+        } catch {
+          state.value = 'error'
         }
-      } catch  {
-        state.value = 'error'
+        return { state, onNameChanged }
       }
-      return { state, onNameChanged }
     }
   }
-}
 </script>
 ```
 
@@ -326,28 +319,31 @@ export default ({ userId }) => {
 <!-- views/UserFormView.vue -->
 <template>
   <Loader v-if="loading" />
-  <UserForm v-else @submit="name => mutate({ variables: { name, id: userId } })" />
+  <UserForm
+    v-else
+    @submit="name => mutate({ variables: { name, id: userId } })"
+  />
 </template>
 
 <script>
-import { useMutation } from '@vue/apollo-composable'
-import gql from 'graphql-tag'
+  import { useMutation } from '@vue/apollo-composable'
+  import gql from 'graphql-tag'
 
-export default {
-  name: 'UserFormView',
-  props: ['userId'],
-  setup (props) {
-    let { mutate: changeName } = useMutation(gql`
-      mutation ChangeName($name: String!, $id: ID!) {
-        changeName(name: $name, id: $id) {
-          id
-          name
+  export default {
+    name: 'UserFormView',
+    props: ['userId'],
+    setup(props) {
+      let { mutate: changeName } = useMutation(gql`
+        mutation ChangeName($name: String!, $id: ID!) {
+          changeName(name: $name, id: $id) {
+            id
+            name
+          }
         }
-      }
-    `)
-    return { changeName, userId: props.userId }
+      `)
+      return { changeName, userId: props.userId }
+    }
   }
-}
 </script>
 ```
 

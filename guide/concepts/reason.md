@@ -53,7 +53,6 @@ server.log.removeReason('devtool', { maxAdded: last - 1000 })
 
 However, most of Logux implementation has built-in strategies on top of these reasons API.
 
-
 ## `keepLast`
 
 `meta.keepLast` is a shortcut to set a passed string as a reason and remove these reasons from all previous actions. Note that this shortcut will keep reason on the latest action according to `meta.id` and `meta.time`. The latest action could not be the action which you are adding.
@@ -65,7 +64,6 @@ server.log.add(
   { keepLast: ['user/380/name'] }
 )
 ```
-
 
 ## Server
 
@@ -105,10 +103,14 @@ let createStore = createStoreCreator(client, {
 Logux Redux keeps last 1000 action by setting `timeTravel` and `timeTravelTab…` reasons for new actions. If you want to specify reasons manually, you should set reasons in `preadd` event and set `noAutoReason` meta key:
 
 ```js
-store.log.type('user/rename', (action, meta) => {
-  meta.noAutoReason = true
-  meta.keepLast = `user/${ action.userId }/name`
-}, 'preadd')
+store.log.type(
+  'user/rename',
+  (action, meta) => {
+    meta.noAutoReason = true
+    meta.keepLast = `user/${action.userId}/name`
+  },
+  'preadd'
+)
 ```
 
 </details>
@@ -142,10 +144,14 @@ let createStore = createStoreCreator(client, {
 Logux Vuex keeps last 1000 action by setting `timeTravel` and `timeTravelTab…` reasons for new actions. If you want to specify reasons manually, you should set reasons in `preadd` event and set `noAutoReason` meta key:
 
 ```js
-store.log.type('user/rename', (action, meta) => {
-  meta.noAutoReason = true
-  meta.keepLast = `user/${ action.userId }/name`
-}, 'preadd')
+store.log.type(
+  'user/rename',
+  (action, meta) => {
+    meta.noAutoReason = true
+    meta.keepLast = `user/${action.userId}/name`
+  },
+  'preadd'
+)
 ```
 
 </details>

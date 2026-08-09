@@ -31,9 +31,13 @@ On the server you will need to set `reasons` for `0` actions to keep them in log
 ```js
 import { parseId } from '@logux/core'
 
-server.log.type('0', (action, meta) => {
-  meta.reasons.push('user:' + parseId(meta.id).userId)
-}, { event: 'preadd' })
+server.log.type(
+  '0',
+  (action, meta) => {
+    meta.reasons.push('user:' + parseId(meta.id).userId)
+  },
+  { event: 'preadd' }
+)
 ```
 
 When client will remove some action, it will send:
@@ -47,7 +51,7 @@ Server need to remove `reasons` for that actions:
 ```js
 import { parseId } from '@logux/core'
 
-server.log.type('0/clean', (action) => {
+server.log.type('0/clean', action => {
   server.log.removeReason('user:' + parseId(action.id).userId, {
     id: action.id
   })

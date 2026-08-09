@@ -8,15 +8,14 @@ If you use persistent storage, new clients will load actions from an old client.
 
 Logux gives your [`meta.subprotocol`](../guide/concepts/subprotocol.md) API to deal with this complex case of old and new clients mix.
 
-
 ## Subprotocol Best Practices
 
 The developer must specify the subprotocol version for both client and server.
 
 We suggest to change subprotocol version on every client/server API breaking changes:
 
-* Renaming action.
-* Big changes in reaction for action.
+- Renaming action.
+- Big changes in reaction for action.
 
 You can change the subprotocol version at `src/store/index.js` file (or another file where you create store):
 
@@ -40,7 +39,6 @@ In Logux Node.js server you need to change `index.js`:
     })
   )
 ```
-
 
 ## Checking Client Version on the Server
 
@@ -84,7 +82,6 @@ end
 
 </details>
 
-
 ## Checking Action Version on the Client
 
 If on the client-side, you are using a persistence store like `IndexedStore` your client may load actions created in a different version of the client.
@@ -98,7 +95,7 @@ Unfortunately, there is no API to pass `meta.subprotocol` to Redux’s reducers.
 Right now you need to be read and look into action structure:
 
 ```js
-export default function reduceUsers(state = { }, action) {
+export default function reduceUsers(state = {}, action) {
   if (action.type === 'users/add') {
     if (action.id) {
       return { ...state, [action.id]: { name: action.name } }
@@ -143,7 +140,6 @@ client.type('users/add', (action, meta) => {
 ```
 
 </details>
-
 
 ## Forcing Clients to Update Client
 

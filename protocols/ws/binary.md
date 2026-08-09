@@ -29,7 +29,6 @@ The string starts with a `varint` representing the total byte count. The followi
 
 `json` is a string with JSON-encoded content. It could be just an empty string if JSON parameter is optional and we are missing it.
 
-
 ## Meta
 
 In contrast with text format, in binary format meta can contains only: `id` (as `shift` and `nodeId` parts), `time`, `subprotocol`.

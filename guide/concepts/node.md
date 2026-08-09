@@ -37,7 +37,6 @@ client.node //=> ClientNode instance
 
 See also [`BaseNode`](https://logux.org/node-api/#basenode) for node’s API.
 
-
 ## Node ID
 
 Each node has a unique node ID — a string like `380:Uf_pPwE4:6K7iYdJH` or `server:iSiqWU5J`.
@@ -104,15 +103,15 @@ On the server you can get user ID and client ID of the client by:
 
 ```js
 server.type('INC', {
-  access (ctx, action, meta) {
-    ctx.userId   //=> "580"
+  access(ctx, action, meta) {
+    ctx.userId //=> "580"
     ctx.clientId //=> "580:Uf_pPwE4"
   }
 })
 
 server.channel('counter', {
-  access (ctx, action, meta) {
-    ctx.userId   //=> "580"
+  access(ctx, action, meta) {
+    ctx.userId //=> "580"
     ctx.clientId //=> "580:Uf_pPwE4"
   }
 })
@@ -136,7 +135,6 @@ end
 
 [Nano ID]: https://github.com/ai/nanoid/
 
-
 ## Store
 
 Nodes synchronize actions. You can read about actions in [next chapter].
@@ -155,7 +153,6 @@ const client = new CrossTabClient({
 ```
 
 [next chapter]: ./action.md
-
 
 ## Connection
 
@@ -183,7 +180,6 @@ const client = new CrossTabClient({
   …
 })
 ```
-
 
 ## State
 
@@ -252,7 +248,6 @@ status(client, current => {
   }
 })
 ```
-
 
 ## Cross-Tab Communication
 
@@ -326,7 +321,6 @@ client.tabId //=> "6K7iYdJH"
 </details>
 
 Browser tabs can synchronize actions between each other. Actions from server and for the server (with `meta.sync = true`) are sharing between browser tabs by default.
-
 
 ## Authentication
 

@@ -2,7 +2,6 @@
 
 Logux architecture was designed to be peer-to-peer and flexible. You can build different architecture on top of core concepts depends on your needs. But in this docs, we will show how to use [Logux core concepts](./core.md) for the most popular standard case with web clients and several servers.
 
-
 ## Connecting
 
 Logux client keeps only one WebSocket connection even if the user opens an application in multiple browser’s tabs. Logux clients in different tabs **elect one leader** to keep the connection. If the user closes the leader tab, other tabs will re-elect a leader.
@@ -19,10 +18,9 @@ server.auth(async ({ userId, token }) => {
 
 After authenticating user server will calculate **time difference** between client and server. It is useful when the client has the wrong time settings.
 
-
 ## Subscriptions
 
-Because real-time are important parts of Logux idea, in Logux *subscriptions* is a way to request data from the server.
+Because real-time are important parts of Logux idea, in Logux _subscriptions_ is a way to request data from the server.
 
 <details open><summary>Redux client</summary>
 
@@ -73,11 +71,11 @@ After receiving `logux/subscribe` Logux server does three steps.
 
 ```js
 server.channel('user/:id', {
-  access (ctx) {
+  access(ctx) {
     // User can subscribe only to own data
     return ctx.params.id === ctx.userId
   },
-  async load (ctx) {
+  async load(ctx) {
     let name = await db.loadUserName(ctx.params.id)
     // Creating action to set user name and sending it to subscriber
     return { type: 'user/name', name }
@@ -91,7 +89,7 @@ Logux client shows loader while the server loads data. When the client will rece
 
 ```js
 export const User = ({ userId }) => {
-  const isSubscribing = useSubscription([`user/${ userId }`])
+  const isSubscribing = useSubscription([`user/${userId}`])
   const user = useSelector(state => state.users[userId])
 
   if (isSubscribing) {
@@ -112,30 +110,29 @@ export const User = ({ userId }) => {
 </template>
 
 <script>
-import { toRefs, computed } from 'vue'
-import { useStore, useSubscription } from '@logux/vuex'
+  import { toRefs, computed } from 'vue'
+  import { useStore, useSubscription } from '@logux/vuex'
 
-export default {
-  props: ['userId'],
-  setup (props) {
-    let store = useStore()
-    let { userId } = toRefs(props)
+  export default {
+    props: ['userId'],
+    setup (props) {
+      let store = useStore()
+      let { userId } = toRefs(props)
 
-    let isSubscribing = useSubscription(() => [`user/${userId.value}`])
+      let isSubscribing = useSubscription(() => [`user/${userId.value}`])
 
-    let user = computed(() => store.state.users[userId])
+      let user = computed(() => store.state.users[userId])
 
-    return {
-      user,
-      isSubscribing
+      return {
+        user,
+        isSubscribing
+      }
     }
-  }
-})
+  })
 </script>
 ```
 
 </details>
-
 
 ## Changing Data
 
@@ -144,7 +141,7 @@ Clients or server should create an action to change data.
 ```js
 log.add(
   { type: 'user/name', name: 'New name', userId: 29 }, // Action
-  { sync: true }                                       // Meta
+  { sync: true } // Meta
 )
 ```
 
@@ -153,7 +150,7 @@ log.add(
 In the most popular case, Logux client use [Redux-style reducers] to **reduce list of action to the state**. Reducer is a pure function, which immutable change the state according to this new action:
 
 ```js
-function usersReducers (state = { }, action) {
+function usersReducers(state = {}, action) {
   if (action.type === 'user/name') {
     return { ...state, name: action.name }
   } else {
@@ -186,7 +183,7 @@ const store = createStore({
 
 If the user changed their name in the form, the client does not need to show loader on the Save button. The client creates action and applies this action to the state **immediately**.
 
-In the background, the client will send this new action to the server by WebSocket. While the client is waiting for the answer from the server, it is showing small *“changes were not saved yet”* warning.
+In the background, the client will send this new action to the server by WebSocket. While the client is waiting for the answer from the server, it is showing small _“changes were not saved yet”_ warning.
 
 When the server receives new action it does three things:
 
@@ -198,15 +195,15 @@ When the server receives new action it does three things:
 
 ```js
 server.type('user/name', {
-  access (ctx, action, meta) {
+  access(ctx, action, meta) {
     // User can change only own name
     return action.userId === ctx.userId
   },
-  resend (ctx, action, meta) {
+  resend(ctx, action, meta) {
     // Resend this action to everyone who subscribed to this user
-    return `user/${ action.userId }`
+    return `user/${action.userId}`
   },
-  async process (ctx, action, meta) {
+  async process(ctx, action, meta) {
     let lastChanged = await db.getChangeTimeForUserName(action.userId)
     // Ignore action if somebody already changed the name later
     if (isFirstOlder(lastChanged, meta)) {
@@ -216,12 +213,11 @@ server.type('user/name', {
 })
 ```
 
-After saving action to the database, the server will send `logux/processed` action to origin client. When the client receives `logux/processed` action, it hides *“changes were not saved yet”* warning.
+After saving action to the database, the server will send `logux/processed` action to origin client. When the client receives `logux/processed` action, it hides _“changes were not saved yet”_ warning.
 
 ```js
 { type: 'logux/processed', id: meta.id }
 ```
-
 
 ## Handling Errors
 
@@ -235,7 +231,6 @@ Logux client uses pure reducers for **time traveling**. When the client received
 
 An application can catch `logux/undo` action and show some error warning. To help make error warnings more exact, Logux adds the original reverted action to the `logux/undo` action.
 
-
 ## Loader During Action Processing
 
 Optimistic UI is great for UX. Some actions (like payments) require loader. Logux can be used for UI with blocking loader:
@@ -244,44 +239,43 @@ Optimistic UI is great for UX. Some actions (like payments) require loader. Logu
 2. After finishing the payment, the server sends `logux/processed` back. On this action, the client shows the **done** message.
 3. If the user’s bank card did not pass server validation, the server sends `logux/undo` back, and client **shows error**.
 
-
 ## Offline
 
-Logux clients send pings messages to WebSocket to detect losing Internet and show *“you are offline”* warning.
+Logux clients send pings messages to WebSocket to detect losing Internet and show _“you are offline”_ warning.
 
-Offline is a normal mode for Logux. The user can work with data and create an action to change the data. Unsent action be kept in the log and user will see *“changes were not saved yet”* warning.
+Offline is a normal mode for Logux. The user can work with data and create an action to change the data. Unsent action be kept in the log and user will see _“changes were not saved yet”_ warning.
 
 When user get Internet back, Logux will reconnect to the server, send all actions and receive all data updates.
-
 
 ## Merging Edit Conflicts
 
 When you are working with any offline-first system, you should ask how it deals with edit conflicts. During offline two users can change the same document. Even if only one user works with the document, this user can change the document from different devices.
 
-For instance, *user A* changed the title and publication date for the document. *User B* a few minutes later changed document’s title and tags. Because of offline, *user A* could synchronize their actions later, than *user B*.
+For instance, _user A_ changed the title and publication date for the document. _User B_ a few minutes later changed document’s title and tags. Because of offline, _user A_ could synchronize their actions later, than _user B_.
 
 To merge edit conflicts in Logux:
 
 1. You need to use **atomic actions**. Separated actions for each changed property is better than sending the whole document in action. For tags it is better to have `document/tags/add` and `document/tags/remove` actions, instead of one action to override whole tags list.
 
-    ```js
-    { type: 'document/set', docId: 12, prop: 'title', value: 'New title' }
-    { type: 'document/tags/add', docId: 12, tag: 'crdt' }
-    ```
+   ```js
+   { type: 'document/set', docId: 12, prop: 'title', value: 'New title' }
+   { type: 'document/tags/add', docId: 12, tag: 'crdt' }
+   ```
+
 2. Each action has a **creation time**. In our example, both users changed the title.
    The most popular merge strategy is to keep the latest change.
 
 Logux client and server use different approaches to work with action’s order.
 
-* Server stores **last edit time** for each document property. When it received
-  action from *user B*, server applies their changes to the database
-  (because last change of the document title was a few weeks ago). The server will receive action from *user A*. Because *A’s* action time is smaller,
-  than latest title changes (*B’s* action time), the server will ignore
-  *A’s* action.
-* Logux client has **time traveling**. When *user B* received *A’s* action
+- Server stores **last edit time** for each document property. When it received
+  action from _user B_, server applies their changes to the database
+  (because last change of the document title was a few weeks ago). The server will receive action from _user A_. Because _A’s_ action time is smaller,
+  than latest title changes (_B’s_ action time), the server will ignore
+  _A’s_ action.
+- Logux client has **time traveling**. When _user B_ received _A’s_ action
   from (server re-sent it), the client will revert all recent action,
-  including their title changes. Then it will apply *A’s* action and re-apply
-  all reverted actions back. As a result, *A’s* action was placed in the correct moment of history. So, *A’s* title changes were overridden by later
-  *B’s* action.
+  including their title changes. Then it will apply _A’s_ action and re-apply
+  all reverted actions back. As a result, _A’s_ action was placed in the correct moment of history. So, _A’s_ title changes were overridden by later
+  _B’s_ action.
 
 [Next chapter](./solved.md)

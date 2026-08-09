@@ -26,7 +26,6 @@ Meta has unique action’s ID, creating time, processing status and many other t
 
 [action]: ./action.md
 
-
 ## Setting Meta
 
 Most of methods to add action accept meta as second arguments:
@@ -51,7 +50,6 @@ The only methods without meta argument:
 `store.commit(action)`. Use `store.commit.local(action, meta)` to set meta for local-tab actions.
 
 </details>
-
 
 ## Changing Meta
 
@@ -118,34 +116,32 @@ class RenameUserAction(ActionCommand):
 </details>
 <details><summary>Ruby on Rails</summary>
 
-*Under construction. Until `resend` will be implemented in the gem.*
+_Under construction. Until `resend` will be implemented in the gem._
 
 </details>
-
 
 ## Meta Synchronization
 
 Logux synchronizes only 3 meta’s keys:
 
-* `id`
-* `time`, but it will be changed to fix time difference between client and server
-* `subprotocol`
+- `id`
+- `time`, but it will be changed to fix time difference between client and server
+- `subprotocol`
 
 All other meta keys are local and both server and client do not send them.
-
 
 ## ID and Time
 
 Each action has unique ID. This ID is unique on all machines.
 
 ```js
-"5Yrxca 380:R7BNGA:1"
+'5Yrxca 380:R7BNGA:1'
 ```
 
 To generate ID unique across all nodes in Logux cluster, Logux combines 2 values:
 
-* `5Yrxca`: local timestamp on the node, which generate the action.
-* `380:R7BNGA:1`: [unique ID] of node, which generate the action.
+- `5Yrxca`: local timestamp on the node, which generate the action.
+- `380:R7BNGA:1`: [unique ID] of node, which generate the action.
 
 The timestamp is a number of milliseconds since [20 May 2026 04:46:35 UTC](https://arxiv.org/abs/2605.20695) encoded to the compact `-0-9A-Z_a-z` alphabet to keep ID short.
 
@@ -187,36 +183,33 @@ await db.insert({ action, sorted: toSorted(meta) })
 
 [unique ID]: ./node.md#node-id
 
-
 ## Common Meta Keys
 
 These meta’s keys are available on client and server:
 
-* `id` string: unique action’s ID.
-* `time` timestamp: when action was created. It uses local node’s time.
-* `added` number: action’s serial number. Logux uses this number to track what actions were already synchronized.
-* `reasons` array of strings: reasons for action to not be cleaned from log. We will cover it in [next chapter].
-* `subprotocol` number: [subprotocol] of application, which generates this action.
+- `id` string: unique action’s ID.
+- `time` timestamp: when action was created. It uses local node’s time.
+- `added` number: action’s serial number. Logux uses this number to track what actions were already synchronized.
+- `reasons` array of strings: reasons for action to not be cleaned from log. We will cover it in [next chapter].
+- `subprotocol` number: [subprotocol] of application, which generates this action.
 
 [next chapter]: ./reason.md
 [subprotocol]: ./subprotocol.md
 
-
 ## Client Meta Keys
 
-* `sync` boolean: optional key to mark that this action should be synchronized with other browser tabs and server.
-* `tab` string: optional key to mark that action should be visible only for browser tab with the same `client.tabId`.
-* `noAutoReason` boolean: optional key to disable setting `timeTravel` reason.
-
+- `sync` boolean: optional key to mark that this action should be synchronized with other browser tabs and server.
+- `tab` string: optional key to mark that action should be visible only for browser tab with the same `client.tabId`.
+- `noAutoReason` boolean: optional key to disable setting `timeTravel` reason.
 
 ## Server Meta Keys
 
-* `status` `"waiting"|"processed"|"error"`: action processing status.
-* `server` string: [node ID] of the server received the action.
-* `channels` array and `channel` string: all clients subscribed to listed [channels] will receive the action.
-* `users` array and `user` string: all clients with listed user IDs will receive the action.
-* `clients` array and `client` string: all clients with listed client IDs will receive the action.
-* `nodes` array and `node` string: all clients with listed node IDs will receive the action.
+- `status` `"waiting"|"processed"|"error"`: action processing status.
+- `server` string: [node ID] of the server received the action.
+- `channels` array and `channel` string: all clients subscribed to listed [channels] will receive the action.
+- `users` array and `user` string: all clients with listed user IDs will receive the action.
+- `clients` array and `client` string: all clients with listed client IDs will receive the action.
+- `nodes` array and `node` string: all clients with listed node IDs will receive the action.
 
 [channels]: ./subscription.md
 [node ID]: ./node.md#node-id

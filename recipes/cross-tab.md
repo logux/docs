@@ -3,6 +3,7 @@
 We created Logux with thoughts that good UX means that user has the same state in every browser tab. If the user added a product to Shopping Cart in one browser tab, it would see the same product in another tab.
 
 To achieve that UX on client-side Logux separated all [actions] into two categories:
+
 1. **Cross-tab actions:** any changes in the global state. If the user changes a document or adds a comment, it should be a cross-tab action.
 2. **Tab-specific action:** everything related to the current context. For instance, open or close menu, start an animation, etc.
 
@@ -62,7 +63,6 @@ client.log.add({ type: 'menu/open' }, { tab: client.id })
 
 [actions]: ../guide/concepts/action.md
 
-
 ## New Tab
 
 Note that if a user opens a new tab, Logux will not load action from another tab. A new tab will load the latest state only in two cases:
@@ -71,7 +71,6 @@ Note that if a user opens a new tab, Logux will not load action from another tab
 2. The new tab loads the latest state from the server with [subscriptions].
 
 [subscriptions]: ../guide/concepts/subscription.md
-
 
 ## Server Actions
 
@@ -89,7 +88,7 @@ dispatch.sync({ type: 'users/rename', id, name })
 We recommend you to create [reducers] with thinking about it. For instance, the reducer should ignore the `users/rename` action if there is no user in the tab’s state.
 
 ```js
-export default function reduceUsers(state = { }, action) {
+export default function reduceUsers(state = {}, action) {
   if (action.type === 'users/rename') {
     const user = state[action.id]
     if (user) {
@@ -134,7 +133,7 @@ client.log.add({ type: 'users/rename', id, name }, { sync: true })
 We recommend you to create [reducers] with thinking about it. For instance, the reducer should ignore the `users/rename` action if there is no user in the tab’s state.
 
 ```js
-export default function reduceUsers(state = { }, action) {
+export default function reduceUsers(state = {}, action) {
   if (action.type === 'users/rename') {
     const user = state[action.id]
     if (user) {
