@@ -5,6 +5,8 @@
 - Move time base from UNIX epoch to 20 May 2026 04:46:35 UTC.
 - Remove order in millisecond from action `meta.id`.
 - Compress time part in `meta.id`.
+- Send `meta.id` in `sync` message as a string.
+- Use signed integer for `time` and `shift` in binary protocol.
 
 ## 5 “Kēlen”
 

@@ -18,6 +18,16 @@ An unsigned integer encoded as a Variable-Length Quantity (LEB128). Each byte us
 10001000 00000001: 136
 ```
 
+## Signed integer
+
+A signed integer encoded as a `varint` with zigzag: non-negative `n` is encoded as `2n`, negative `n` as `-2n - 1`. Actions, which are older than the current connection, have negative `time` and `shift`.
+
+```
+00000000: 0
+00000001: -1
+00000010: 1
+```
+
 ## String
 
 ```ts
@@ -33,9 +43,9 @@ The string starts with a `varint` representing the total byte count. The followi
 
 In contrast with text format, in binary format meta can contains only: `id` (as `shift` and `nodeId` parts), `time`, `subprotocol`.
 
-`time` is action’s creation time in milliseconds since second time in `connected` message.
+Sender splits ID to `nodeId` and `shift`, where `shift` is a signed integer of decoded ID time minus second time in `connected` message. Receiver encodes `shift` back to the ID time. If `nodeId` is equal to sender node ID, it could be missed.
 
-`shift` is a milliseconds since second time in `connected` message. If `nodeId` is equal to sender node ID, it could be missed.
+`time` is action’s creation time in milliseconds since second time in `connected` message.
 
 If `subprotocol` is equal to the value in `connected` message, it can be missed.
 
@@ -43,21 +53,21 @@ The first byte is a literal value indicating the number of fields that follow.
 
 ```ts
 2
-varint time
-varint shift
+signed time
+signed shift
 ```
 
 ```ts
 3
-varint time
-varint shift
+signed time
+signed shift
 varint subprotocol
 ```
 
 ```ts
 4
-varint time
-varint shift
+signed time
+signed shift
 string nodeId
 varint subprotocol
 ```
@@ -70,12 +80,12 @@ The first byte is a ID Type Byte.
 
 ```ts
 10
-varint shift
+signed shift
 ```
 
 ```ts
 11
-varint shift
+signed shift
 string nodeId
 ```
 
