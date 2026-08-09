@@ -12,8 +12,8 @@
     "test": "pnpm run /^test:/"
   },
   "devDependencies": {
-    "@logux/oxc-configs": "^0.3.3",
-    "actions-up": "^1.14.0",
+    "@logux/oxc-configs": "^1.1.0",
+    "actions-up": "^1.17.0",
     "fast-glob": "^3.3.3",
     "nano-staged": "^1.0.2",
     "remark-cli": "^12.0.1",
