@@ -16,8 +16,6 @@ This protocol is based on simple JS types: boolean, number, string, array and ke
 
 All times in this protocol are a milliseconds elapsed since 1 January 1970 00:00:00 UTC.
 
-The only exception is the time inside action `id`, which elapsed since [20 May 2026 04:46:35 UTC](https://arxiv.org/abs/2605.20695) to keep the ID short.
-
 ## Messages
 
 Communication is based on messages. Every message is a array with string in the beginning and any types next:

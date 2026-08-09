@@ -135,21 +135,21 @@ All other meta keys are local and both server and client do not send them.
 Each action has unique ID. This ID is unique on all machines.
 
 ```js
-'5Yrxca 380:R7BNGA:1'
+'OzaODN- 380:R7BNGA:1'
 ```
 
 To generate ID unique across all nodes in Logux cluster, Logux combines 2 values:
 
-- `5Yrxca`: local timestamp on the node, which generate the action.
+- `OzaODN-`: local timestamp on the node, which generate the action.
 - `380:R7BNGA:1`: [unique ID] of node, which generate the action.
 
-The timestamp is a number of milliseconds since [20 May 2026 04:46:35 UTC](https://arxiv.org/abs/2605.20695) encoded to the compact `-0-9A-Z_a-z` alphabet to keep ID short.
+The timestamp is a number of milliseconds since UNIX epoch encoded to the compact `-0-9A-Z_a-z` alphabet to keep ID short.
 
 The node never repeats the timestamp in own IDs. If the node generates several actions during the same millisecond, the next action will take the next millisecond.
 
 ```js
-log.generateId() //=> "5Yrxca 380:R7BNGA:1"
-log.generateId() //=> "5Yrxcb 380:R7BNGA:1"
+log.generateId() //=> "OzaODN- 380:R7BNGA:1"
+log.generateId() //=> "OzaODN0 380:R7BNGA:1"
 ```
 
 In real world, every node will have own time. For instance, user could set wrong time on own phone. This is why you should not use `meta.id` as a time. Logux has special `meta.time`, which will use time of current node. During the connection client and server will calculate time difference between them and change `meta.time` during synchronization. As result, `meta.time` could be different on different nodes.
@@ -178,7 +178,7 @@ If you keep actions in a database, `toSorted()` returns a string to sort with th
 import { toSorted } from '@logux/core'
 
 await db.insert({ action, sorted: toSorted(meta) })
-//                        sorted: "--5Yrxca 380:R7BNGA:1"
+//                        sorted: "-OzaODN- 380:R7BNGA:1 -OzaODN-"
 ```
 
 [unique ID]: ./node.md#node-id
