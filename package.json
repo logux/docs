@@ -8,12 +8,11 @@
   "type": "module",
   "scripts": {
     "test:lint": "remark --no-stdout --frail --quiet *.md */*.md guide/*/*.md protocols/*/*.md",
-    "test:order": "./scripts/check-order.js",
+    "test:order": "./scripts/check-order.ts",
     "test": "pnpm run /^test:/"
   },
   "devDependencies": {
     "@logux/oxc-configs": "^1.1.0",
-    "fast-glob": "^3.3.3",
     "nano-staged": "^1.0.2",
     "remark-cli": "^12.0.1",
     "remark-lint-list-item-indent": "^4.0.1",
@@ -28,10 +27,10 @@
     "pre-commit": "./node_modules/.bin/nano-staged --config package.json"
   },
   "nano-staged": {
-    "order.json": "node ./scripts/check-order.js",
+    "order.json": "node ./scripts/check-order.ts",
     "*.md": [
       "remark --no-stdout --frail --quiet",
-      "node ./scripts/check-order.js"
+      "node ./scripts/check-order.ts"
     ]
   },
   "remarkConfig": {
@@ -61,6 +60,6 @@
     ]
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=24.0.0"
   }
 }
