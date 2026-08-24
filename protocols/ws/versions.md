@@ -1,11 +1,12 @@
 # Logux Protocol Changes
 
-## Unreleased
+## 6 “Lincos”
 
-- Remove order in millisecond from action `meta.id`.
+- Add binary protocol.
+- Remove order marker from action `meta.id`.
 - Compress time part in `meta.id`.
 - Send `meta.id` in `sync` message as a string.
-- Use signed integer for `time` and `shift` in binary protocol.
+- Use time fix from `connected` message to correct action’s `time`.
 
 ## 5 “Kēlen”
 
