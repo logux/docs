@@ -130,11 +130,20 @@ byte[length] d
 meta meta
 ```
 
-`0/clean` action:
+`0/clean` action with `id`:
 
 ```ts
 "c"
 id actionId
+meta meta
+```
+
+`0/clean` action with `ids`:
+
+```ts
+"C"
+varint length
+id[length] ids
 meta meta
 ```
 
