@@ -40,7 +40,7 @@ First string in message array is a message type. Possible types:
 - [`ready`]
 - [`debug`]
 
-If client received unknown type, it should send `wrong-format` error and continue communication.
+If node received unknown type, it should send `unknown-message` error and close the connection. New message types are added in new protocol versions, so nodes can’t receive an unknown message from a node with a supported protocol version.
 
 Protocol design has no client and server roles. But in most real cases client will send `connect` and `ping`. Server will send `connected` and `pong`. Both will send `headers`, `error`, `sync`, `synced` and `ready`.
 
