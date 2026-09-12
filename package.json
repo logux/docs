@@ -12,7 +12,7 @@
     "test": "pnpm run /^test:/"
   },
   "devDependencies": {
-    "@logux/oxc-configs": "^1.1.0",
+    "@logux/oxc-configs": "^1.2.0",
     "nano-staged": "^1.0.2",
     "remark-cli": "^12.0.1",
     "remark-lint-list-item-indent": "^4.0.1",
@@ -21,7 +21,7 @@
     "remark-lint-no-shortcut-reference-link": "^4.0.1",
     "remark-preset-lint-recommended": "^7.0.1",
     "remark-validate-links": "^13.1.0",
-    "simple-git-hooks": "^2.13.1"
+    "simple-git-hooks": "^2.14.0"
   },
   "simple-git-hooks": {
     "pre-commit": "./node_modules/.bin/nano-staged --config package.json"
