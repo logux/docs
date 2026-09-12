@@ -112,7 +112,7 @@ Receiver should check protocol version in second position in message array. If v
 
 Third position contains unique node name. Same node name is used in default log timer, so sender must be sure that name is unique. Client should use UUID if it can’t guarantee name uniqueness with other way.
 
-Fourth position contains last `added` time used by receiver in previous connection (`0` on first connection). message with all new actions since `synced` (all actions on first connection). After the last of these actions sender should send [`ready`] message (some nodes like Logux Client and Server adds channel processing before `ready`).
+Fourth position contains last `added` time used by receiver in previous connection (`0` on first connection). Receiver should send [`sync`] message with all new actions since `synced` (all actions on first connection) and then [`ready`] message (some nodes like Logux Client and Server add channel processing before `ready`).
 
 Fifth position is optional and contains extra client option in object. Right now protocol supports only `subprotocol` and `token` keys there.
 
@@ -224,12 +224,12 @@ Receiver should mark all actions with lower `added` time as synchronized.
 
 ## `ready`
 
-`ready` message tells that the sender has sent all actions, which it had at the moment of the connection.
+`ready` message tells that the sender has sent all actions, which it had at the moment of the connection. Receiver uses it to detect that initial synchronization was finished, for instance, to hide a loader in the UI.
 
 ```ts
 [
   "ready",
-  number added
+  number synced
 ]
 ```
 
@@ -237,7 +237,10 @@ Second position contains the biggest `added` time, which sender examined during 
 
 Receiver should save this number and use it in the next [`connect`] message, in the same way as `synced` from [`pong`] message.
 
-Sender should send `ready` right after the last [`sync`] message with initial actions. If sender has no actions to synchronize, it should send `ready` right after [`connect`] or [`connected`] message.
+
+Node may send it later, than the last [`sync`] message with initial actions. For instance, Logux Client sends resubscriptions after its initial synchronization and Logux Server loads channels before it answers to them. Actions, which node sends on the connection, like resubscriptions, are also actions, which node “had at the moment of the connection”. Node must send them before its own `ready`. As a result, node, which processes actions for other node, should send its own `ready` only after it processed everything, which it received before other node’s `ready`.
+
+Node, which sent [`connect`], should wait for [`connected`] message before `ready`, even if it has no actions to synchronize. Until [`connected`] it doesn’t know receiver’s protocol version and authentication result.
 
 Sender should send `ready` only once per connection. Receiver should ignore next `ready` messages until reconnection.
 

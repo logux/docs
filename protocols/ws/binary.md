@@ -227,7 +227,7 @@ varint synced
 
 ```ts
 "r"
-varint added
+varint synced
 ```
 
 ## `debug`

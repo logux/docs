@@ -35,7 +35,7 @@ DISCONNECTED
 CONNECTED
 CLIENT > ['connect', 0, 'client1', 1, { token: 'token' }]
 SERVER < ['connected', 0, 'server', [1786312523520, 1786312524315]]
-CLIENT > ['ready', 1]
+CLIENT > ['ready', 3]
 SERVER < ['sync', 2, { type: 'b' }, { id: 'OzaODN0 client2', time: -18928 }]
 SERVER < ['ready', 2]
 CLIENT > ['synced', 2]
