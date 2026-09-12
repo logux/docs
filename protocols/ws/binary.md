@@ -223,6 +223,13 @@ action[length] actions
 varint synced
 ```
 
+## `ready`
+
+```ts
+"r"
+varint added
+```
+
 ## `debug`
 
 ```ts

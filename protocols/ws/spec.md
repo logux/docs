@@ -37,16 +37,18 @@ First string in message array is a message type. Possible types:
 - [`pong`]
 - [`sync`]
 - [`synced`]
+- [`ready`]
 - [`debug`]
 
 If client received unknown type, it should send `wrong-format` error and continue communication.
 
-Protocol design has no client and server roles. But in most real cases client will send `connect` and `ping`. Server will send `connected` and `pong`. Both will send `headers`, `error`, `sync` and `synced`.
+Protocol design has no client and server roles. But in most real cases client will send `connect` and `ping`. Server will send `connected` and `pong`. Both will send `headers`, `error`, `sync`, `synced` and `ready`.
 
 [`headers`]: #headers
 [`connected`]: #connected
 [`connect`]: #connect
 [`synced`]: #synced
+[`ready`]: #ready
 [`error`]: #error
 [`ping`]: #ping
 [`pong`]: #pong
@@ -110,7 +112,7 @@ Receiver should check protocol version in second position in message array. If v
 
 Third position contains unique node name. Same node name is used in default log timer, so sender must be sure that name is unique. Client should use UUID if it can’t guarantee name uniqueness with other way.
 
-Fourth position contains last `added` time used by receiver in previous connection (`0` on first connection). message with all new actions since `synced` (all actions on first connection).
+Fourth position contains last `added` time used by receiver in previous connection (`0` on first connection). message with all new actions since `synced` (all actions on first connection). After the last of these actions sender should send [`ready`] message (some nodes like Logux Client and Server adds channel processing before `ready`).
 
 Fifth position is optional and contains extra client option in object. Right now protocol supports only `subprotocol` and `token` keys there.
 
@@ -138,7 +140,7 @@ This message is answer to received [`connect`] message.
 
 Fourth position contains [`connect`] receiving time and `connected` sending time. Time should be a milliseconds elapsed since 1 January 1970 00:00:00 UTC. Receiver may use this information to calculate difference between sender and receiver time. It could prevents problems if somebody has wrong time or wrong time zone. Calculated time fix should be used to correct action’s `time` in [`sync`] messages.
 
-Right after this message receiver should send [`sync`] message with all new actions since last connection (all actions on first connection).
+Right after this message receiver should send [`sync`] message with all new actions since last connection (all actions on first connection) and then [`ready`] message.
 
 In most cases client will initiate connection, so server will answer `connected`.
 
@@ -219,6 +221,25 @@ Received action’s `time` time may be different with sender’s `time`, because
 ```
 
 Receiver should mark all actions with lower `added` time as synchronized.
+
+## `ready`
+
+`ready` message tells that the sender has sent all actions, which it had at the moment of the connection.
+
+```ts
+[
+  "ready",
+  number added
+]
+```
+
+Second position contains the biggest `added` time, which sender examined during the initial synchronization. It could be not the biggest `added` time, which sender sent in `sync`. They are different when sender skips some actions: nodes may hide actions from each other or action may have no reason to be synchronized.
+
+Receiver should save this number and use it in the next [`connect`] message, in the same way as `synced` from [`pong`] message.
+
+Sender should send `ready` right after the last [`sync`] message with initial actions. If sender has no actions to synchronize, it should send `ready` right after [`connect`] or [`connected`] message.
+
+Sender should send `ready` only once per connection. Receiver should ignore next `ready` messages until reconnection.
 
 ## `debug`
 
