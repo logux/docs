@@ -1,5 +1,11 @@
 # Logux Protocol Changes
 
+## 7 “UNLWS”
+
+- Add `ready` message.
+- Clarify `unknown-message` error and disconnection on unknown message type.
+- Add `0/clean` action with `ids` to binary protocol.
+
 ## 6 “Lincos”
 
 - Add binary protocol.
